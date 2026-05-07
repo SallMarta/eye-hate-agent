@@ -42,8 +42,21 @@ When validating the template itself, prioritize checks that confirm ownership an
 - required docs still match `TEMPLATE_CONTRACT.md`
 - mirrored rule files still agree with each other
 - skills still declare and read the correct project-doc inputs
-- prompts still target the correct docs and output shapes
+- reusable prompts still target the correct docs and output shapes
 - no sample-project truth leaked into template-owned surfaces
+
+---
+
+## Template Maintenance Audit Sequence
+
+Run this sequence whenever a change touches `TEMPLATE_CONTRACT.md`, mirrored rules, reusable prompts, skills, adoption docs, or summary project docs.
+
+1. Confirm the owning document was updated first.
+2. If one mirrored rule file changed, compare it against the other mirror in the same review.
+3. Search the changed surfaces for stale names, paths, and ownership assumptions.
+4. Cross-check summary docs such as `QUICK_REFERENCE.md`, `GETTING_STARTED.md`, `ADOPTION_GUIDE.md`, and `CHANGELOG.md` against their owning docs.
+5. For skills and reusable prompts, confirm required project-doc inputs, targets, and output structure still match `TEMPLATE_CONTRACT.md`.
+6. State any stronger validation that does not exist for the current repository mode.
 
 ---
 
@@ -53,7 +66,7 @@ When validating the template itself, prioritize checks that confirm ownership an
 | --- | --- | --- | --- |
 | Rule or instruction update | `TEMPLATE_CONTRACT.md`, this file | Structural review of changed rules; targeted search for stale stack-specific wording | Manual consistency review across mirrored rule files |
 | Skill update | `TEMPLATE_CONTRACT.md`, this file, `ARCHITECTURE.md` if project-specific examples exist | Structural review of required project-doc inputs, procedure clarity, and stack neutrality | Manual example review |
-| Prompt update | `TEMPLATE_CONTRACT.md`, prompt system docs | Validate prompt outputs, targets, and required project docs are explicit | Manual consistency review |
+| Reusable prompt update | `TEMPLATE_CONTRACT.md`, reusable prompt docs | Validate reusable prompt outputs, targets, and required project docs are explicit | Manual consistency review |
 | Project-doc update | Owning doc + this file | Cross-check dependent docs and references | Manual review with targeted search |
 | Code change in an adopted repo | This file + `ARCHITECTURE.md` + feature docs | Run the narrowest applicable command defined by the project | Manual review only if no executable command exists |
 
@@ -67,8 +80,9 @@ Use these checks when the repo does not yet contain executable project code:
 
 | Goal | Method |
 | --- | --- |
-| Check for stale hardcoded stack commands | Targeted text search in changed rule, skill, or prompt files |
+| Check for stale hardcoded stack commands | Targeted text search in changed rule, skill, or reusable prompt files |
 | Check mirrored rule files stay aligned | Compare both rule files after updates |
+| Run the template maintenance audit | Follow the maintenance audit sequence in this file; compare mirrors, summary docs, and stale terminology |
 | Check a new doc matches the contract | Review headings and responsibilities against `TEMPLATE_CONTRACT.md` |
 | Check cross-doc consistency | Search for outdated terminology or broken ownership assumptions |
 
@@ -142,7 +156,8 @@ Examples:
 - review changed docs against `TEMPLATE_CONTRACT.md`
 - check that rules and skills still point back to project docs
 - confirm no duplicated ownership was introduced
-- confirm new prompts specify both input contract and output targets
+- confirm new reusable prompts specify both input contract and output targets
+- run the template maintenance audit sequence after contract, rule, skill, reusable prompt, or onboarding-doc changes
 
 ---
 

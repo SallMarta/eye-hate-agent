@@ -6,9 +6,11 @@ Last updated: 2026-05-07
 
 ## Purpose
 
-Use this guide when you want to copy this template into a new repository and keep rules, skills, prompts, and project documentation aligned.
+Use this guide when you want to copy this template into a new repository and keep rules, skills, reusable prompts, and project documentation aligned.
 
-Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompt assets are reserved for bootstrap, refresh, and consistency-audit workflows.
+This guide is for adopters. If you are changing the template itself, use `docs/project-docs/TEMPLATE_MAINTENANCE.md` for maintainer workflow, lifecycle, and deprecation decisions.
+
+Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompts are reserved for bootstrap, refresh, and consistency-audit workflows.
 
 The key operating rule is simple:
 
@@ -36,9 +38,9 @@ Treat the template as four surfaces with different jobs:
 | If the request sounds like... | Mode | Default path |
 | --- | --- | --- |
 | build, create, fix, test, review, or analyze a feature or code path | Normal work | User prompt -> instructions -> project docs -> optional skill -> output |
-| bootstrap docs, refresh docs, audit consistency, or update template structure | Template or doc maintenance | Reusable prompt asset or maintenance workflow -> contract or docs update |
+| bootstrap docs, refresh docs, audit consistency, or update template structure | Template or doc maintenance | Reusable prompt or maintenance workflow -> contract or docs update |
 
-Use a skill when the task benefits from a reusable method, deeper reasoning, boundary-specific design, structured audit, or verification planning. Explicit user requests to use a skill are stronger than automatic judgment, while attached skill context is only a relevance hint. If the path is already obvious after reading the relevant docs, act directly.
+Reusable prompts are maintenance-only. For routing examples, precedence, fallback, and output-by-mode rules, use `docs/project-docs/TEMPLATE_CONTRACT.md`.
 
 ---
 
@@ -49,10 +51,10 @@ Copy the active template surfaces, including:
 - `.github/instructions/`
 - `.claude/rules/`
 - `docs/project-docs/`
-- `docs/vibes/prompt/`
+- `docs/vibes/reusable-prompts/`
 - `docs/vibes/skills/`
 
-Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and prompt system already being present.
+Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and reusable prompt system already being present.
 If a repository keeps archival or reference material, keep it outside the active contract and label it clearly.
 
 ---
@@ -63,33 +65,21 @@ If a repository keeps archival or reference material, keep it outside the active
 2. Open `docs/project-docs/TEMPLATE_CONTRACT.md` and confirm the required doc set for the repo.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` first.
 4. Add optional docs only when they carry durable project truth, such as `GETTING_STARTED.md`, `CHANGELOG.md`, `phases/`, or `guidelines/API.md`.
-5. Run a consistency pass so prompts, rules, and skills all point back to the new project docs instead of stale sample facts.
+5. Run a consistency pass so reusable prompts, rules, and skills all point back to the new project docs instead of stale sample facts.
 
 ---
 
-## Prompt Workflow
+## Reusable Prompt Workflow
 
-Use the prompt family in this order:
+Use the reusable prompt family in this order:
 
-1. `docs/vibes/prompt/00-project-docs-bootstrap.md`
-2. `docs/vibes/prompt/00-project-docs-refresh.md` after material project changes
-3. `docs/vibes/prompt/00-project-docs-consistency-audit.md` before major template edits or repo handoff
+1. `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md`
+2. `docs/vibes/reusable-prompts/00-project-docs-refresh.md` after material project changes
+3. `docs/vibes/reusable-prompts/00-project-docs-consistency-audit.md` before major template edits or repo handoff
 
-The bootstrap prompt creates the initial shape. The refresh prompt updates only the owning docs. The consistency prompt prevents long-term drift.
+The bootstrap reusable prompt creates the initial shape. The refresh reusable prompt updates only the owning docs. The consistency-audit reusable prompt prevents long-term drift.
 
-If an adopted repository needs a specialized one-off prompt, add it there instead of expanding the template prompt catalog by default.
-
----
-
-## Quick Routing Examples
-
-| Request | Mode | Likely skill | Reusable prompt asset |
-| --- | --- | --- | --- |
-| "create evaluation feature api" | Normal work | Optional, usually `api-design` only when the boundary is non-trivial | No |
-| "test evaluation feature api" | Normal work | Usually `test-authoring` | No |
-| "analyze why evaluation api is flaky" | Normal work | Usually `analysis` or `code-audit` | No |
-| "refresh docs after architecture change" | Template or doc maintenance | Optional | Yes, usually the refresh prompt |
-| "audit prompt and skill drift" | Template or doc maintenance | Usually `consistency-audit` | Yes, usually the consistency-audit prompt |
+If an adopted repository needs a specialized one-off reusable prompt, add it there instead of expanding the template reusable prompt catalog by default.
 
 ---
 
@@ -116,9 +106,9 @@ When a project changes materially:
 
 1. Update the owning project doc first.
 2. Update any summary doc that quotes it.
-3. Update prompts only if the contract or expected output shape changed.
+3. Update reusable prompts only if the contract or expected output shape changed.
 4. Update skills or rules only if the procedure changed across projects, not because one repo picked a new stack.
-5. Run the consistency audit prompt.
+5. Run the consistency-audit reusable prompt.
 
 Examples:
 

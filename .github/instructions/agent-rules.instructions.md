@@ -34,7 +34,7 @@ When given a prompt or task:
 
 - Keep instructions and rules generic. For project-specific decisions, read the relevant docs under `docs/project-docs/`.
 - Start with `docs/project-docs/TEMPLATE_CONTRACT.md` to discover the required document set and the stable sections agents should rely on.
-- Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompt assets are reserved for bootstrap, refresh, and consistency-audit workflows.
+- Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompts are reserved for bootstrap, refresh, and consistency-audit workflows.
 - Use a skill when the task benefits from structured reasoning, boundary-specific design, auditing, or verification planning, or when the user explicitly asks for that skill. Treat attached skill context as a relevance hint rather than an automatic requirement; if the skill is clearly unnecessary, say so briefly and proceed directly unless the user insists.
 - Prefer direct project-doc reads over hardcoding stack names, commands, or framework rules inside instructions or rules.
 - If a required project doc is missing and the task depends on it, create or update that doc rather than burying the missing context inside a rule or skill.
@@ -62,42 +62,13 @@ After completing any code change:
 
 ## 7. Documentation Structure
 
-The canonical `docs/` layout for a template-enabled project:
+The canonical `docs/` layout, required files, and stable headings live in `docs/project-docs/TEMPLATE_CONTRACT.md`.
 
-```
-docs/
-├── project-docs/
-│   ├── TEMPLATE_CONTRACT.md # Required doc set + stable headings for agents
-│   ├── PROJECT.md           # Product vision, goals, scope
-│   ├── ARCHITECTURE.md      # Tech stack + architecture decisions
-│   ├── TESTING.md           # Verification matrix, commands, quality gates
-│   ├── FEATURE_INVENTORY.md # Feature list with priorities (optional by project type)
-│   ├── STATUS.md            # Full task list (source of truth)
-│   ├── CHANGELOG.md         # What has been built (optional if tracked elsewhere)
-│   ├── QUICK_REFERENCE.md   # Commands, patterns, cheatsheet
-│   ├── GETTING_STARTED.md   # Setup guide for the project (optional for internal repos)
-│   ├── phases/
-│   │   ├── INDEX.md         # Epic registry with status
-│   │   ├── EPIC1_*.md       # Per-epic task detail
-│   │   └── EPIC2_*.md
-│   └── guidelines/
-│       ├── API.md           # Optional API / integration contract
-│       ├── BRAND.md
-│       ├── APP_FLOW.md
-│       ├── DATA_MODEL.md
-│       ├── AI_RULES.md
-│       └── UIUX.md
-├── test-report/             # Test coverage reports (gitignored content)
-└── vibes/
-    ├── prompt/              # Prompt files for AI-assisted workflows
-    └── skills/              # Skill definitions
-```
-
-- Never create flat `.md` files directly under `docs/` root — always place in the correct subfolder.
-- `TEMPLATE_CONTRACT.md` defines which docs are mandatory, which are optional, and which sections should remain stable for agents to read.
-- `TESTING.md` is the first stop for deciding how to verify a change.
-- When adding a new epic, add both the `EPIC{N}_*.md` file and update `phases/INDEX.md`.
-- `STATUS.md` is the full task list; individual epic files in `phases/` are extracted for focused work.
+- Treat `TEMPLATE_CONTRACT.md` as the only owner of the canonical documentation structure.
+- Do not restate or fork the structure tree in mirrored rule files.
+- Never create flat `.md` files directly under `docs/` root unless the contract explicitly allows it.
+- Use `TESTING.md` as the first stop for verification decisions.
+- When adding new phased planning docs or guidelines, follow the ownership and naming rules in the contract rather than inventing a parallel structure here.
 
 ---
 

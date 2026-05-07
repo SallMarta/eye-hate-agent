@@ -1,4 +1,4 @@
-# Project Docs Bootstrap Prompt
+# Project Docs Bootstrap Reusable Prompt
 
 Read `docs/project-docs/TEMPLATE_CONTRACT.md` first.
 
@@ -8,16 +8,18 @@ Generate the **initial project documentation set** for a new repository using th
 
 Create the smallest complete set of project docs that lets rules and skills operate without embedding project-specific assumptions.
 
-## Required behavior
+## Required Behavior
 
 1. Follow the required and recommended files defined in `TEMPLATE_CONTRACT.md`.
-2. Create project-specific truth in `docs/project-docs/`, not in the prompt output itself.
+2. Create project-specific truth in `docs/project-docs/`, not in the reusable prompt output itself.
 3. Use stable headings wherever the contract defines them.
 4. Mark uncertain facts as `TBD`, `Assumption`, or `Open Question` instead of inventing details.
 5. Create optional docs only when the project genuinely needs them.
 6. Keep the docs mutually consistent.
 
-## Minimum outputs
+## Output Contract
+
+### Minimum Outputs
 
 Create or refresh these files unless the brief clearly makes one inapplicable:
 
@@ -35,7 +37,7 @@ Recommended when useful:
 - `docs/project-docs/phases/INDEX.md`
 - `docs/project-docs/guidelines/*`
 
-## Output expectations by file
+### File Expectations
 
 ### `PROJECT.md`
 
@@ -84,7 +86,7 @@ Recommended when useful:
 - Do not duplicate the same rule across multiple docs unnecessarily.
 - Prefer concise, operationally useful docs over exhaustive filler.
 
-## Final pass
+## Final Pass
 
 Before finishing, check that:
 

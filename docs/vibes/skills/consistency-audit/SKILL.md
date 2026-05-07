@@ -1,14 +1,14 @@
 ---
 name: consistency-audit
-description: "Audit repository drift across project docs, rules, skills, prompts, workflows, and quick-reference material. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
-argument-hint: "Describe the scope to audit: full repository, docs only, prompt system, rules and skills, or a specific workstream"
+description: "Audit repository drift across project docs, rules, skills, reusable prompts, workflows, and quick-reference material. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
+argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, rules and skills, or a specific workstream"
 ---
 
 # Consistency Audit — Project-Aware
 
 Performs a **repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, and historical artifacts that should be classified rather than confused with active truth.
 
-This skill is the reusable complement to the consistency-audit prompt. Use it when the task is analytical rather than generative.
+This skill is the reusable complement to the consistency-audit reusable prompt. Use it when the task is analytical rather than generative.
 
 ---
 
@@ -23,7 +23,7 @@ This skill is the reusable complement to the consistency-audit prompt. Use it wh
 | `docs/project-docs/STATUS.md` | Active roadmap and current-state truth |
 | `docs/project-docs/QUICK_REFERENCE.md` | Summary layer likely to drift if not refreshed |
 | Rule / instruction files | Automatic behavior layer |
-| Skills and prompts | Reusable procedure and generation layers |
+| Skills and reusable prompts | Reusable procedure and generation layers |
 | Workflow, handoff, and historical docs | Potentially valid references or stale artifacts |
 
 ---
@@ -33,7 +33,7 @@ This skill is the reusable complement to the consistency-audit prompt. Use it wh
 | Trigger | Example request |
 | --- | --- |
 | Full-repo review | "Audit the whole repository for drift after a cleanup pass" |
-| Documentation review | "Check whether project docs and prompts still agree" |
+| Documentation review | "Check whether project docs and reusable prompts still agree" |
 | Template maintenance | "Audit rules and skills after changing the contract" |
 | Handoff preparation | "Find contradictions before handing this repo to another maintainer" |
 
@@ -47,7 +47,7 @@ Check for disagreement across:
 - test commands and quality gates
 - roadmap, phase, or epic naming
 - API or integration ownership
-- prompt outputs vs project-doc contract
+- reusable prompt outputs vs project-doc contract
 - rule expectations vs documented workflow
 
 ---
@@ -64,7 +64,7 @@ Compare the source-of-truth docs against:
 
 - rule files
 - skills
-- prompts
+- reusable prompts
 - workflow docs
 - quick references and summaries
 
@@ -84,7 +84,7 @@ Determine whether the mismatch affects:
 
 - implementation safety
 - automation behavior
-- prompt outputs
+- reusable prompt outputs
 - onboarding clarity
 - release or verification confidence
 
@@ -134,6 +134,6 @@ End with:
 ## Example Requests
 
 - "Audit the repository for contradictions after the latest template changes"
-- "Check whether prompts and skills still match the contract"
+- "Check whether reusable prompts and skills still match the contract"
 - "Find stale summaries in the project docs"
 - "Classify which mismatches are blockers versus historical artifacts"

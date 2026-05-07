@@ -32,20 +32,22 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 - Skills should begin by reading the relevant project docs before applying their generic procedure.
 - Skills may include examples, but examples must not become hidden project-specific requirements.
 
-### Prompts
+### Reusable prompts
 
-- Prompts create and refresh the project docs.
-- Prompts should follow the file responsibilities and stable headings defined in this contract.
-- Prompts may be split into bootstrap, refresh, and consistency-audit families.
+- In this repository, `prompt` means the user's live request.
+- `Reusable prompt` means a reusable workflow file under `docs/vibes/reusable-prompts/`.
+- Reusable prompts create and refresh the project docs.
+- Reusable prompts should follow the file responsibilities and stable headings defined in this contract.
+- Reusable prompts may be split into bootstrap, refresh, and consistency-audit families.
 
 ### Runtime Modes
 
 Use two operating modes.
 
-| Mode | Typical request | Default path | Reusable prompt assets |
+| Mode | Typical request | Default path | Reusable prompts |
 | --- | --- | --- | --- |
 | Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> contract and relevant project docs -> optional skill -> output | No |
-| Template or doc maintenance | bootstrap docs, refresh docs after a material change, audit consistency, or update template structure | maintenance request -> reusable prompt asset or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or consistency-audit is the task |
+| Template or doc maintenance | bootstrap docs, refresh docs after a material change, audit consistency, or update template structure | maintenance request -> reusable prompt or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or consistency-audit is the task |
 
 ### Request Routing Examples
 
@@ -54,8 +56,8 @@ Use two operating modes.
 | "create evaluation feature api" | Normal work | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
 | "test evaluation feature api" | Normal work | `TEMPLATE_CONTRACT.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Tests, verification plan, or test update |
 | "analyze why evaluation api is flaky" | Normal work | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
-| "refresh docs after architecture change" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh prompt workflow |
-| "audit prompt and skill drift" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, rule files, prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
+| "refresh docs after architecture change" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
+| "audit reusable prompt and skill drift" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
 
 ### Skill Invocation Rule
 
@@ -67,6 +69,34 @@ Use two operating modes.
 - If a requested or attached skill is clearly unnecessary, say so briefly and proceed directly unless the user insists.
 - Prefer the single most relevant skill instead of chaining multiple skills by default.
 - Skills support execution; they do not replace project docs as the source of truth.
+
+### Decision Precedence
+
+Resolve routing and behavior decisions in this order:
+
+1. the user's requested goal and output
+2. the user's explicit constraints or preferences, including an explicit request to use a specific skill
+3. the active contract and the owning project docs
+4. attached context such as skill files, notes, or examples, treated as relevance hints unless the user made them mandatory
+5. automatic agent judgment
+
+If a higher-precedence signal conflicts with a lower one, follow the higher signal unless it is impossible, unsafe, or clearly irrelevant; explain the conflict briefly when that affects the outcome.
+
+### Failure And Fallback Rules
+
+- If a required project doc is missing, note the gap explicitly, create or update the smallest owning doc that unblocks the task, and limit confidence until the gap is resolved.
+- If project docs conflict, treat the contract and the owning doc as the source of truth, classify the mismatch as drift, and update the owner or ask the user when ownership is still unclear.
+- If the user requests a skill that is clearly unnecessary or mismatched, say so briefly and proceed directly unless the user insists.
+- If attached context is outdated or conflicts with active docs, prefer the active docs and treat the attachment as reference only.
+- If no suitable skill exists, continue through the direct path using the contract, project docs, and the strongest applicable non-skill method.
+- If no stronger validation exists, follow the fallback rules in `TESTING.md` and state the limitation explicitly.
+
+### Output By Mode
+
+| Mode | Must end with |
+| --- | --- |
+| Normal work | The requested output, the narrowest applicable validation or an explicit limitation, and a documentation-sync update or check when ownership changed |
+| Template or doc maintenance | Updated docs, rules, skills, or reusable prompts, a consistency validation step, and any unresolved drift or follow-up items |
 
 ---
 
@@ -82,7 +112,7 @@ Use the repository in four categories.
 | Reference or archive material | explicit non-contract paths such as `archive/`, `reference/`, or other clearly named folders | Historical or example material that may inform work but must not override active contract truth |
 
 Only `docs/project-docs/` is the active contract layer.
-Rules, skills, prompts, and any archive material must defer to that layer when project-specific facts are needed.
+Rules, skills, reusable prompts, and any archive material must defer to that layer when project-specific facts are needed.
 
 ---
 
@@ -97,6 +127,7 @@ Rules, skills, prompts, and any archive material must defer to that layer when p
 | `QUICK_REFERENCE.md` | Yes | High-signal commands, paths, conventions, glossary, fast lookup |
 | `CHANGELOG.md` | Recommended | What changed, by release or milestone |
 | `GETTING_STARTED.md` | Recommended | Setup, local run, environment bootstrap |
+| `TEMPLATE_MAINTENANCE.md` | Optional for template repositories | Template governance, lifecycle, deprecation, and maintainer workflow |
 | `FEATURE_INVENTORY.md` | Optional | Detailed feature catalog when product scope is large |
 | `phases/INDEX.md` | Optional | Epic registry when phased planning exists |
 | `guidelines/*` | Optional | Domain-specific rules such as UI, data model, API, AI, security, brand |
@@ -152,6 +183,16 @@ These headings should remain stable across projects whenever the file exists.
 - `## Conventions`
 - `## Troubleshooting` or `## Gotchas`
 
+### `TEMPLATE_MAINTENANCE.md` (if present)
+
+- `## Summary`
+- `## Scope`
+- `## Ownership Boundaries`
+- `## Change Classes`
+- `## Compatibility And Breaking Changes`
+- `## Deprecation Policy`
+- `## Maintainer Workflow`
+
 If a project uses different headings, keep a clear cross-reference at the top of the file so agents can still find the equivalent sections quickly.
 
 ---
@@ -172,8 +213,8 @@ If a project uses different headings, keep a clear cross-reference at the top of
 - Keep filenames stable.
 - Use explicit headings instead of burying key rules in prose.
 - Prefer summary tables for commands, stack, or decision matrices.
-- Put the **durable truth** in project docs, not in prompt text or skill text.
-- When a fact changes, update the owning project doc first, then update any dependent rules, skills, or prompts that quote or summarize it.
+- Put the **durable truth** in project docs, not in reusable prompt text or skill text.
+- When a fact changes, update the owning project doc first, then update any dependent rules, skills, or reusable prompts that quote or summarize it.
 - Mirror platform instruction metadata where the platform supports the same field set.
 
 ---
@@ -187,8 +228,9 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Verification commands and quality gates | `TESTING.md` |
 | Execution plan and progress | `STATUS.md` and `phases/` |
 | Fast command lookup and conventions | `QUICK_REFERENCE.md` |
+| Template governance, lifecycle, and deprecation | `TEMPLATE_MAINTENANCE.md` if present |
 | Domain-specific rules | `guidelines/*` |
-| Prompt system behavior | `docs/vibes/prompt/` |
+| Reusable prompt behavior | `docs/vibes/reusable-prompts/` |
 | Skill procedure behavior | `docs/vibes/skills/` |
 
 Do not duplicate the same rule across multiple files unless one file is explicitly a summary or index of the owning document.
@@ -212,11 +254,14 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 - Describe a reusable procedure that adapts after reading those docs.
 - Avoid binding the skill to one stack, one framework, or one package set unless the skill itself is intentionally stack-specific.
 
-### When writing or updating prompts
+### When writing or updating reusable prompts
 
 - Use this contract to decide which docs to generate or refresh.
+- Use a stable top-level section model: `Goal`, `Required Behavior`, `Output Contract`, `Final Pass`, and `Inputs`.
+- Use optional top-level sections only when needed, such as `Scope`, `Minimum Outputs`, `Constraints`, or `Ownership Examples`.
+- Keep review sequences, category examples, and file-by-file expectations inside those sections instead of inventing unrelated top-level structure.
 - Keep output structure stable.
-- Update only the affected docs on refresh prompts.
+- Update only the affected docs on refresh reusable prompts.
 - Add a consistency pass when changing architecture, testing, or workflow-related docs.
 
 ---
@@ -227,7 +272,7 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 2. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` first.
 3. Add optional docs only when the project actually needs them.
 4. Review rules and skills only for template-level changes, not project-specific facts.
-5. Use prompts to create or refresh docs instead of editing many scattered files by hand.
+5. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
 
 ---
 
@@ -237,5 +282,6 @@ If this contract changes:
 
 1. Update this file first.
 2. Update the rule files that reference it.
-3. Update any skill or prompt that depends on the old contract.
-4. Run a consistency review so the template does not drift.
+3. If one mirrored rule file changes, update the other mirror in the same change unless divergence is intentional and documented.
+4. Update any skill or reusable prompt that depends on the old contract.
+5. Run a consistency review so the template does not drift.

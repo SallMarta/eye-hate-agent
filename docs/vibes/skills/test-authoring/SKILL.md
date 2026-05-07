@@ -37,7 +37,7 @@ If one of the required docs is missing and the task depends on it, surface that 
 | Change verification | "Choose the right verification for this repository-layer change" |
 | API contract update | "What tests should cover this API contract update?" |
 | Migration or persistence change | "Write a test plan for this migration change" |
-| Documentation-only repo change | "How should I validate a prompt or rules update?" |
+| Documentation-only repo change | "How should I validate a reusable prompt or rules update?" |
 
 ---
 
@@ -54,7 +54,7 @@ Determine what changed:
 - provider / dependency-injection behavior
 - UI / screen flow
 - CLI / job / workflow logic
-- documentation, prompt, or rule behavior
+- documentation, reusable prompt, or rule behavior
 
 ### Step 2 — Read the project-specific verification rules
 
@@ -136,7 +136,7 @@ Separate:
 | HTTP route, controller, handler, or API contract | Contract or integration test | `TESTING.md`, API / integration docs |
 | UI interaction or user journey | UI or end-to-end test | `TESTING.md`, app-flow / UI docs |
 | Async workflow, queue, job, cron, or event processing | Integration or component test | `TESTING.md`, `ARCHITECTURE.md`, workflow docs |
-| Rule, skill, prompt, or documentation change | Consistency review or structural validation | `TEMPLATE_CONTRACT.md`, `TESTING.md` |
+| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `TEMPLATE_CONTRACT.md`, `TESTING.md` |
 
 ---
 
@@ -178,4 +178,4 @@ When using this skill, the output should include:
 - "Choose the right verification for this repository-layer change"
 - "What tests should cover this API contract update?"
 - "Write a test plan for this migration change"
-- "This repo has no code yet — how should I validate a prompt or rules update?"
+- "This repo has no code yet — how should I validate a reusable prompt or rules update?"

@@ -9,7 +9,7 @@ Last updated: 2026-05-07
 | Area | Role |
 | --- | --- |
 | `docs/project-docs/` | Active contract docs and canonical repository truth |
-| `docs/vibes/` | Reusable template assets such as prompts, skills, and adoption guidance |
+| `docs/vibes/` | Reusable template assets such as reusable prompts, skills, and adoption guidance |
 | `.github/instructions/` and `.claude/rules/` | Platform-specific instruction entry points for the same generic rule layer |
 | Editor diagnostics | Structural validation for markdown and text drift |
 
@@ -37,7 +37,7 @@ Adopted repositories should replace those docs with their own project truth.
 
 - rules stay generic and point back to project docs instead of embedding project truth
 - skills define procedures, not product-specific requirements
-- prompts generate or refresh docs, not hidden architecture decisions
+- reusable prompts generate or refresh docs, not hidden architecture decisions
 - `docs/project-docs/` owns stack, commands, architecture, testing, and workflow truth
 - `docs/vibes/` contains reusable support assets, not active project truth
 - optional docs exist only when they carry durable value
@@ -53,7 +53,7 @@ Adopted repositories should replace those docs with their own project truth.
 | `.claude/rules/` | Claude-facing mirrored rule layer |
 | `docs/project-docs/` | Contracted documentation surface for repo-specific truth |
 | `docs/vibes/skills/` | Reusable operational procedures |
-| `docs/vibes/prompt/` | Prompt modules for bootstrap, refresh, and audit workflows |
+| `docs/vibes/reusable-prompts/` | Reusable prompt files for bootstrap, refresh, and audit workflows |
 | `docs/vibes/ADOPTION_GUIDE.md` | Adoption workflow for applying the template in other repositories |
 
 ---
@@ -64,7 +64,7 @@ Adopted repositories should replace those docs with their own project truth.
 | --- | --- |
 | `docs/project-docs/` | Required and optional project-doc contract files |
 | `docs/vibes/skills/` | Reusable skills that adapt after reading project docs |
-| `docs/vibes/prompt/` | Prompt modules for generating and refreshing docs |
+| `docs/vibes/reusable-prompts/` | Reusable prompt files for generating and refreshing docs |
 | `docs/vibes/ADOPTION_GUIDE.md` | Human guidance for copying and applying the template |
 | `.github/instructions/` and `.claude/rules/` | Mirrored instruction surfaces |
 
@@ -94,6 +94,6 @@ Validation is primarily:
 - structural review
 - targeted text search for drift
 - markdown diagnostics
-- contract consistency checks across rules, skills, prompts, and project docs
+- contract consistency checks across rules, skills, reusable prompts, and project docs
 
 See `TESTING.md` for the verification policy.
