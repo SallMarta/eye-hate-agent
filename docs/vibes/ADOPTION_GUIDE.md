@@ -31,6 +31,8 @@ Treat the template as four surfaces with different jobs:
 - `.github/instructions/` and `.claude/rules/` are mirrored platform instruction surfaces
 - any clearly named archive or reference path is non-contract by default
 
+If you want a static starter scaffold in addition to the prompt-based workflow, use `docs/vibes/project-docs-template/` as a reusable asset. Do not treat it as an active contract layer for this repository.
+
 ---
 
 ## Which Mode Am I In?
@@ -53,6 +55,10 @@ Copy the active template surfaces, including:
 - `docs/project-docs/`
 - `docs/vibes/reusable-prompts/`
 - `docs/vibes/skills/`
+
+Optional reusable starter asset:
+
+- `docs/vibes/project-docs-template/` when you want a static project-doc scaffold in addition to the reusable prompt workflow
 
 Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and reusable prompt system already being present.
 If a repository keeps archival or reference material, keep it outside the active contract and label it clearly.

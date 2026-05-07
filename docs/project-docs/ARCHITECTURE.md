@@ -9,7 +9,7 @@ Last updated: 2026-05-07
 | Area | Role |
 | --- | --- |
 | `docs/project-docs/` | Active contract docs and canonical repository truth |
-| `docs/vibes/` | Reusable template assets such as reusable prompts, skills, and adoption guidance |
+| `docs/vibes/` | Reusable template assets such as reusable prompts, skills, adoption guidance, and static starter scaffolds |
 | `.github/instructions/` and `.claude/rules/` | Platform-specific instruction entry points for the same generic rule layer |
 | Editor diagnostics | Structural validation for markdown and text drift |
 
@@ -54,6 +54,7 @@ Adopted repositories should replace those docs with their own project truth.
 | `docs/project-docs/` | Contracted documentation surface for repo-specific truth |
 | `docs/vibes/skills/` | Reusable operational procedures |
 | `docs/vibes/reusable-prompts/` | Reusable prompt files for bootstrap, refresh, and audit workflows |
+| `docs/vibes/project-docs-template/` | Static starter scaffold for manual project-doc adoption |
 | `docs/vibes/ADOPTION_GUIDE.md` | Adoption workflow for applying the template in other repositories |
 
 ---
@@ -65,6 +66,7 @@ Adopted repositories should replace those docs with their own project truth.
 | `docs/project-docs/` | Required and optional project-doc contract files |
 | `docs/vibes/skills/` | Reusable skills that adapt after reading project docs |
 | `docs/vibes/reusable-prompts/` | Reusable prompt files for generating and refreshing docs |
+| `docs/vibes/project-docs-template/` | Static starter-doc files for manual copying into adopted repositories |
 | `docs/vibes/ADOPTION_GUIDE.md` | Human guidance for copying and applying the template |
 | `.github/instructions/` and `.claude/rules/` | Mirrored instruction surfaces |
 

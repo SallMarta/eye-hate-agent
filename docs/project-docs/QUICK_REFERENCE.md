@@ -22,6 +22,7 @@ Last updated: 2026-05-07
 | `docs/project-docs/` | Active contract docs and canonical template truth |
 | `docs/project-docs/TEMPLATE_MAINTENANCE.md` | Template governance, lifecycle, and maintainer workflow |
 | `docs/vibes/reusable-prompts/` | Reusable prompts for bootstrap, refresh, and audit workflows |
+| `docs/vibes/project-docs-template/` | Static starter scaffold for manual project-doc adoption |
 | `docs/vibes/skills/` | Reusable skill assets that adapt after reading project docs |
 | `docs/vibes/ADOPTION_GUIDE.md` | Adoption workflow for applying the template elsewhere |
 | `.github/instructions/` | Copilot instruction surface |
