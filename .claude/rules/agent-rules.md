@@ -34,6 +34,7 @@ When given a prompt or task:
 
 - Keep instructions and rules generic. For project-specific decisions, read the relevant docs under `docs/project-docs/`.
 - Start with `docs/project-docs/TEMPLATE_CONTRACT.md` to discover the required document set and the stable sections agents should rely on.
+- Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompt assets are reserved for bootstrap, refresh, and consistency-audit workflows.
 - Prefer direct project-doc reads over hardcoding stack names, commands, or framework rules inside instructions or rules.
 - If a required project doc is missing and the task depends on it, create or update that doc rather than burying the missing context inside a rule or skill.
 

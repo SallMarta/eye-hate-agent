@@ -8,6 +8,8 @@ Last updated: 2026-05-07
 
 Use this guide when you want to copy this template into a new repository and keep rules, skills, prompts, and project documentation aligned.
 
+Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompt assets are reserved for bootstrap, refresh, and consistency-audit workflows.
+
 The key operating rule is simple:
 
 - keep rules generic
