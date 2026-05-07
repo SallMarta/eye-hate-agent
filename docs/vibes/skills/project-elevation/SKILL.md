@@ -26,7 +26,18 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 
 ---
 
-## Evaluation Procedure
+## When To Use
+
+| Trigger | Example request |
+| --- | --- |
+| Roadmap review | "Evaluate this project for the next highest-value improvements" |
+| Feature assessment | "What is missing from this workflow before it is production-ready?" |
+| Reliability review | "Where should this module be elevated for resilience first?" |
+| Delivery readiness | "What should improve before we call this MVP complete?" |
+
+---
+
+## Procedure
 
 ### Step 1 — Understand the current state
 
@@ -115,3 +126,12 @@ Include:
 - Ignoring what the project explicitly does not want to become
 - Producing a long unranked list with no delivery guidance
 - Recommending improvements that the current architecture cannot plausibly support without acknowledging that cost
+
+---
+
+## Example Requests
+
+- "Evaluate this project for the next highest-value improvements"
+- "What should improve before this workflow is production-ready?"
+- "Where is the biggest reliability gap in this module?"
+- "What should we add before calling this MVP complete?"

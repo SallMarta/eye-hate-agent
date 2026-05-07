@@ -30,7 +30,18 @@ If one of the required docs is missing and the task depends on it, surface that 
 
 ---
 
-## Operating Model
+## When To Use
+
+| Trigger | Example request |
+| --- | --- |
+| Change verification | "Choose the right verification for this repository-layer change" |
+| API contract update | "What tests should cover this API contract update?" |
+| Migration or persistence change | "Write a test plan for this migration change" |
+| Documentation-only repo change | "How should I validate a prompt or rules update?" |
+
+---
+
+## Procedure
 
 ### Step 1 — Identify the verification target
 
@@ -115,7 +126,7 @@ Separate:
 
 ---
 
-## Test Selection Matrix
+### Check Selection Matrix
 
 | Scenario | Preferred check type | Read first |
 | --- | --- | --- |
@@ -139,6 +150,15 @@ When using this skill, the output should include:
 4. the command(s) to run, or the reason no executable command exists
 5. the expected assertions or behaviors to verify
 6. any residual risks or uncovered paths
+
+---
+
+## Quality Checks
+
+- Choose the narrowest check that can falsify the current assumption
+- Do not recommend commands before checking `TESTING.md` and `QUICK_REFERENCE.md`
+- Keep the verification boundary aligned with `ARCHITECTURE.md`
+- Separate what was verified from what still depends on manual review or future automation
 
 ---
 

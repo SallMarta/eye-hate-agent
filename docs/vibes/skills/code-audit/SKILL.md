@@ -26,7 +26,18 @@ This skill is reusable across application code, backend services, scripts, autom
 
 ---
 
-## Audit Procedure
+## When To Use
+
+| Trigger | Example request |
+| --- | --- |
+| Change review | "Audit this change for correctness and boundary risk" |
+| Module or file review | "Audit this module for dead code and duplication" |
+| Reliability check | "Audit this service for failure handling gaps" |
+| Architecture review | "Audit this workflow for boundary violations" |
+
+---
+
+## Procedure
 
 ### Step 1 — Understand intent
 
@@ -138,3 +149,12 @@ Include:
 - Calling something a bug without defining the failure condition
 - Criticizing a pattern that the project explicitly chose in `ARCHITECTURE.md`
 - Recommending wide rewrites before testing a local fix or a smaller boundary change
+
+---
+
+## Example Requests
+
+- "Audit this service for boundary violations"
+- "Review this change for correctness risks"
+- "Check this module for dead code and duplication"
+- "Audit this workflow implementation for operability gaps"

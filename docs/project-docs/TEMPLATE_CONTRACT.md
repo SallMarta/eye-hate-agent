@@ -176,6 +176,8 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 ### When writing or updating skills
 
 - State the **required project-doc inputs** near the top of the skill.
+- Use a stable top-level section model: `Required Project Inputs`, `When To Use`, `Procedure`, `Output Contract`, `Quality Checks`, `Anti-Patterns`, and `Example Requests`.
+- Keep skill-specific tables, matrices, and checklists inside those sections instead of inventing new top-level structure for each skill.
 - Describe a reusable procedure that adapts after reading those docs.
 - Avoid binding the skill to one stack, one framework, or one package set unless the skill itself is intentionally stack-specific.
 

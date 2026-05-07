@@ -37,7 +37,9 @@ If the repository lacks the contract-defining docs needed for the task, call tha
 
 ---
 
-## Boundary Types This Skill Covers
+## When To Use
+
+Use this skill when designing or reviewing one of these boundary types.
 
 | Boundary type | Typical artifacts |
 | --- | --- |
@@ -50,7 +52,7 @@ If the repository lacks the contract-defining docs needed for the task, call tha
 
 ---
 
-## Design Procedure
+## Procedure
 
 ### Step 1 — Identify the contract owner
 
@@ -156,9 +158,9 @@ When using this skill, the output should include:
 
 ---
 
-## Review Checklist
+## Quality Checks
 
-Use this when reviewing an existing contract:
+Use this checklist when reviewing an existing contract:
 
 - Is the boundary owned by the correct layer or module?
 - Does the contract match project naming and error conventions?

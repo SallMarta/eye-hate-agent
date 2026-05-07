@@ -28,7 +28,16 @@ This skill is the reusable complement to the consistency-audit prompt. Use it wh
 
 ---
 
-## Audit Targets
+## When To Use
+
+| Trigger | Example request |
+| --- | --- |
+| Full-repo review | "Audit the whole repository for drift after a cleanup pass" |
+| Documentation review | "Check whether project docs and prompts still agree" |
+| Template maintenance | "Audit rules and skills after changing the contract" |
+| Handoff preparation | "Find contradictions before handing this repo to another maintainer" |
+
+Typical audit targets include:
 
 Check for disagreement across:
 
@@ -43,7 +52,7 @@ Check for disagreement across:
 
 ---
 
-## Audit Procedure
+## Procedure
 
 ### Step 1 — Establish the source of truth
 
@@ -110,3 +119,21 @@ End with:
 - Do not propose fixing both sides of a contradiction when one side clearly owns the fact
 - Distinguish blocking contradictions from harmless historical leftovers
 - Keep the audit actionable, not just descriptive
+
+---
+
+## Anti-Patterns
+
+- Treating summary files as the owner when the contract defines a different source of truth
+- Reporting drift without naming the owning file or layer that should change
+- Escalating every historical artifact as a blocker instead of classifying it correctly
+- Duplicating the same fact across multiple layers as a fix for drift
+
+---
+
+## Example Requests
+
+- "Audit the repository for contradictions after the latest template changes"
+- "Check whether prompts and skills still match the contract"
+- "Find stale summaries in the project docs"
+- "Classify which mismatches are blockers versus historical artifacts"

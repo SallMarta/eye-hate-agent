@@ -43,7 +43,7 @@ If the required project docs are missing, note the gap explicitly and limit conf
 
 ---
 
-## Analysis Procedure
+## Procedure
 
 ### Step 1 — Understand the question
 
@@ -154,3 +154,12 @@ Your output should include:
 - Treating all options as equally valid when evidence favors one
 - Recommending a rewrite when an incremental fix would solve the problem
 - Ignoring the project stage, roadmap, or non-goals in `PROJECT.md` and `STATUS.md`
+
+---
+
+## Example Requests
+
+- "Analyze this module boundary for coupling risk"
+- "Analyze why this workflow fails intermittently"
+- "Analyze option A vs option B for this integration"
+- "Analyze whether this feature belongs in MVP"
