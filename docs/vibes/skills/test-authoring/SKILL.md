@@ -47,13 +47,13 @@ If one of the required docs is missing and the task depends on it, surface that 
 
 Determine what changed:
 
-- pure logic
-- API contract or request handling
-- persistence or migrations
-- service / repository behavior
-- provider / dependency-injection behavior
-- UI / screen flow
-- CLI / job / workflow logic
+- deterministic logic or transformation behavior
+- interface, contract, or boundary behavior
+- state, storage, migration, or lifecycle behavior
+- internal coordination or module interaction behavior
+- external dependency or integration behavior
+- interactive, operator, or consumer-facing flow
+- background, scheduled, evented, or staged processing
 - documentation, reusable prompt, or rule behavior
 
 ### Step 2 — Read the project-specific verification rules
@@ -98,11 +98,11 @@ Use existing project patterns for:
 
 - file naming
 - directory structure
-- fixtures
-- mocks, stubs, or fakes
-- database test setup
-- API contract fixtures
-- provider or dependency overrides
+- fixtures, samples, or test artifacts
+- mocks, stubs, fakes, simulators, or other doubles
+- harness or environment setup
+- boundary-specific fixtures or sample data
+- dependency setup, replacement, or override patterns
 
 If the repo does not define a convention yet, propose one briefly and keep it minimal.
 
@@ -131,11 +131,11 @@ Separate:
 | Scenario | Preferred check type | Read first |
 | --- | --- | --- |
 | Pure function, mapper, validator, parser | Unit | `TESTING.md`, `ARCHITECTURE.md` |
-| Internal service or repository behavior | Unit or component | `TESTING.md`, `ARCHITECTURE.md`, feature docs |
-| Database query, migration, or persistence rule | Persistence / migration test | `TESTING.md`, `ARCHITECTURE.md`, data-model docs |
-| HTTP route, controller, handler, or API contract | Contract or integration test | `TESTING.md`, API / integration docs |
-| UI interaction or user journey | UI or end-to-end test | `TESTING.md`, app-flow / UI docs |
-| Async workflow, queue, job, cron, or event processing | Integration or component test | `TESTING.md`, `ARCHITECTURE.md`, workflow docs |
+| Internal coordination, service, or module behavior | Unit or component | `TESTING.md`, `ARCHITECTURE.md`, feature docs |
+| State transition, migration, or persistence rule | Persistence / migration test | `TESTING.md`, `ARCHITECTURE.md`, data-model docs |
+| Interface, handler, adapter, or contract boundary | Contract or integration test | `TESTING.md`, API / integration docs |
+| Interactive or end-user-visible flow | UI or end-to-end test | `TESTING.md`, app-flow / UI docs |
+| Asynchronous, scheduled, staged, or event-driven processing | Integration or component test | `TESTING.md`, `ARCHITECTURE.md`, workflow docs |
 | Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `TEMPLATE_CONTRACT.md`, `TESTING.md` |
 
 ---

@@ -65,11 +65,11 @@ Look for missing capabilities that are implied by current user flows or system p
 Examples:
 
 - one-way workflows with no cleanup or reverse action
-- create without update or delete
-- search without pagination or empty state
-- save without management view
-- automation without observability
-- release process without rollback or smoke checks
+- creation or capture flow with no correction, update, archival, or removal path
+- discovery or lookup behavior with no empty, degraded, or large-result handling
+- output generation or save action with no review, history, or management path
+- automation with no observability or intervention path
+- release or rollout process with no rollback, verification, or recovery checks
 
 ### Step 4 — Scan for improvement opportunities
 
