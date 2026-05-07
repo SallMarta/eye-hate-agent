@@ -57,7 +57,7 @@ After completing any code change:
 - If relevant docs don't exist and the change warrants it, create them.
 - But ask first briefly: "This change impacts documentation — want me to update/create the relevant docs too?"
 - Treat `docs/project-docs/` as the project-specific source of truth and use `docs/project-docs/TEMPLATE_CONTRACT.md` to determine which docs are required or optional for the repo.
-- For this workspace: check `docs/project-docs/` (PROJECT, ARCHITECTURE, TESTING, STATUS, CHANGELOG, QUICK_REFERENCE, phases/), `docs/project-docs/guidelines/`, and `docs/vibes/` subfolders.
+- Check the owning docs identified by `docs/project-docs/TEMPLATE_CONTRACT.md`, plus any affected reusable assets when the change touches them.
 - Goal: code and documentation are always in sync. One without the other is incomplete.
 
 ## 7. Documentation Structure
