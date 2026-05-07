@@ -8,6 +8,8 @@ Generate the **initial project documentation set** for a new repository using th
 
 Create the smallest complete set of project docs that lets rules and skills operate without embedding project-specific assumptions.
 
+This reusable prompt assumes you are starting from a project brief or equivalent starting facts. If the repository already has meaningful code, docs, or contradictory summaries, use those as inputs and consider whether refresh or consistency audit should run first.
+
 ## Required Behavior
 
 1. Follow the required and recommended files defined in `TEMPLATE_CONTRACT.md`.
@@ -98,3 +100,14 @@ Before finishing, check that:
 ## Inputs
 
 Use the project brief, constraints, and requirements provided below.
+
+At minimum, the starting input should try to cover:
+
+- repository or project name
+- problem statement
+- goals
+- non-goals
+- stakeholders, users, or operators
+- known stack preferences or constraints
+- known testing, delivery, or compliance constraints
+- any open questions that should remain explicit rather than invented

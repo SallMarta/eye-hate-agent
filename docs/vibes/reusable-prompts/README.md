@@ -83,6 +83,17 @@ Add optional top-level sections only when the reusable prompt genuinely needs th
 
 ## Recommended Workflow
 
+### Scenario decision summary
+
+Use this quick routing summary when choosing the first reusable prompt. For the full adopter workflow, use `docs/vibes/ADOPTION_GUIDE.md`.
+
+| Repository state | Start with | Why |
+| --- | --- | --- |
+| Brand-new repository with only a brief or starting facts | `00-project-docs-bootstrap.md` | You need the first project-doc contract before normal work begins |
+| Existing repository where owner docs already exist but are outdated | `00-project-docs-refresh.md` | The contract exists and needs owner-based updates rather than regeneration |
+| Existing repository with contradictions, stale summaries, or unclear ownership | `00-project-docs-consistency-audit.md` | You need to classify drift before deciding what to update |
+| Existing repository with scattered notes and no reliable contract layer | `00-project-docs-bootstrap.md`, then `00-project-docs-consistency-audit.md` if needed | Bootstrap creates the first clean owner docs; audit helps reconcile leftovers |
+
 ### New repository
 
 1. Run the bootstrap reusable prompt.
