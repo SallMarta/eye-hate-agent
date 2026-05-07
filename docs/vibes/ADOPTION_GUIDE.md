@@ -33,6 +33,12 @@ Treat the template as four surfaces with different jobs:
 
 If you want a static starter scaffold in addition to the prompt-based workflow, use `docs/vibes/project-docs-template/` as a reusable asset. Do not treat it as an active contract layer for this repository.
 
+Use this split explicitly:
+
+- `docs/project-docs/` in this repository documents the template repository and its operating system
+- `docs/vibes/project-docs-template/` is only a downstream starter scaffold for adopted repositories
+- `TEMPLATE_CONTRACT.md` and `TEMPLATE_MAINTENANCE.md` stay in the active contract layer because they describe how the template system works, not the truth of one adopted project
+
 ---
 
 ## Which Mode Am I In?
@@ -75,7 +81,7 @@ If a repository keeps archival or reference material, keep it outside the active
 1. Copy the template into the new repository.
 2. Open `docs/project-docs/TEMPLATE_CONTRACT.md` and confirm the required doc set for the repo.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` first.
-4. Add optional docs only when they carry durable project truth, such as `GETTING_STARTED.md`, `CHANGELOG.md`, `phases/`, or `guidelines/API.md`.
+4. Add optional docs only when they carry durable project truth, such as `GETTING_STARTED.md`, `CHANGELOG.md`, `PRD.md`, `PRODUCTION_RUNBOOK.md`, `phases/`, or `guidelines/API.md`.
 5. Run a consistency pass so reusable prompts, rules, and skills all point back to the new project docs instead of stale sample facts.
 
 ---

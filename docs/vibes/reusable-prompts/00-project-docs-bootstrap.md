@@ -36,6 +36,8 @@ Recommended when useful:
 - `docs/project-docs/CHANGELOG.md`
 - `docs/project-docs/GETTING_STARTED.md`
 - `docs/project-docs/FEATURE_INVENTORY.md`
+- `docs/project-docs/PRD.md`
+- `docs/project-docs/PRODUCTION_RUNBOOK.md`
 - `docs/project-docs/phases/INDEX.md`
 - `docs/project-docs/guidelines/*`
 
@@ -81,6 +83,26 @@ Recommended when useful:
 - important paths
 - conventions
 - high-signal reminders and troubleshooting notes
+
+### `PRD.md` (if created)
+
+- summary
+- requirements scope
+- user journeys or key flows
+- functional requirements
+- non-functional requirements
+- acceptance criteria
+- open questions or assumptions
+
+### `PRODUCTION_RUNBOOK.md` (if created)
+
+- summary
+- environment overview
+- prerequisites and access
+- release or deployment procedure
+- verification or smoke checks
+- rollback or recovery
+- operational notes or troubleshooting
 
 ## Constraints
 

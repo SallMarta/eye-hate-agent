@@ -17,6 +17,9 @@ Use this starter pack when:
 This folder is a reusable asset, not an active contract layer for this repository.
 The active contract for this repository still lives in `docs/project-docs/`.
 
+It intentionally does not include `TEMPLATE_CONTRACT.md` or `TEMPLATE_MAINTENANCE.md`.
+Those files describe how the template system works and are owned by this repository's active contract layer, not by downstream project docs.
+
 ---
 
 ## Included Files
@@ -33,6 +36,8 @@ Optional starter docs included here for convenience:
 
 - `GETTING_STARTED.md`
 - `CHANGELOG.md`
+- `PRD.md`
+- `PRODUCTION_RUNBOOK.md`
 
 These files are intentionally generic and should be replaced with project-specific truth in the adopted repository.
 
@@ -42,7 +47,7 @@ These files are intentionally generic and should be replaced with project-specif
 
 1. Copy these files into the adopted repository's `docs/project-docs/` path.
 2. Replace every placeholder section with project-specific truth.
-3. Add optional docs such as `GETTING_STARTED.md`, `CHANGELOG.md`, `FEATURE_INVENTORY.md`, `phases/`, or `guidelines/*` only when they carry durable project value.
+3. Add optional docs such as `GETTING_STARTED.md`, `CHANGELOG.md`, `PRD.md`, `PRODUCTION_RUNBOOK.md`, `FEATURE_INVENTORY.md`, `phases/`, or `guidelines/*` only when they carry durable project value.
 4. After the first pass, use the reusable prompt workflow or direct updates to refine the owner docs.
 
 If you want the initial doc set to be generated from a brief instead of copied manually, prefer `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md`.

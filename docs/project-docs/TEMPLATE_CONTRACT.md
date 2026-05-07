@@ -129,6 +129,8 @@ Rules, skills, reusable prompts, and any archive material must defer to that lay
 | `GETTING_STARTED.md` | Recommended | Setup, local run, environment bootstrap |
 | `TEMPLATE_MAINTENANCE.md` | Optional for template repositories | Template governance, lifecycle, deprecation, and maintainer workflow |
 | `FEATURE_INVENTORY.md` | Optional | Detailed feature catalog when product scope is large |
+| `PRD.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `PROJECT.md` remains summary-level |
+| `PRODUCTION_RUNBOOK.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
 | `phases/INDEX.md` | Optional | Epic registry when phased planning exists |
 | `guidelines/*` | Optional | Domain-specific rules such as UI, data model, API, AI, security, brand |
 
@@ -183,6 +185,26 @@ These headings should remain stable across projects whenever the file exists.
 - `## Conventions`
 - `## Troubleshooting` or `## Gotchas`
 
+### `PRD.md` (if present)
+
+- `## Summary`
+- `## Requirements Scope`
+- `## User Journeys` or `## Key Flows`
+- `## Functional Requirements`
+- `## Non-Functional Requirements`
+- `## Acceptance Criteria`
+- `## Open Questions` or `## Assumptions`
+
+### `PRODUCTION_RUNBOOK.md` (if present)
+
+- `## Summary`
+- `## Environment Overview`
+- `## Prerequisites and Access`
+- `## Release / Deployment Procedure`
+- `## Verification / Smoke Checks`
+- `## Rollback / Recovery`
+- `## Operational Notes` or `## Troubleshooting`
+
 ### `TEMPLATE_MAINTENANCE.md` (if present)
 
 - `## Summary`
@@ -224,7 +246,9 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Type of information | Owning location |
 | --- | --- |
 | Product goals, scope, stakeholders | `PROJECT.md` |
+| Detailed requirements, flows, and acceptance criteria | `PRD.md` if present |
 | Stack and architecture decisions | `ARCHITECTURE.md` |
+| Production environment operation, release, rollback, and smoke checks | `PRODUCTION_RUNBOOK.md` if present |
 | Verification commands and quality gates | `TESTING.md` |
 | Execution plan and progress | `STATUS.md` and `phases/` |
 | Fast command lookup and conventions | `QUICK_REFERENCE.md` |

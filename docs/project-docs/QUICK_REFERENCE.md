@@ -55,6 +55,7 @@ Last updated: 2026-05-07
 
 - this repository describes the template itself, not a product built from the template
 - if a fact belongs to a specific adopted repo, it should not live in template-owned docs
+- `docs/vibes/project-docs-template/` is a downstream starter scaffold, not a second active contract, and it intentionally does not include `TEMPLATE_CONTRACT.md` or `TEMPLATE_MAINTENANCE.md`
 - platform-specific extensions may differ even when mirrored rule files represent the same logical rule
 - mirrored rule files should stay aligned whenever one changes
 - contract changes require follow-up updates in rules, skills, and reusable prompts

@@ -30,8 +30,10 @@ Update **only the docs that own the changed information** while keeping the docu
 
 - stack or dependency changes → `ARCHITECTURE.md`, `TESTING.md`, `QUICK_REFERENCE.md`
 - feature scope changes → `PROJECT.md`, `FEATURE_INVENTORY.md`, `STATUS.md`
+- detailed requirements or acceptance changes → `PRD.md`, `PROJECT.md`, `STATUS.md`
 - workflow or roadmap changes → `STATUS.md`, `phases/INDEX.md`, workflow docs if present
 - validation / CI changes → `TESTING.md`, `QUICK_REFERENCE.md`, `GETTING_STARTED.md`
+- production environment, rollout, rollback, or smoke-check changes → `PRODUCTION_RUNBOOK.md`, `ARCHITECTURE.md`, `TESTING.md`, `QUICK_REFERENCE.md`
 - API or integration changes → relevant API / integration docs plus `ARCHITECTURE.md`
 
 ## Output Contract
