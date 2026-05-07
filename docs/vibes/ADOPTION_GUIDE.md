@@ -31,6 +31,17 @@ Treat the template as four surfaces with different jobs:
 
 ---
 
+## Which Mode Am I In?
+
+| If the request sounds like... | Mode | Default path |
+| --- | --- | --- |
+| build, create, fix, test, review, or analyze a feature or code path | Normal work | User prompt -> instructions -> project docs -> optional skill -> output |
+| bootstrap docs, refresh docs, audit consistency, or update template structure | Template or doc maintenance | Reusable prompt asset or maintenance workflow -> contract or docs update |
+
+Use a skill when the task benefits from a reusable method, deeper reasoning, boundary-specific design, structured audit, or verification planning. Explicit user requests to use a skill are stronger than automatic judgment, while attached skill context is only a relevance hint. If the path is already obvious after reading the relevant docs, act directly.
+
+---
+
 ## What To Copy
 
 Copy the active template surfaces, including:
@@ -67,6 +78,18 @@ Use the prompt family in this order:
 The bootstrap prompt creates the initial shape. The refresh prompt updates only the owning docs. The consistency prompt prevents long-term drift.
 
 If an adopted repository needs a specialized one-off prompt, add it there instead of expanding the template prompt catalog by default.
+
+---
+
+## Quick Routing Examples
+
+| Request | Mode | Likely skill | Reusable prompt asset |
+| --- | --- | --- | --- |
+| "create evaluation feature api" | Normal work | Optional, usually `api-design` only when the boundary is non-trivial | No |
+| "test evaluation feature api" | Normal work | Usually `test-authoring` | No |
+| "analyze why evaluation api is flaky" | Normal work | Usually `analysis` or `code-audit` | No |
+| "refresh docs after architecture change" | Template or doc maintenance | Optional | Yes, usually the refresh prompt |
+| "audit prompt and skill drift" | Template or doc maintenance | Usually `consistency-audit` | Yes, usually the consistency-audit prompt |
 
 ---
 

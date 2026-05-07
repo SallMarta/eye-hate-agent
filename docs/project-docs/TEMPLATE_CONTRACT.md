@@ -38,6 +38,36 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 - Prompts should follow the file responsibilities and stable headings defined in this contract.
 - Prompts may be split into bootstrap, refresh, and consistency-audit families.
 
+### Runtime Modes
+
+Use two operating modes.
+
+| Mode | Typical request | Default path | Reusable prompt assets |
+| --- | --- | --- | --- |
+| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> contract and relevant project docs -> optional skill -> output | No |
+| Template or doc maintenance | bootstrap docs, refresh docs after a material change, audit consistency, or update template structure | maintenance request -> reusable prompt asset or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or consistency-audit is the task |
+
+### Request Routing Examples
+
+| User request | Mode | Read first | Skill | Expected output |
+| --- | --- | --- | --- | --- |
+| "create evaluation feature api" | Normal work | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
+| "test evaluation feature api" | Normal work | `TEMPLATE_CONTRACT.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Tests, verification plan, or test update |
+| "analyze why evaluation api is flaky" | Normal work | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
+| "refresh docs after architecture change" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh prompt workflow |
+| "audit prompt and skill drift" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, rule files, prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
+
+### Skill Invocation Rule
+
+- Read the relevant contract and project docs first.
+- Act directly when the task is local, obvious after reading the docs, and primarily implementation, editing, or straightforward verification.
+- Use a skill when the task benefits from a reusable method, deeper reasoning, boundary-specific design, structured auditing, or verification planning.
+- If the user explicitly requests a skill, treat that as a stronger signal than automatic judgment and use the skill unless it is clearly irrelevant or unnecessary for the task.
+- Treat attached skill context as a relevance hint, not an automatic requirement.
+- If a requested or attached skill is clearly unnecessary, say so briefly and proceed directly unless the user insists.
+- Prefer the single most relevant skill instead of chaining multiple skills by default.
+- Skills support execution; they do not replace project docs as the source of truth.
+
 ---
 
 ## Repository Taxonomy
@@ -171,6 +201,7 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 
 - Keep the rule generic.
 - Point the rule at the relevant project docs.
+- Preserve the normal-work versus template-maintenance distinction defined in the operating model.
 - Avoid embedding concrete stack-specific commands directly unless the repository has intentionally chosen to keep them in the rule.
 
 ### When writing or updating skills

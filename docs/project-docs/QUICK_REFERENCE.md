@@ -28,11 +28,23 @@ Last updated: 2026-05-07
 
 ---
 
+## Modes
+
+| If the request sounds like... | Mode | Default path |
+| --- | --- | --- |
+| build, create, fix, test, review, or analyze a feature or code path | Normal work | User prompt -> instructions -> project docs -> optional skill -> output |
+| bootstrap docs, refresh docs, audit consistency, or update template structure | Template or doc maintenance | Reusable prompt asset or maintenance workflow -> contract or docs update |
+
+---
+
 ## Conventions
 
 - update the owning project doc first, then any summaries or dependent prompt or skill text
 - keep rules generic and focused on behavior, not project facts
 - keep skills procedural and project-aware, not stack-bound
+- use a skill when the task benefits from a reusable method, deeper reasoning, boundary-specific design, structured audit, or verification planning
+- explicit user requests to use a skill are stronger than automatic judgment; attached skill context is only a relevance hint
+- act directly after reading the docs when the task is local and the path is already obvious
 - keep mirrored instruction files aligned by base name and intent
 - reserve numeric prompt prefixes for intentionally ordered core prompt sequences
 - use optional docs only when they hold durable value
