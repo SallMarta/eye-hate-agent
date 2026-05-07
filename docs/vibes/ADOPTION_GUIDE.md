@@ -191,6 +191,32 @@ After bootstrap:
 
 ---
 
+## Adding New Optional Docs
+
+When a repository needs a new optional doc such as `PRD.md`, `PRODUCTION_RUNBOOK.md`, `FEATURE_INVENTORY.md`, or a domain-specific guideline, choose the smallest safe path.
+
+Add the new doc manually when:
+
+- the new owner is obvious
+- the change is local to one or two docs
+- you are not reshaping ownership across the doc set
+
+Use `00-project-docs-refresh.md` when:
+
+- the new doc introduces a durable concern that affects several owner or summary docs
+- you need to move detail out of an existing owner into a better owner
+- you want the new doc and its dependent summaries updated together
+
+Use `00-project-docs-consistency-audit.md` first when:
+
+- the current docs already overlap or conflict
+- you are not sure which doc should own the new truth
+- the repository has a mature but differently structured documentation system
+
+The rule is simple: manual for small obvious additions, refresh for coordinated owner updates, consistency audit first when ownership is unclear.
+
+---
+
 ## Safe To Start Normal Work
 
 Do not treat the adoption as complete just because the files were copied.

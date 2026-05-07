@@ -20,6 +20,7 @@ All notable template changes are documented here.
 - adoption guidance now assumes a template-only repository with no embedded examples
 - `ADOPTION_GUIDE.md` now explains scenario-based adoption for empty, partial, and mature repositories, plus a reusable-prompt decision guide and readiness checklist
 - `ADOPTION_GUIDE.md` now also documents the Scenario 3 sub-variant where a mature repository already has a strong documentation system and adoption is mainly an ownership-mapping problem
+- `ADOPTION_GUIDE.md` now explains when to add new optional docs manually versus through refresh or consistency audit
 - `docs/vibes/reusable-prompts/README.md` now includes a compact scenario decision summary that points back to `ADOPTION_GUIDE.md` for the full adoption workflow
 - `docs/vibes/project-docs-template/` now provides a static starter scaffold for manual project-doc adoption without creating a second active contract tree
 - the static starter scaffold now also includes optional `GETTING_STARTED.md` and `CHANGELOG.md` starter docs, and `ADOPTION_GUIDE.md` now includes a short chooser between copying the starter pack and running bootstrap
