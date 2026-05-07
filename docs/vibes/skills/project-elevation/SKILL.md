@@ -1,0 +1,117 @@
+---
+name: project-elevation
+description: "Project-aware elevation analysis to identify missing capabilities, weak reliability, poor user or operator experience, and high-value next improvements. Reads project docs first, then suggests realistic upgrades for the repository's current stage."
+argument-hint: "Point to the project, module, workflow, or feature to evaluate for improvement"
+---
+
+# Project Elevation — Project-Aware
+
+Performs a **forward-looking evaluation** of a project, feature, workflow, or module to find meaningful improvements in reliability, usability, maintainability, delivery readiness, and developer experience.
+
+This skill is designed to avoid generic wish lists. It should recommend improvements that are realistic for the repository's actual scope, stage, and constraints.
+
+---
+
+## Required Project Inputs
+
+| Document | Why it matters |
+| --- | --- |
+| `docs/project-docs/TEMPLATE_CONTRACT.md` | Defines where project truth and ownership live |
+| `docs/project-docs/PROJECT.md` | Clarifies goals, stakeholders, non-goals, and success metrics |
+| `docs/project-docs/ARCHITECTURE.md` | Defines stack, boundaries, and implementation constraints |
+| `docs/project-docs/STATUS.md` | Shows maturity, roadmap, and current execution state |
+| `docs/project-docs/TESTING.md` | Shows current verification maturity and release confidence |
+| `docs/project-docs/QUICK_REFERENCE.md` | Supplies high-signal operational details |
+| Relevant feature, API, workflow, or UX docs | Clarify what the system already promises |
+
+---
+
+## Evaluation Procedure
+
+### Step 1 — Understand the current state
+
+- What does the system already do?
+- Who uses it or depends on it?
+- What stage is it in: concept, prototype, MVP, production, maintenance?
+- What is explicitly out of scope?
+
+### Step 2 — Scan for missing failure handling
+
+Look for places where the system could fail silently or recover poorly.
+
+Examples:
+
+- no clear offline or dependency-failure behavior
+- missing retry, timeout, or rollback behavior
+- no error-state UX or operator feedback
+- missing migration or compatibility handling
+- no recovery path for partial success or interruption
+
+### Step 3 — Scan for natural feature gaps
+
+Look for missing capabilities that are implied by current user flows or system promises.
+
+Examples:
+
+- one-way workflows with no cleanup or reverse action
+- create without update or delete
+- search without pagination or empty state
+- save without management view
+- automation without observability
+- release process without rollback or smoke checks
+
+### Step 4 — Scan for improvement opportunities
+
+Evaluate:
+
+- reliability
+- security
+- performance
+- observability
+- developer experience
+- user experience
+- maintainability
+
+Prioritize changes that improve the system materially without violating the project's scope or stage.
+
+### Step 5 — Prioritize recommendations
+
+Classify each recommendation as:
+
+- must-have
+- high-value
+- nice-to-have
+- future
+
+Tie the rating back to current goals and constraints from `PROJECT.md` and `STATUS.md`.
+
+---
+
+## Output Contract
+
+Include:
+
+1. elevation summary
+2. missing error handling
+3. missing features
+4. improvement opportunities by category
+5. recommended roadmap or next actions
+
+---
+
+## Quality Checks
+
+- No gold-plating for an early-stage project
+- No recommendation that conflicts with explicit non-goals
+- No large rewrite suggestion without a clear payoff
+- No generic checklist detached from the actual repository
+- Recommendations are prioritized and actionable
+
+---
+
+## Anti-Patterns
+
+- Suggesting enterprise-scale systems for a small internal or MVP project
+- Ignoring what the project explicitly does not want to become
+- Producing a long unranked list with no delivery guidance
+- Recommending improvements that the current architecture cannot plausibly support without acknowledging that cost

@@ -1,0 +1,15 @@
+{
+    "restoreTerminals.terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "eye-hate-agent",
+                    "commands": [
+                        "cd ../eye-hate-agent",
+                        "clear"
+                    ]
+                }
+            ]
+        }
+    ]
+}
