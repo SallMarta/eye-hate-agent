@@ -60,6 +60,11 @@ Optional reusable starter asset:
 
 - `docs/vibes/project-docs-template/` when you want a static project-doc scaffold in addition to the reusable prompt workflow
 
+Short chooser:
+
+- copy the starter pack when you want a visible blank scaffold to edit manually
+- run bootstrap when you want the first owner docs generated from a project brief
+
 Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and reusable prompt system already being present.
 If a repository keeps archival or reference material, keep it outside the active contract and label it clearly.
 

@@ -29,6 +29,11 @@ This starter pack includes the five required project-doc files:
 - `STATUS.md`
 - `QUICK_REFERENCE.md`
 
+Optional starter docs included here for convenience:
+
+- `GETTING_STARTED.md`
+- `CHANGELOG.md`
+
 These files are intentionally generic and should be replaced with project-specific truth in the adopted repository.
 
 ---
