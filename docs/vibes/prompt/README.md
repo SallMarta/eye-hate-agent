@@ -43,6 +43,15 @@ These `00-*` prompts are the entire reusable baseline for this template reposito
 
 ---
 
+## Naming
+
+- Reserve the `00-` prefix for the small canonical project-doc prompt baseline.
+- Keep prompt base names semantic, so the job is visible from the filename.
+- Add another numbered prompt only when it belongs to the same ordered baseline and the contract documents that sequence.
+- Put one-off or repo-specific prompt experiments in the adopted repository, not in this template.
+
+---
+
 ## Shared Rules For All Reusable Prompts
 
 1. Read `docs/project-docs/TEMPLATE_CONTRACT.md` first.

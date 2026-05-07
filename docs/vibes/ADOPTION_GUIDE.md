@@ -18,9 +18,20 @@ When a project changes stacks, frameworks, test runners, or architecture, update
 
 ---
 
+## Template Surfaces
+
+Treat the template as four surfaces with different jobs:
+
+- `docs/project-docs/` is the active contract layer
+- `docs/vibes/` is the reusable asset layer
+- `.github/instructions/` and `.claude/rules/` are mirrored platform instruction surfaces
+- any clearly named archive or reference path is non-contract by default
+
+---
+
 ## What To Copy
 
-Copy the full template layout, including:
+Copy the active template surfaces, including:
 
 - `.github/instructions/`
 - `.claude/rules/`
@@ -29,6 +40,7 @@ Copy the full template layout, including:
 - `docs/vibes/skills/`
 
 Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and prompt system already being present.
+If a repository keeps archival or reference material, keep it outside the active contract and label it clearly.
 
 ---
 
@@ -96,7 +108,7 @@ Examples:
 This repository intentionally stays template-only.
 
 - do not keep live sample products in the active template tree
-- do not preserve historical project snapshots as default guidance
-- if you need a reference implementation, create it in a separate scratch repository or adoption testbed
+- do not let historical project snapshots become default guidance
+- if you keep reference material nearby, place it in an explicitly named non-contract path
 
 If a file starts reading like product requirements for one specific app or service, it no longer belongs in the template repository.

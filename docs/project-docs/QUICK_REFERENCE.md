@@ -19,9 +19,10 @@ Last updated: 2026-05-07
 
 | Path | Purpose |
 | --- | --- |
-| `docs/project-docs/` | Repo-level project docs and contract files |
-| `docs/vibes/prompt/` | Prompt modules for bootstrap, refresh, and audit workflows |
-| `docs/vibes/skills/` | Reusable skills that adapt after reading project docs |
+| `docs/project-docs/` | Active contract docs and canonical template truth |
+| `docs/vibes/prompt/` | Reusable prompt assets for bootstrap, refresh, and audit workflows |
+| `docs/vibes/skills/` | Reusable skill assets that adapt after reading project docs |
+| `docs/vibes/ADOPTION_GUIDE.md` | Adoption workflow for applying the template elsewhere |
 | `.github/instructions/` | Copilot instruction surface |
 | `.claude/rules/` | Mirrored Claude instruction surface |
 
@@ -32,6 +33,8 @@ Last updated: 2026-05-07
 - update the owning project doc first, then any summaries or dependent prompt or skill text
 - keep rules generic and focused on behavior, not project facts
 - keep skills procedural and project-aware, not stack-bound
+- keep mirrored instruction files aligned by base name and intent
+- reserve numeric prompt prefixes for intentionally ordered core prompt sequences
 - use optional docs only when they hold durable value
 - remove stale sample content instead of preserving it as background clutter
 
@@ -41,5 +44,6 @@ Last updated: 2026-05-07
 
 - this repository describes the template itself, not a product built from the template
 - if a fact belongs to a specific adopted repo, it should not live in template-owned docs
+- platform-specific extensions may differ even when mirrored rule files represent the same logical rule
 - mirrored rule files should stay aligned whenever one changes
 - contract changes require follow-up updates in rules, skills, and prompts

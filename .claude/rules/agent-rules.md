@@ -1,5 +1,6 @@
 ---
 description: "Always-on agent behavior and development workflow rules. Use when: starting any task, making suggestions, encountering low context, or identifying improvement opportunities. Covers creativity boundaries, assumption prevention, context compaction, proactive improvement mindset, prompt intake, task planning, quality checking, and documentation sync."
+applyTo: "**"
 ---
 
 # Agent Rules

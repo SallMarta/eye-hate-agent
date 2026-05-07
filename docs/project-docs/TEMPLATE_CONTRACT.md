@@ -40,6 +40,22 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 
 ---
 
+## Repository Taxonomy
+
+Use the repository in four categories.
+
+| Category | Primary paths | Role |
+| --- | --- | --- |
+| Platform instruction surfaces | `.github/instructions/`, `.claude/rules/` | Agent-platform specific entry points that enforce generic behavior and point back to project docs |
+| Active contract docs | `docs/project-docs/` | Canonical repository truth for scope, architecture, testing, workflow, and conventions |
+| Reusable template assets | `docs/vibes/` | Reusable prompts, skills, and adoption guidance that operate from the active contract |
+| Reference or archive material | explicit non-contract paths such as `archive/`, `reference/`, or other clearly named folders | Historical or example material that may inform work but must not override active contract truth |
+
+Only `docs/project-docs/` is the active contract layer.
+Rules, skills, prompts, and any archive material must defer to that layer when project-specific facts are needed.
+
+---
+
 ## Required Document Set
 
 | File | Required | Purpose |
@@ -110,6 +126,17 @@ If a project uses different headings, keep a clear cross-reference at the top of
 
 ---
 
+## Naming And Surface Rules
+
+- Keep the canonical project-doc filenames stable: `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, `QUICK_REFERENCE.md`, `TEMPLATE_CONTRACT.md`.
+- Name reusable assets by job and scope, not by one adopted project's product name or stack.
+- Keep mirrored instruction files aligned by base name and meaning, even when platform-specific extensions or frontmatter fields differ.
+- Use numeric prefixes only when a surface is intentionally ordered as a small canonical sequence.
+- Prefer semantic names such as `project-docs-refresh` or `code-audit` over vague labels that hide the asset's purpose.
+- If a path is reference-only, label it clearly so it cannot be mistaken for active workflow or contract state.
+
+---
+
 ## Machine-Readable Conventions
 
 - Keep filenames stable.
@@ -117,6 +144,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 - Prefer summary tables for commands, stack, or decision matrices.
 - Put the **durable truth** in project docs, not in prompt text or skill text.
 - When a fact changes, update the owning project doc first, then update any dependent rules, skills, or prompts that quote or summarize it.
+- Mirror platform instruction metadata where the platform supports the same field set.
 
 ---
 

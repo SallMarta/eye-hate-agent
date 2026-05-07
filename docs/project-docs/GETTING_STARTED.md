@@ -24,9 +24,20 @@ Read these files first:
 
 ---
 
+## Repository Surfaces
+
+Use the template in four roles:
+
+1. `docs/project-docs/` holds the active contract and repository truth.
+2. `docs/vibes/` holds reusable template assets such as prompts, skills, and adoption guidance.
+3. `.github/instructions/` and `.claude/rules/` expose the same generic rule layer to different agent platforms.
+4. Any clearly named archive or reference path is optional and should never replace the active contract.
+
+---
+
 ## Bootstrap A New Repository
 
-1. Copy the template into the target repository.
+1. Copy the active template surfaces into the target repository.
 2. Replace the repo-level docs in `docs/project-docs/` with the adopted repository's actual project truth.
 3. Keep `TEMPLATE_CONTRACT.md` and the prompt and skill systems intact unless the template itself is changing.
 4. Add optional docs only when the adopted repository needs them.

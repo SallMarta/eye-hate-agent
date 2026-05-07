@@ -1,10 +1,10 @@
 ---
-name: expert-analysis
+name: analysis
 description: "Project-aware deep analysis for architecture, debugging, trade-offs, risk, performance, requirements, and design questions. Reads project docs first, then applies structured reasoning to the current repository context."
 argument-hint: "Describe the problem, decision, artifact, or system to analyze"
 ---
 
-# Expert Analysis — Project-Aware
+# Analysis — Project-Aware
 
 Produces a **rigorous, structured analysis** of a problem, decision, artifact, or system after first reading the project documentation that defines the repository's actual context.
 

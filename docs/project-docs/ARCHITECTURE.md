@@ -8,10 +8,9 @@ Last updated: 2026-05-07
 
 | Area | Role |
 | --- | --- |
-| Markdown docs | Contract, adoption guidance, prompts, skills, and repo-level truth |
-| Instruction files | Always-on guardrails for AI agents |
-| Skill files | Reusable procedures that read project docs first |
-| Prompt files | Bootstrap, refresh, and consistency-audit workflows |
+| `docs/project-docs/` | Active contract docs and canonical repository truth |
+| `docs/vibes/` | Reusable template assets such as prompts, skills, and adoption guidance |
+| `.github/instructions/` and `.claude/rules/` | Platform-specific instruction entry points for the same generic rule layer |
 | Editor diagnostics | Structural validation for markdown and text drift |
 
 This repository does not ship an executable product runtime. Its primary architecture is documentation structure plus agent-facing behavior.
@@ -23,10 +22,10 @@ This repository does not ship an executable product runtime. Its primary archite
 The template uses a documentation-first control model.
 
 ```text
-rules and instructions -> read project docs
-skills -> read project docs, then apply reusable procedure
-prompts -> create or refresh project docs
-project docs -> hold project-specific truth in adopted repositories
+platform instruction surfaces -> read project docs
+reusable prompts and skills -> read or update project docs
+project docs -> hold active repository truth
+reference material -> never overrides the active contract
 ```
 
 The repository's own `docs/project-docs/` tree describes the template repository itself.
@@ -40,8 +39,9 @@ Adopted repositories should replace those docs with their own project truth.
 - skills define procedures, not product-specific requirements
 - prompts generate or refresh docs, not hidden architecture decisions
 - `docs/project-docs/` owns stack, commands, architecture, testing, and workflow truth
+- `docs/vibes/` contains reusable support assets, not active project truth
 - optional docs exist only when they carry durable value
-- sample products and historical artifacts do not belong in the active template tree
+- any reference-only material must live in a clearly named non-contract path
 
 ---
 
@@ -54,6 +54,7 @@ Adopted repositories should replace those docs with their own project truth.
 | `docs/project-docs/` | Contracted documentation surface for repo-specific truth |
 | `docs/vibes/skills/` | Reusable operational procedures |
 | `docs/vibes/prompt/` | Prompt modules for bootstrap, refresh, and audit workflows |
+| `docs/vibes/ADOPTION_GUIDE.md` | Adoption workflow for applying the template in other repositories |
 
 ---
 
@@ -64,6 +65,7 @@ Adopted repositories should replace those docs with their own project truth.
 | `docs/project-docs/` | Required and optional project-doc contract files |
 | `docs/vibes/skills/` | Reusable skills that adapt after reading project docs |
 | `docs/vibes/prompt/` | Prompt modules for generating and refreshing docs |
+| `docs/vibes/ADOPTION_GUIDE.md` | Human guidance for copying and applying the template |
 | `.github/instructions/` and `.claude/rules/` | Mirrored instruction surfaces |
 
 This repository stores durable truth as text, not as application state.

@@ -1,10 +1,10 @@
 ---
-name: expert-test
+name: test-authoring
 description: "Project-aware test authoring that reads project docs to choose the right frameworks, commands, layers, and templates. Use when writing or reviewing tests, deciding test scope, validating regressions, or choosing verification strategy across any stack."
 argument-hint: "Describe the behavior, bug, feature, boundary, or artifact to test"
 ---
 
-# Expert Test Authoring — Project-Aware
+# Test Authoring — Project-Aware
 
 Produces a **project-aware verification plan or test implementation strategy** by reading the repository's documentation contract first, then selecting the correct test types, commands, and conventions for the current stack.
 
