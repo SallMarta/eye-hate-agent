@@ -1,34 +1,33 @@
 # Getting Started — Template Repository
 
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 
 ---
 
 ## Purpose
 
-Use this repository as a base template for a new project that wants AI rules, skills, reusable prompts, and project docs to agree with each other.
+Use this document when you are orienting yourself inside the template repository itself.
 
-This repository intentionally contains no live sample application or service.
+If you are adopting this template into another repository, start with the repository root README and then use `docs/vibes/ADOPTION_GUIDE.md`.
 
 ---
 
-## First Orientation
+## First Reads
 
-Read these files first:
+Read these files first when working on this template repository:
 
 1. `docs/project-docs/TEMPLATE_CONTRACT.md`
 2. `docs/project-docs/PROJECT.md`
 3. `docs/project-docs/ARCHITECTURE.md`
 4. `docs/project-docs/TESTING.md`
-5. `docs/vibes/ADOPTION_GUIDE.md`
 
-If you are changing the template itself rather than adopting it, read `docs/project-docs/TEMPLATE_MAINTENANCE.md` before editing rules, skills, reusable prompts, or lifecycle policy.
+If you are changing the template itself, read `docs/project-docs/TEMPLATE_MAINTENANCE.md` before editing rules, skills, reusable prompts, or lifecycle policy.
 
 ---
 
 ## Repository Surfaces
 
-Use the template in four roles:
+The repository is split into four main surfaces:
 
 1. `docs/project-docs/` holds the active contract and repository truth.
 2. `docs/vibes/` holds reusable template assets such as reusable prompts, skills, and adoption guidance.
@@ -37,10 +36,10 @@ Use the template in four roles:
 
 ---
 
-## Next Documents
+## Which Doc To Use
 
-1. For copying the template into another repository, continue with `docs/vibes/ADOPTION_GUIDE.md`.
-2. For changing the template itself, continue with `docs/project-docs/TEMPLATE_MAINTENANCE.md` and `docs/project-docs/TESTING.md`.
+1. For adopting this template into another repository, use the repository root README first, then `docs/vibes/ADOPTION_GUIDE.md`.
+2. For changing the template itself, use `docs/project-docs/TEMPLATE_MAINTENANCE.md` and `docs/project-docs/TESTING.md`.
 
 ---
 

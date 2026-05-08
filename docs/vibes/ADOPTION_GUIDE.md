@@ -6,11 +6,11 @@ Last updated: 2026-05-08
 
 ## Purpose
 
-Use this guide when you want to copy this template into a new repository and keep rules, skills, reusable prompts, and project documentation aligned.
+Use this guide when you want to adopt this template into another repository and keep the rules, skills, prompts, and project docs aligned.
 
-This guide is for adopters. If you are changing the template itself, use `docs/project-docs/TEMPLATE_MAINTENANCE.md` for maintainer workflow, lifecycle, and deprecation decisions.
+This guide is for adopters. If you are changing the template itself, use `docs/project-docs/TEMPLATE_MAINTENANCE.md` instead.
 
-Normal work starts from the user's prompt, then the agent reads the contract and relevant project docs, uses a skill only when helpful, and produces the output; reusable prompts are reserved for bootstrap, refresh, and consistency-audit workflows.
+Normal work starts from the user's prompt. Reusable prompts are for bootstrap, refresh, and consistency-audit workflows.
 
 The key operating rule is simple:
 
@@ -22,33 +22,72 @@ When a project changes stacks, frameworks, test runners, or architecture, update
 
 ---
 
-## Template Surfaces
+## Fast Start
 
-Treat the template as four surfaces with different jobs:
+If you only need the first move, use this section.
+
+### Fast Start: New Project
+
+Use this when the target repo is still mostly empty.
+
+1. Copy the template surfaces into the target repo.
+2. Keep `TEMPLATE_CONTRACT.md`.
+3. Remove `TEMPLATE_MAINTENANCE.md`.
+4. Then choose one path:
+   run bootstrap if you want docs generated from a brief
+   use the starter pack if you want blank docs to fill manually
+
+### Fast Start: Active Project
+
+Use this when the target repo already has active code or partial docs.
+
+1. Copy the template surfaces into the target repo.
+2. Keep `TEMPLATE_CONTRACT.md`.
+3. Remove `TEMPLATE_MAINTENANCE.md`.
+4. Keep the project truth that is still correct.
+5. Refresh the docs that should become the active owners.
+
+### Fast Start: Mature Project
+
+Use this when the target repo is already mature and mostly documented.
+
+1. Copy the template surfaces into the target repo.
+2. Keep `TEMPLATE_CONTRACT.md`.
+3. Remove `TEMPLATE_MAINTENANCE.md`.
+4. Run consistency audit first if ownership is unclear.
+5. Refresh only the owner docs that actually need to change.
+
+Then continue with the matching detailed section below.
+
+---
+
+## What Belongs Where
+
+The template has four main surfaces:
 
 - `docs/project-docs/` is the active contract layer
 - `docs/vibes/` is the reusable asset layer
 - `.github/instructions/` and `.claude/rules/` are mirrored platform instruction surfaces
 - any clearly named archive or reference path is non-contract by default
 
-If you want a static starter scaffold in addition to the prompt-based workflow, use `docs/vibes/project-docs-template/` as a reusable asset. Do not treat it as an active contract layer for this repository.
+If you want blank starter docs in addition to the prompt workflow, use `docs/vibes/project-docs-template/`. Do not treat it as an active contract layer for this repository.
 
-Use this split explicitly:
+Keep this split in mind:
 
-- `docs/project-docs/` in this repository documents the template repository and its operating system
+- `docs/project-docs/` in this repository documents the template repository and how it works
 - `docs/vibes/project-docs-template/` is only a downstream starter scaffold for adopted repositories
 - `TEMPLATE_CONTRACT.md` and `TEMPLATE_MAINTENANCE.md` stay in the active contract layer because they describe how the template system works, not the truth of one adopted project
 
 ---
 
-## Which Mode Am I In?
+## Normal Work vs Doc Work
 
-| If the request sounds like... | Mode | Default path |
-| --- | --- | --- |
-| build, create, fix, test, review, or analyze a feature or code path | Normal work | User prompt -> instructions -> project docs -> optional skill -> output |
-| bootstrap docs, refresh docs, audit consistency, or update template structure | Template or doc maintenance | Reusable prompt or maintenance workflow -> contract or docs update |
+| Request type | Use |
+| --- | --- |
+| build, fix, test, review, or analyze a code path | normal work |
+| bootstrap docs, refresh docs, audit consistency, or update template structure | reusable prompts or template-maintenance workflow |
 
-Reusable prompts are maintenance-only. For routing examples, precedence, fallback, and output-by-mode rules, use `docs/project-docs/TEMPLATE_CONTRACT.md`.
+Reusable prompts are maintenance-only. For the full routing rules, use `docs/project-docs/TEMPLATE_CONTRACT.md`.
 
 ---
 
@@ -62,7 +101,7 @@ Copy the active template surfaces, including:
 - `docs/vibes/reusable-prompts/`
 - `docs/vibes/skills/`
 
-Optional reusable starter asset:
+Optional starter asset:
 
 - `docs/vibes/project-docs-template/` when you want a static project-doc scaffold in addition to the reusable prompt workflow
 
@@ -71,22 +110,23 @@ Short chooser:
 - copy the starter pack when you want a visible blank scaffold to edit manually
 - run bootstrap when you want the first owner docs generated from a project brief
 
-Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and reusable prompt system already being present.
+Do not trim the template before the required docs are populated.
+Most of the agent behavior depends on the contract and reusable prompt system already being present.
 If a repository keeps archival or reference material, keep it outside the active contract and label it clearly.
 
 ---
 
 ## Keep, Replace, Or Remove In `docs/project-docs/`
 
-When you copy this template into another repository, do not delete the `docs/project-docs/` folder.
+When you copy this template into another repository, do not delete `docs/project-docs/`.
 
-Use this exact rule instead:
+Use this rule instead:
 
 - keep `docs/project-docs/TEMPLATE_CONTRACT.md`
 - remove `docs/project-docs/TEMPLATE_MAINTENANCE.md` from the adopted repository
-- replace the project-specific docs so they describe the adopted repository rather than this template repository
+- replace the project-specific docs so they describe the adopted repository, not this template repository
 
-In practice, that usually means replacing these files with the adopted repository's truth:
+Usually replace these files with the adopted repository's truth:
 
 - `PROJECT.md`
 - `ARCHITECTURE.md`
@@ -94,7 +134,7 @@ In practice, that usually means replacing these files with the adopted repositor
 - `STATUS.md`
 - `QUICK_REFERENCE.md`
 
-Replace optional docs only when the adopted repository needs them, such as:
+Replace optional docs only when the adopted repository needs them:
 
 - `GETTING_STARTED.md`
 - `CHANGELOG.md`
@@ -103,38 +143,38 @@ Replace optional docs only when the adopted repository needs them, such as:
 - `phases/`
 - `guidelines/`
 
-The reason for this split is simple:
+Why:
 
-- `TEMPLATE_CONTRACT.md` is a meta-system file that tells agents how the project-doc contract works
-- `TEMPLATE_MAINTENANCE.md` is template-maintainer governance for this repository and should not ship as active governance in downstream adopted repositories
-- the rest of `docs/project-docs/` must become the downstream repository's own source of truth
+- `TEMPLATE_CONTRACT.md` explains how the project-doc contract works
+- `TEMPLATE_MAINTENANCE.md` is governance for maintaining this template repo
+- the rest of `docs/project-docs/` should become the adopted repository's own source of truth
 
 You have two safe ways to replace the project-specific docs:
 
 1. run `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` from a project brief
 2. copy starter docs from `docs/vibes/project-docs-template/` into `docs/project-docs/` and fill them manually
 
-For a mature or already running repository, do not wipe everything blindly. Keep `TEMPLATE_CONTRACT.md`, remove `TEMPLATE_MAINTENANCE.md`, inventory current truth, then replace or refresh only the docs that should become the active owners.
+For a mature or already running repository, do not wipe everything blindly. Keep `TEMPLATE_CONTRACT.md`, remove `TEMPLATE_MAINTENANCE.md`, inventory the current truth, then replace or refresh only the docs that should become the active owners.
 
 ---
 
 ## Minimum Adoption Workflow
 
 1. Copy the template into the new repository.
-2. Open `docs/project-docs/TEMPLATE_CONTRACT.md` and confirm the required doc set for the repo.
-3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` first.
-4. Add optional docs only when they carry durable project truth, such as `GETTING_STARTED.md`, `CHANGELOG.md`, `PRD.md`, `PRODUCTION_RUNBOOK.md`, `phases/`, or `guidelines/API.md`.
-5. Run a consistency pass so reusable prompts, rules, and skills all point back to the new project docs instead of stale sample facts.
+2. Open `docs/project-docs/TEMPLATE_CONTRACT.md` and confirm the required docs.
+3. Fill the core owner docs first: `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md`.
+4. Add optional docs only when they carry real project truth.
+5. Run a consistency pass so prompts, rules, and skills point back to the new project docs.
 
 ---
 
 ## Adoption Scenarios
 
-Use the same template surfaces in each scenario, but choose a different first workflow depending on how much project truth already exists.
+Use the same template surfaces in each case, but choose a different first workflow depending on how much project truth already exists.
 
-### Scenario 1 — Brand-New Repository
+### New Project
 
-Use this path when the repository is effectively empty and the template is your starting capital.
+Use this when the target repository is still mostly empty.
 
 How to work:
 
@@ -153,11 +193,11 @@ Minimum starting inputs:
 - known stack preferences or constraints, if any
 - known delivery or quality constraints, if any
 
-This is the cleanest adoption path. The project docs become the first durable source of truth before code grows around them.
+This is the cleanest adoption path. The project docs become the first durable source of truth before the code grows around them.
 
-### Scenario 2 — Partially Started Repository
+### Active Project
 
-Use this path when the repository already has some folders, code, notes, or documentation, but the contract layer is missing or incomplete.
+Use this when the repository already has code, notes, or partial docs, but the contract layer is missing or incomplete.
 
 How to work:
 
@@ -170,11 +210,11 @@ How to work:
    - use consistency audit first if the existing docs, code, or summaries disagree about important facts
 5. Update owner docs first, then refresh summary docs, then run a consistency pass.
 
-What matters most here is not preserving every old file. What matters is establishing one clear owner for each durable fact so rules and skills stop guessing.
+What matters most here is not preserving every old file. What matters is establishing one clear owner for each durable fact.
 
-### Scenario 3 — Mature Existing Repository
+### Mature Project
 
-Use this path when the project is already established and you want the template to support ongoing work such as feature delivery, bug fixing, refactoring, API changes, and documentation maintenance.
+Use this when the project is already established and you want the template to support ongoing work without creating ownership confusion.
 
 How to work:
 
@@ -186,9 +226,9 @@ How to work:
 
 This path is less about generating a project from scratch and more about giving an existing repository a stable operating model for future work.
 
-#### Scenario 3 Sub-Variant — Mature Repository With Its Own Strong Documentation System
+#### Mature Project With Its Own Strong Documentation System
 
-Treat this as a Scenario 3 variant, not a separate adoption model.
+Treat this as a mature-project variant, not a separate adoption model.
 
 The workflow shape stays the same:
 
@@ -197,10 +237,10 @@ The workflow shape stays the same:
 3. refresh only the owners that need change
 4. start normal work once the owner layer is clear
 
-The difference is the main risk.
+The main difference is the risk.
 
-For a weak mature repository, the risk is missing or stale project truth.
-For a strong mature repository with its own documentation system, the risk is competing ownership between the existing doc system and the contract introduced by this template.
+- for a weak mature repository, the risk is missing or stale project truth
+- for a strong mature repository with its own documentation system, the risk is competing ownership between the existing doc system and the contract introduced by this template
 
 How to work:
 
@@ -210,13 +250,13 @@ How to work:
 4. Use refresh second to update only the owner docs that need to align with the contract.
 5. Avoid keeping two active owners for the same fact just because both systems are well written.
 
-If the existing docs are already close to the contract, this variant becomes an easier Scenario 3. If they are strong but differently structured, treat the adoption as an ownership-mapping exercise before treating it as a documentation rewrite.
+If the existing docs are already close to the contract, this variant is easier. If they are strong but differently structured, treat the adoption as an ownership-mapping exercise before treating it as a documentation rewrite.
 
 ---
 
 ## Reusable Prompt Decision Guide
 
-Choose the first reusable prompt based on the state of the repository, not on habit.
+Choose the first reusable prompt based on the state of the repository.
 
 | Repository state | Start with | Why |
 | --- | --- | --- |

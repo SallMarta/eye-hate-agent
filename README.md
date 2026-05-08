@@ -4,7 +4,7 @@ Last updated: 2026-05-08
 
 ---
 
-# Purpose
+## Purpose
 
 This repository is a template for AI-agent-assisted project work.
 
@@ -16,37 +16,11 @@ It gives you:
 
 This repository is template-only. It is not a sample application.
 
----
+## Choose Your Repo Type
 
-# How To Adopt This Into Another Repository
+If you are adopting this template into another repo, start here.
 
-Copy these parts into the target repo:
-
-- `docs/`
-- `.claude/`
-- `.github/`
-
-If the target repo already has `.claude/` or `.github/`, copy only their inner folders:
-
-- `.claude/rules/`
-- `.github/instructions/`
-
-Keep this rule:
-
-- do not delete `docs/project-docs/`
-- keep `docs/project-docs/TEMPLATE_CONTRACT.md`
-- remove `docs/project-docs/TEMPLATE_MAINTENANCE.md`
-- replace the project docs that describe this template repo
-
-Then use the quick setup below that matches the target repo.
-
----
-
-# Quick Setup
-
-Pick the case that matches your repo.
-
-### New Blank Project
+### New Project
 
 Use this when the target repo is still mostly empty.
 
@@ -54,11 +28,11 @@ Use this when the target repo is still mostly empty.
 2. Keep `docs/project-docs/TEMPLATE_CONTRACT.md`.
 3. Remove `docs/project-docs/TEMPLATE_MAINTENANCE.md`.
 4. Remove the project docs that describe this template repo.
-5. Then choose one path:
-   use `00-project-docs-bootstrap.md` if you want docs generated from a brief
-   use `docs/vibes/project-docs-template/` if you want blank docs to fill manually
+5. Choose one path:
+   use `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` for docs from a brief
+   use `docs/vibes/project-docs-template/` for blank starter docs
 
-### Running-Half Project
+### Active Project
 
 Use this when the target repo already has active code or partial docs.
 
@@ -67,10 +41,10 @@ Use this when the target repo already has active code or partial docs.
 3. If the target repo already has `.claude/` or `.github/`, copy only `rules/` or `instructions/` inside them.
 4. Keep `docs/project-docs/TEMPLATE_CONTRACT.md`.
 5. Remove `docs/project-docs/TEMPLATE_MAINTENANCE.md`.
-6. Keep the existing project truth that is still correct.
+6. Keep the project truth that is still correct.
 7. Replace or refresh only the docs that should become the active owners.
 
-### Existing-Done Project
+### Mature Project
 
 Use this when the target repo is already mature and mostly documented.
 
@@ -80,10 +54,19 @@ Use this when the target repo is already mature and mostly documented.
 4. Keep `docs/project-docs/TEMPLATE_CONTRACT.md`.
 5. Remove `docs/project-docs/TEMPLATE_MAINTENANCE.md`.
 6. Map the existing docs into the contract owners.
-7. Run `00-project-docs-consistency-audit.md` first if ownership is unclear.
+7. Run `docs/vibes/reusable-prompts/00-project-docs-consistency-audit.md` first if ownership is unclear.
 8. Refresh only the owner docs that actually need to change.
 
-Usually remove or replace these project docs:
+## Core Rule
+
+For downstream adoption:
+
+- keep `docs/project-docs/`
+- keep `TEMPLATE_CONTRACT.md`
+- remove `TEMPLATE_MAINTENANCE.md`
+- replace the project docs that describe this template repo
+
+Usually replace these project docs:
 
 - `PROJECT.md`
 - `ARCHITECTURE.md`
@@ -91,7 +74,7 @@ Usually remove or replace these project docs:
 - `STATUS.md`
 - `QUICK_REFERENCE.md`
 
-Add or replace optional docs only when needed:
+Optional docs to add or replace only when needed:
 
 - `GETTING_STARTED.md`
 - `CHANGELOG.md`
@@ -100,38 +83,7 @@ Add or replace optional docs only when needed:
 - `phases/`
 - `guidelines/`
 
-After setup:
+## More Detail
 
-1. Use `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` if the repo is new or unclear.
-2. Use `docs/vibes/project-docs-template/` if you want blank starter docs.
-3. Use `docs/vibes/reusable-prompts/00-project-docs-consistency-audit.md` first if the target repo already has mature docs and you are not sure what should own what.
-
----
-
-# Quick Rule
-
-For downstream adoption:
-
-- keep the folder
-- keep the contract
-- remove template maintenance
-- replace project truth
-
----
-
-### Notes
-
-- For the full adoption guide, read `docs/vibes/ADOPTION_GUIDE.md`.
-- Maintaining this template itself: read `docs/project-docs/TEMPLATE_MAINTENANCE.md`.
-
----
----
----
----
----
----
----
----
----
----
-||||| SuLyAdeE |||||
+- full adoption guide: `docs/vibes/ADOPTION_GUIDE.md`
+- maintaining this template itself: `docs/project-docs/TEMPLATE_MAINTENANCE.md`

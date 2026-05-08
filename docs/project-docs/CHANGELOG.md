@@ -27,6 +27,12 @@ All notable template changes are documented here.
 - the static starter scaffold now also includes optional `GETTING_STARTED.md` and `CHANGELOG.md` starter docs, and `ADOPTION_GUIDE.md` now includes a short chooser between copying the starter pack and running bootstrap
 - the contract and starter-pack guidance now explicitly explain the split between active template docs and downstream starter docs, and `PRD.md` plus `PRODUCTION_RUNBOOK.md` are now recognized reusable optional docs
 - a new repository root `README.md` now explains step-by-step guide setup and downstream adoption flow, including what to keep, replace, and remove inside `docs/project-docs/`
+- the repository root `README.md` now shortens the first-read experience further by centering the decision on repo type and using more natural labels: new project, active project, and mature project
+- `GETTING_STARTED.md` now focuses on orientation inside the template repository itself, while the repository root README and `ADOPTION_GUIDE.md` own adopter entry flow
+- `ADOPTION_GUIDE.md` now uses plainer opening language and aligns its scenario labels with the README: new project, active project, and mature project
+- `ADOPTION_GUIDE.md` now also simplifies several middle sections so the body matches the plainer opening and repo-type framing
+- `ADOPTION_GUIDE.md` now shortens the normal-work vs doc-work guidance and the minimum adoption workflow so the top half scans faster
+- `ADOPTION_GUIDE.md` now includes a fast-start section near the top so adopters can choose new, active, or mature project and know the first move immediately
 - mirrored rule files now defer canonical documentation structure to `TEMPLATE_CONTRACT.md` instead of carrying a duplicated tree
 - `GETTING_STARTED.md` now stays an orientation surface while `ADOPTION_GUIDE.md` owns adopter workflow and `TEMPLATE_MAINTENANCE.md` owns maintainer workflow
 - `TESTING.md` now defines an explicit template maintenance audit sequence for contract, rule, skill, reusable prompt, and onboarding changes
