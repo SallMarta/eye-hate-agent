@@ -22,26 +22,24 @@ If you are adopting this template into another repo, start here.
 
 ### New Project
 
-Use this when the target repo is still mostly empty.
+Use this when the target repo is still mostly empty or blank (new).
 
 1. Copy `docs/`, `.claude/`, and `.github/` into the target repo.
-2. Keep `docs/project-docs/TEMPLATE_CONTRACT.md`.
-3. Remove the project docs that describe this template repo, located in `docs/project-docs`. Remove everything except `TEMPLATE_CONTRACT.md`.
+2. Remove the project docs that describe this template repo, located in `docs/project-docs`. Remove everything except `TEMPLATE_CONTRACT.md`.
 4. Choose one path:
-   use `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` for docs from a brief
-   use `docs/vibes/project-docs-template/` for blank starter docs
+- use `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` for starter documentary.
+- use `docs/vibes/project-docs-template/` for starter project docs. Can manually copy paste onto `project-docs` or give request to agent to create them.
 
 ### Active Project
 
 Use this when the target repo already has active code or partial docs.
 
 1. Copy `docs/` into the target repo.
-2. Copy `.claude/` and `.github/` too.
-3. If the target repo already has `.claude/` or `.github/`, copy only `rules/` or `instructions/` inside them.
-4. Keep `docs/project-docs/TEMPLATE_CONTRACT.md`.
-5. Remove `docs/project-docs/TEMPLATE_MAINTENANCE.md`.
-6. Keep the project truth that is still correct.
-7. Replace or refresh only the docs that should become the active owners.
+2. Copy `.claude/` and `.github/` too. If the target repo already has either `.claude/` or `.github/`, copy only `rules/` or `instructions/` inside them. Or even if  target repo already has `rules/` or `instructions/`, copy what's inside them.
+3. Remove the project docs that describe this template repo, located in `docs/project-docs`. Remove everything except `TEMPLATE_CONTRACT.md`.
+4. Keep the target repo project source of truth documentation that is still correct.
+5. Replace or refresh only the docs that should become the active owners.
+- use `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` to refresh project documentations.
 
 ### Mature Project
 
