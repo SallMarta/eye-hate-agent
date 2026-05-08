@@ -26,6 +26,7 @@ All notable template changes are documented here.
 - `docs/vibes/project-docs-template/` now provides a static starter scaffold for manual project-doc adoption without creating a second active contract tree
 - the static starter scaffold now also includes optional `GETTING_STARTED.md` and `CHANGELOG.md` starter docs, and `ADOPTION_GUIDE.md` now includes a short chooser between copying the starter pack and running bootstrap
 - the contract and starter-pack guidance now explicitly explain the split between active template docs and downstream starter docs, and `PRD.md` plus `PRODUCTION_RUNBOOK.md` are now recognized reusable optional docs
+- a new repository root `README.md` now explains step-by-step guide setup and downstream adoption flow, including what to keep, replace, and remove inside `docs/project-docs/`
 - mirrored rule files now defer canonical documentation structure to `TEMPLATE_CONTRACT.md` instead of carrying a duplicated tree
 - `GETTING_STARTED.md` now stays an orientation surface while `ADOPTION_GUIDE.md` owns adopter workflow and `TEMPLATE_MAINTENANCE.md` owns maintainer workflow
 - `TESTING.md` now defines an explicit template maintenance audit sequence for contract, rule, skill, reusable prompt, and onboarding changes
