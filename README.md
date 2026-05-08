@@ -26,9 +26,8 @@ Use this when the target repo is still mostly empty.
 
 1. Copy `docs/`, `.claude/`, and `.github/` into the target repo.
 2. Keep `docs/project-docs/TEMPLATE_CONTRACT.md`.
-3. Remove `docs/project-docs/TEMPLATE_MAINTENANCE.md`.
-4. Remove the project docs that describe this template repo, located in `docs/project-docs`. Remove everything except `TEMPLATE_CONTRACT.md`.
-5. Choose one path:
+3. Remove the project docs that describe this template repo, located in `docs/project-docs`. Remove everything except `TEMPLATE_CONTRACT.md`.
+4. Choose one path:
    use `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` for docs from a brief
    use `docs/vibes/project-docs-template/` for blank starter docs
 
