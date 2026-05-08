@@ -1,6 +1,6 @@
 # Template Adoption Guide
 
-Last updated: 2026-05-07
+Last updated: 2026-05-08
 
 ---
 
@@ -73,6 +73,48 @@ Short chooser:
 
 Do not trim the template before the required docs are populated. Most of the agent behavior depends on the contract and reusable prompt system already being present.
 If a repository keeps archival or reference material, keep it outside the active contract and label it clearly.
+
+---
+
+## Keep, Replace, Or Remove In `docs/project-docs/`
+
+When you copy this template into another repository, do not delete the `docs/project-docs/` folder.
+
+Use this exact rule instead:
+
+- keep `docs/project-docs/TEMPLATE_CONTRACT.md`
+- remove `docs/project-docs/TEMPLATE_MAINTENANCE.md` from the adopted repository
+- replace the project-specific docs so they describe the adopted repository rather than this template repository
+
+In practice, that usually means replacing these files with the adopted repository's truth:
+
+- `PROJECT.md`
+- `ARCHITECTURE.md`
+- `TESTING.md`
+- `STATUS.md`
+- `QUICK_REFERENCE.md`
+
+Replace optional docs only when the adopted repository needs them, such as:
+
+- `GETTING_STARTED.md`
+- `CHANGELOG.md`
+- `PRD.md`
+- `PRODUCTION_RUNBOOK.md`
+- `phases/`
+- `guidelines/`
+
+The reason for this split is simple:
+
+- `TEMPLATE_CONTRACT.md` is a meta-system file that tells agents how the project-doc contract works
+- `TEMPLATE_MAINTENANCE.md` is template-maintainer governance for this repository and should not ship as active governance in downstream adopted repositories
+- the rest of `docs/project-docs/` must become the downstream repository's own source of truth
+
+You have two safe ways to replace the project-specific docs:
+
+1. run `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md` from a project brief
+2. copy starter docs from `docs/vibes/project-docs-template/` into `docs/project-docs/` and fill them manually
+
+For a mature or already running repository, do not wipe everything blindly. Keep `TEMPLATE_CONTRACT.md`, remove `TEMPLATE_MAINTENANCE.md`, inventory current truth, then replace or refresh only the docs that should become the active owners.
 
 ---
 
