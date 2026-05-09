@@ -1,6 +1,6 @@
 # Project Documentation Contract
 
-Last updated: 2026-05-07
+Last updated: 2026-05-09
 
 ---
 
@@ -287,6 +287,24 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 - Keep output structure stable.
 - Update only the affected docs on refresh reusable prompts.
 - Add a consistency pass when changing architecture, testing, or workflow-related docs.
+
+---
+
+## Extension Rules That Must Survive Adoption
+
+These rules belong in the contract because downstream repositories may remove `TEMPLATE_MAINTENANCE.md`.
+
+| If you are adding or changing... | Update first | Usually also update | Core rule |
+| --- | --- | --- | --- |
+| a reusable skill | the skill file in `docs/vibes/skills/` | `TEMPLATE_CONTRACT.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural and start from project docs |
+| a rule or instruction point | both mirrored rule files in the same change | `TEMPLATE_CONTRACT.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed | keep the rule generic and point back to project docs |
+| a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `TEMPLATE_CONTRACT.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
+| the contract itself | `TEMPLATE_CONTRACT.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `CHANGELOG.md` | contract changes are highest-impact and should be treated as template-level changes |
+
+Notes:
+
+- Downstream repositories should still be able to follow these rules after `TEMPLATE_MAINTENANCE.md` is removed.
+- Template-repo-only workflow remains in `TEMPLATE_MAINTENANCE.md`.
 
 ---
 

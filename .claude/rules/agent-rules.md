@@ -78,3 +78,11 @@ The canonical `docs/` layout, required files, and stable headings live in `docs/
 - Surface them as optional suggestions, never apply unrequested changes silently.
 - Format: "Task complete. Noticed X could be improved — want me to handle that too?"
 - Limit to 1–2 high-value suggestions per task. Avoid suggestion overload.
+
+## 9. Output Consistency After Given request or prompt, always ensure the output format and content align with the user's expectations and any relevant project-doc specifications. If there is any ambiguity or potential for misalignment, clarify with the user before finalizing the output.
+
+start from:
+- summary
+- table of comparison if relevant
+- clear, structured output format (e.g., JSON, markdown, code block) if applicable
+- explicit references to any project-doc sections or rules that influenced the output 

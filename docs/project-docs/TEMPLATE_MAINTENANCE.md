@@ -1,6 +1,6 @@
 # Template Maintenance — Template Repository
 
-Last updated: 2026-05-07
+Last updated: 2026-05-09
 
 ---
 
@@ -36,6 +36,7 @@ This file covers:
 | Question | Owner |
 | --- | --- |
 | Canonical structure, routing, and ownership model | `TEMPLATE_CONTRACT.md` |
+| How to add skills, rule points, project-doc owners, or contract changes in any repository using this system | `TEMPLATE_CONTRACT.md` |
 | Verification methods and maintenance audit checks | `TESTING.md` |
 | First orientation for someone opening the repo | `GETTING_STARTED.md` |
 | Adoption workflow for copying the template into another repo | `docs/vibes/ADOPTION_GUIDE.md` |
@@ -50,8 +51,6 @@ This file covers:
 | Summary-only clarification | Tighten wording in `QUICK_REFERENCE.md` or `GETTING_STARTED.md` without changing behavior | Update the owner or summary, then run the narrowest maintenance audit |
 | Backward-compatible template change | Add an optional doc, add a reusable skill, or refine maintainer guidance | Update the owning doc, dependent summaries, and run the maintenance audit |
 | Breaking template change | Rename canonical paths, change stable headings, change the required doc set, or change routing, precedence, fallback, or output rules | Update the contract first, add migration notes, update dependents, and run the full maintenance audit |
-
----
 
 ## Compatibility And Breaking Changes
 
@@ -84,7 +83,8 @@ For a breaking change:
 ## Maintainer Workflow
 
 1. Classify the change before editing.
-2. Update the owning doc first.
-3. Update mirrors, summaries, skills, or reusable prompts that quote or depend on it.
-4. Run the maintenance audit sequence in `TESTING.md`.
-5. Record maintainer-facing changes in `CHANGELOG.md`.
+2. Use `TEMPLATE_CONTRACT.md` for extension rules that must survive adoption.
+3. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
+4. Update mirrors, summaries, skills, or reusable prompts that quote or depend on the changed owner.
+5. Run the maintenance audit sequence in `TESTING.md`.
+6. Record maintainer-facing changes in `CHANGELOG.md`.

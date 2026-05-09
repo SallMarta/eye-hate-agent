@@ -33,6 +33,9 @@ All notable template changes are documented here.
 - `ADOPTION_GUIDE.md` now also simplifies several middle sections so the body matches the plainer opening and repo-type framing
 - `ADOPTION_GUIDE.md` now shortens the normal-work vs doc-work guidance and the minimum adoption workflow so the top half scans faster
 - `ADOPTION_GUIDE.md` now includes a fast-start section near the top so adopters can choose new, active, or mature project and know the first move immediately
+- `TEMPLATE_CONTRACT.md` now owns the reusable extension rules for adding skills, rule points, project-doc owners, and contract changes, so downstream repositories keep those rules after removing `TEMPLATE_MAINTENANCE.md`
+- `TEMPLATE_MAINTENANCE.md` now focuses on template-repo-only workflow, while `QUICK_REFERENCE.md` points maintainers to the correct owner docs instead of repeating the change map
+- template verification now returns to a document-first, human-reviewed model with explicit manual maintenance audit guidance instead of the removed checker command
 - mirrored rule files now defer canonical documentation structure to `TEMPLATE_CONTRACT.md` instead of carrying a duplicated tree
 - `GETTING_STARTED.md` now stays an orientation surface while `ADOPTION_GUIDE.md` owns adopter workflow and `TEMPLATE_MAINTENANCE.md` owns maintainer workflow
 - `TESTING.md` now defines an explicit template maintenance audit sequence for contract, rule, skill, reusable prompt, and onboarding changes

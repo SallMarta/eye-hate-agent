@@ -1,6 +1,6 @@
 # Testing & Verification
 
-Last updated: 2026-05-07
+Last updated: 2026-05-09
 
 Status: Template baseline
 
@@ -31,7 +31,7 @@ At the time of writing:
 - There is no project-wide automated test command.
 - Most validation for template work is currently structural rather than executable.
 
-Because of that, changes in this repository should usually be validated through targeted documentation and consistency checks unless and until executable tooling is added.
+Because of that, changes in this repository should usually be validated through targeted documentation and consistency checks.
 
 ---
 

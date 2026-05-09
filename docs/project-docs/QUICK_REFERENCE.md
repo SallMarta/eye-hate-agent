@@ -1,6 +1,6 @@
 # Quick Reference — Template Repository
 
-Last updated: 2026-05-07
+Last updated: 2026-05-09
 
 ---
 
@@ -48,6 +48,8 @@ Last updated: 2026-05-07
 - keep mirrored instruction files aligned in the same change
 - reserve numeric reusable prompt prefixes for the core reusable prompt baseline
 - use `TEMPLATE_CONTRACT.md` for full routing, fallback, and output-by-mode rules
+- for reusable extension rules that must survive adoption, use `TEMPLATE_CONTRACT.md`
+- for template-repo-only workflow and governance, use `TEMPLATE_MAINTENANCE.md`
 
 ---
 
