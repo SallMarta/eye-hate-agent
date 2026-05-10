@@ -16,6 +16,7 @@ All notable template changes are documented here.
 
 ### Changed
 
+- mirrored rule files now share a leaner 5-section body that keeps only durable agent behavior and defers routing, precedence, and documentation structure to `TEMPLATE_CONTRACT.md`
 - repo-level project docs now describe the template repository itself rather than a sample product
 - adoption guidance now assumes a template-only repository with no embedded examples
 - `ADOPTION_GUIDE.md` now explains scenario-based adoption for empty, partial, and mature repositories, plus a reusable-prompt decision guide and readiness checklist
