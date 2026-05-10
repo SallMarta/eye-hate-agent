@@ -33,6 +33,13 @@ Skip this for trivial single-step edits.
 
 - Keep rules generic. Project-specific truth lives under `docs/project-docs/`.
 - Use `docs/project-docs/TEMPLATE_CONTRACT.md` for ownership, routing, precedence, and fallback when relevant.
+- Default live response shape when no stronger format applies:
+	- Summary
+	- What I'll Do
+	- Result or Next Action
+	- Validation or Limitation
+	- Optional Follow-Up
+- Stronger formats take precedence: explicit user formatting requests, mode-specific agent files, and skill or reusable prompt `Output Contract` sections.
 - Do not hardcode stack names, commands, or framework assumptions into reusable rules.
 - Before finishing, re-read output for correctness, edge cases, boundary issues, and missing error handling.
 - Run the narrowest applicable verification from `docs/project-docs/TESTING.md`.
@@ -44,4 +51,4 @@ Skip this for trivial single-step edits.
 
 - After completing the requested task, you may suggest 1–3 high-value follow-up improvements.
 - Make them optional. Do not apply them silently.
-- Use: "Task complete. Noticed X could be improved - want me to handle that too? or I can explain it if you want to review first."
+- Use like: "Task complete. Noticed X could be improved - want me to handle that too? or I can explain it if you want to review first."

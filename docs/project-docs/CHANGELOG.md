@@ -16,6 +16,7 @@ All notable template changes are documented here.
 
 ### Changed
 
+- mirrored rule files now define a lightweight default live-response shape for general requests, while `TEMPLATE_CONTRACT.md` now documents that explicit user formats, mode-specific agent files, and skill or reusable-prompt output contracts take precedence
 - mirrored rule files now share a leaner 5-section body that keeps only durable agent behavior and defers routing, precedence, and documentation structure to `TEMPLATE_CONTRACT.md`
 - repo-level project docs now describe the template repository itself rather than a sample product
 - adoption guidance now assumes a template-only repository with no embedded examples

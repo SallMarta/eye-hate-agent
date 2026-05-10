@@ -98,6 +98,17 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 | Normal work | The requested output, the narrowest applicable validation or an explicit limitation, and a documentation-sync update or check when ownership changed |
 | Template or doc maintenance | Updated docs, rules, skills, or reusable prompts, a consistency validation step, and any unresolved drift or follow-up items |
 
+These are completion requirements, not a universal response template.
+
+When a repository defines a default live-response shape in its mirrored rule files, treat that shape as a lightweight baseline only.
+If multiple output-shape signals apply, use this precedence:
+
+1. the user's explicit format request
+2. the active mode or mode-specific agent file
+3. the active skill or reusable prompt `Output Contract`
+4. the mirrored rule-file default live-response shape
+5. the agent's local judgment
+
 ---
 
 ## Repository Taxonomy
@@ -268,6 +279,7 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 - Keep the rule generic.
 - Point the rule at the relevant project docs.
 - Preserve the normal-work versus template-maintenance distinction defined in the operating model.
+- If a rule defines a default live-response shape, keep it short and treat it as a baseline rather than a universal override.
 - Avoid embedding concrete stack-specific commands directly unless the repository has intentionally chosen to keep them in the rule.
 
 ### When writing or updating skills
