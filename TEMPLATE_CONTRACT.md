@@ -129,6 +129,28 @@ When present, `TEMPLATE_MAINTENANCE.md` remains template-repo-only governance an
 
 ---
 
+## Supported Adoption Topologies
+
+This contract formally supports two adoption topologies.
+
+| Topology | Status | Contract rule |
+| --- | --- | --- |
+| Scenario 1 — distributed self-contained repos | Supported default | each adopted repo keeps its own contract, project docs, rule surfaces, and reusable template assets |
+| Scenario 2 — shared template repo with local project docs | Supported alternative | each adopted repo keeps its own contract and project docs, while one shared template repo may own reusable assets for multiple adopted repos |
+| Scenario 3 — centralized portfolio-doc repo | Not supported by this contract | possible only as a redesign, because it moves project-specific truth out of each adopted repo |
+
+Rules that stay true in both supported topologies:
+
+- each adopted repo keeps its own root `TEMPLATE_CONTRACT.md`
+- each adopted repo keeps its own local `docs/project-docs/` as the owner of repo-specific truth
+- `TEMPLATE_MAINTENANCE.md` remains template-repo-only governance
+- reusable prompts, reusable skills, and starter assets may be local in each repo or centralized in one shared template repo
+- platform instruction surfaces may be centralized only when the agent platform can reliably consume them there; otherwise keep local mirrors that point back to the same contract
+
+Scenario 3 is intentionally outside this contract because it changes the ownership model rather than only changing asset placement.
+
+---
+
 ## Required Document Set
 
 | File | Required | Purpose |
@@ -270,10 +292,11 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Fast command lookup and conventions | `QUICK_REFERENCE.md` |
 | Template governance, lifecycle, and deprecation | `TEMPLATE_MAINTENANCE.md` if present |
 | Domain-specific rules | `guidelines/*` |
-| Reusable prompt behavior | `docs/vibes/reusable-prompts/` |
-| Skill procedure behavior | `docs/vibes/skills/` |
+| Reusable prompt behavior | `docs/vibes/reusable-prompts/` in the adopted repo or in the shared template repo chosen by the topology |
+| Skill procedure behavior | `docs/vibes/skills/` in the adopted repo or in the shared template repo chosen by the topology |
 
 Do not duplicate the same rule across multiple files unless one file is explicitly a summary or index of the owning document.
+In Scenario 2, only reusable assets may centralize. Project-specific facts must remain local to the adopted repo.
 
 ---
 
@@ -313,8 +336,8 @@ These rules belong in the contract because downstream repositories may remove `T
 
 | If you are adding or changing... | Update first | Usually also update | Core rule |
 | --- | --- | --- | --- |
-| a reusable skill | the skill file in `docs/vibes/skills/` | `TEMPLATE_CONTRACT.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural and start from project docs |
-| a rule or instruction point | both mirrored rule files in the same change | `TEMPLATE_CONTRACT.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed | keep the rule generic and point back to project docs |
+| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `TEMPLATE_CONTRACT.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural and start from project docs |
+| a rule or instruction point | the mirrored rule files in the owning template surface | `TEMPLATE_CONTRACT.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
 | a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `TEMPLATE_CONTRACT.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
 | the contract itself | `TEMPLATE_CONTRACT.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `CHANGELOG.md` | contract changes are highest-impact and should be treated as template-level changes |
 
@@ -322,18 +345,32 @@ Notes:
 
 - Downstream repositories should still be able to follow these rules after root-level `TEMPLATE_MAINTENANCE.md` is removed.
 - Template-repo-only workflow remains in root-level `TEMPLATE_MAINTENANCE.md`.
+- In Scenario 2, the shared template repo is the owner of reusable assets, but not of adopted-repository project facts.
 
 ---
 
-## Adoption Checklist For New Repositories
+## Adoption Checklists For Supported Topologies
 
-1. Copy the template into the repository.
+### Scenario 1 — Distributed Self-Contained Repos
+
+1. Copy the template into the adopted repository.
 2. Keep root-level `TEMPLATE_CONTRACT.md`.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under `docs/project-docs/` first.
 4. Remove root-level `TEMPLATE_MAINTENANCE.md` from the adopted repository.
 5. Add optional docs only when the project actually needs them.
 6. Review rules and skills only for template-level changes, not project-specific facts.
 7. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
+
+### Scenario 2 — Shared Template Repo With Local Project Docs
+
+1. Keep the shared template repo available in the same workspace or other agent-visible context.
+2. Copy root-level `TEMPLATE_CONTRACT.md` into each adopted repository.
+3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under each adopted repo's local `docs/project-docs/` path.
+4. Keep reusable prompts, reusable skills, and starter assets in the shared template repo unless a local copy is intentionally needed.
+5. Keep local instruction mirrors only when an agent platform requires repo-local instruction loading.
+6. Remove root-level `TEMPLATE_MAINTENANCE.md` from adopted repositories.
+7. Do not move adopted-repository project facts into the shared template repo.
+8. Run reusable prompts against the adopted repo's local owner docs, not against centralized portfolio summaries.
 
 ---
 
