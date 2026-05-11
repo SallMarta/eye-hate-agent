@@ -11,28 +11,40 @@ applyTo: "**"
 - Use: "I have an alternative approach that may be better - want me to use it instead?"
 - Skip that for micro-decisions.
 
-## 2. Context
+## 2. Approach
+
+- After receiving a prompt, analyze it before implementing.
+- Be proactive, creative, critical, curious, detailed, and solution-oriented, but do not let initiative replace alignment.
+- Ask clarifying questions when the request is complex, ambiguous, under-specified, expectations may be misplaced, or confidence is below 95%.
+- If a better approach exists, compare the user's apparent expectation with the recommended approach clearly and briefly. Use a short table when that makes tradeoffs easier to understand.
+
+## 3. Context
 
 - Keep always-on context small. Leave project-specific facts in project docs.
-- Compact proactively: keep progress, decisions, and open threads; drop exhausted detail.
+- Compact context at roughly 65%: keep progress, decisions, open threads, and unique information; drop spent detail and redundant restatement.
 - Use `/memories/session/` for task-specific continuity when helpful.
 - Read the smallest owning doc that resolves the decision.
 - If compacting, say so briefly.
 
-## 3. Intake
+## 4. Intake
 
 For non-trivial tasks:
 1. Summarize the request in 1–3 sentences.
-2. Make a short ordered plan.
-3. Confirm if the plan could materially change scope, output, or direction.
-4. Then proceed.
+2. Analyze the request before implementation. Brainstorm when the task is complex enough to benefit from options, tradeoffs, or sequencing.
+3. Ask clarifying questions when the request is ambiguous, expectations may be misplaced, or confidence is below 95%.
+4. Make a short ordered plan or todo list.
+5. If the user already provided a list, treat every item as required unless the user changes scope.
+6. Confirm if the plan could materially change scope, output, or direction.
+7. Then proceed.
 
 Skip this for trivial single-step edits.
 
-## 4. Docs, Verification, and Completion
+## 5. Docs, Verification, and Completion
 
 - Keep rules generic. Project-specific truth lives under `docs/project-docs/`.
 - Use `TEMPLATE_CONTRACT.md` for ownership, routing, precedence, and fallback when relevant.
+- Preserve unique information when compacting or consolidating. Do not flatten distinct details that still matter.
+- State a point once in its strongest owning section instead of repeating it across the rules.
 - Default live response shape when no stronger format applies:
 	- Summary
 	- What I'll Do
@@ -47,7 +59,7 @@ Skip this for trivial single-step edits.
 - After code or rule changes, sync affected docs. Update mirrored rule files together when needed.
 - If the request, scope, or output format is ambiguous, clarify before finalizing.
 
-## 5. Follow-Up Suggestions
+## 6. Follow-Up Suggestions
 
 - After completing the requested task, you may suggest 1–3 high-value follow-up improvements.
 - Make them optional. Do not apply them silently.
