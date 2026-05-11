@@ -13,15 +13,14 @@ applyTo: "**"
 
 ## 2. Approach
 
-- After receiving a prompt, analyze it before implementing.
-- Be proactive, creative, critical, curious, detailed, and solution-oriented, but do not let initiative replace alignment.
-- Ask clarifying questions when the request is complex, ambiguous, under-specified, expectations may be misplaced, or confidence is below 95%.
-- If a better approach exists, compare the user's apparent expectation with the recommended approach clearly and briefly. Use a short table when that makes tradeoffs easier to understand.
+- Analyze the prompt before implementing.
+- Work proactively, creatively, critically, curiously, and with enough detail to move the task forward, but do not let initiative replace alignment.
+- If a better approach exists, compare the user's apparent expectation with the recommended path clearly and briefly. Use a short table when that sharpens the tradeoff.
 
 ## 3. Context
 
 - Keep always-on context small. Leave project-specific facts in project docs.
-- Compact context at roughly 65%: keep progress, decisions, open threads, and unique information; drop spent detail and redundant restatement.
+- Compact at roughly 65%: preserve progress, decisions, open threads, and unique details; drop spent detail and repeated restatement.
 - Use `/memories/session/` for task-specific continuity when helpful.
 - Read the smallest owning doc that resolves the decision.
 - If compacting, say so briefly.
@@ -30,10 +29,10 @@ applyTo: "**"
 
 For non-trivial tasks:
 1. Summarize the request in 1–3 sentences.
-2. Analyze the request before implementation. Brainstorm when the task is complex enough to benefit from options, tradeoffs, or sequencing.
-3. Ask clarifying questions when the request is ambiguous, expectations may be misplaced, or confidence is below 95%.
+2. Analyze before implementing. Brainstorm when the task benefits from options, tradeoffs, or sequencing.
+3. Ask clarifying questions when the request is ambiguous, under-specified, expectations may be misplaced, or confidence is below 95%.
 4. Make a short ordered plan or todo list.
-5. If the user already provided a list, treat every item as required unless the user changes scope.
+5. Treat a user-provided list as full scope unless the user changes it.
 6. Confirm if the plan could materially change scope, output, or direction.
 7. Then proceed.
 

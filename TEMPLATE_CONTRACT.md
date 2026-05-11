@@ -24,6 +24,7 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 
 - Rules enforce behavior, guardrails, and quality expectations.
 - Rules must **not** hardcode stack-specific commands or framework assumptions when that information belongs in project docs.
+- This repository intentionally keeps the context-compaction trigger of roughly 65% in the mirrored rule files as an agent-operating threshold. Treat it as a deliberate exception to the general preference for principle-based reusable rules.
 - Rules should read `TEMPLATE_CONTRACT.md` and the relevant files in `docs/project-docs/` directly.
 
 ### Skills
