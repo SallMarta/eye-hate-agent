@@ -32,7 +32,7 @@ Skip this for trivial single-step edits.
 ## 4. Docs, Verification, and Completion
 
 - Keep rules generic. Project-specific truth lives under `docs/project-docs/`.
-- Use `docs/project-docs/TEMPLATE_CONTRACT.md` for ownership, routing, precedence, and fallback when relevant.
+- Use `TEMPLATE_CONTRACT.md` for ownership, routing, precedence, and fallback when relevant.
 - Default live response shape when no stronger format applies:
 	- Summary
 	- What I'll Do

@@ -1,6 +1,6 @@
 # Project Docs Consistency Audit Reusable Prompt
 
-Read `docs/project-docs/TEMPLATE_CONTRACT.md` first.
+Read `TEMPLATE_CONTRACT.md` first.
 
 Audit the repository for **documentation-system drift**.
 

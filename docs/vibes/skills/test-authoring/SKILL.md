@@ -18,7 +18,7 @@ Read the relevant docs before proposing or writing tests.
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/TEMPLATE_CONTRACT.md` | Tells you which docs are required and where project-specific truth should live |
+| `TEMPLATE_CONTRACT.md` | Tells you which docs are required and where project-specific truth should live |
 | `docs/project-docs/TESTING.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
 | `docs/project-docs/ARCHITECTURE.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
 | `docs/project-docs/QUICK_REFERENCE.md` | Fast lookup for commands, paths, conventions, and common patterns |

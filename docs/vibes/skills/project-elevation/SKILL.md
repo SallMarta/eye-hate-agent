@@ -16,7 +16,7 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/TEMPLATE_CONTRACT.md` | Defines where project truth and ownership live |
+| `TEMPLATE_CONTRACT.md` | Defines where project truth and ownership live |
 | `docs/project-docs/PROJECT.md` | Clarifies goals, stakeholders, non-goals, and success metrics |
 | `docs/project-docs/ARCHITECTURE.md` | Defines stack, boundaries, and implementation constraints |
 | `docs/project-docs/STATUS.md` | Shows maturity, roadmap, and current execution state |

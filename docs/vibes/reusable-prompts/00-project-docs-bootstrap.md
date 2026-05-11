@@ -1,6 +1,6 @@
 # Project Docs Bootstrap Reusable Prompt
 
-Read `docs/project-docs/TEMPLATE_CONTRACT.md` first.
+Read `TEMPLATE_CONTRACT.md` first.
 
 Generate the **initial project documentation set** for a new repository using the project brief and constraints provided below.
 

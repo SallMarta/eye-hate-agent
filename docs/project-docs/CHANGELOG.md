@@ -16,6 +16,10 @@ All notable template changes are documented here.
 
 ### Changed
 
+- the starter-pack instructions that lived in `docs/vibes/project-docs-template/README.md` now live in the root `README.md`, while the starter-pack folder remains as the reusable manual scaffold
+- `TEMPLATE_CONTRACT.md` and `TEMPLATE_MAINTENANCE.md` now live at the repository root, and the contract taxonomy plus live references have been retargeted to the new root-level anchors as a breaking template migration
+- `README.md` now absorbs the remaining human-facing adoption and reusable-prompt guidance, and the separate `ADOPTION_GUIDE.md` plus `docs/vibes/reusable-prompts/README.md` surfaces have been removed
+- `README.md` now acts as the primary human adoption guide, while `ADOPTION_GUIDE.md` focuses on advanced adoption cases and `docs/vibes/reusable-prompts/README.md` focuses on reusable prompt selection
 - mirrored rule files now define a lightweight default live-response shape for general requests, while `TEMPLATE_CONTRACT.md` now documents that explicit user formats, mode-specific agent files, and skill or reusable-prompt output contracts take precedence
 - mirrored rule files now share a leaner 5-section body that keeps only durable agent behavior and defers routing, precedence, and documentation structure to `TEMPLATE_CONTRACT.md`
 - repo-level project docs now describe the template repository itself rather than a sample product

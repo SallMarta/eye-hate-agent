@@ -16,7 +16,7 @@ This skill is the reusable complement to the consistency-audit reusable prompt. 
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/TEMPLATE_CONTRACT.md` | Ownership map and canonical doc contract |
+| `TEMPLATE_CONTRACT.md` | Ownership map and canonical doc contract |
 | `docs/project-docs/PROJECT.md` | Active project identity and scope |
 | `docs/project-docs/ARCHITECTURE.md` | Active stack and architecture truth |
 | `docs/project-docs/TESTING.md` | Active verification truth |

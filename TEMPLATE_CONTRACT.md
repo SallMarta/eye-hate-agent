@@ -1,6 +1,6 @@
 # Project Documentation Contract
 
-Last updated: 2026-05-09
+Last updated: 2026-05-11
 
 ---
 
@@ -14,7 +14,7 @@ Its job is to keep three layers aligned:
 2. **Skills** stay procedural and reusable.
 3. **Project docs** hold the project-specific truth about stack, commands, architecture, testing, workflow, and scope.
 
-If a repository changes stacks, runtime models, or framework choices, the required adjustment should happen primarily in the project docs defined here — not by rewriting the core rules or skills.
+If a repository changes stacks, runtime models, or framework choices, the required adjustment should happen primarily in the owning project docs under `docs/project-docs/` rather than by rewriting the core rules or skills.
 
 ---
 
@@ -24,12 +24,12 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 
 - Rules enforce behavior, guardrails, and quality expectations.
 - Rules must **not** hardcode stack-specific commands or framework assumptions when that information belongs in project docs.
-- Rules should read the relevant files in `docs/project-docs/` directly.
+- Rules should read `TEMPLATE_CONTRACT.md` and the relevant files in `docs/project-docs/` directly.
 
 ### Skills
 
 - Skills define reusable procedures such as testing, analysis, API design, auditing, or documentation refresh.
-- Skills should begin by reading the relevant project docs before applying their generic procedure.
+- Skills should begin by reading `TEMPLATE_CONTRACT.md` and the relevant project docs before applying their generic procedure.
 - Skills may include examples, but examples must not become hidden project-specific requirements.
 
 ### Reusable prompts
@@ -46,7 +46,7 @@ Use two operating modes.
 
 | Mode | Typical request | Default path | Reusable prompts |
 | --- | --- | --- | --- |
-| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> contract and relevant project docs -> optional skill -> output | No |
+| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> `TEMPLATE_CONTRACT.md` and relevant project docs -> optional skill -> output | No |
 | Template or doc maintenance | bootstrap docs, refresh docs after a material change, audit consistency, or update template structure | maintenance request -> reusable prompt or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or consistency-audit is the task |
 
 ### Request Routing Examples
@@ -113,17 +113,19 @@ If multiple output-shape signals apply, use this precedence:
 
 ## Repository Taxonomy
 
-Use the repository in four categories.
+Use the repository in five categories.
 
 | Category | Primary paths | Role |
 | --- | --- | --- |
-| Platform instruction surfaces | `.github/instructions/`, `.claude/rules/` | Agent-platform specific entry points that enforce generic behavior and point back to project docs |
-| Active contract docs | `docs/project-docs/` | Canonical repository truth for scope, architecture, testing, workflow, and conventions |
-| Reusable template assets | `docs/vibes/` | Reusable prompts, skills, and adoption guidance that operate from the active contract |
+| Platform instruction surfaces | `.github/instructions/`, `.claude/rules/` | Agent-platform specific entry points that enforce generic behavior and point back to the contract and project docs |
+| Root contract anchors | `TEMPLATE_CONTRACT.md`, `TEMPLATE_MAINTENANCE.md` | Repository-level routing, governance, and template-maintainer anchors |
+| Active project docs | `docs/project-docs/` | Canonical project-specific truth for scope, architecture, testing, workflow, and conventions |
+| Reusable template assets | `docs/vibes/` | Reusable prompts, skills, and starter assets that operate from the active contract |
 | Reference or archive material | explicit non-contract paths such as `archive/`, `reference/`, or other clearly named folders | Historical or example material that may inform work but must not override active contract truth |
 
-Only `docs/project-docs/` is the active contract layer.
-Rules, skills, reusable prompts, and any archive material must defer to that layer when project-specific facts are needed.
+`TEMPLATE_CONTRACT.md` plus the owning docs under `docs/project-docs/` form the active contract layer.
+Project-specific facts still belong in `docs/project-docs/`.
+When present, `TEMPLATE_MAINTENANCE.md` remains template-repo-only governance and must not become the owner of adopted-repository facts.
 
 ---
 
@@ -131,6 +133,7 @@ Rules, skills, reusable prompts, and any archive material must defer to that lay
 
 | File | Required | Purpose |
 | --- | --- | --- |
+| `TEMPLATE_CONTRACT.md` | Yes | Root-level contract for routing, ownership, precedence, stable structures, and adoption rules |
 | `PROJECT.md` | Yes | Product or service intent, goals, scope, stakeholders, non-goals, success metrics |
 | `ARCHITECTURE.md` | Yes | Stack, runtime model, boundaries, integration patterns, dependency rules, core commands |
 | `TESTING.md` | Yes | Verification matrix, commands, quality gates, test layers, manual-check fallback |
@@ -138,7 +141,7 @@ Rules, skills, reusable prompts, and any archive material must defer to that lay
 | `QUICK_REFERENCE.md` | Yes | High-signal commands, paths, conventions, glossary, fast lookup |
 | `CHANGELOG.md` | Recommended | What changed, by release or milestone |
 | `GETTING_STARTED.md` | Recommended | Setup, local run, environment bootstrap |
-| `TEMPLATE_MAINTENANCE.md` | Optional for template repositories | Template governance, lifecycle, deprecation, and maintainer workflow |
+| `TEMPLATE_MAINTENANCE.md` | Optional for template repositories | Root-level template governance, lifecycle, deprecation, and maintainer workflow |
 | `FEATURE_INVENTORY.md` | Optional | Detailed feature catalog when product scope is large |
 | `PRD.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `PROJECT.md` remains summary-level |
 | `PRODUCTION_RUNBOOK.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
@@ -232,7 +235,8 @@ If a project uses different headings, keep a clear cross-reference at the top of
 
 ## Naming And Surface Rules
 
-- Keep the canonical project-doc filenames stable: `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, `QUICK_REFERENCE.md`, `TEMPLATE_CONTRACT.md`.
+- Keep the root contract filenames stable: `TEMPLATE_CONTRACT.md` and `TEMPLATE_MAINTENANCE.md`.
+- Keep the canonical project-doc filenames stable inside `docs/project-docs/`: `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, `QUICK_REFERENCE.md`.
 - Name reusable assets by job and scope, not by one adopted project's product name or stack.
 - Keep mirrored instruction files aligned by base name and meaning, even when platform-specific extensions or frontmatter fields differ.
 - Use numeric prefixes only when a surface is intentionally ordered as a small canonical sequence.
@@ -256,6 +260,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 
 | Type of information | Owning location |
 | --- | --- |
+| Contract routing, precedence, stable structures, and adoption rules | `TEMPLATE_CONTRACT.md` |
 | Product goals, scope, stakeholders | `PROJECT.md` |
 | Detailed requirements, flows, and acceptance criteria | `PRD.md` if present |
 | Stack and architecture decisions | `ARCHITECTURE.md` |
@@ -277,7 +282,7 @@ Do not duplicate the same rule across multiple files unless one file is explicit
 ### When writing or updating rules
 
 - Keep the rule generic.
-- Point the rule at the relevant project docs.
+- Point the rule at `TEMPLATE_CONTRACT.md` and the relevant project docs.
 - Preserve the normal-work versus template-maintenance distinction defined in the operating model.
 - If a rule defines a default live-response shape, keep it short and treat it as a baseline rather than a universal override.
 - Avoid embedding concrete stack-specific commands directly unless the repository has intentionally chosen to keep them in the rule.
@@ -315,18 +320,20 @@ These rules belong in the contract because downstream repositories may remove `T
 
 Notes:
 
-- Downstream repositories should still be able to follow these rules after `TEMPLATE_MAINTENANCE.md` is removed.
-- Template-repo-only workflow remains in `TEMPLATE_MAINTENANCE.md`.
+- Downstream repositories should still be able to follow these rules after root-level `TEMPLATE_MAINTENANCE.md` is removed.
+- Template-repo-only workflow remains in root-level `TEMPLATE_MAINTENANCE.md`.
 
 ---
 
 ## Adoption Checklist For New Repositories
 
 1. Copy the template into the repository.
-2. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` first.
-3. Add optional docs only when the project actually needs them.
-4. Review rules and skills only for template-level changes, not project-specific facts.
-5. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
+2. Keep root-level `TEMPLATE_CONTRACT.md`.
+3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under `docs/project-docs/` first.
+4. Remove root-level `TEMPLATE_MAINTENANCE.md` from the adopted repository.
+5. Add optional docs only when the project actually needs them.
+6. Review rules and skills only for template-level changes, not project-specific facts.
+7. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
 
 ---
 

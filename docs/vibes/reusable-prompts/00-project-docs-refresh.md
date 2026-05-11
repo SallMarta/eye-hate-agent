@@ -1,6 +1,6 @@
 # Project Docs Refresh Reusable Prompt
 
-Read `docs/project-docs/TEMPLATE_CONTRACT.md` first.
+Read `TEMPLATE_CONTRACT.md` first.
 
 Refresh the existing project documentation after a change in scope, stack, workflow, architecture, testing policy, or product behavior.
 
