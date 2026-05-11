@@ -1,12 +1,12 @@
 # Changelog — Eye Hate Agent
 
-All notable template changes are documented here.
+All notable changes to Eye Hate Agent are documented here.
 
 ---
 
 ## [Unreleased]
 
-No unreleased template changes yet.
+- `README.md` now closes the remaining sync gaps with the contract by adding Scenario 2 workspace-visibility guidance, listing recommended and optional downstream docs, and making the audit-before-refresh decision rule explicit for repos with meaningful code or contradictory docs.
 
 ---
 

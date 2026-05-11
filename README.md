@@ -94,6 +94,7 @@ Keep in the shared `eye-hate-agent` repo:
 - `docs/vibes/reusable-prompts/`
 - `docs/vibes/skills/`
 
+Keep the shared `eye-hate-agent` repo available in the same workspace or other agent-visible context.
 Use local rule mirrors only when an agent platform requires repo-local instruction loading.
 
 ### Scenario 3 — Centralized Portfolio-Doc Repo
@@ -135,6 +136,16 @@ Always keep these required owner docs in the target repo:
 - `STATUS.md`
 - `QUICK_REFERENCE.md`
 
+Recommended next docs for most target repos:
+
+- `CHANGELOG.md`
+- `GETTING_STARTED.md`
+
+Optional docs when they add durable value:
+
+- `PRD.md`
+- `PRODUCTION_RUNBOOK.md`
+
 ### Step 3 — Run The Relevant Starter Reusable Prompt
 
 | Better for | Start with | Repository state |
@@ -152,6 +163,8 @@ Use these reusable prompts for three jobs only:
 - bootstrap the first owner docs
 - refresh existing owner docs
 - audit ownership before refresh when the repo is mature or unclear
+
+If the target repo already has meaningful code, existing docs, or contradictory summaries, prefer consistency audit first, then refresh.
 
 If a mature target repo already has legacy docs, inventory them first and isolate or archive only the conflicting parts when needed.
 For example, keep the active owner docs clear instead of letting old and new docs both look authoritative.
