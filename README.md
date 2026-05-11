@@ -1,10 +1,10 @@
-> ---
-> # **Eye Hate Agent**
-> ###### authored by SuLyAdEe
-> --- 
+# Eye Hate Agent
+
+This repo template is authored by SuLyAdEe.
+
 ---
 
-# Purpose
+## Purpose
 
 Documentation repository for AI-agent-assisted project work.
 It provides generic agent rules, reusable skills and prompts, and a project-doc contract.
@@ -26,7 +26,13 @@ Use `TEMPLATE_MAINTENANCE.md` only when changing this template repository.
 
 ## How to Adopt This Template
 
-Choose the topology first, then choose the project category.
+Follow this order:
+
+1. choose the desirable topology
+2. choose the target project category
+3. run the relevant reusable prompt
+
+### Step 1 — Choose The Topology
 
 | Topology | Use when | Status |
 | --- | --- | --- |
@@ -109,15 +115,17 @@ workspace/
 ```
 
 This scenario is possible, but outside this contract.
-Use it only if you intentionally redesign ownership so one repo owns multiple repos project docs.
+Use it only if you intentionally redesign ownership so one repo owns multiple repos' project docs.
 
-### Choose The Project Category
+### Step 2 — Choose The Project Category
 
 | Project category | Scenario 1 | Scenario 2 |
 | --- | --- | --- |
 | New project | copy the local template surfaces, create local owner docs, then run bootstrap | keep local contract plus owner docs, keep reusable assets shared, then run bootstrap from the shared repo |
 | Running project | keep local owner docs and run refresh | keep local owner docs and run refresh from the shared repo |
 | Mature or unclear project | run consistency audit first, then refresh | run consistency audit from the shared repo against local owner docs, then refresh |
+
+Scenario 3 has no standard project-category flow because it is outside this contract.
 
 Always keep these required owner docs in the target repo:
 
@@ -127,20 +135,23 @@ Always keep these required owner docs in the target repo:
 - `STATUS.md`
 - `QUICK_REFERENCE.md`
 
-## Useful and Reusable Prompt
+### Step 3 — Run The Relevant Starter Reusable Prompt
 
-| Repository state | Start with | Why |
+| Better for | Start with | Repository state |
 | --- | --- | --- |
-| Empty or nearly empty repo with only a brief | `00-project-docs-bootstrap.md` | You need the first owner docs before normal work begins |
-| Existing repo where owner docs exist but are outdated | `00-project-docs-refresh.md` | The contract exists and needs owner-based updates |
-| Existing repo with contradictions, stale summaries, or unclear ownership | `00-project-docs-consistency-audit.md` | You need to classify drift before updating anything |
-| Mature repo with a strong pre-existing documentation system | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | Ownership mapping is the first problem |
+| New project | `00-project-docs-bootstrap.md` | empty or nearly empty repo with only a brief |
+| Running project | `00-project-docs-refresh.md` | existing repo where owner docs exist but are outdated |
+| Mature or unclear project | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear ownership |
+| Mature or unclear project | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
 
-Use these prompts for three jobs only:
+These are the starter reusable prompts for project-doc adoption.
+If more template prompts are added later, start here unless another prompt is clearly a better fit.
+
+Use these reusable prompts for three jobs only:
 
 - bootstrap the first owner docs
 - refresh existing owner docs
 - audit ownership before refresh when the repo is mature or unclear
 
-If you are going to use these reusable prompts on the mature repo that has its own documentations, please consider to rename its own documentations. 
-(e.g., `docs` to `docs-old`, to avoid confusion)
+If a mature target repo already has legacy docs, inventory them first and isolate or archive only the conflicting parts when needed.
+For example, keep the active owner docs clear instead of letting old and new docs both look authoritative.

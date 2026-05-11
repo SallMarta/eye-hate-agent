@@ -16,6 +16,10 @@ All notable template changes are documented here.
 
 ### Changed
 
+- `README.md` now makes the Step 3 prompt table map directly to the Step 2 project categories by moving `Better for` to the first column and treating repository state as supporting detail
+- `README.md` now frames Step 3 as the starter reusable-prompt layer, changes the prompt table wording from `Why` to `Better for`, and leaves room for future template prompts without changing the current starting points
+- `README.md` now presents adoption as one chained Step 1 / Step 2 / Step 3 flow, so topology choice, target project category, and reusable prompt selection read as one step-by-step process
+- `README.md` now explicitly says Scenario 3 has no standard project-category flow and now uses safer guidance for mature repos with legacy docs instead of telling adopters to rename documentation by default
 - `README.md` now removes low-value first-read sections, moves file navigation into `Purpose`, promotes `Main Files And Their Jobs`, and merges topology choice plus adoption flow into one shorter operator-oriented guide
 - `TEMPLATE_CONTRACT.md` now formally supports Scenario 2 as a shared-template-repo topology where reusable assets may stay centralized while each adopted repo still keeps its own contract and local `docs/project-docs/`
 - `README.md` now documents the three topology shapes with shorter operator-oriented wording and simple ASCII tree diagrams, while keeping Scenario 3 explicitly outside the current contract
