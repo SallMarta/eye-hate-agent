@@ -16,6 +16,7 @@ All notable template changes are documented here.
 
 ### Changed
 
+- `README.md` now removes low-value first-read sections, moves file navigation into `Purpose`, promotes `Main Files And Their Jobs`, and merges topology choice plus adoption flow into one shorter operator-oriented guide
 - `TEMPLATE_CONTRACT.md` now formally supports Scenario 2 as a shared-template-repo topology where reusable assets may stay centralized while each adopted repo still keeps its own contract and local `docs/project-docs/`
 - `README.md` now documents the three topology shapes with shorter operator-oriented wording and simple ASCII tree diagrams, while keeping Scenario 3 explicitly outside the current contract
 - `README.md` now uses a tighter repository-map plus adoption-workflow structure so humans and agents can find the template surfaces, adoption rules, and starting paths with less repeated guidance
