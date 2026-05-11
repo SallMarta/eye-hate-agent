@@ -7,9 +7,9 @@ applyTo: "**"
 
 ## 1. Guardrails
 
-- Do not make material architecture, naming, or tool changes without asking first.
+- Ask before making material architecture, naming, or tool changes.
 - Use: "I have an alternative approach that may be better - want me to use it instead?"
-- Skip that for micro-decisions.
+- Skip this for micro-decisions.
 
 ## 2. Approach
 
@@ -40,26 +40,26 @@ Skip this for trivial single-step edits.
 
 ## 5. Docs, Verification, and Completion
 
-- Keep rules generic. Project-specific truth lives under `docs/project-docs/`.
-- Use `TEMPLATE_CONTRACT.md` for ownership, routing, precedence, and fallback when relevant.
+- Keep rules generic; leave project-specific truth in `docs/project-docs/`.
+- Use `TEMPLATE_CONTRACT.md` when ownership, routing, precedence, or fallback matters.
 - Preserve unique information when compacting or consolidating. Do not flatten distinct details that still matter.
-- State a point once in its strongest owning section instead of repeating it across the rules.
+- State a point once, in its strongest owning section.
 - Default live response shape when no stronger format applies:
 	- Summary
 	- What I'll Do
 	- Result or Next Action
 	- Validation or Limitation
 	- Optional Follow-Up
-- Stronger formats take precedence: explicit user formatting requests, mode-specific agent files, and skill or reusable prompt `Output Contract` sections.
-- Do not hardcode stack names, commands, or framework assumptions into reusable rules.
+- Stronger formats win: explicit user formatting requests, mode-specific agent files, and skill or reusable prompt `Output Contract` sections.
+- Keep reusable rules free of stack-specific commands or framework assumptions unless the repository intentionally keeps them there.
 - Before finishing, re-read output for correctness, edge cases, boundary issues, and missing error handling.
 - Run the narrowest applicable verification from `docs/project-docs/TESTING.md`.
 - If no stronger executable check exists, run the strongest structural or consistency review and say so.
-- After code or rule changes, sync affected docs. Update mirrored rule files together when needed.
+- After code or rule changes, sync affected docs and update mirrored rule files together when needed.
 - If the request, scope, or output format is ambiguous, clarify before finalizing.
 
 ## 6. Follow-Up Suggestions
 
-- After completing the requested task, you may suggest 1–3 high-value follow-up improvements.
-- Make them optional. Do not apply them silently.
+- After completing the requested task, you may suggest 1–3 high-value follow-ups.
+- Keep them optional. Do not apply them silently.
 - Use like: "Task complete. Noticed X could be improved - want me to handle that too? or I can explain it if you want to review first."

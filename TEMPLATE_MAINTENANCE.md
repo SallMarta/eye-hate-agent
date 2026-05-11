@@ -86,7 +86,8 @@ For a breaking change:
 
 1. Classify the change before editing.
 2. Use `TEMPLATE_CONTRACT.md` for extension rules that must survive adoption.
-3. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
-4. Update mirrors, summaries, skills, reusable prompts, and downstream copies that quote or depend on the changed owner.
-5. Run the maintenance audit sequence.
-6. Record maintainer-facing changes in `CHANGELOG.md`.
+3. Do not remove the roughly 65% context-compaction exception from the mirrored rule files unless the contract is intentionally updated in the same change.
+4. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
+5. Update mirrors, summaries, skills, reusable prompts, and downstream copies that quote or depend on the changed owner.
+6. Run the maintenance audit sequence.
+7. Record maintainer-facing changes in `CHANGELOG.md`.
