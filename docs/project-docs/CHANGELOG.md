@@ -1,4 +1,4 @@
-# Changelog — Template Repository
+# Changelog — Eye Hate Agent
 
 All notable template changes are documented here.
 
@@ -10,31 +10,43 @@ No unreleased template changes yet.
 
 ---
 
-## [1.0.0] - 2026-05-11
+## [1.0.4] - 2026-05-11
 
-### Added
+- Added root-level template governance through `TEMPLATE_MAINTENANCE.md`.
+- Moved the contract anchors to the repository root and retargeted live references.
+- Formalized Scenario 2 support in `TEMPLATE_CONTRACT.md` while keeping Scenario 3 outside the contract.
+- Turned `README.md` into the main operator guide with a chained adoption flow: topology, target project category, and starter reusable prompt.
+- Removed standalone adoption-guide surfaces that are now absorbed into the root `README.md`.
 
-- canonical project-documentation contract in `TEMPLATE_CONTRACT.md`
-- template maintenance governance doc in `TEMPLATE_MAINTENANCE.md`
-- template-level testing and verification baseline in `TESTING.md`
-- reusable prompts for project-doc bootstrap, refresh, and consistency audit
-- reusable skills that begin from project-doc inputs
-- static starter scaffold under `docs/vibes/project-docs-template/`, including optional `GETTING_STARTED.md` and `CHANGELOG.md` starter docs
+---
 
-### Changed
+## [1.0.3] - 2026-05-10
 
-- `README.md` is now the main operator entry point and adoption guide for humans and agents
-- adoption now reads as a chained Step 1 / Step 2 / Step 3 flow: choose topology, choose target project category, then run the relevant starter reusable prompt
-- `TEMPLATE_CONTRACT.md` now formally supports Scenario 2 as a shared-template-repo topology while keeping Scenario 3 explicitly outside the contract
-- `TEMPLATE_CONTRACT.md` and `TEMPLATE_MAINTENANCE.md` moved to the repository root as a breaking template migration, and live references were retargeted accordingly
-- human-facing adoption guidance was consolidated into the root `README.md`, replacing removed guide surfaces and duplicate first-read material
-- mirrored rule files are now leaner, keep only durable agent behavior, and defer canonical routing, precedence, and documentation structure to `TEMPLATE_CONTRACT.md`
-- the template repository now documents itself rather than a sample product, and template-owned wording now avoids unnecessary stack or product examples
-- verification returned to a document-first, human-reviewed model with explicit maintenance-audit guidance in `TESTING.md`
-- starter-pack and adopter guidance now clearly separate active template docs from downstream starter docs, and reusable optional docs such as `PRD.md` and `PRODUCTION_RUNBOOK.md` are now recognized in the contract
+- Simplified the mirrored rule files and clarified response-shape precedence through `TEMPLATE_CONTRACT.md`.
+- Shifted template verification back to a document-first, human-reviewed maintenance flow.
+- Removed outdated sample-oriented docs from the active template tree.
 
-### Removed
+---
 
-- embedded sample products and sample-specific project docs from the active template tree
-- historical example snapshots that were not part of the reusable template surface
-- standalone adoption-guide and reusable-prompt README surfaces that are now absorbed into the root `README.md`
+## [1.0.2] - 2026-05-09
+
+- Refined contract, testing, quick-reference, and maintenance docs for clearer ownership and consistency.
+- Updated `README.md` and mirrored rules to better match the template workflow and terminology.
+
+---
+
+## [1.0.1] - 2026-05-08
+
+- Added the root `README.md` as the first human-facing adoption guide.
+- Added optional starter docs for `PRD.md` and `PRODUCTION_RUNBOOK.md`.
+- Clarified keep, replace, and remove rules for copying the template into target repositories.
+- Tightened starter-pack and reusable-prompt guidance for downstream doc management.
+
+---
+
+## [1.0.0] - 2026-05-07
+
+- Initial release of the template foundation with project-doc owner files, mirrored agent rules, reusable prompts, and reusable skills.
+- Added the first downstream adoption guide and the starter scaffold under `docs/vibes/project-docs-template/`.
+- Added starter `GETTING_STARTED.md` and `CHANGELOG.md` for the scaffold.
+- Elevated reusable prompts as a first-class template surface and standardized skill documentation for clearer guidance.
