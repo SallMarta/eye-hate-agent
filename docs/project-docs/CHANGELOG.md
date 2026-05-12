@@ -6,6 +6,13 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
+- No unreleased changes yet.
+
+---
+
+## [2.1.0] - 2026-05-12
+
+- Refreshed `README.md` with a table of contents, a clearer file index, and more explicit registry-driven extension entry points.
 - Added explicit maintainer-facing anchors for where to register new optional regular doc types and guideline types.
 - Added a registry-driven extension model for optional regular docs and guideline types.
 - Added a starter `docs/vibes/project-docs-template/INDEX.md` registry and retuned reusable prompts to treat registries as inventory sources of truth.
