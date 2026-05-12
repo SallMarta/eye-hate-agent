@@ -18,7 +18,7 @@ Read the relevant docs before proposing or writing tests.
 
 | Document | Why it matters |
 | --- | --- |
-| `TEMPLATE_CONTRACT.md` | Tells you which docs are required and where project-specific truth should live |
+| `docs/eyehateagent-contract.md` | Tells you which docs are required and where project-specific truth should live |
 | `docs/project-docs/TESTING.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
 | `docs/project-docs/ARCHITECTURE.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
 | `docs/project-docs/QUICK_REFERENCE.md` | Fast lookup for commands, paths, conventions, and common patterns |
@@ -136,7 +136,7 @@ Separate:
 | Interface, handler, adapter, or contract boundary | Contract or integration test | `TESTING.md`, API / integration docs |
 | Interactive or end-user-visible flow | UI or end-to-end test | `TESTING.md`, app-flow / UI docs |
 | Asynchronous, scheduled, staged, or event-driven processing | Integration or component test | `TESTING.md`, `ARCHITECTURE.md`, workflow docs |
-| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `TEMPLATE_CONTRACT.md`, `TESTING.md` |
+| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `docs/eyehateagent-contract.md`, `TESTING.md` |
 
 ---
 

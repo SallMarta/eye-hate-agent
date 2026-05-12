@@ -6,15 +6,24 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
-- `README.md` now closes the remaining sync gaps with the contract by adding Scenario 2 workspace-visibility guidance, listing recommended and optional downstream docs, and making the audit-before-refresh decision rule explicit for repos with meaningful code or contradictory docs.
+- No unreleased changes yet.
+
+---
+
+## [2.0.0] - 2026-05-12
+
+- Moved the canonical template anchors under `docs/` as `docs/eyehateagent-contract.md` and `docs/eyehateagent-maintenance.md`.
+- Retargeted the mirrored rules, reusable prompts, skills, and changelog references to the new docs-anchor paths.
+- Added a repository index to `README.md` and refreshed the adoption examples to show the new contract layout.
+- Refined the contract and maintenance wording to match the new docs-anchor model while preserving the 65% context-compaction exception.
 
 ---
 
 ## [1.0.4] - 2026-05-11
 
-- Added root-level template governance through `TEMPLATE_MAINTENANCE.md`.
+- Added template governance through `docs/eyehateagent-maintenance.md`.
 - Moved the contract anchors to the repository root and retargeted live references.
-- Formalized Scenario 2 support in `TEMPLATE_CONTRACT.md` while keeping Scenario 3 outside the contract.
+- Formalized Scenario 2 support in `docs/eyehateagent-contract.md` while keeping Scenario 3 outside the contract.
 - Turned `README.md` into the main operator guide with a chained adoption flow: topology, target project category, and starter reusable prompt.
 - Removed standalone adoption-guide surfaces that are now absorbed into the root `README.md`.
 
@@ -22,7 +31,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.0.3] - 2026-05-10
 
-- Simplified the mirrored rule files and clarified response-shape precedence through `TEMPLATE_CONTRACT.md`.
+- Simplified the mirrored rule files and clarified response-shape precedence through `docs/eyehateagent-contract.md`.
 - Shifted template verification back to a document-first, human-reviewed maintenance flow.
 - Removed outdated sample-oriented docs from the active template tree.
 

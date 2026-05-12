@@ -16,7 +16,7 @@ This skill is reusable across product, backend, frontend, infrastructure, monore
 
 | Document | Why it matters |
 | --- | --- |
-| `TEMPLATE_CONTRACT.md` | Defines which project docs should hold the relevant truth |
+| `docs/eyehateagent-contract.md` | Defines which project docs should hold the relevant truth |
 | `docs/project-docs/PROJECT.md` | Clarifies goals, scope, stakeholders, and success metrics |
 | `docs/project-docs/ARCHITECTURE.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
 | `docs/project-docs/STATUS.md` | Reveals maturity, roadmap, active workstreams, and known blockers |

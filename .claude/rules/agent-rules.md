@@ -40,7 +40,7 @@ Skip this for trivial single-step edits.
 ## 5. Docs, Verification, and Completion
 
 - Keep rules generic; leave project-specific truth in `docs/project-docs/`.
-- Use `TEMPLATE_CONTRACT.md` when ownership, routing, precedence, or fallback matters.
+- Use `docs/eyehateagent-contract.md` when ownership, routing, precedence, or fallback matters.
 - Preserve unique information when compacting or consolidating. Do not flatten distinct details that still matter.
 - State a point once, in its strongest owning section.
 - Default live response shape when no stronger format applies:

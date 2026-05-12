@@ -10,19 +10,30 @@ Documentation repository for AI-agent-assisted project work.
 It provides generic agent rules, reusable skills and prompts, and a project-doc contract.
 This repository is documentation template-only. It is not a sample application.
 Use this README first.
-Use `TEMPLATE_CONTRACT.md` for canonical rules and precedence.
-Use `TEMPLATE_MAINTENANCE.md` only when changing this template repository.
+Use `docs/eyehateagent-contract.md` for canonical rules and precedence.
+Use `docs/eyehateagent-maintenance.md` only when changing this template repository.
 
 ## Main Files
 
 | File | Main job |
 | --- | --- |
 | `README.md` | main human guide and adoption entry point |
-| `TEMPLATE_CONTRACT.md` | canonical system rules, ownership, and precedence |
-| `TEMPLATE_MAINTENANCE.md` | template-maintainer workflow for this repo |
+| `docs/eyehateagent-contract.md` | canonical system rules, ownership, and precedence |
+| `docs/eyehateagent-maintenance.md` | template-maintainer workflow for this repo |
 | `docs/vibes/project-docs-template/` | optional starter docs scaffold |
 | `docs/vibes/skills/` | reusable procedures for deeper analysis, test authoring, auditing, and design |
 | `docs/vibes/reusable-prompts/00-project-docs-*.md` | reusable maintenance workflows |
+
+## Repository Index
+
+| Area | Path | Role |
+| --- | --- | --- |
+| Contract anchor | `docs/eyehateagent-contract.md` | canonical routing, ownership, precedence, and adoption rules |
+| Maintenance anchor | `docs/eyehateagent-maintenance.md` | template-repo-only governance and maintainer workflow |
+| Mirrored rules | `.github/instructions/`, `.claude/rules/` | platform-specific instruction entry points |
+| Project docs | `docs/project-docs/` | canonical project-specific truth |
+| Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and consistency-audit workflows |
+| Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
 
 ## How to Adopt This Template
 
@@ -44,10 +55,10 @@ Follow this order:
 
 ```text
 target-repo/
-├── TEMPLATE_CONTRACT.md
 ├── .github/instructions/
 ├── .claude/rules/
 └── docs/
+    ├── eyehateagent-contract.md
     ├── project-docs/
     └── vibes/
         ├── reusable-prompts/
@@ -56,14 +67,14 @@ target-repo/
 
 Keep in the target repo:
 
-- `TEMPLATE_CONTRACT.md`
+- `docs/eyehateagent-contract.md`
 - `.github/instructions/`
 - `.claude/rules/`
 - `docs/project-docs/`
 - `docs/vibes/reusable-prompts/`
 - `docs/vibes/skills/`
 
-Remove `TEMPLATE_MAINTENANCE.md` after setup unless the target is also a template repo.
+Remove `docs/eyehateagent-maintenance.md` after setup unless the target is also a template repo.
 
 ### Scenario 2 — Shared Template Repo, Local Project Docs
 
@@ -73,18 +84,20 @@ workspace/
 │   ├── .github/instructions/
 │   ├── .claude/rules/
 │   └── docs/
+│       ├── eyehateagent-contract.md
+│       ├── eyehateagent-maintenance.md
 │       └── vibes/
 │           ├── reusable-prompts/
 │           └── skills/
 └── target-repo/
-    ├── TEMPLATE_CONTRACT.md
     └── docs/
+        ├── eyehateagent-contract.md
         └── project-docs/
 ```
 
 Keep in the target repo:
 
-- `TEMPLATE_CONTRACT.md`
+- `docs/eyehateagent-contract.md`
 - `docs/project-docs/`
 
 Keep in the shared `eye-hate-agent` repo:
@@ -102,10 +115,11 @@ Use local rule mirrors only when an agent platform requires repo-local instructi
 ```text
 workspace/
 ├── eye-hate-agent/
-│   ├── TEMPLATE_CONTRACT.md
 │   ├── .github/instructions/
 │   ├── .claude/rules/
 │   └── docs/
+│       ├── eyehateagent-contract.md
+│       ├── eyehateagent-maintenance.md
 │       └── vibes/
 │           ├── reusable-prompts/
 │           └── skills/

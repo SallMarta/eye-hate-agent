@@ -16,7 +16,7 @@ This skill is the reusable complement to the consistency-audit reusable prompt. 
 
 | Document | Why it matters |
 | --- | --- |
-| `TEMPLATE_CONTRACT.md` | Ownership map and canonical doc contract |
+| `docs/eyehateagent-contract.md` | Ownership map and canonical doc contract |
 | `docs/project-docs/PROJECT.md` | Active project identity and scope |
 | `docs/project-docs/ARCHITECTURE.md` | Active stack and architecture truth |
 | `docs/project-docs/TESTING.md` | Active verification truth |
@@ -56,7 +56,7 @@ Check for disagreement across:
 
 ### Step 1 — Establish the source of truth
 
-Use the project docs defined by `TEMPLATE_CONTRACT.md` as the default source of truth unless the repository explicitly states otherwise.
+Use the project docs defined by `docs/eyehateagent-contract.md` as the default source of truth unless the repository explicitly states otherwise.
 
 ### Step 2 — Compare dependent layers
 

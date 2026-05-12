@@ -21,12 +21,12 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 - Rules enforce behavior, guardrails, and quality expectations.
 - Rules must **not** hardcode stack-specific commands or framework assumptions when that information belongs in project docs.
 - This repository intentionally keeps the context-compaction trigger of roughly 65% in the mirrored rule files as an agent-operating threshold. Treat it as a deliberate exception to the general preference for principle-based reusable rules.
-- Rules should read `TEMPLATE_CONTRACT.md` and the relevant files in `docs/project-docs/` directly.
+- Rules should read `docs/eyehateagent-contract.md` and the relevant files in `docs/project-docs/` directly.
 
 ### Skills
 
 - Skills define reusable procedures such as testing, analysis, API design, auditing, or documentation refresh.
-- Skills should begin by reading `TEMPLATE_CONTRACT.md` and the relevant project docs before applying their generic procedure.
+- Skills should begin by reading `docs/eyehateagent-contract.md` and the relevant project docs before applying their generic procedure.
 - Skills may include examples, but examples must not become hidden project-specific requirements.
 
 ### Reusable prompts
@@ -43,18 +43,18 @@ Use two operating modes.
 
 | Mode | Typical request | Default path | Reusable prompts |
 | --- | --- | --- | --- |
-| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> `TEMPLATE_CONTRACT.md` and relevant project docs -> optional skill -> output | No |
+| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> `docs/eyehateagent-contract.md` and relevant project docs -> optional skill -> output | No |
 | Template or doc maintenance | bootstrap docs, refresh docs after a material change, audit consistency, or update template structure | maintenance request -> reusable prompt or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or consistency-audit is the task |
 
 ### Request Routing Examples
 
 | User request | Mode | Read first | Skill | Expected output |
 | --- | --- | --- | --- | --- |
-| "create evaluation feature api" | Normal work | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
-| "test evaluation feature api" | Normal work | `TEMPLATE_CONTRACT.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Tests, verification plan, or test update |
-| "analyze why evaluation api is flaky" | Normal work | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
-| "refresh docs after architecture change" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
-| "audit reusable prompt and skill drift" | Template or doc maintenance | `TEMPLATE_CONTRACT.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
+| "create evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
+| "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Tests, verification plan, or test update |
+| "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
+| "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
+| "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
 
 ### Skill Invocation Rule
 
@@ -115,14 +115,14 @@ Use the repository in five categories.
 | Category | Primary paths | Role |
 | --- | --- | --- |
 | Platform instruction surfaces | `.github/instructions/`, `.claude/rules/` | Agent-platform specific entry points that enforce generic behavior and point back to the contract and project docs |
-| Root contract anchors | `TEMPLATE_CONTRACT.md`, `TEMPLATE_MAINTENANCE.md` | Repository-level routing, governance, and template-maintainer anchors |
+| Docs anchors | `docs/eyehateagent-contract.md`, `docs/eyehateagent-maintenance.md` | Documentation-level routing, governance, and template-maintainer anchors |
 | Active project docs | `docs/project-docs/` | Canonical project-specific truth for scope, architecture, testing, workflow, and conventions |
 | Reusable template assets | `docs/vibes/` | Reusable prompts, skills, and starter assets that operate from the active contract |
 | Reference or archive material | explicit non-contract paths such as `archive/`, `reference/`, or other clearly named folders | Historical or example material that may inform work but must not override active contract truth |
 
-`TEMPLATE_CONTRACT.md` plus the owning docs under `docs/project-docs/` form the active contract layer.
+`docs/eyehateagent-contract.md` plus the owning docs under `docs/project-docs/` form the active contract layer.
 Project-specific facts still belong in `docs/project-docs/`.
-When present, `TEMPLATE_MAINTENANCE.md` remains template-repo-only governance and must not become the owner of adopted-repository facts.
+When present, `docs/eyehateagent-maintenance.md` remains template-repo-only governance and must not become the owner of adopted-repository facts.
 
 ---
 
@@ -138,9 +138,9 @@ This contract formally supports two adoption topologies.
 
 Rules that stay true in both supported topologies:
 
-- each adopted repo keeps its own root `TEMPLATE_CONTRACT.md`
+- each adopted repo keeps its own `docs/eyehateagent-contract.md`
 - each adopted repo keeps its own local `docs/project-docs/` as the owner of repo-specific truth
-- `TEMPLATE_MAINTENANCE.md` remains template-repo-only governance
+- `docs/eyehateagent-maintenance.md` remains template-repo-only governance
 - reusable prompts, reusable skills, and starter assets may be local in each repo or centralized in one shared template repo
 - platform instruction surfaces may be centralized only when the agent platform can reliably consume them there; otherwise keep local mirrors that point back to the same contract
 
@@ -152,7 +152,7 @@ Scenario 3 is intentionally outside this contract because it changes the ownersh
 
 | File | Required | Purpose |
 | --- | --- | --- |
-| `TEMPLATE_CONTRACT.md` | Yes | Root-level contract for routing, ownership, precedence, stable structures, and adoption rules |
+| `docs/eyehateagent-contract.md` | Yes | Docs anchor for routing, ownership, precedence, stable structures, and adoption rules |
 | `PROJECT.md` | Yes | Product or service intent, goals, scope, stakeholders, non-goals, success metrics |
 | `ARCHITECTURE.md` | Yes | Stack, runtime model, boundaries, integration patterns, dependency rules, core commands |
 | `TESTING.md` | Yes | Verification matrix, commands, quality gates, test layers, manual-check fallback |
@@ -160,7 +160,7 @@ Scenario 3 is intentionally outside this contract because it changes the ownersh
 | `QUICK_REFERENCE.md` | Yes | High-signal commands, paths, conventions, glossary, fast lookup |
 | `CHANGELOG.md` | Recommended | What changed, by release or milestone |
 | `GETTING_STARTED.md` | Recommended | Setup, local run, environment bootstrap |
-| `TEMPLATE_MAINTENANCE.md` | Optional for template repositories | Root-level template governance, lifecycle, deprecation, and maintainer workflow |
+| `docs/eyehateagent-maintenance.md` | Optional for template repositories | Template-repo-only governance, lifecycle, deprecation, and maintainer workflow |
 | `FEATURE_INVENTORY.md` | Optional | Detailed feature catalog when product scope is large |
 | `PRD.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `PROJECT.md` remains summary-level |
 | `PRODUCTION_RUNBOOK.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
@@ -238,7 +238,7 @@ These headings should remain stable across projects whenever the file exists.
 - `## Rollback / Recovery`
 - `## Operational Notes` or `## Troubleshooting`
 
-### `TEMPLATE_MAINTENANCE.md` (if present)
+### `docs/eyehateagent-maintenance.md` (if present)
 
 - `## Summary`
 - `## Scope`
@@ -254,7 +254,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 
 ## Naming And Surface Rules
 
-- Keep the root contract filenames stable: `TEMPLATE_CONTRACT.md` and `TEMPLATE_MAINTENANCE.md`.
+- Keep the anchor filenames stable inside `docs/`: `eyehateagent-contract.md` and `eyehateagent-maintenance.md`.
 - Keep the canonical project-doc filenames stable inside `docs/project-docs/`: `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, `QUICK_REFERENCE.md`.
 - Name reusable assets by job and scope, not by one adopted project's product name or stack.
 - Keep mirrored instruction files aligned by base name and meaning, even when platform-specific extensions or frontmatter fields differ.
@@ -279,7 +279,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 
 | Type of information | Owning location |
 | --- | --- |
-| Contract routing, precedence, stable structures, and adoption rules | `TEMPLATE_CONTRACT.md` |
+| Contract routing, precedence, stable structures, and adoption rules | `docs/eyehateagent-contract.md` |
 | Product goals, scope, stakeholders | `PROJECT.md` |
 | Detailed requirements, flows, and acceptance criteria | `PRD.md` if present |
 | Stack and architecture decisions | `ARCHITECTURE.md` |
@@ -287,7 +287,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Verification commands and quality gates | `TESTING.md` |
 | Execution plan and progress | `STATUS.md` and `phases/` |
 | Fast command lookup and conventions | `QUICK_REFERENCE.md` |
-| Template governance, lifecycle, and deprecation | `TEMPLATE_MAINTENANCE.md` if present |
+| Template governance, lifecycle, and deprecation | `docs/eyehateagent-maintenance.md` if present |
 | Domain-specific rules | `guidelines/*` |
 | Reusable prompt behavior | `docs/vibes/reusable-prompts/` in the adopted repo or in the shared template repo chosen by the topology |
 | Skill procedure behavior | `docs/vibes/skills/` in the adopted repo or in the shared template repo chosen by the topology |
@@ -302,7 +302,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 ### When writing or updating rules
 
 - Keep the rule generic.
-- Point the rule at `TEMPLATE_CONTRACT.md` and the relevant project docs.
+- Point the rule at `docs/eyehateagent-contract.md` and the relevant project docs.
 - Preserve the normal-work versus template-maintenance distinction defined in the operating model.
 - If a rule defines a default live-response shape, keep it short and treat it as a baseline rather than a universal override.
 - Avoid embedding concrete stack-specific commands directly unless the repository has intentionally chosen to keep them in the rule.
@@ -329,19 +329,19 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 
 ## Extension Rules That Must Survive Adoption
 
-These rules belong in the contract because downstream repositories may remove `TEMPLATE_MAINTENANCE.md`.
+These rules belong in the contract because downstream repositories may remove `docs/eyehateagent-maintenance.md`.
 
 | If you are adding or changing... | Update first | Usually also update | Core rule |
 | --- | --- | --- | --- |
-| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `TEMPLATE_CONTRACT.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural and start from project docs |
-| a rule or instruction point | the mirrored rule files in the owning template surface | `TEMPLATE_CONTRACT.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
-| a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `TEMPLATE_CONTRACT.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
-| the contract itself | `TEMPLATE_CONTRACT.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `CHANGELOG.md` | contract changes are highest-impact and should be treated as template-level changes |
+| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `docs/eyehateagent-contract.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural and start from project docs |
+| a rule or instruction point | the mirrored rule files in the owning template surface | `docs/eyehateagent-contract.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
+| a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `docs/eyehateagent-contract.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
+| the contract itself | `docs/eyehateagent-contract.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `CHANGELOG.md` | contract changes are highest-impact and should be treated as template-level changes |
 
 Notes:
 
-- Downstream repositories should still be able to follow these rules after root-level `TEMPLATE_MAINTENANCE.md` is removed.
-- Template-repo-only workflow remains in root-level `TEMPLATE_MAINTENANCE.md`.
+- Downstream repositories should still be able to follow these rules after `docs/eyehateagent-maintenance.md` is removed.
+- Template-repo-only workflow remains in `docs/eyehateagent-maintenance.md`.
 - In Scenario 2, the shared template repo is the owner of reusable assets, but not of adopted-repository project facts.
 
 ---
@@ -351,9 +351,9 @@ Notes:
 ### Scenario 1 — Distributed Self-Contained Repos
 
 1. Copy the template into the adopted repository.
-2. Keep root-level `TEMPLATE_CONTRACT.md`.
+2. Keep `docs/eyehateagent-contract.md`.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under `docs/project-docs/` first.
-4. Remove root-level `TEMPLATE_MAINTENANCE.md` from the adopted repository.
+4. Remove `docs/eyehateagent-maintenance.md` from the adopted repository.
 5. Add optional docs only when the project actually needs them.
 6. Review rules and skills only for template-level changes, not project-specific facts.
 7. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
@@ -361,11 +361,11 @@ Notes:
 ### Scenario 2 — Shared Template Repo With Local Project Docs
 
 1. Keep the shared template repo available in the same workspace or other agent-visible context.
-2. Copy root-level `TEMPLATE_CONTRACT.md` into each adopted repository.
+2. Copy `docs/eyehateagent-contract.md` into each adopted repository.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under each adopted repo's local `docs/project-docs/` path.
 4. Keep reusable prompts, reusable skills, and starter assets in the shared template repo unless a local copy is intentionally needed.
 5. Keep local instruction mirrors only when an agent platform requires repo-local instruction loading.
-6. Remove root-level `TEMPLATE_MAINTENANCE.md` from adopted repositories.
+6. Remove `docs/eyehateagent-maintenance.md` from adopted repositories.
 7. Do not move adopted-repository project facts into the shared template repo.
 8. Run reusable prompts against the adopted repo's local owner docs, not against centralized portfolio summaries.
 

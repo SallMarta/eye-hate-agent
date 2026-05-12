@@ -1,6 +1,6 @@
 # Project Docs Consistency Audit Reusable Prompt
 
-Read `TEMPLATE_CONTRACT.md` first.
+Read `docs/eyehateagent-contract.md` first.
 
 Audit the repository for **documentation-system drift**.
 
@@ -31,7 +31,7 @@ Check at least these areas when present:
 ## Required Behavior
 
 1. Use project docs as the primary source of truth unless the repository explicitly states otherwise.
-2. Treat `TEMPLATE_CONTRACT.md` as the ownership map.
+2. Treat `docs/eyehateagent-contract.md` as the ownership map.
 3. Distinguish between:
    - true contradiction
    - stale summary

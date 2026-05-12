@@ -25,7 +25,7 @@ It should **not** assume one language, framework, transport, or architecture sty
 
 | Document | Why it matters |
 | --- | --- |
-| `TEMPLATE_CONTRACT.md` | Defines where project-specific truth should live |
+| `docs/eyehateagent-contract.md` | Defines where project-specific truth should live |
 | `docs/project-docs/ARCHITECTURE.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
 | `docs/project-docs/PROJECT.md` | Clarifies scope, constraints, stakeholders, and non-goals |
 | `docs/project-docs/QUICK_REFERENCE.md` | Provides fast lookup for conventions, commands, and naming patterns |

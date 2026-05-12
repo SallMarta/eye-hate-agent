@@ -1,6 +1,6 @@
 # Project Docs Bootstrap Reusable Prompt
 
-Read `TEMPLATE_CONTRACT.md` first.
+Read `docs/eyehateagent-contract.md` first.
 
 Generate the **initial project documentation set** for a new repository using the project brief and constraints provided below.
 
@@ -12,7 +12,7 @@ This reusable prompt assumes you are starting from a project brief or equivalent
 
 ## Required Behavior
 
-1. Follow the required and recommended files defined in `TEMPLATE_CONTRACT.md`.
+1. Follow the required and recommended files defined in `docs/eyehateagent-contract.md`.
 2. Create project-specific truth in `docs/project-docs/`, not in the reusable prompt output itself.
 3. Use stable headings wherever the contract defines them.
 4. Mark uncertain facts as `TBD`, `Assumption`, or `Open Question` instead of inventing details.

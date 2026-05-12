@@ -1,6 +1,6 @@
 # Project Docs Refresh Reusable Prompt
 
-Read `TEMPLATE_CONTRACT.md` first.
+Read `docs/eyehateagent-contract.md` first.
 
 Refresh the existing project documentation after a change in scope, stack, workflow, architecture, testing policy, or product behavior.
 
@@ -11,7 +11,7 @@ Update **only the docs that own the changed information** while keeping the docu
 ## Required Behavior
 
 1. Read the current project docs before editing anything.
-2. Use `TEMPLATE_CONTRACT.md` to identify which files own the changed information.
+2. Use `docs/eyehateagent-contract.md` to identify which files own the changed information.
 3. Update only the affected docs and any documents that summarize them.
 4. Preserve stable headings wherever possible.
 5. Avoid rewriting unrelated sections.
@@ -49,7 +49,7 @@ Your result should state:
 
 Before finishing, check that:
 
-1. the updated docs still match the contract in `TEMPLATE_CONTRACT.md`
+1. the updated docs still match the contract in `docs/eyehateagent-contract.md`
 2. rules and skills would now read the correct project-specific truth
 3. no stale summary remains in `QUICK_REFERENCE.md`, `STATUS.md`, or other index docs
 
