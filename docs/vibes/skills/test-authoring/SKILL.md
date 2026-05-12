@@ -185,6 +185,15 @@ When using this skill, the output should include:
 
 ---
 
+## Natural Prompt Shapes
+
+- "What is the right way to verify this change?"
+- "Which tests should we add for this API or bug fix?"
+- "Use the correct testing approach for this stack and tell me what to run."
+- "Do we actually need new tests here, and if so at what boundary?"
+
+---
+
 ## Example Requests
 
 - "Choose the right verification for this repository-layer change"

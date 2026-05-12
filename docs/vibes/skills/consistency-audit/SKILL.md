@@ -133,6 +133,15 @@ End with:
 
 ---
 
+## Natural Prompt Shapes
+
+- "Check whether the docs and repository still agree."
+- "Audit this repo for drift after the latest changes."
+- "Find contradictions across docs, rules, skills, and prompts."
+- "Tell me which mismatches are real blockers versus harmless leftovers."
+
+---
+
 ## Example Requests
 
 - "Audit the repository for contradictions after the latest template changes"

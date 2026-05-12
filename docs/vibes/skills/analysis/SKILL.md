@@ -157,6 +157,15 @@ Your output should include:
 
 ---
 
+## Natural Prompt Shapes
+
+- "Why is this failing, and what do you think is the real cause?"
+- "Analyze this decision and tell me whether it still makes sense."
+- "What are the trade-offs and risks of these two options?"
+- "Check whether these requirements or assumptions still hold up."
+
+---
+
 ## Example Requests
 
 - "Analyze this module boundary for coupling risk"

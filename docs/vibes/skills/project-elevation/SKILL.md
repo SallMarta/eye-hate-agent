@@ -141,6 +141,15 @@ Include:
 
 ---
 
+## Natural Prompt Shapes
+
+- "What should we improve next in this project?"
+- "What is still missing before this workflow is ready?"
+- "Where are the biggest maturity or readiness gaps right now?"
+- "What are the highest-value next improvements without overbuilding?"
+
+---
+
 ## Example Requests
 
 - "Evaluate this project for the next highest-value improvements"

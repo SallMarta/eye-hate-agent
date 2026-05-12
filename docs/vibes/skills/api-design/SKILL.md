@@ -183,6 +183,15 @@ Use this checklist when reviewing an existing contract:
 
 ---
 
+## Natural Prompt Shapes
+
+- "Design the contract for this API or service boundary."
+- "Check whether this endpoint or DTO shape is designed correctly."
+- "Define the interface, error contract, and validation rules for this boundary."
+- "Review whether this event or repository contract matches the architecture."
+
+---
+
 ## Example Requests
 
 - "Design the repository contract for this feature"

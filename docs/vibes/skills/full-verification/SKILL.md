@@ -91,6 +91,17 @@ Prefer the single strongest verification path unless the user explicitly asks fo
 | What should improve next, and how healthy or mature is this project at its current stage? | `project-elevation` |
 | Do the requirements, trade-offs, design decisions, or explanations hold up? | `analysis` |
 
+Example prompt shapes by verification category:
+
+| Verification category | Example prompts |
+| --- | --- |
+| Executable verification strategy | "Verify this Python bug fix and tell me which `pytest` checks should run." / "Use the right test approach for this Go handler and tell me what command to run." |
+| Code quality, bug, risk, or security review | "Verify whether this module has bug risks, security issues, or boundary violations." / "Check this implementation against the docs and code-quality rules." |
+| API or interface contract alignment | "Verify whether this API matches the project docs, guideline standards, and actual code." / "Check whether this repository contract still matches the service and its documented boundary rules." |
+| Docs, contract, or repository consistency | "Verify whether the project docs still match the current repository and contract." / "Check for drift across docs, rules, skills, prompts, and quick-reference files." |
+| Architecture, health, maturity, or readiness | "Verify this project's health and maturity against the contract and current repository state." / "Check whether the architecture and current implementation still support production readiness." |
+| Requirements, trade-offs, or decision consistency | "Verify whether these requirements and design decisions still hold up against the current repo." / "Check whether this technical trade-off still makes sense given the architecture and status docs." |
+
 ### Step 4 — Select the stack-aware checks
 
 When executable validation is required, choose the appropriate framework and commands from project docs and local repo conventions.

@@ -154,6 +154,15 @@ Include:
 
 ---
 
+## Natural Prompt Shapes
+
+- "Review this code for bugs, risks, and boundary issues."
+- "Audit this module like a strict senior reviewer."
+- "Check whether this implementation has correctness or security problems."
+- "Find dead code, logic flaws, and maintainability risks in this change."
+
+---
+
 ## Example Requests
 
 - "Audit this service for boundary violations"
