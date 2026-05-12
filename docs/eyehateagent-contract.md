@@ -25,8 +25,8 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 
 ### Skills
 
-- Skills define reusable procedures such as testing, analysis, API design, auditing, or documentation refresh.
-- Skills should begin by reading `docs/eyehateagent-contract.md` and the relevant project docs before applying their generic procedure.
+- Skills define reusable expert-role procedures such as testing, analysis, API design, auditing, or documentation refresh.
+- Skills should begin by reading `docs/eyehateagent-contract.md` and the relevant project docs before applying their reusable expert procedure.
 - Skills may include examples, but examples must not become hidden project-specific requirements.
 
 ### Reusable prompts
@@ -60,7 +60,7 @@ Use two operating modes.
 
 - Read the relevant contract and project docs first.
 - Act directly when the task is local, obvious after reading the docs, and primarily implementation, editing, or straightforward verification.
-- Use a skill when the task benefits from a reusable method, deeper reasoning, boundary-specific design, structured auditing, or verification planning.
+- Use a skill when the task benefits from a reusable expert-role method, deeper reasoning, boundary-specific design, expert auditing, or expert verification planning.
 - If the user explicitly requests a skill, treat that as a stronger signal than automatic judgment and use the skill unless it is clearly irrelevant or unnecessary for the task.
 - Treat attached skill context as a relevance hint, not an automatic requirement.
 - If a requested or attached skill is clearly unnecessary, say so briefly and proceed directly unless the user insists.
@@ -346,7 +346,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 - State the **required project-doc inputs** near the top of the skill.
 - Use a stable top-level section model: `Required Project Inputs`, `When To Use`, `Procedure`, `Output Contract`, `Quality Checks`, `Anti-Patterns`, and `Example Requests`.
 - Keep skill-specific tables, matrices, and checklists inside those sections instead of inventing new top-level structure for each skill.
-- Describe a reusable procedure that adapts after reading those docs.
+- Describe a reusable expert-role procedure that adapts after reading those docs.
 - Avoid binding the skill to one stack, one framework, or one package set unless the skill itself is intentionally stack-specific.
 
 ### When writing or updating reusable prompts
@@ -367,7 +367,7 @@ These rules belong in the contract because downstream repositories may remove `d
 
 | If you are adding or changing... | Update first | Usually also update | Core rule |
 | --- | --- | --- | --- |
-| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `docs/eyehateagent-contract.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural and start from project docs |
+| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `docs/eyehateagent-contract.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural, expert-role, and start from project docs |
 | a rule or instruction point | the mirrored rule files in the owning template surface | `docs/eyehateagent-contract.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
 | a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `docs/eyehateagent-contract.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
 | the contract itself | `docs/eyehateagent-contract.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `CHANGELOG.md` | contract changes are highest-impact and should be treated as template-level changes |

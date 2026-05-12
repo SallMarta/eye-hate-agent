@@ -6,6 +6,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
+- Added a local `docs/project-docs/TESTING.md` owner doc for template-maintenance validation rules.
 - Clarified the contract split between core project docs and technical guideline docs.
 - Added a recommended starter guideline pack and a required `guidelines/INDEX.md` when guideline files exist.
 - Added starter guideline templates and updated reusable prompts and maintainer docs to keep guideline guidance consistent.
