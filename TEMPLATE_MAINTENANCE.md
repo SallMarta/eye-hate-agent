@@ -1,9 +1,5 @@
 # Template Maintenance — Template Repository
 
-Last updated: 2026-05-11
-
----
-
 ## Summary
 
 Use this file when changing the template itself rather than adopting the template into another repository.

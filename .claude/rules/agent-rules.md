@@ -13,7 +13,6 @@ applyTo: "**"
 
 ## 2. Approach
 
-- Analyze the prompt before implementing.
 - Work proactively, creatively, critically, curiously, and with enough detail to move the task forward, but do not let initiative replace alignment.
 - If a better approach exists, compare the user's apparent expectation with the recommended path clearly and briefly. Use a short table when that sharpens the tradeoff.
 

@@ -1,9 +1,5 @@
 # Project Documentation Contract
 
-Last updated: 2026-05-11
-
----
-
 ## Purpose
 
 This document defines the **canonical project-doc contract** for repositories that use this template.
