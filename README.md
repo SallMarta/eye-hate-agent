@@ -166,8 +166,10 @@ Optional docs when they add durable value:
 | --- | --- | --- |
 | New project | `00-project-docs-bootstrap.md` | empty or nearly empty repo with only a brief |
 | Running project | `00-project-docs-refresh.md` | existing repo where owner docs exist but are outdated |
-| Mature or unclear project | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear ownership |
-| Mature or unclear project | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
+| Mature with unclear docs | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear ownership |
+| Mature with strong docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
+
+For both Running and Mature projects, use `00-project-docs-consistency-audit.md` when ownership is unclear, docs conflict, or summaries look stale. Then, continue to `00-project-docs-refresh.md` only after the audit makes the owning docs clear enough to update safely.
 
 These are the starter reusable prompts for project-doc adoption.
 If more template prompts are added later, start here unless another prompt is clearly a better fit.
