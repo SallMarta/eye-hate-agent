@@ -16,9 +16,12 @@ This reusable prompt assumes you are starting from a project brief or equivalent
 2. Create project-specific truth in `docs/project-docs/`, not in the reusable prompt output itself.
 3. Use stable headings wherever the contract defines them.
 4. Mark uncertain facts as `TBD`, `Assumption`, or `Open Question` instead of inventing details.
-5. Create optional docs only when the project genuinely needs them.
-6. If you create guideline docs, also create `docs/project-docs/guidelines/INDEX.md` and keep it aligned with the active guideline set.
-7. Keep the docs mutually consistent.
+5. Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the authoritative inventories for optional regular docs and guideline docs when they exist or when you create them during bootstrap.
+6. Create optional docs only when the project genuinely needs them or when they are declared as active in one of those registries.
+7. If a registry entry exists without a starter template file, scaffold the doc from the contract-defined stable headings and ownership rules.
+8. If you create optional regular docs beyond the always-required core set, also create `docs/project-docs/INDEX.md` and keep it aligned with the active optional set.
+9. If you create guideline docs, also create `docs/project-docs/guidelines/INDEX.md` and keep it aligned with the active guideline set.
+10. Keep the docs mutually consistent.
 
 ## Output Contract
 
@@ -32,22 +35,15 @@ Create or refresh these files unless the brief clearly makes one inapplicable:
 - `docs/project-docs/STATUS.md`
 - `docs/project-docs/QUICK_REFERENCE.md`
 
-Recommended when useful:
+Create these registry files when their corresponding doc families are active:
 
-- `docs/project-docs/CHANGELOG.md`
-- `docs/project-docs/GETTING_STARTED.md`
-- `docs/project-docs/FEATURE_INVENTORY.md`
-- `docs/project-docs/PRD.md`
-- `docs/project-docs/PRODUCTION_RUNBOOK.md`
-- `docs/project-docs/phases/INDEX.md`
+- `docs/project-docs/INDEX.md`
 - `docs/project-docs/guidelines/INDEX.md`
-- `docs/project-docs/guidelines/api.md`
-- `docs/project-docs/guidelines/database.md`
-- `docs/project-docs/guidelines/logging.md`
-- `docs/project-docs/guidelines/error-handling.md`
-- `docs/project-docs/guidelines/json.md`
-- `docs/project-docs/guidelines/code-style.md`
-- `docs/project-docs/guidelines/design-patterns.md`
+
+Recommended when useful or when declared as active in the registries:
+
+- docs listed as active in `docs/project-docs/INDEX.md`, such as `CHANGELOG.md`, `GETTING_STARTED.md`, `FEATURE_INVENTORY.md`, `PRD.md`, `PRODUCTION_RUNBOOK.md`, or `phases/INDEX.md`
+- guideline docs listed as active in `docs/project-docs/guidelines/INDEX.md`, such as `guidelines/api.md`, `guidelines/database.md`, `guidelines/logging.md`, `guidelines/error-handling.md`, `guidelines/json.md`, `guidelines/code-style.md`, or `guidelines/design-patterns.md`
 
 ### File Expectations
 
@@ -91,6 +87,13 @@ Recommended when useful:
 - important paths
 - conventions
 - high-signal reminders and troubleshooting notes
+
+### `INDEX.md` (if created)
+
+- summary
+- core required docs
+- optional and conditional docs
+- registry rules
 
 ### `PRD.md` (if created)
 
@@ -143,7 +146,8 @@ Before finishing, check that:
 2. the testing doc is actionable
 3. architecture and testing do not conflict
 4. roadmap and scope do not conflict
-5. guideline docs, if created, do not duplicate broad project-doc ownership and are listed in `guidelines/INDEX.md`
+5. optional regular docs, if created, are listed in `docs/project-docs/INDEX.md`
+6. guideline docs, if created, do not duplicate broad project-doc ownership and are listed in `guidelines/INDEX.md`
 
 ## Inputs
 

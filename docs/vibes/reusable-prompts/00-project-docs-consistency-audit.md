@@ -13,6 +13,7 @@ Find mismatches where project docs, rules, skills, reusable prompts, workflow do
 Check at least these areas when present:
 
 - `docs/project-docs/`
+- `docs/project-docs/INDEX.md`
 - `docs/project-docs/guidelines/`
 - rule / instruction files
 - `docs/vibes/skills/`
@@ -24,6 +25,7 @@ Check at least these areas when present:
 - stack and dependency choices
 - test commands and quality gates
 - architecture and dependency rules
+- optional and conditional regular-doc inventory mismatches
 - API / integration ownership
 - technical guideline ownership, overlap, and missing guideline index coverage
 - workflow expectations
@@ -34,14 +36,17 @@ Check at least these areas when present:
 
 1. Use project docs as the primary source of truth unless the repository explicitly states otherwise.
 2. Treat `docs/eyehateagent-contract.md` as the ownership map.
-3. Distinguish between:
+3. Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the authoritative inventories for optional regular docs and guideline docs when present.
+4. Distinguish between:
    - true contradiction
    - stale summary
    - historical artifact
    - optional module not currently active
-4. Treat a missing `guidelines/INDEX.md` as drift when guideline files exist.
-5. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
-6. Do not fix anything unless explicitly asked.
+5. Treat a missing `docs/project-docs/INDEX.md` as drift when optional or conditional regular docs exist beyond the always-required core set.
+6. Treat a missing `guidelines/INDEX.md` as drift when guideline files exist.
+7. Treat registry entries without matching files and files without matching registry entries as drift unless the registry explicitly marks them deprecated or archived.
+8. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
+9. Do not fix anything unless explicitly asked.
 
 ## Output Contract
 

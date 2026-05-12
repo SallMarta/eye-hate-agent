@@ -25,6 +25,7 @@ This file covers:
 - backward-compatible vs. breaking template changes
 - deprecation and removal of template surfaces
 - maintainer workflow across the contract anchors, project-doc owners, skills, reusable prompts, and summary docs
+- registry-driven extension of optional regular docs and guideline types
 - starter guideline template additions or revisions under `docs/vibes/project-docs-template/guidelines/`
 
 ---
@@ -46,7 +47,7 @@ This file covers:
 | Class | Typical example | Required response |
 | --- | --- | --- |
 | Summary-only clarification | Tighten wording in `README.md` without changing behavior | Update the owner or summary, then run the narrowest maintenance audit |
-| Backward-compatible template change | Add an optional doc, add a reusable skill, add a guideline starter template, or refine maintainer guidance without changing canonical paths | Update the owning doc, dependent summaries, and run the maintenance audit |
+| Backward-compatible template change | Add an optional doc, add a registry entry for a known optional doc type, add a reusable skill, add a starter template, or refine maintainer guidance without changing canonical paths | Update the owning doc, dependent summaries, and run the maintenance audit |
 | Breaking template change | Move `docs/eyehateagent-contract.md`, move `docs/eyehateagent-maintenance.md`, rename canonical paths, change stable headings, or change routing, precedence, fallback, or output rules | Update the contract first, add migration notes, update dependents, and run the full maintenance audit |
 
 ## Compatibility And Breaking Changes
@@ -57,6 +58,7 @@ Treat these as breaking unless proven otherwise:
 - canonical project-doc path or filename changes
 - stable heading changes in project docs, skills, or reusable prompts
 - required document set changes
+- registry schema or registry-ownership changes that reusable prompts or adopters rely on
 - routing, precedence, fallback, or output-by-mode changes
 - reusable prompt or skill structure changes that adopted repositories may rely on
 
@@ -85,6 +87,6 @@ For a breaking change:
 2. Use `docs/eyehateagent-contract.md` for extension rules that must survive adoption.
 3. Do not remove the roughly 65% context-compaction exception from the mirrored rule files unless the contract is intentionally updated in the same change.
 4. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
-5. Update mirrors, summaries, skills, reusable prompts, starter guideline templates, and downstream copies that quote or depend on the changed owner.
+5. Update mirrors, summaries, skills, reusable prompts, registries, starter template files, and downstream copies that quote or depend on the changed owner.
 6. Run the maintenance audit sequence.
 7. Record maintainer-facing changes in `CHANGELOG.md`.

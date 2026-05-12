@@ -19,6 +19,12 @@ Use the core project docs under `docs/project-docs/` to describe the repository 
 Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
 A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
 
+## Registry-Driven Extension
+
+Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular docs in a repo.
+Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for guideline types in a repo.
+Starter template files under `docs/vibes/project-docs-template/` remain recommended references, but they are no longer the activation mechanism for known doc types.
+
 ## Main Files
 
 | File | Main job |
@@ -27,6 +33,7 @@ A target repo is fully documented when it has both: the core project-doc set plu
 | `docs/eyehateagent-contract.md` | canonical system rules, ownership, and precedence |
 | `docs/eyehateagent-maintenance.md` | template-maintainer workflow for this repo |
 | `docs/vibes/project-docs-template/` | optional starter docs scaffold |
+| `docs/vibes/project-docs-template/INDEX.md` | starter registry for optional and conditional regular docs |
 | `docs/vibes/skills/` | reusable procedures for deeper analysis, test authoring, auditing, and design |
 | `docs/vibes/reusable-prompts/00-project-docs-*.md` | reusable maintenance workflows |
 
@@ -166,16 +173,13 @@ Optional docs when they add durable value:
 - `PRD.md`
 - `PRODUCTION_RUNBOOK.md`
 
+When optional or conditional regular docs are active in a target repo, declare them in `docs/project-docs/INDEX.md`.
+When guideline docs are active in a target repo, declare them in `docs/project-docs/guidelines/INDEX.md`.
+
 Recommended technical-guidance layer for a fully documented repo when those domains are relevant:
 
 - `guidelines/INDEX.md`
-- `guidelines/api.md`
-- `guidelines/database.md`
-- `guidelines/logging.md`
-- `guidelines/error-handling.md`
-- `guidelines/json.md`
-- `guidelines/code-style.md`
-- `guidelines/design-patterns.md`
+- guideline docs listed as active in that registry, such as `guidelines/api.md`, `guidelines/database.md`, `guidelines/logging.md`, `guidelines/error-handling.md`, `guidelines/json.md`, `guidelines/code-style.md`, and `guidelines/design-patterns.md`
 
 ### Step 3 — Run The Relevant Starter Reusable Prompt
 
@@ -196,6 +200,9 @@ Use these reusable prompts for three jobs only:
 - bootstrap the first owner docs
 - refresh existing owner docs
 - audit ownership before refresh when the repo is mature or unclear
+
+When extending the template with a known optional regular doc or guideline type, add it to the appropriate registry first.
+Add or update a starter template file only when a reusable scaffold would still provide durable value.
 
 If the target repo already has meaningful code, existing docs, or contradictory summaries, prefer consistency audit first, then refresh.
 

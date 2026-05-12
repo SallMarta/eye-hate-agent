@@ -175,6 +175,7 @@ Scenario 3 is intentionally outside this contract because it changes the ownersh
 | `TESTING.md` | Yes | Verification matrix, commands, quality gates, test layers, manual-check fallback |
 | `STATUS.md` | Yes | Roadmap, phases, epic/task status, sequencing, current implementation state |
 | `QUICK_REFERENCE.md` | Yes | High-signal commands, paths, conventions, glossary, fast lookup |
+| `INDEX.md` | Conditional | Required when optional or conditional regular project docs are active; inventories optional and extended regular doc types for the repo |
 | `CHANGELOG.md` | Recommended | What changed, by release or milestone |
 | `GETTING_STARTED.md` | Recommended | Setup, local run, environment bootstrap |
 | `docs/eyehateagent-maintenance.md` | Optional for template repositories | Template-repo-only governance, lifecycle, deprecation, and maintainer workflow |
@@ -182,7 +183,7 @@ Scenario 3 is intentionally outside this contract because it changes the ownersh
 | `PRD.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `PROJECT.md` remains summary-level |
 | `PRODUCTION_RUNBOOK.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
 | `phases/INDEX.md` | Optional | Epic registry when phased planning exists |
-| `guidelines/INDEX.md` | Conditional | Required when any guideline docs exist; inventories the guideline set, its purpose, and its owners |
+| `guidelines/INDEX.md` | Conditional | Required when any guideline docs exist; serves as the authoritative registry for active guideline types in the repo |
 | `guidelines/*` | Recommended when relevant | Domain-specific technical rules such as API, database, logging, error handling, JSON, code style, and design patterns |
 
 Use optional files only when they add durable value. Do not create them as placeholders without a real purpose.
@@ -190,12 +191,23 @@ Use optional files only when they add durable value. Do not create them as place
 Use the core project docs in `docs/project-docs/` to describe the repository generally: product intent, scope, architecture, testing, roadmap, and operating context.
 Use guideline docs under `docs/project-docs/guidelines/` to capture durable technical direction for a specific domain: conventions, implementation rules, preferred patterns, anti-patterns, and boundary-specific decisions that humans and agents should follow while doing work in that repo.
 
+### Registry Policy
+
+- Keep the always-required core docs explicit in this contract. Do not use a registry to replace `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, or `QUICK_REFERENCE.md`.
+- Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular project docs in a repo.
+- Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for active guideline types in a repo.
+- A registry entry activates a known optional doc type or guideline type for bootstrap, refresh, and consistency-audit behavior even if no starter template file exists.
+- Starter template files under `docs/vibes/project-docs-template/` are recommended references, not the activation mechanism.
+- Registry entries for regular docs should capture at least file path, purpose, status, owner, and creation trigger.
+- Registry entries for guideline docs should capture at least file path, domain, purpose, owner, and review trigger.
+- If a brand-new regular doc type should be scaffolded without a starter template file, define its stable headings or equivalent structure in this contract first.
+
 ### Guideline Policy
 
 - Keep guidelines focused on technical guidance, not on broad project summary; if a fact is general repository truth, it belongs in the core project docs.
-- A target repo is fully documented when the core project docs describe the repository generally and the active guidelines describe the durable technical rules that recurring work should follow.$$
+- A target repo is fully documented when the core project docs describe the repository generally and the active guidelines describe the durable technical rules that recurring work should follow.
 - Create a guideline only when a domain has durable cross-cutting rules that would otherwise be repeated across tasks, reviews, or features.
-- When any guideline files exist, create and maintain `guidelines/INDEX.md` as the discovery anchor for the active guideline set.
+- When any guideline files exist, create and maintain `guidelines/INDEX.md` as the authoritative registry for the active guideline set.
 - Keep one primary domain per guideline file so ownership stays clear.
 - Avoid placeholder guideline files; omit a domain until the repository has real guidance worth preserving.
 - Avoid copying the same rules into `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, or `PRD.md`; instead, cross-reference the owning guideline.
@@ -250,6 +262,13 @@ These headings should remain stable across projects whenever the file exists.
 - `## Paths`
 - `## Conventions`
 - `## Troubleshooting` or `## Gotchas`
+
+### `INDEX.md` (if present)
+
+- `## Summary`
+- `## Core Required Docs`
+- `## Optional And Conditional Docs`
+- `## Registry Rules`
 
 ### `PRD.md` (if present)
 
@@ -320,6 +339,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 - Use explicit headings instead of burying key rules in prose.
 - Prefer summary tables for commands, stack, or decision matrices.
 - Put the **durable truth** in project docs, not in reusable prompt text or skill text.
+- Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the authoritative inventories for optional regular docs and guideline types when they exist.
 - When a fact changes, update the owning project doc first, then update any dependent rules, skills, or reusable prompts that quote or summarize it.
 - Mirror platform instruction metadata where the platform supports the same field set.
 
@@ -337,8 +357,9 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Verification commands and quality gates | `TESTING.md` |
 | Execution plan and progress | `STATUS.md` and `phases/` |
 | Fast command lookup and conventions | `QUICK_REFERENCE.md` |
+| Optional and conditional regular project-doc inventory | `INDEX.md` when present |
 | Template governance, lifecycle, and deprecation | `docs/eyehateagent-maintenance.md` if present |
-| Guideline discovery, guideline scope, and review ownership | `guidelines/INDEX.md` when present |
+| Guideline inventory, guideline scope, and review ownership | `guidelines/INDEX.md` when present |
 | Domain-specific technical rules, implementation conventions, and preferred patterns | `guidelines/*` |
 | Reusable prompt behavior | `docs/vibes/reusable-prompts/` in the adopted repo or in the shared template repo chosen by the topology |
 | Skill procedure behavior | `docs/vibes/skills/` in the adopted repo or in the shared template repo chosen by the topology |
@@ -370,6 +391,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 ### When writing or updating reusable prompts
 
 - Use this contract to decide which docs to generate or refresh.
+- Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the inventory source of truth for optional regular docs and guideline types when they exist.
 - Use a stable top-level section model: `Goal`, `Required Behavior`, `Output Contract`, `Final Pass`, and `Inputs`.
 - Use optional top-level sections only when needed, such as `Scope`, `Minimum Outputs`, `Constraints`, or `Ownership Examples`.
 - Keep review sequences, category examples, and file-by-file expectations inside those sections instead of inventing unrelated top-level structure.
@@ -395,6 +417,7 @@ Notes:
 - Downstream repositories should still be able to follow these rules after `docs/eyehateagent-maintenance.md` is removed.
 - Template-repo-only workflow remains in `docs/eyehateagent-maintenance.md`.
 - In Scenario 2, the shared template repo is the owner of reusable assets, but not of adopted-repository project facts.
+- Registry entries activate known optional doc types and guideline types in a repo; contract updates are needed only when introducing a new doc class, a new stable heading pattern, or a new ownership model.
 
 ---
 
@@ -405,21 +428,24 @@ Notes:
 1. Copy the template into the adopted repository.
 2. Keep `docs/eyehateagent-contract.md`.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under `docs/project-docs/` first.
-4. Remove `docs/eyehateagent-maintenance.md` from the adopted repository.
-5. Add optional docs only when the project actually needs them.
-6. Review rules and skills only for template-level changes, not project-specific facts.
-7. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
+4. If optional or conditional regular docs are active, declare them in `docs/project-docs/INDEX.md`.
+5. If guideline docs are active, declare them in `docs/project-docs/guidelines/INDEX.md`.
+6. Remove `docs/eyehateagent-maintenance.md` from the adopted repository.
+7. Review rules and skills only for template-level changes, not project-specific facts.
+8. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
 
 ### Scenario 2 — Shared Template Repo With Local Project Docs
 
 1. Keep the shared template repo available in the same workspace or other agent-visible context.
 2. Copy `docs/eyehateagent-contract.md` into each adopted repository.
 3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under each adopted repo's local `docs/project-docs/` path.
-4. Keep reusable prompts, reusable skills, and starter assets in the shared template repo unless a local copy is intentionally needed.
-5. Keep local instruction mirrors only when an agent platform requires repo-local instruction loading.
-6. Remove `docs/eyehateagent-maintenance.md` from adopted repositories.
-7. Do not move adopted-repository project facts into the shared template repo.
-8. Run reusable prompts against the adopted repo's local owner docs, not against centralized portfolio summaries.
+4. If optional or conditional regular docs are active, declare them in each adopted repo's local `docs/project-docs/INDEX.md`.
+5. If guideline docs are active, declare them in each adopted repo's local `docs/project-docs/guidelines/INDEX.md`.
+6. Keep reusable prompts, reusable skills, and starter assets in the shared template repo unless a local copy is intentionally needed.
+7. Keep local instruction mirrors only when an agent platform requires repo-local instruction loading.
+8. Remove `docs/eyehateagent-maintenance.md` from adopted repositories.
+9. Do not move adopted-repository project facts into the shared template repo.
+10. Run reusable prompts against the adopted repo's local owner docs, not against centralized portfolio summaries.
 
 ---
 
