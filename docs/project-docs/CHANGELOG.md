@@ -6,6 +6,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
+- Added explicit maintainer-facing anchors for where to register new optional regular doc types and guideline types.
 - Added a registry-driven extension model for optional regular docs and guideline types.
 - Added a starter `docs/vibes/project-docs-template/INDEX.md` registry and retuned reusable prompts to treat registries as inventory sources of truth.
 - Added a local `docs/project-docs/TESTING.md` owner doc for template-maintenance validation rules.

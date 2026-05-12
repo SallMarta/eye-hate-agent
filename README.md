@@ -13,41 +13,6 @@ Use this README first.
 Use `docs/eyehateagent-contract.md` for canonical rules and precedence.
 Use `docs/eyehateagent-maintenance.md` only when changing this template repository.
 
-## Core Docs vs Guidelines
-
-Use the core project docs under `docs/project-docs/` to describe the repository generally: scope, architecture, testing, roadmap, and operating context.
-Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
-A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
-
-## Registry-Driven Extension
-
-Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular docs in a repo.
-Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for guideline types in a repo.
-Starter template files under `docs/vibes/project-docs-template/` remain recommended references, but they are no longer the activation mechanism for known doc types.
-
-## Main Files
-
-| File | Main job |
-| --- | --- |
-| `README.md` | main human guide and adoption entry point |
-| `docs/eyehateagent-contract.md` | canonical system rules, ownership, and precedence |
-| `docs/eyehateagent-maintenance.md` | template-maintainer workflow for this repo |
-| `docs/vibes/project-docs-template/` | optional starter docs scaffold |
-| `docs/vibes/project-docs-template/INDEX.md` | starter registry for optional and conditional regular docs |
-| `docs/vibes/skills/` | reusable procedures for deeper analysis, test authoring, auditing, and design |
-| `docs/vibes/reusable-prompts/00-project-docs-*.md` | reusable maintenance workflows |
-
-## Repository Index
-
-| Area | Path | Role |
-| --- | --- | --- |
-| Contract anchor | `docs/eyehateagent-contract.md` | canonical routing, ownership, precedence, and adoption rules |
-| Maintenance anchor | `docs/eyehateagent-maintenance.md` | template-repo-only governance and maintainer workflow |
-| Mirrored rules | `.github/instructions/`, `.claude/rules/` | platform-specific instruction entry points |
-| Project docs | `docs/project-docs/` | canonical project-specific truth |
-| Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and consistency-audit workflows |
-| Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
-
 ## How to Adopt This Template
 
 Follow this order:
@@ -208,3 +173,43 @@ If the target repo already has meaningful code, existing docs, or contradictory 
 
 If a mature target repo already has legacy docs, inventory them first and isolate or archive only the conflicting parts when needed.
 For example, keep the active owner docs clear instead of letting old and new docs both look authoritative.
+
+## Main Files
+
+| File | Main job |
+| --- | --- |
+| `README.md` | main human guide and adoption entry point |
+| `docs/eyehateagent-contract.md` | canonical system rules, ownership, and precedence |
+| `docs/eyehateagent-maintenance.md` | template-maintainer workflow for this repo |
+| `docs/vibes/project-docs-template/` | optional starter docs scaffold |
+| `docs/vibes/project-docs-template/INDEX.md` | starter registry for optional and conditional regular docs |
+| `docs/vibes/skills/` | reusable procedures for deeper analysis, test authoring, auditing, and design |
+| `docs/vibes/reusable-prompts/00-project-docs-*.md` | reusable maintenance workflows |
+
+## File Index
+
+| Area | Path | Role |
+| --- | --- | --- |
+| Contract anchor | `docs/eyehateagent-contract.md` | canonical routing, ownership, precedence, and adoption rules |
+| Maintenance anchor | `docs/eyehateagent-maintenance.md` | template-repo-only governance and maintainer workflow |
+| Mirrored rules | `.github/instructions/`, `.claude/rules/` | platform-specific instruction entry points |
+| Project docs | `docs/project-docs/` | canonical project-specific truth |
+| Guidelines | `docs/project-docs/guidelines/` | durable technical guidance |
+| Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and consistency-audit workflows |
+| Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
+
+## Core Docs vs Guidelines
+
+Use the core project docs under `docs/project-docs/` to describe the repository generally: scope, architecture, testing, roadmap, and operating context.
+Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
+A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
+
+## Registry-Driven Extension
+
+Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular docs in a repo.
+Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for guideline types in a repo.
+Starter template files under `docs/vibes/project-docs-template/` remain recommended references, but they are no longer the activation mechanism for known doc types.
+
+If you want to add your own known optional regular doc type to the template, start at `docs/vibes/project-docs-template/INDEX.md`.
+If you want to add your own known guideline type to the template, start at `docs/vibes/project-docs-template/guidelines/INDEX.md`.
+If the new regular doc type needs brand-new stable headings, update `docs/eyehateagent-contract.md` first.

@@ -202,6 +202,10 @@ Use guideline docs under `docs/project-docs/guidelines/` to capture durable tech
 - Registry entries for guideline docs should capture at least file path, domain, purpose, owner, and review trigger.
 - If a brand-new regular doc type should be scaffolded without a starter template file, define its stable headings or equivalent structure in this contract first.
 
+If you want to add your own known optional regular doc type to the template system, add a row to `docs/vibes/project-docs-template/INDEX.md` first.
+If you want to add your own known guideline type to the template system, add a row to `docs/vibes/project-docs-template/guidelines/INDEX.md` first.
+If the new doc class needs a new stable heading pattern or new ownership rule, update this contract before relying on bootstrap to scaffold it.
+
 ### Guideline Policy
 
 - Keep guidelines focused on technical guidance, not on broad project summary; if a fact is general repository truth, it belongs in the core project docs.

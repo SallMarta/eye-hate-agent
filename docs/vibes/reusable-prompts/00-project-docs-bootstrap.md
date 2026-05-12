@@ -23,6 +23,9 @@ This reusable prompt assumes you are starting from a project brief or equivalent
 9. If you create guideline docs, also create `docs/project-docs/guidelines/INDEX.md` and keep it aligned with the active guideline set.
 10. Keep the docs mutually consistent.
 
+For template maintenance: add new known optional regular doc types to `docs/vibes/project-docs-template/INDEX.md` and new known guideline types to `docs/vibes/project-docs-template/guidelines/INDEX.md`.
+Only rely on registry-only scaffolding when the contract already defines the needed stable headings or ownership rules.
+
 ## Output Contract
 
 ### Minimum Outputs
