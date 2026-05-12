@@ -165,9 +165,25 @@ Scenario 3 is intentionally outside this contract because it changes the ownersh
 | `PRD.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `PROJECT.md` remains summary-level |
 | `PRODUCTION_RUNBOOK.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
 | `phases/INDEX.md` | Optional | Epic registry when phased planning exists |
-| `guidelines/*` | Optional | Domain-specific rules such as UI, data model, API, AI, security, brand |
+| `guidelines/INDEX.md` | Conditional | Required when any guideline docs exist; inventories the guideline set, its purpose, and its owners |
+| `guidelines/*` | Recommended when relevant | Domain-specific technical rules such as API, database, logging, error handling, JSON, code style, and design patterns |
 
 Use optional files only when they add durable value. Do not create them as placeholders without a real purpose.
+
+Use the core project docs in `docs/project-docs/` to describe the repository generally: product intent, scope, architecture, testing, roadmap, and operating context.
+Use guideline docs under `docs/project-docs/guidelines/` to capture durable technical direction for a specific domain: conventions, implementation rules, preferred patterns, anti-patterns, and boundary-specific decisions that humans and agents should follow while doing work in that repo.
+
+### Guideline Policy
+
+- Keep guidelines focused on technical guidance, not on broad project summary; if a fact is general repository truth, it belongs in the core project docs.
+- A target repo is fully documented when the core project docs describe the repository generally and the active guidelines describe the durable technical rules that recurring work should follow.
+- Create a guideline only when a domain has durable cross-cutting rules that would otherwise be repeated across tasks, reviews, or features.
+- When any guideline files exist, create and maintain `guidelines/INDEX.md` as the discovery anchor for the active guideline set.
+- Keep one primary domain per guideline file so ownership stays clear.
+- Avoid placeholder guideline files; omit a domain until the repository has real guidance worth preserving.
+- Avoid copying the same rules into `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, or `PRD.md`; instead, cross-reference the owning guideline.
+- For a fully documented target repo, the baseline recommended starter set is: API, database, logging, error handling, JSON, code style, and design patterns.
+- Add other guideline domains only when the project needs them, such as UI, security, observability, performance, AI, configuration, or migrations.
 
 ---
 
@@ -248,6 +264,23 @@ These headings should remain stable across projects whenever the file exists.
 - `## Deprecation Policy`
 - `## Maintainer Workflow`
 
+### `guidelines/INDEX.md` (if present)
+
+- `## Summary`
+- `## When To Add A Guideline`
+- `## Active Guidelines`
+- `## Ownership And Review`
+
+### `guidelines/*.md` (if present)
+
+- `## Summary`
+- `## Scope`
+- `## Rules`
+- `## Preferred Patterns` or `## Approved Patterns`
+- `## Anti-Patterns` or `## Avoid`
+- `## Related Docs`
+- `## Open Questions` or `## Exceptions`
+
 If a project uses different headings, keep a clear cross-reference at the top of the file so agents can still find the equivalent sections quickly.
 
 ---
@@ -288,7 +321,8 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Execution plan and progress | `STATUS.md` and `phases/` |
 | Fast command lookup and conventions | `QUICK_REFERENCE.md` |
 | Template governance, lifecycle, and deprecation | `docs/eyehateagent-maintenance.md` if present |
-| Domain-specific rules | `guidelines/*` |
+| Guideline discovery, guideline scope, and review ownership | `guidelines/INDEX.md` when present |
+| Domain-specific technical rules, implementation conventions, and preferred patterns | `guidelines/*` |
 | Reusable prompt behavior | `docs/vibes/reusable-prompts/` in the adopted repo or in the shared template repo chosen by the topology |
 | Skill procedure behavior | `docs/vibes/skills/` in the adopted repo or in the shared template repo chosen by the topology |
 

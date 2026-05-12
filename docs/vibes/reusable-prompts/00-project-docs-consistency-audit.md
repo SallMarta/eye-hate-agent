@@ -13,6 +13,7 @@ Find mismatches where project docs, rules, skills, reusable prompts, workflow do
 Check at least these areas when present:
 
 - `docs/project-docs/`
+- `docs/project-docs/guidelines/`
 - rule / instruction files
 - `docs/vibes/skills/`
 - `docs/vibes/reusable-prompts/`
@@ -24,6 +25,7 @@ Check at least these areas when present:
 - test commands and quality gates
 - architecture and dependency rules
 - API / integration ownership
+- technical guideline ownership, overlap, and missing guideline index coverage
 - workflow expectations
 - roadmap / phase naming
 - project identity and naming
@@ -37,7 +39,9 @@ Check at least these areas when present:
    - stale summary
    - historical artifact
    - optional module not currently active
-4. Do not fix anything unless explicitly asked.
+4. Treat a missing `guidelines/INDEX.md` as drift when guideline files exist.
+5. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
+6. Do not fix anything unless explicitly asked.
 
 ## Output Contract
 

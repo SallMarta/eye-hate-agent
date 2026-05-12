@@ -16,15 +16,17 @@ Update **only the docs that own the changed information** while keeping the docu
 4. Preserve stable headings wherever possible.
 5. Avoid rewriting unrelated sections.
 6. If the change introduces a new durable concern, create the smallest justified new doc.
+7. If the change affects domain-specific technical guidance, update the owning guideline and `guidelines/INDEX.md` when present.
 
 ### Review Sequence
 
 1. Read the change summary.
 2. Read the owning project docs.
-3. Identify impacted dependent docs.
-4. Refresh the owning docs first.
-5. Refresh summary or index docs second.
-6. Run a consistency pass.
+3. Read the relevant guideline docs when the change touches technical rules or implementation conventions.
+4. Identify impacted dependent docs.
+5. Refresh the owning docs first.
+6. Refresh summary or index docs second.
+7. Run a consistency pass.
 
 ## Ownership Examples
 
@@ -35,6 +37,7 @@ Update **only the docs that own the changed information** while keeping the docu
 - validation / CI changes → `TESTING.md`, `QUICK_REFERENCE.md`, `GETTING_STARTED.md`
 - production environment, rollout, rollback, or smoke-check changes → `PRODUCTION_RUNBOOK.md`, `ARCHITECTURE.md`, `TESTING.md`, `QUICK_REFERENCE.md`
 - API or integration changes → relevant API / integration docs plus `ARCHITECTURE.md`
+- cross-cutting technical conventions or implementation rules → relevant `guidelines/*.md`, `guidelines/INDEX.md`, and any summarizing core docs that reference them
 
 ## Output Contract
 
@@ -51,7 +54,7 @@ Before finishing, check that:
 
 1. the updated docs still match the contract in `docs/eyehateagent-contract.md`
 2. rules and skills would now read the correct project-specific truth
-3. no stale summary remains in `QUICK_REFERENCE.md`, `STATUS.md`, or other index docs
+3. no stale summary remains in `QUICK_REFERENCE.md`, `STATUS.md`, `guidelines/INDEX.md`, or other index docs
 
 ## Inputs
 

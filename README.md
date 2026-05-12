@@ -13,6 +13,12 @@ Use this README first.
 Use `docs/eyehateagent-contract.md` for canonical rules and precedence.
 Use `docs/eyehateagent-maintenance.md` only when changing this template repository.
 
+## Core Docs vs Guidelines
+
+Use the core project docs under `docs/project-docs/` to describe the repository generally: scope, architecture, testing, roadmap, and operating context.
+Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
+A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
+
 ## Main Files
 
 | File | Main job |
@@ -159,6 +165,17 @@ Optional docs when they add durable value:
 
 - `PRD.md`
 - `PRODUCTION_RUNBOOK.md`
+
+Recommended technical-guidance layer for a fully documented repo when those domains are relevant:
+
+- `guidelines/INDEX.md`
+- `guidelines/api.md`
+- `guidelines/database.md`
+- `guidelines/logging.md`
+- `guidelines/error-handling.md`
+- `guidelines/json.md`
+- `guidelines/code-style.md`
+- `guidelines/design-patterns.md`
 
 ### Step 3 — Run The Relevant Starter Reusable Prompt
 

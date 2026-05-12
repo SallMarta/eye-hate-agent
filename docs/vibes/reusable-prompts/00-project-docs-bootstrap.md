@@ -17,7 +17,8 @@ This reusable prompt assumes you are starting from a project brief or equivalent
 3. Use stable headings wherever the contract defines them.
 4. Mark uncertain facts as `TBD`, `Assumption`, or `Open Question` instead of inventing details.
 5. Create optional docs only when the project genuinely needs them.
-6. Keep the docs mutually consistent.
+6. If you create guideline docs, also create `docs/project-docs/guidelines/INDEX.md` and keep it aligned with the active guideline set.
+7. Keep the docs mutually consistent.
 
 ## Output Contract
 
@@ -39,7 +40,14 @@ Recommended when useful:
 - `docs/project-docs/PRD.md`
 - `docs/project-docs/PRODUCTION_RUNBOOK.md`
 - `docs/project-docs/phases/INDEX.md`
-- `docs/project-docs/guidelines/*`
+- `docs/project-docs/guidelines/INDEX.md`
+- `docs/project-docs/guidelines/api.md`
+- `docs/project-docs/guidelines/database.md`
+- `docs/project-docs/guidelines/logging.md`
+- `docs/project-docs/guidelines/error-handling.md`
+- `docs/project-docs/guidelines/json.md`
+- `docs/project-docs/guidelines/code-style.md`
+- `docs/project-docs/guidelines/design-patterns.md`
 
 ### File Expectations
 
@@ -104,6 +112,23 @@ Recommended when useful:
 - rollback or recovery
 - operational notes or troubleshooting
 
+### `guidelines/INDEX.md` (if created)
+
+- summary
+- when to add a guideline
+- active guidelines
+- ownership and review
+
+### `guidelines/*.md` (if created)
+
+- summary
+- scope
+- rules
+- preferred or approved patterns
+- anti-patterns or avoid
+- related docs
+- open questions or exceptions
+
 ## Constraints
 
 - Do not hardcode one stack unless the brief requires it.
@@ -118,6 +143,7 @@ Before finishing, check that:
 2. the testing doc is actionable
 3. architecture and testing do not conflict
 4. roadmap and scope do not conflict
+5. guideline docs, if created, do not duplicate broad project-doc ownership and are listed in `guidelines/INDEX.md`
 
 ## Inputs
 
