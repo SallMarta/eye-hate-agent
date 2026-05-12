@@ -13,6 +13,8 @@ All notable changes to Eye Hate Agent are documented here.
 - Added a central skill-selection matrix in `docs/eyehateagent-contract.md` to separate analysis, audit, design, verification, elevation, and consistency work more clearly.
 - Tightened `project-elevation` so it is explicitly forward-looking rather than a generic analysis wrapper.
 - Clarified `test-authoring` as a verification-strategy-first skill that chooses the right checks before writing tests.
+- Added a new `full-verification` skill as the broad verification entry point for code, docs, contracts, architecture, quality, and project-health checks.
+- Updated the contract and overlapping specialist skills so broad verification requests route cleanly to `full-verification` before choosing a single best specialist path.
 
 ---
 

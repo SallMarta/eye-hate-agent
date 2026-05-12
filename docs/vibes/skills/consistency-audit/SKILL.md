@@ -37,6 +37,8 @@ This skill is the reusable complement to the consistency-audit reusable prompt. 
 | Template maintenance | "Audit rules and skills after changing the contract" |
 | Handoff preparation | "Find contradictions before handing this repo to another maintainer" |
 
+Use `full-verification` instead when the user asks for a broad verification entry point and repository drift is only one possible verification path.
+
 Typical audit targets include:
 
 Check for disagreement across:

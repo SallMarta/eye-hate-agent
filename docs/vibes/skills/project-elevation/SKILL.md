@@ -35,6 +35,8 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 | Reliability review | "Where should this module be elevated for resilience first?" |
 | Delivery readiness | "What should improve before we call this MVP complete?" |
 
+Use `full-verification` instead when the user wants a broad verification pass across code, docs, contract, architecture, and project health rather than a forward-looking improvement plan.
+
 Use `analysis` instead when the main question is why something behaves the way it does, whether a decision is correct, or which option is better.
 
 Use `code-audit` instead when the main question is whether an existing implementation has correctness, logic, or boundary defects.

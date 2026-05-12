@@ -41,6 +41,8 @@ If one of the required docs is missing and the task depends on it, surface that 
 | Migration or persistence change | "Write a test plan for this migration change" |
 | Documentation-only repo change | "How should I validate a reusable prompt or rules update?" |
 
+Use `full-verification` instead when the user wants a broad verification entry point that may need to choose between code review, docs consistency, contract review, health assessment, or executable testing.
+
 Use `code-audit` instead when the main question is whether the implementation is correct.
 
 Use `analysis` instead when the task is explaining a failure or comparing technical options rather than deciding how to verify them.

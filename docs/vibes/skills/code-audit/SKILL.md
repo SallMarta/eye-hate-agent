@@ -35,6 +35,8 @@ This skill is reusable across application code, backend services, scripts, autom
 | Reliability check | "Audit this service for failure handling gaps" |
 | Architecture review | "Audit this workflow for boundary violations" |
 
+Use `full-verification` instead when the user wants one broad verification entry point across code, docs, contracts, and repository state rather than a code-first audit.
+
 ---
 
 ## Procedure

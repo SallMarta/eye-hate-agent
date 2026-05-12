@@ -52,6 +52,7 @@ Use two operating modes.
 | --- | --- | --- | --- | --- |
 | "create evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
 | "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Verification strategy, recommended checks, and tests when needed |
+| "verify this feature against the docs, contract, and code" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and relevant guidelines or feature docs | Usually `full-verification` | Routed verification path, selected specialist skill, and checks or findings |
 | "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
 | "what should we improve before this workflow is production-ready" | Normal work | `docs/eyehateagent-contract.md`, `PROJECT.md`, `STATUS.md`, `ARCHITECTURE.md`, `TESTING.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
 | "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
@@ -65,6 +66,7 @@ Use two operating modes.
 - If the user explicitly requests a skill, treat that as a stronger signal than automatic judgment and use the skill unless it is clearly irrelevant or unnecessary for the task.
 - Treat attached skill context as a relevance hint, not an automatic requirement.
 - If a requested or attached skill is clearly unnecessary, say so briefly and proceed directly unless the user insists.
+- Use `full-verification` when the user asks for broad verification against project docs, contract, guidelines, code, or repository state and the dominant specialist check is not obvious up front.
 - Prefer the single most relevant skill instead of chaining multiple skills by default.
 - Skills support execution; they do not replace project docs as the source of truth.
 
@@ -74,6 +76,7 @@ Use this matrix when multiple skills sound plausible.
 
 | If the user mainly wants... | Usually choose | Choose this over... | Expected outcome |
 | --- | --- | --- | --- |
+| Broad verification against project docs, contract, code, guidelines, or repository state | `full-verification` | a specialist skill when the user wants one broad entry point and the best verification mode is not yet clear | Routed specialist skill, verification plan, and checks or findings |
 | Root-cause explanation, trade-off judgment, or architecture reasoning | `analysis` | `project-elevation` when the question is about current behavior or decision quality rather than future improvements | Findings, reasoning, recommendation, and confidence |
 | Correctness review of existing code, logic, or boundary safety | `code-audit` | `analysis` when the task is inspecting an implemented artifact for bugs, dead paths, or boundary violations | Severity-ranked findings and corrective direction |
 | Contract or boundary shape for an API, service, repository, adapter, or event | `api-design` | `analysis` when the primary deliverable is a contract or interface shape rather than a broad judgment memo | Proposed boundary design, validation rules, and verification strategy |
@@ -190,7 +193,7 @@ Use guideline docs under `docs/project-docs/guidelines/` to capture durable tech
 ### Guideline Policy
 
 - Keep guidelines focused on technical guidance, not on broad project summary; if a fact is general repository truth, it belongs in the core project docs.
-- A target repo is fully documented when the core project docs describe the repository generally and the active guidelines describe the durable technical rules that recurring work should follow.
+- A target repo is fully documented when the core project docs describe the repository generally and the active guidelines describe the durable technical rules that recurring work should follow.$$
 - Create a guideline only when a domain has durable cross-cutting rules that would otherwise be repeated across tasks, reviews, or features.
 - When any guideline files exist, create and maintain `guidelines/INDEX.md` as the discovery anchor for the active guideline set.
 - Keep one primary domain per guideline file so ownership stays clear.
