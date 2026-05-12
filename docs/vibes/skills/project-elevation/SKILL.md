@@ -35,6 +35,12 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 | Reliability review | "Where should this module be elevated for resilience first?" |
 | Delivery readiness | "What should improve before we call this MVP complete?" |
 
+Use `analysis` instead when the main question is why something behaves the way it does, whether a decision is correct, or which option is better.
+
+Use `code-audit` instead when the main question is whether an existing implementation has correctness, logic, or boundary defects.
+
+Use `test-authoring` instead when the main question is how a change or behavior should be verified.
+
 ---
 
 ## Procedure
@@ -45,6 +51,7 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 - Who uses it or depends on it?
 - What stage is it in: concept, prototype, MVP, production, maintenance?
 - What is explicitly out of scope?
+- What current constraints would make some improvements unrealistic right now?
 
 ### Step 2 — Scan for missing failure handling
 
@@ -96,6 +103,8 @@ Classify each recommendation as:
 
 Tie the rating back to current goals and constraints from `PROJECT.md` and `STATUS.md`.
 
+Prefer the smallest realistic next step over a broad rewrite when both could address the same gap.
+
 ---
 
 ## Output Contract
@@ -125,6 +134,7 @@ Include:
 - Suggesting enterprise-scale systems for a small internal or MVP project
 - Ignoring what the project explicitly does not want to become
 - Producing a long unranked list with no delivery guidance
+- Using this skill as a generic root-cause analysis or code-review wrapper when `analysis` or `code-audit` is the real fit
 - Recommending improvements that the current architecture cannot plausibly support without acknowledging that cost
 
 ---

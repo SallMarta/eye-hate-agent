@@ -10,6 +10,9 @@ All notable changes to Eye Hate Agent are documented here.
 - Clarified the contract split between core project docs and technical guideline docs.
 - Added a recommended starter guideline pack and a required `guidelines/INDEX.md` when guideline files exist.
 - Added starter guideline templates and updated reusable prompts and maintainer docs to keep guideline guidance consistent.
+- Added a central skill-selection matrix in `docs/eyehateagent-contract.md` to separate analysis, audit, design, verification, elevation, and consistency work more clearly.
+- Tightened `project-elevation` so it is explicitly forward-looking rather than a generic analysis wrapper.
+- Clarified `test-authoring` as a verification-strategy-first skill that chooses the right checks before writing tests.
 
 ---
 

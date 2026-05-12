@@ -51,8 +51,9 @@ Use two operating modes.
 | User request | Mode | Read first | Skill | Expected output |
 | --- | --- | --- | --- | --- |
 | "create evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
-| "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Tests, verification plan, or test update |
+| "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Verification strategy, recommended checks, and tests when needed |
 | "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
+| "what should we improve before this workflow is production-ready" | Normal work | `docs/eyehateagent-contract.md`, `PROJECT.md`, `STATUS.md`, `ARCHITECTURE.md`, `TESTING.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
 | "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
 | "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
 
@@ -66,6 +67,19 @@ Use two operating modes.
 - If a requested or attached skill is clearly unnecessary, say so briefly and proceed directly unless the user insists.
 - Prefer the single most relevant skill instead of chaining multiple skills by default.
 - Skills support execution; they do not replace project docs as the source of truth.
+
+### Skill Selection Matrix
+
+Use this matrix when multiple skills sound plausible.
+
+| If the user mainly wants... | Usually choose | Choose this over... | Expected outcome |
+| --- | --- | --- | --- |
+| Root-cause explanation, trade-off judgment, or architecture reasoning | `analysis` | `project-elevation` when the question is about current behavior or decision quality rather than future improvements | Findings, reasoning, recommendation, and confidence |
+| Correctness review of existing code, logic, or boundary safety | `code-audit` | `analysis` when the task is inspecting an implemented artifact for bugs, dead paths, or boundary violations | Severity-ranked findings and corrective direction |
+| Contract or boundary shape for an API, service, repository, adapter, or event | `api-design` | `analysis` when the primary deliverable is a contract or interface shape rather than a broad judgment memo | Proposed boundary design, validation rules, and verification strategy |
+| Verification boundary, check type, commands, and whether tests should be added | `test-authoring` | `code-audit` when the question is how to verify a change, not whether the implementation is correct | Verification strategy and tests when needed |
+| Forward-looking improvements, missing capabilities, or what to do next | `project-elevation` | `analysis` when the task is prioritizing realistic next improvements rather than explaining existing behavior | Prioritized improvement roadmap |
+| Drift, contradiction, or ownership mismatches across docs, rules, skills, and prompts | `consistency-audit` | `analysis` when the problem is repository-wide disagreement rather than local technical reasoning | Classified drift findings with ownership-level fixes |
 
 ### Decision Precedence
 
@@ -347,6 +361,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 - Use a stable top-level section model: `Required Project Inputs`, `When To Use`, `Procedure`, `Output Contract`, `Quality Checks`, `Anti-Patterns`, and `Example Requests`.
 - Keep skill-specific tables, matrices, and checklists inside those sections instead of inventing new top-level structure for each skill.
 - Describe a reusable expert-role procedure that adapts after reading those docs.
+- Make the boundary against neighboring skills explicit when routing confusion is likely.
 - Avoid binding the skill to one stack, one framework, or one package set unless the skill itself is intentionally stack-specific.
 
 ### When writing or updating reusable prompts

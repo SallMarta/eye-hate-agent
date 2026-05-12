@@ -1,14 +1,16 @@
 ---
 name: test-authoring
-description: "Project-aware expert-role test authoring that reads project docs to choose the right frameworks, commands, layers, and templates. Use when writing or reviewing tests, deciding test scope, validating regressions, or choosing verification strategy across any stack."
+description: "Project-aware expert-role verification strategy and test authoring that reads project docs to choose the right frameworks, commands, layers, and templates. Use when deciding test scope, validating regressions, choosing verification strategy, and writing or reviewing tests across any stack."
 argument-hint: "Describe the behavior, bug, feature, boundary, or artifact to test"
 ---
 
 # Test Authoring — Project-Aware
 
-Produces an **expert, project-aware verification plan or test implementation strategy** by reading the repository's documentation contract first, then selecting the correct test types, commands, and conventions for the current stack.
+Produces an **expert, project-aware verification strategy and test implementation plan** by reading the repository's documentation contract first, then selecting the correct test types, commands, and conventions for the current stack.
 
 This skill is intentionally **not tied to any single stack or framework**. The stack-specific truth should come from project docs.
+
+This skill is **verification-strategy-first**. Its primary job is to choose the right verification boundary, check type, commands, and assertions; writing the test code is downstream of that decision when implementation is actually needed.
 
 ---
 
@@ -38,6 +40,10 @@ If one of the required docs is missing and the task depends on it, surface that 
 | API contract update | "What tests should cover this API contract update?" |
 | Migration or persistence change | "Write a test plan for this migration change" |
 | Documentation-only repo change | "How should I validate a reusable prompt or rules update?" |
+
+Use `code-audit` instead when the main question is whether the implementation is correct.
+
+Use `analysis` instead when the task is explaining a failure or comparing technical options rather than deciding how to verify them.
 
 ---
 
@@ -79,6 +85,8 @@ Order of preference:
 3. integration test
 4. build or analysis check
 5. documentation or consistency review when no executable check exists
+
+If the user asked to write tests, still make this decision first before drafting any implementation.
 
 ### Step 4 — Match the check to the architecture boundary
 
@@ -147,9 +155,10 @@ When using this skill, the output should include:
 1. the recommended verification boundary
 2. the specific check type to use
 3. the project docs consulted
-4. the command(s) to run, or the reason no executable command exists
-5. the expected assertions or behaviors to verify
-6. any residual risks or uncovered paths
+4. whether new or changed tests are actually needed
+5. the command(s) to run, or the reason no executable command exists
+6. the expected assertions or behaviors to verify
+7. any residual risks or uncovered paths
 
 ---
 
@@ -166,6 +175,7 @@ When using this skill, the output should include:
 
 - Hardcoding one framework's tools into the skill text when that belongs in `TESTING.md`
 - Writing an end-to-end test when a narrow unit or contract test would falsify the same assumption
+- Jumping straight to writing test code before choosing the verification boundary and check type
 - Recommending commands without first checking `TESTING.md`
 - Guessing naming conventions instead of checking the repo
 - Treating documentation-only repositories as if they must already have executable tests
