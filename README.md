@@ -4,6 +4,22 @@ This repo template is authored by SuLyAdEe.
 
 ---
 
+## Table of Contents
+- [Eye Hate Agent](#eye-hate-agent)
+  - [Table of Contents](#table-of-contents)
+  - [Purpose](#purpose)
+  - [How to Adopt This Template](#how-to-adopt-this-template)
+    - [Step 1 — Choose The Topology](#step-1--choose-the-topology)
+    - [Scenario 1 — Distributed Self-Contained Repos](#scenario-1--distributed-self-contained-repos)
+    - [Scenario 2 — Shared Template Repo, Local Project Docs](#scenario-2--shared-template-repo-local-project-docs)
+    - [Scenario 3 — Centralized Portfolio-Doc Repo](#scenario-3--centralized-portfolio-doc-repo)
+    - [Step 2 — Choose The Project Category](#step-2--choose-the-project-category)
+    - [Step 3 — Run The Relevant Starter Reusable Prompt](#step-3--run-the-relevant-starter-reusable-prompt)
+  - [Main Files](#main-files)
+  - [File Index](#file-index)
+  - [Core Docs vs Guidelines](#core-docs-vs-guidelines)
+  - [Registry-Driven Extension](#registry-driven-extension)
+
 ## Purpose
 
 Documentation repository for AI-agent-assisted project work.
