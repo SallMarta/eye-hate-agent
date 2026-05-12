@@ -1,12 +1,12 @@
 ---
 name: project-elevation
-description: "Project-aware elevation analysis to identify missing capabilities, weak reliability, poor user or operator experience, and high-value next improvements. Reads project docs first, then suggests realistic upgrades for the repository's current stage."
+description: "Project-aware expert-role elevation analysis to identify missing capabilities, weak reliability, poor user or operator experience, and high-value next improvements. Reads project docs first, then suggests realistic upgrades for the repository's current stage."
 argument-hint: "Point to the project, module, workflow, or feature to evaluate for improvement"
 ---
 
 # Project Elevation — Project-Aware
 
-Performs a **forward-looking evaluation** of a project, feature, workflow, or module to find meaningful improvements in reliability, usability, maintainability, delivery readiness, and developer experience.
+Performs an **expert forward-looking evaluation** of a project, feature, workflow, or module to find meaningful improvements in reliability, usability, maintainability, delivery readiness, and developer experience.
 
 This skill is designed to avoid generic wish lists. It should recommend improvements that are realistic for the repository's actual scope, stage, and constraints.
 

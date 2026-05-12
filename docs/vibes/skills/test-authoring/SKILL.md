@@ -1,12 +1,12 @@
 ---
 name: test-authoring
-description: "Project-aware test authoring that reads project docs to choose the right frameworks, commands, layers, and templates. Use when writing or reviewing tests, deciding test scope, validating regressions, or choosing verification strategy across any stack."
+description: "Project-aware expert-role test authoring that reads project docs to choose the right frameworks, commands, layers, and templates. Use when writing or reviewing tests, deciding test scope, validating regressions, or choosing verification strategy across any stack."
 argument-hint: "Describe the behavior, bug, feature, boundary, or artifact to test"
 ---
 
 # Test Authoring — Project-Aware
 
-Produces a **project-aware verification plan or test implementation strategy** by reading the repository's documentation contract first, then selecting the correct test types, commands, and conventions for the current stack.
+Produces an **expert, project-aware verification plan or test implementation strategy** by reading the repository's documentation contract first, then selecting the correct test types, commands, and conventions for the current stack.
 
 This skill is intentionally **not tied to any single stack or framework**. The stack-specific truth should come from project docs.
 

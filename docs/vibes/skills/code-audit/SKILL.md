@@ -1,12 +1,12 @@
 ---
 name: code-audit
-description: "Project-aware code audit for bugs, risk, redundancy, dead code, weak boundaries, and logic flaws. Reads project docs first, then audits code against the repository's actual architecture and quality rules."
+description: "Project-aware expert-role code audit for bugs, risk, redundancy, dead code, weak boundaries, and logic flaws. Reads project docs first, then audits code against the repository's actual architecture and quality rules."
 argument-hint: "Point to the code, file, module, or change to audit"
 ---
 
 # Code Audit — Project-Aware
 
-Performs a **systematic, critical audit** of code or code-related artifacts after first reading the project documentation that defines the repository's architecture, verification model, and constraints.
+Performs an **expert, systematic, critical audit** of code or code-related artifacts after first reading the project documentation that defines the repository's architecture, verification model, and constraints.
 
 This skill is reusable across application code, backend services, scripts, automation, infrastructure code, and documentation-driven repositories.
 

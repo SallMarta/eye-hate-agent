@@ -1,12 +1,12 @@
 ---
 name: analysis
-description: "Project-aware deep analysis for architecture, debugging, trade-offs, risk, performance, requirements, and design questions. Reads project docs first, then applies structured reasoning to the current repository context."
+description: "Project-aware expert-role analysis for architecture, debugging, trade-offs, risk, performance, requirements, and design questions. Reads project docs first, then applies expert structured reasoning to the current repository context."
 argument-hint: "Describe the problem, decision, artifact, or system to analyze"
 ---
 
 # Analysis — Project-Aware
 
-Produces a **rigorous, structured analysis** of a problem, decision, artifact, or system after first reading the project documentation that defines the repository's actual context.
+Produces a **rigorous, expert-level analysis** of a problem, decision, artifact, or system after first reading the project documentation that defines the repository's actual context.
 
 This skill is reusable across product, backend, frontend, infrastructure, monorepo, and documentation-heavy projects. It should not assume a particular stack until the project docs confirm it.
 

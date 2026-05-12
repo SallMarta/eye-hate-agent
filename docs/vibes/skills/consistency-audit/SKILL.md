@@ -1,12 +1,12 @@
 ---
 name: consistency-audit
-description: "Audit repository drift across project docs, rules, skills, reusable prompts, workflows, and quick-reference material. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
+description: "Expert-role audit of repository drift across project docs, rules, skills, reusable prompts, workflows, and quick-reference material. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
 argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, rules and skills, or a specific workstream"
 ---
 
 # Consistency Audit — Project-Aware
 
-Performs a **repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, and historical artifacts that should be classified rather than confused with active truth.
+Performs an **expert repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, and historical artifacts that should be classified rather than confused with active truth.
 
 This skill is the reusable complement to the consistency-audit reusable prompt. Use it when the task is analytical rather than generative.
 

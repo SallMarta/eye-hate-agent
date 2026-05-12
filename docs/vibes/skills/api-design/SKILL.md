@@ -1,12 +1,12 @@
 ---
 name: api-design
-description: "Project-aware contract design for APIs, interfaces, repositories, services, message schemas, and module boundaries. Reads project docs first, then produces or reviews a contract consistent with the current repository."
+description: "Project-aware expert-role contract design for APIs, interfaces, repositories, services, message schemas, and module boundaries. Reads project docs first, then produces or reviews a contract consistent with the current repository."
 argument-hint: "Describe the boundary, interface, endpoint, message contract, or service behavior to design or review"
 ---
 
 # Interface & API Contract Design — Project-Aware
 
-Produces a **project-aware contract design or design review** by reading the repository's project docs first, then applying a reusable method to the current boundary type.
+Produces a **project-aware, expert-level contract design or design review** by reading the repository's project docs first, then applying a reusable method to the current boundary type.
 
 This skill is intentionally reusable across:
 
