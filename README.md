@@ -16,10 +16,8 @@
       - [Scenario 3 — Centralized Portfolio-Doc Repo](#scenario-3--centralized-portfolio-doc-repo)
     - [Step 2 — Choose The Project Category](#step-2--choose-the-project-category)
     - [Step 3 — Run The Relevant Starter Reusable Prompt](#step-3--run-the-relevant-starter-reusable-prompt)
-  - [Main Files](#main-files)
-  - [File Index](#file-index)
+  - [Key Paths](#key-paths)
   - [Core Docs vs Guidelines](#core-docs-vs-guidelines)
-  - [Registry-Driven (Project-Doc & Guideline Extension)](#registry-driven-project-doc--guideline-extension)
   - [Legend](#legend)
     - [Core Terms](#core-terms)
     - [Additional Terms](#additional-terms)
@@ -216,45 +214,29 @@ For legacy-doc migration:
 
 Example: move old files such as `docs-legacy/testing-notes.md` and `docs-legacy/architecture-notes.md`, then merge the valid parts into `docs/project-docs/TESTING.md` and `docs/project-docs/ARCHITECTURE.md`.
 
-## Main Files
-
-| File | Main job |
-| --- | --- |
-| `README.md` | main human guide and adoption entry point |
-| `docs/eyehateagent-contract.md` | main template rules, doc responsibilities, and decision order |
-| `docs/eyehateagent-maintenance.md` | template-maintainer workflow for this repo |
-| `docs/vibes/project-docs-template/` | optional starter docs scaffold |
-| `docs/vibes/project-docs-template/INDEX.md` | starter index for optional and conditional regular docs |
-| `docs/vibes/skills/` | reusable procedures for deeper analysis, test authoring, auditing, and design |
-| `docs/vibes/reusable-prompts/00-project-docs-*.md` | reusable maintenance workflows |
-
-## File Index
+## Key Paths
 
 | Area | Path | Role |
 | --- | --- | --- |
-| Contract anchor | `docs/eyehateagent-contract.md` | main routing, doc responsibilities, decision order, and adoption rules |
-| Maintenance anchor | `docs/eyehateagent-maintenance.md` | template-repo-only maintenance workflow |
-| Mirrored rules | `.github/instructions/`, `.claude/rules/` | platform-specific instruction entry points |
+| README | `README.md` | main human guide and adoption entry point |
+| Contract | `docs/eyehateagent-contract.md` | main template rules, doc responsibilities, decision order, and adoption rules |
+| Maintenance | `docs/eyehateagent-maintenance.md` | template-repo-only maintenance workflow |
 | Project docs | `docs/project-docs/` | main project-specific docs |
-| Guidelines | `docs/project-docs/guidelines/` | durable technical guidance |
+| Guideline docs | `docs/project-docs/guidelines/` | technical guidance docs for the target repo |
+| Optional-doc index | `docs/project-docs/INDEX.md` | main index file for active optional and conditional regular docs |
+| Guideline index | `docs/project-docs/guidelines/INDEX.md` | main index file for active guideline docs |
 | Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and consistency-audit workflows |
 | Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
+| Starter templates | `docs/vibes/project-docs-template/` | reusable starter scaffolds for docs and guidelines |
+
+For template extension, add known optional regular doc types in `docs/vibes/project-docs-template/INDEX.md` and known guideline types in `docs/vibes/project-docs-template/guidelines/INDEX.md`.
+If a new regular doc type needs brand-new standard headings, update `docs/eyehateagent-contract.md` first.
 
 ## Core Docs vs Guidelines
 
 Use the core project docs under `docs/project-docs/` to describe the repository generally: scope, architecture, testing, roadmap, and operating context.
 Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
 A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
-
-## Registry-Driven (Project-Doc & Guideline Extension)
-
-Use `docs/project-docs/INDEX.md` as the main index file for optional and conditional regular docs in a repo.
-Use `docs/project-docs/guidelines/INDEX.md` as the main index file for guideline docs in a repo.
-Starter template files under `docs/vibes/project-docs-template/` are still useful references, but they no longer decide whether a known doc type is active.
-
-If you want to add your own known optional regular doc type to the template, start at `docs/vibes/project-docs-template/INDEX.md`.
-If you want to add your own known guideline type to the template, start at `docs/vibes/project-docs-template/guidelines/INDEX.md`.
-If the new regular doc type needs brand-new standard headings, update `docs/eyehateagent-contract.md` first.
 
 ## Legend
 
