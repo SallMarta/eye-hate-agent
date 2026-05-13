@@ -180,6 +180,16 @@ Recommended technical-guidance layer for a fully documented repo when those doma
 
 Use `00-project-docs-consistency-audit.md` first when it is unclear which doc should cover each topic, docs conflict, or summaries look stale. Continue to `00-project-docs-refresh.md` only after the audit shows the right main doc for each topic.
 
+After you choose the starting prompt, follow this tutorial:
+
+1. If this is a new repo, run `00-project-docs-bootstrap.md` to create the first project docs in `docs/project-docs/`.
+2. If project docs already exist and mostly make sense, run `00-project-docs-refresh.md` to update them.
+3. If docs conflict, summaries look stale, or it is unclear which doc should cover each topic, run `00-project-docs-consistency-audit.md` first. Run refresh only after the audit shows the right main doc for each topic.
+4. If the repo already uses another documentation format, move the old docs you still want to keep into `docs-legacy/` or another clearly named reference folder, then run consistency audit first and refresh second.
+5. Keep active project docs in `docs/project-docs/`. Keep `docs-legacy/` only for history and lookup.
+
+Example: if the repo already has `README.md` setup notes plus older architecture and testing docs, move those old docs into `docs-legacy/`, run consistency audit to map them to `GETTING_STARTED.md`, `ARCHITECTURE.md`, and `TESTING.md`, then run refresh to merge the still-valid parts.
+
 If more template prompts are added later, start here unless another prompt is clearly a better fit.
 
 Template extension follows a different path:
@@ -187,26 +197,6 @@ Template extension follows a different path:
 - add known optional regular doc types in `docs/vibes/project-docs-template/INDEX.md`
 - add known guideline types in `docs/vibes/project-docs-template/guidelines/INDEX.md`
 - add or update a starter template file only when a reusable scaffold would still provide durable value
-
-Use this quick guide after choosing the prompt table above:
-
-| Repo state | Run this | Do this first | Main docs location |
-| --- | --- | --- | --- |
-| New project | `00-project-docs-bootstrap.md` | create the first project docs | `docs/project-docs/` |
-| Running project with existing project docs | `00-project-docs-refresh.md` | update the existing project docs | `docs/project-docs/` |
-| Mature repo with unclear or conflicting docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | figure out which doc should cover each topic before editing | `docs/project-docs/` |
-| Repo with another documentation format | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | move old docs into `docs-legacy/` or another clearly named reference folder | `docs/project-docs/` |
-
-If the repo already has meaningful code, existing docs, or contradictory summaries, prefer audit first and refresh second.
-
-For legacy-doc migration:
-
-1. move the old docs you still want to preserve into `docs-legacy/`
-2. run `00-project-docs-consistency-audit.md` to map those files to the correct project docs
-3. run `00-project-docs-refresh.md` to merge the still-valid content into `docs/project-docs/`
-4. keep `docs-legacy/` only for history and lookup, not as the main docs
-
-Example: move old files such as `docs-legacy/testing-notes.md` and `docs-legacy/architecture-notes.md`, then merge the valid parts into `docs/project-docs/TESTING.md` and `docs/project-docs/ARCHITECTURE.md`.
 
 ## Key Paths
 
@@ -228,9 +218,11 @@ If a new regular doc type needs brand-new standard headings, update `docs/eyehat
 
 ## Core Docs vs Guidelines
 
-Use the core project docs under `docs/project-docs/` to describe the repository generally: scope, architecture, testing, roadmap, and operating context.
-Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
-A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
+Use the regular docs under `docs/project-docs/` for the general picture of the repository or project, such as scope, architecture, tech stack, business process, testing, and roadmap.
+
+Use `docs/project-docs/guidelines/` for technical specs and rules, such as API, database, UI, logging, or code style.
+
+A target repo is fully documented when it has both: the general project docs plus the technical guidelines it actually needs.
 
 ## Legend
 
