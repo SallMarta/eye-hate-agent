@@ -6,74 +6,118 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
-- Made legacy-doc migration explicit across the README, contract, and reusable prompts by treating clearly named folders such as `docs-legacy/` as reference input instead of active owner docs.
-- Condensed README Step 3 into a smaller scenario guide and migration checklist that is easier for both humans and agents to scan.
-- Added a README `Legend` section that defines repo-specific terms in plain language for adopters and maintainers.
-- Simplified more README wording outside the Legend so the main guide uses less contract-heavy language.
-- Trimmed one more redundant recap from README Step 3 so the prompt-selection flow reads more directly.
-- Merged the README navigation and registry-extension guidance into one shorter `Key Paths` section and removed redundant file-summary sections.
-- Rephrased the README explanation of regular docs versus guidelines with simpler language and clearer examples.
-- Shortened the README guideline example list and removed two advanced Legend terms so the guide stays lighter for first-time readers.
-- Reworked README Step 3 into a shorter tutorial-style flow with one explicit procedure for new repos, existing docs, and legacy-doc migration.
+- No unreleased changes yet.
 
 ---
 
-## [2.1.0] - 2026-05-12
+## [1.7.0] - 2026-05-13
 
-- Refreshed `README.md` with a table of contents, a clearer file index, and more explicit registry-driven extension entry points.
+### Added
+
+- Added a README `Legend` section that defines repo-specific terms in plain language for adopters and maintainers.
+
+### Changed
+
+- Made legacy-doc migration explicit across the README, contract, and reusable prompts by treating clearly named folders such as `docs-legacy/` as reference input instead of active owner docs.
+- Condensed README Step 3 into a smaller scenario guide and migration checklist that is easier for both humans and agents to scan.
+- Simplified more README wording outside the Legend so the main guide uses less contract-heavy language.
+- Merged the README navigation and registry-extension guidance into one shorter `Key Paths` section and removed redundant file-summary sections.
+- Rephrased the README explanation of regular docs versus guidelines with simpler language and clearer examples.
+- Reworked README Step 3 into a shorter tutorial-style flow with one explicit procedure for new repos, existing docs, and legacy-doc migration.
+
+### Removed
+
+- Removed one more redundant recap from README Step 3 so the prompt-selection flow reads more directly.
+- Removed two advanced Legend terms and shortened the README guideline example list so the guide stays lighter for first-time readers.
+
+---
+
+## [1.6.0] - 2026-05-12
+
+### Added
+
 - Added explicit maintainer-facing anchors for where to register new optional regular doc types and guideline types.
 - Added a registry-driven extension model for optional regular docs and guideline types.
 - Added a starter `docs/vibes/project-docs-template/INDEX.md` registry and retuned reusable prompts to treat registries as inventory sources of truth.
 - Added a local `docs/project-docs/TESTING.md` owner doc for template-maintenance validation rules.
-- Clarified the contract split between core project docs and technical guideline docs.
 - Added a recommended starter guideline pack and a required `guidelines/INDEX.md` when guideline files exist.
 - Added starter guideline templates and updated reusable prompts and maintainer docs to keep guideline guidance consistent.
 - Added a central skill-selection matrix in `docs/eyehateagent-contract.md` to separate analysis, audit, design, verification, elevation, and consistency work more clearly.
+- Added a new `full-verification` skill as the broad verification entry point for code, docs, contracts, architecture, quality, and project-health checks.
+
+### Changed
+
+- Refreshed `README.md` with a table of contents, a clearer file index, and more explicit registry-driven extension entry points.
+- Clarified the contract split between core project docs and technical guideline docs.
 - Tightened `project-elevation` so it is explicitly forward-looking rather than a generic analysis wrapper.
 - Clarified `test-authoring` as a verification-strategy-first skill that chooses the right checks before writing tests.
-- Added a new `full-verification` skill as the broad verification entry point for code, docs, contracts, architecture, quality, and project-health checks.
 - Updated the contract and overlapping specialist skills so broad verification requests route cleanly to `full-verification` before choosing a single best specialist path.
 
 ---
 
-## [2.0.0] - 2026-05-12
+## [1.5.0] - 2026-05-12
+
+### Added
+
+- Added a repository index to `README.md` and refreshed the adoption examples to show the new contract layout.
+
+### Changed
 
 - Moved the canonical template anchors under `docs/` as `docs/eyehateagent-contract.md` and `docs/eyehateagent-maintenance.md`.
 - Retargeted the mirrored rules, reusable prompts, skills, and changelog references to the new docs-anchor paths.
-- Added a repository index to `README.md` and refreshed the adoption examples to show the new contract layout.
 - Refined the contract and maintenance wording to match the new docs-anchor model while preserving the 65% context-compaction exception.
 
 ---
 
-## [1.0.4] - 2026-05-11
+## [1.4.0] - 2026-05-11
+
+### Added
 
 - Added template governance through `docs/eyehateagent-maintenance.md`.
+
+### Changed
+
 - Moved the contract anchors to the repository root and retargeted live references.
 - Formalized Scenario 2 support in `docs/eyehateagent-contract.md` while keeping Scenario 3 outside the contract.
 - Turned `README.md` into the main operator guide with a chained adoption flow: topology, target project category, and starter reusable prompt.
+
+### Removed
+
 - Removed standalone adoption-guide surfaces that are now absorbed into the root `README.md`.
 
 ---
 
-## [1.0.3] - 2026-05-10
+## [1.3.0] - 2026-05-10
+
+### Changed
 
 - Simplified the mirrored rule files and clarified response-shape precedence through `docs/eyehateagent-contract.md`.
 - Shifted template verification back to a document-first, human-reviewed maintenance flow.
+
+### Removed
+
 - Removed outdated sample-oriented docs from the active template tree.
 
 ---
 
-## [1.0.2] - 2026-05-09
+## [1.2.0] - 2026-05-09
+
+### Changed
 
 - Refined contract, testing, quick-reference, and maintenance docs for clearer ownership and consistency.
 - Updated `README.md` and mirrored rules to better match the template workflow and terminology.
 
 ---
 
-## [1.0.1] - 2026-05-08
+## [1.1.0] - 2026-05-08
+
+### Added
 
 - Added the root `README.md` as the first human-facing adoption guide.
 - Added optional starter docs for `PRD.md` and `PRODUCTION_RUNBOOK.md`.
+
+### Changed
+
 - Clarified keep, replace, and remove rules for copying the template into target repositories.
 - Tightened starter-pack and reusable-prompt guidance for downstream doc management.
 
@@ -81,7 +125,12 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.0.0] - 2026-05-07
 
+### Added
+
 - Initial release of the template foundation with project-doc owner files, mirrored agent rules, reusable prompts, and reusable skills.
 - Added the first downstream adoption guide and the starter scaffold under `docs/vibes/project-docs-template/`.
 - Added starter `GETTING_STARTED.md` and `CHANGELOG.md` for the scaffold.
+
+### Changed
+
 - Elevated reusable prompts as a first-class template surface and standardized skill documentation for clearer guidance.
