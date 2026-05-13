@@ -1,5 +1,6 @@
 # Eye Hate Agent
-
+### Documentation repository for AI-agent-assisted project work.
+###### authored by SuLyAdEe.
 This repo template is authored by SuLyAdEe.
 
 ---
@@ -8,28 +9,33 @@ This repo template is authored by SuLyAdEe.
 - [Eye Hate Agent](#eye-hate-agent)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
-  - [How to Adopt This Template](#how-to-adopt-this-template)
+  - [How to Adopt](#how-to-adopt)
     - [Step 1 — Choose The Topology](#step-1--choose-the-topology)
-    - [Scenario 1 — Distributed Self-Contained Repos](#scenario-1--distributed-self-contained-repos)
-    - [Scenario 2 — Shared Template Repo, Local Project Docs](#scenario-2--shared-template-repo-local-project-docs)
-    - [Scenario 3 — Centralized Portfolio-Doc Repo](#scenario-3--centralized-portfolio-doc-repo)
+        - [Scenario 1 — Distributed Self-Contained Repos](#scenario-1--distributed-self-contained-repos)
+      - [Scenario 2 — Shared Template Repo, Local Project Docs](#scenario-2--shared-template-repo-local-project-docs)
+      - [Scenario 3 — Centralized Portfolio-Doc Repo](#scenario-3--centralized-portfolio-doc-repo)
     - [Step 2 — Choose The Project Category](#step-2--choose-the-project-category)
     - [Step 3 — Run The Relevant Starter Reusable Prompt](#step-3--run-the-relevant-starter-reusable-prompt)
   - [Main Files](#main-files)
   - [File Index](#file-index)
   - [Core Docs vs Guidelines](#core-docs-vs-guidelines)
-  - [Registry-Driven Extension](#registry-driven-extension)
+  - [Registry-Driven (Project-Doc & Guideline Extension)](#registry-driven-project-doc--guideline-extension)
 
 ## Purpose
 
-Documentation repository for AI-agent-assisted project work.
-It provides generic agent rules, reusable skills and prompts, and a project-doc contract.
-This repository is documentation template-only. It is not a sample application.
-Use this README first.
-Use `docs/eyehateagent-contract.md` for canonical rules and precedence.
-Use `docs/eyehateagent-maintenance.md` only when changing this template repository.
+Designed to give multiple agents a shared contract, shared rules, and shared planning/doc workflows across app types, while the actual app code lives in your target repo.
 
-## How to Adopt This Template
+It provides generic agent rules, reusable skills and prompts, and a project-doc contract.
+
+This repository is documentation template-only, not a sample application with actual code.
+
+> Note: The template supports multiple topologies and project categories, but the best practices and reusable prompts may differ based on your choice. You can customize everything in this template to fit your needs.
+
+1. Use this README first as main guide.
+2. Use `docs/eyehateagent-contract.md` for canonical rules and precedence.
+3. Use `docs/eyehateagent-maintenance.md` only when changing this `eye-hate-agent` repository.
+
+## How to Adopt
 
 Follow this order:
 
@@ -220,7 +226,7 @@ Use the core project docs under `docs/project-docs/` to describe the repository 
 Use `docs/project-docs/guidelines/` to capture durable technical guidance that work should follow inside that repository.
 A target repo is fully documented when it has both: the core project-doc set plus the active technical guideline layer it actually needs.
 
-## Registry-Driven Extension
+## Registry-Driven (Project-Doc & Guideline Extension)
 
 Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular docs in a repo.
 Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for guideline types in a repo.
