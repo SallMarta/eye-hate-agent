@@ -40,9 +40,9 @@ This repository is documentation template-only, not a sample application with ac
 
 Follow this order:
 
-1. choose the desirable topology
-2. choose the target project category
-3. run the relevant reusable prompt
+1. [Choose the desirable topology](#step-1--choose-the-topology)
+2. [Choose the target project category](#step-2--choose-the-project-category)
+3. [Execute the relevant reusable prompt](#step-3--run-the-relevant-starter-reusable-prompt)
 
 ### Step 1 — Choose The Topology
 
