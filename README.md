@@ -193,17 +193,25 @@ Template extension follows a different path:
 - add known guideline types in `docs/vibes/project-docs-template/guidelines/INDEX.md`
 - add or update a starter template file only when a reusable scaffold would still provide durable value
 
-If the target repo already has meaningful code, existing docs, or contradictory summaries, start with `00-project-docs-consistency-audit.md`. Use that pass to identify which docs are still trusted, which summaries are stale, and which file should be the owner doc for each topic. Then run `00-project-docs-refresh.md` only after that ownership map is clear.
+Use this quick guide after choosing the prompt table above:
 
-If a running or mature repo already has its own documentation format and you want to replace it with Eye Hate Agent, use this migration flow:
+| Repo state | Run this | Do this first | Main docs location |
+| --- | --- | --- | --- |
+| New project | `00-project-docs-bootstrap.md` | create the first project docs | `docs/project-docs/` |
+| Running project with existing owner docs | `00-project-docs-refresh.md` | update the existing project docs | `docs/project-docs/` |
+| Mature repo with unclear or conflicting docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | figure out which doc should cover each topic before editing | `docs/project-docs/` |
+| Repo with another documentation format | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | move old docs into `docs-legacy/` or another clearly named reference folder | `docs/project-docs/` |
 
-1. move the old docs you still want to preserve into a clearly non-owner folder such as `docs-legacy/`
-2. keep the new active owner docs under `docs/project-docs/`
-3. run `00-project-docs-consistency-audit.md` so the agent can map topics from `docs-legacy/` into the correct owner docs
-4. run `00-project-docs-refresh.md` to merge the still-valid content into `docs/project-docs/`
-5. keep `docs-legacy/` only as historical reference, not as an active source of truth
+If the repo already has meaningful code, existing docs, or contradictory summaries, prefer audit first and refresh second.
 
-Example: if the repo already has setup notes in `README.md`, an old `docs/architecture-notes.md`, a `docs/testing-notes.md`, and a stale `docs/roadmap-2024.md`, move those old files into `docs-legacy/` first. Then map them to the new owner docs, such as `docs/project-docs/GETTING_STARTED.md`, `docs/project-docs/ARCHITECTURE.md`, `docs/project-docs/TESTING.md`, and `docs/project-docs/STATUS.md`. After that, use audit plus refresh to merge any still-valid content into those owner docs and leave `docs-legacy/` as reference only.
+For legacy-doc migration:
+
+1. move the old docs you still want to preserve into `docs-legacy/`
+2. run `00-project-docs-consistency-audit.md` to map those files to the correct owner docs
+3. run `00-project-docs-refresh.md` to merge the still-valid content into `docs/project-docs/`
+4. keep `docs-legacy/` as reference only, not as an active source of truth
+
+Example: move old files such as `docs-legacy/testing-notes.md` and `docs-legacy/architecture-notes.md`, then merge the valid parts into `docs/project-docs/TESTING.md` and `docs/project-docs/ARCHITECTURE.md`.
 
 ## Main Files
 
