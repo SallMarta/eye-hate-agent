@@ -10,7 +10,9 @@ All notable changes to Eye Hate Agent are documented here.
 - Condensed README Step 3 into a smaller scenario guide and migration checklist that is easier for both humans and agents to scan.
 - Added a README `Legend` section that defines repo-specific terms in plain language for adopters and maintainers.
 - Simplified more README wording outside the Legend so the main guide uses less contract-heavy language.
+- Trimmed one more redundant recap from README Step 3 so the prompt-selection flow reads more directly.
 - Merged the README navigation and registry-extension guidance into one shorter `Key Paths` section and removed redundant file-summary sections.
+- Shortened the README guideline example list and removed two advanced Legend terms so the guide stays lighter for first-time readers.
 
 ---
 

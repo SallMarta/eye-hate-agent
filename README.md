@@ -167,7 +167,7 @@ When guideline docs are active in a target repo, declare them in `docs/project-d
 Recommended technical-guidance layer for a fully documented repo when those domains are relevant:
 
 - `guidelines/INDEX.md`
-- guideline docs listed as active in that registry, such as `guidelines/api.md`, `guidelines/database.md`, `guidelines/logging.md`, `guidelines/error-handling.md`, `guidelines/json.md`, `guidelines/code-style.md`, and `guidelines/design-patterns.md`
+- guideline docs listed as active in that registry, such as `guidelines/api.md`, `guidelines/database.md`, and `guidelines/code-style.md`
 
 ### Step 3 — Run The Relevant Starter Reusable Prompt
 
@@ -179,12 +179,6 @@ Recommended technical-guidance layer for a fully documented repo when those doma
 | Mature with strong docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
 
 Use `00-project-docs-consistency-audit.md` first when it is unclear which doc should cover each topic, docs conflict, or summaries look stale. Continue to `00-project-docs-refresh.md` only after the audit shows the right main doc for each topic.
-
-These are the main workflow prompts for setting up or updating project docs:
-
-- bootstrap the first project docs
-- refresh existing project docs
-- check which doc should cover each topic before refresh when the repo is mature or unclear
 
 If more template prompts are added later, start here unless another prompt is clearly a better fit.
 
@@ -259,5 +253,3 @@ A target repo is fully documented when it has both: the core project-doc set plu
 - `project category`: whether the target repo is a new project, a running project, or a mature or unclear project
 - `optional` or `conditional doc`: a non-core doc that exists only when the project needs it
 - `starter template`: a reusable scaffold or example under `docs/vibes/project-docs-template/`
-- `precedence`: the order used to decide which instruction or signal should win when they conflict
-- `fallback rule`: the default action to use when no stronger instruction or check exists
