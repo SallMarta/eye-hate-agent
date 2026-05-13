@@ -15,6 +15,7 @@ Check at least these areas when present:
 - `docs/project-docs/`
 - `docs/project-docs/INDEX.md`
 - `docs/project-docs/guidelines/`
+- clearly named reference or archive folders such as `docs-legacy/`, `archive/`, or `reference/`
 - rule / instruction files
 - `docs/vibes/skills/`
 - `docs/vibes/reusable-prompts/`
@@ -37,16 +38,18 @@ Check at least these areas when present:
 1. Use project docs as the primary source of truth unless the repository explicitly states otherwise.
 2. Treat `docs/eyehateagent-contract.md` as the ownership map.
 3. Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the authoritative inventories for optional regular docs and guideline docs when present.
+4. Treat clearly named reference or archive folders such as `docs-legacy/`, `archive/`, or `reference/` as migration input only, not as owner-doc paths.
 4. Distinguish between:
    - true contradiction
    - stale summary
    - historical artifact
    - optional module not currently active
-5. Treat a missing `docs/project-docs/INDEX.md` as drift when optional or conditional regular docs exist beyond the always-required core set.
-6. Treat a missing `guidelines/INDEX.md` as drift when guideline files exist.
-7. Treat registry entries without matching files and files without matching registry entries as drift unless the registry explicitly marks them deprecated or archived.
-8. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
-9. Do not fix anything unless explicitly asked.
+5. When a repo is migrating from another documentation format, use those reference folders to map legacy topics into the correct owner docs under `docs/project-docs/`.
+6. Treat a missing `docs/project-docs/INDEX.md` as drift when optional or conditional regular docs exist beyond the always-required core set.
+7. Treat a missing `guidelines/INDEX.md` as drift when guideline files exist.
+8. Treat registry entries without matching files and files without matching registry entries as drift unless the registry explicitly marks them deprecated or archived.
+9. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
+10. Do not fix anything unless explicitly asked.
 
 ## Output Contract
 

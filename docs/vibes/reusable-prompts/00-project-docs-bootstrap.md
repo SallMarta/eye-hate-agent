@@ -9,6 +9,7 @@ Generate the **initial project documentation set** for a new repository using th
 Create the smallest complete set of project docs that lets rules and skills operate without embedding project-specific assumptions.
 
 This reusable prompt assumes you are starting from a project brief or equivalent starting facts. If the repository already has meaningful code, docs, or contradictory summaries, use those as inputs and consider whether refresh or consistency audit should run first.
+If those older docs are being replaced, move them into a clearly non-owner reference folder such as `docs-legacy/` before using them as migration input.
 
 ## Required Behavior
 
@@ -21,7 +22,8 @@ This reusable prompt assumes you are starting from a project brief or equivalent
 7. If a registry entry exists without a starter template file, scaffold the doc from the contract-defined stable headings and ownership rules.
 8. If you create optional regular docs beyond the always-required core set, also create `docs/project-docs/INDEX.md` and keep it aligned with the active optional set.
 9. If you create guideline docs, also create `docs/project-docs/guidelines/INDEX.md` and keep it aligned with the active guideline set.
-10. Keep the docs mutually consistent.
+10. When clearly named reference or archive folders such as `docs-legacy/`, `archive/`, or `reference/` exist, treat them as background migration input only and keep active owner docs under `docs/project-docs/`.
+11. Keep the docs mutually consistent.
 
 For template maintenance: add new known optional regular doc types to `docs/vibes/project-docs-template/INDEX.md` and new known guideline types to `docs/vibes/project-docs-template/guidelines/INDEX.md`.
 Only rely on registry-only scaffolding when the contract already defines the needed stable headings or ownership rules.

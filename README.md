@@ -1,7 +1,7 @@
 # Eye Hate Agent
 ### Documentation repository for AI-agent-assisted project work.
+
 ###### authored by SuLyAdEe.
-This repo template is authored by SuLyAdEe.
 
 ---
 
@@ -177,24 +177,33 @@ Recommended technical-guidance layer for a fully documented repo when those doma
 | Mature with unclear docs | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear ownership |
 | Mature with strong docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
 
-For both Running and Mature projects, use `00-project-docs-consistency-audit.md` when ownership is unclear, docs conflict, or summaries look stale. Then, continue to `00-project-docs-refresh.md` only after the audit makes the owning docs clear enough to update safely.
+Use `00-project-docs-consistency-audit.md` first when ownership is unclear, docs conflict, or summaries look stale. Continue to `00-project-docs-refresh.md` only after the audit makes the owning docs clear enough to update safely.
 
-These are the starter reusable prompts for project-doc adoption.
-If more template prompts are added later, start here unless another prompt is clearly a better fit.
-
-Use these reusable prompts for three jobs only:
+These are the starter reusable prompts for project-doc adoption:
 
 - bootstrap the first owner docs
 - refresh existing owner docs
 - audit ownership before refresh when the repo is mature or unclear
 
-When extending the template with a known optional regular doc or guideline type, add it to the appropriate registry first.
-Add or update a starter template file only when a reusable scaffold would still provide durable value.
+If more template prompts are added later, start here unless another prompt is clearly a better fit.
 
-If the target repo already has meaningful code, existing docs, or contradictory summaries, prefer consistency audit first, then refresh.
+Template extension follows a different path:
 
-If a mature target repo already has legacy docs, inventory them first and isolate or archive only the conflicting parts when needed.
-For example, keep the active owner docs clear instead of letting old and new docs both look authoritative.
+- add known optional regular doc types in `docs/vibes/project-docs-template/INDEX.md`
+- add known guideline types in `docs/vibes/project-docs-template/guidelines/INDEX.md`
+- add or update a starter template file only when a reusable scaffold would still provide durable value
+
+If the target repo already has meaningful code, existing docs, or contradictory summaries, start with `00-project-docs-consistency-audit.md`. Use that pass to identify which docs are still trusted, which summaries are stale, and which file should be the owner doc for each topic. Then run `00-project-docs-refresh.md` only after that ownership map is clear.
+
+If a running or mature repo already has its own documentation format and you want to replace it with Eye Hate Agent, use this migration flow:
+
+1. move the old docs you still want to preserve into a clearly non-owner folder such as `docs-legacy/`
+2. keep the new active owner docs under `docs/project-docs/`
+3. run `00-project-docs-consistency-audit.md` so the agent can map topics from `docs-legacy/` into the correct owner docs
+4. run `00-project-docs-refresh.md` to merge the still-valid content into `docs/project-docs/`
+5. keep `docs-legacy/` only as historical reference, not as an active source of truth
+
+Example: if the repo already has setup notes in `README.md`, an old `docs/architecture-notes.md`, a `docs/testing-notes.md`, and a stale `docs/roadmap-2024.md`, move those old files into `docs-legacy/` first. Then map them to the new owner docs, such as `docs/project-docs/GETTING_STARTED.md`, `docs/project-docs/ARCHITECTURE.md`, `docs/project-docs/TESTING.md`, and `docs/project-docs/STATUS.md`. After that, use audit plus refresh to merge any still-valid content into those owner docs and leave `docs-legacy/` as reference only.
 
 ## Main Files
 

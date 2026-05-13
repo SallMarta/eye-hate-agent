@@ -6,7 +6,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
-- No unreleased changes yet.
+- Made legacy-doc migration explicit across the README, contract, and reusable prompts by treating clearly named folders such as `docs-legacy/` as reference input instead of active owner docs.
 
 ---
 
