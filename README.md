@@ -20,6 +20,9 @@
   - [File Index](#file-index)
   - [Core Docs vs Guidelines](#core-docs-vs-guidelines)
   - [Registry-Driven (Project-Doc & Guideline Extension)](#registry-driven-project-doc--guideline-extension)
+  - [Legend](#legend)
+    - [Core Terms](#core-terms)
+    - [Additional Terms](#additional-terms)
 
 ## Purpose
 
@@ -32,7 +35,7 @@ This repository is documentation template-only, not a sample application with ac
 > Note: The template supports multiple topologies and project categories, but the best practices and reusable prompts may differ based on your choice. You can customize everything in this template to fit your needs.
 
 1. Use this README first as main guide.
-2. Use `docs/eyehateagent-contract.md` for canonical rules and precedence.
+2. Use `docs/eyehateagent-contract.md` for the main rules and decision order.
 3. Use `docs/eyehateagent-maintenance.md` only when changing this `eye-hate-agent` repository.
 
 ## How to Adopt
@@ -48,7 +51,7 @@ Follow this order:
 | Topology | Use when | Status |
 | --- | --- | --- |
 | Scenario 1. Distributed self-contained repos | each repo should carry its own contract, rule surfaces, and reusable assets | Supported default |
-| Scenario 2. Shared template repo, local project docs | one shared `eye-hate-agent` repo should serve many repos, while each repo keeps local owner docs | Supported alternative |
+| Scenario 2. Shared template repo, local project docs | one shared `eye-hate-agent` repo should serve many repos, while each repo keeps its own main project docs | Supported alternative |
 | Scenario 3. Centralized portfolio-doc repo | one shared repo should own multiple repos' project docs | Outside this contract |
 
 ### Scenario 1 — Distributed Self-Contained Repos
@@ -136,13 +139,13 @@ Use it only if you intentionally redesign ownership so one repo owns multiple re
 
 | Project category | Scenario 1 | Scenario 2 |
 | --- | --- | --- |
-| New project | copy the local template surfaces, create local owner docs, then run bootstrap | keep local contract plus owner docs, keep reusable assets shared, then run bootstrap from the shared repo |
-| Running project | keep local owner docs and run refresh | keep local owner docs and run refresh from the shared repo |
-| Mature or unclear project | run consistency audit first, then refresh | run consistency audit from the shared repo against local owner docs, then refresh |
+| New project | copy the local template surfaces, create the first project docs, then run bootstrap | keep the local contract plus project docs, keep reusable assets shared, then run bootstrap from the shared repo |
+| Running project | keep the existing project docs and run refresh | keep the existing project docs and run refresh from the shared repo |
+| Mature or unclear project | run consistency audit first, then refresh | run consistency audit from the shared repo against the local project docs, then refresh |
 
 Scenario 3 has no standard project-category flow because it is outside this contract.
 
-Always keep these required owner docs in the target repo:
+Always keep these required project docs in the target repo:
 
 - `PROJECT.md`
 - `ARCHITECTURE.md`
@@ -173,17 +176,17 @@ Recommended technical-guidance layer for a fully documented repo when those doma
 | Better for | Start with | Repository state |
 | --- | --- | --- |
 | New project | `00-project-docs-bootstrap.md` | empty or nearly empty repo with only a brief |
-| Running project | `00-project-docs-refresh.md` | existing repo where owner docs exist but are outdated |
-| Mature with unclear docs | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear ownership |
+| Running project | `00-project-docs-refresh.md` | existing repo where project docs already exist but are outdated |
+| Mature with unclear docs | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear doc responsibilities |
 | Mature with strong docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
 
-Use `00-project-docs-consistency-audit.md` first when ownership is unclear, docs conflict, or summaries look stale. Continue to `00-project-docs-refresh.md` only after the audit makes the owning docs clear enough to update safely.
+Use `00-project-docs-consistency-audit.md` first when it is unclear which doc should cover each topic, docs conflict, or summaries look stale. Continue to `00-project-docs-refresh.md` only after the audit shows the right main doc for each topic.
 
-These are the starter reusable prompts for project-doc adoption:
+These are the main workflow prompts for setting up or updating project docs:
 
-- bootstrap the first owner docs
-- refresh existing owner docs
-- audit ownership before refresh when the repo is mature or unclear
+- bootstrap the first project docs
+- refresh existing project docs
+- check which doc should cover each topic before refresh when the repo is mature or unclear
 
 If more template prompts are added later, start here unless another prompt is clearly a better fit.
 
@@ -198,7 +201,7 @@ Use this quick guide after choosing the prompt table above:
 | Repo state | Run this | Do this first | Main docs location |
 | --- | --- | --- | --- |
 | New project | `00-project-docs-bootstrap.md` | create the first project docs | `docs/project-docs/` |
-| Running project with existing owner docs | `00-project-docs-refresh.md` | update the existing project docs | `docs/project-docs/` |
+| Running project with existing project docs | `00-project-docs-refresh.md` | update the existing project docs | `docs/project-docs/` |
 | Mature repo with unclear or conflicting docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | figure out which doc should cover each topic before editing | `docs/project-docs/` |
 | Repo with another documentation format | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | move old docs into `docs-legacy/` or another clearly named reference folder | `docs/project-docs/` |
 
@@ -207,9 +210,9 @@ If the repo already has meaningful code, existing docs, or contradictory summari
 For legacy-doc migration:
 
 1. move the old docs you still want to preserve into `docs-legacy/`
-2. run `00-project-docs-consistency-audit.md` to map those files to the correct owner docs
+2. run `00-project-docs-consistency-audit.md` to map those files to the correct project docs
 3. run `00-project-docs-refresh.md` to merge the still-valid content into `docs/project-docs/`
-4. keep `docs-legacy/` as reference only, not as an active source of truth
+4. keep `docs-legacy/` only for history and lookup, not as the main docs
 
 Example: move old files such as `docs-legacy/testing-notes.md` and `docs-legacy/architecture-notes.md`, then merge the valid parts into `docs/project-docs/TESTING.md` and `docs/project-docs/ARCHITECTURE.md`.
 
@@ -218,10 +221,10 @@ Example: move old files such as `docs-legacy/testing-notes.md` and `docs-legacy/
 | File | Main job |
 | --- | --- |
 | `README.md` | main human guide and adoption entry point |
-| `docs/eyehateagent-contract.md` | canonical system rules, ownership, and precedence |
+| `docs/eyehateagent-contract.md` | main template rules, doc responsibilities, and decision order |
 | `docs/eyehateagent-maintenance.md` | template-maintainer workflow for this repo |
 | `docs/vibes/project-docs-template/` | optional starter docs scaffold |
-| `docs/vibes/project-docs-template/INDEX.md` | starter registry for optional and conditional regular docs |
+| `docs/vibes/project-docs-template/INDEX.md` | starter index for optional and conditional regular docs |
 | `docs/vibes/skills/` | reusable procedures for deeper analysis, test authoring, auditing, and design |
 | `docs/vibes/reusable-prompts/00-project-docs-*.md` | reusable maintenance workflows |
 
@@ -229,10 +232,10 @@ Example: move old files such as `docs-legacy/testing-notes.md` and `docs-legacy/
 
 | Area | Path | Role |
 | --- | --- | --- |
-| Contract anchor | `docs/eyehateagent-contract.md` | canonical routing, ownership, precedence, and adoption rules |
-| Maintenance anchor | `docs/eyehateagent-maintenance.md` | template-repo-only governance and maintainer workflow |
+| Contract anchor | `docs/eyehateagent-contract.md` | main routing, doc responsibilities, decision order, and adoption rules |
+| Maintenance anchor | `docs/eyehateagent-maintenance.md` | template-repo-only maintenance workflow |
 | Mirrored rules | `.github/instructions/`, `.claude/rules/` | platform-specific instruction entry points |
-| Project docs | `docs/project-docs/` | canonical project-specific truth |
+| Project docs | `docs/project-docs/` | main project-specific docs |
 | Guidelines | `docs/project-docs/guidelines/` | durable technical guidance |
 | Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and consistency-audit workflows |
 | Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
@@ -245,10 +248,34 @@ A target repo is fully documented when it has both: the core project-doc set plu
 
 ## Registry-Driven (Project-Doc & Guideline Extension)
 
-Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular docs in a repo.
-Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for guideline types in a repo.
-Starter template files under `docs/vibes/project-docs-template/` remain recommended references, but they are no longer the activation mechanism for known doc types.
+Use `docs/project-docs/INDEX.md` as the main index file for optional and conditional regular docs in a repo.
+Use `docs/project-docs/guidelines/INDEX.md` as the main index file for guideline docs in a repo.
+Starter template files under `docs/vibes/project-docs-template/` are still useful references, but they no longer decide whether a known doc type is active.
 
 If you want to add your own known optional regular doc type to the template, start at `docs/vibes/project-docs-template/INDEX.md`.
 If you want to add your own known guideline type to the template, start at `docs/vibes/project-docs-template/guidelines/INDEX.md`.
-If the new regular doc type needs brand-new stable headings, update `docs/eyehateagent-contract.md` first.
+If the new regular doc type needs brand-new standard headings, update `docs/eyehateagent-contract.md` first.
+
+## Legend
+
+### Core Terms
+
+- `contract`: the main rules file for this template, especially `docs/eyehateagent-contract.md`
+- `owner doc`: the main doc that should hold the real information for one topic
+- `active truth`: the docs agents should trust first as the current source of truth, usually `docs/project-docs/`
+- `reusable prompt`: a reusable workflow file under `docs/vibes/reusable-prompts/`, such as bootstrap, refresh, or consistency-audit
+- `skill`: a reusable expert procedure under `docs/vibes/skills/`
+- `registry`: an index file that lists active optional docs or guidelines, such as `docs/project-docs/INDEX.md`
+- `topology` or `scenario`: the layout you choose for where template assets and project docs live
+- `docs-legacy` or `reference input`: old docs kept only for migration or reference, not as the active source of truth
+
+### Additional Terms
+
+- `stable heading`: a standard heading pattern that prompts and agents are expected to rely on
+- `mirrored rule files`: matching rule files under `.github/instructions/` and `.claude/rules/` that point back to the same contract
+- `guideline`: a technical guidance doc under `docs/project-docs/guidelines/`
+- `project category`: whether the target repo is a new project, a running project, or a mature or unclear project
+- `optional` or `conditional doc`: a non-core doc that exists only when the project needs it
+- `starter template`: a reusable scaffold or example under `docs/vibes/project-docs-template/`
+- `precedence`: the order used to decide which instruction or signal should win when they conflict
+- `fallback rule`: the default action to use when no stronger instruction or check exists

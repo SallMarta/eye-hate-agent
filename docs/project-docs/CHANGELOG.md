@@ -9,6 +9,7 @@ All notable changes to Eye Hate Agent are documented here.
 - Made legacy-doc migration explicit across the README, contract, and reusable prompts by treating clearly named folders such as `docs-legacy/` as reference input instead of active owner docs.
 - Condensed README Step 3 into a smaller scenario guide and migration checklist that is easier for both humans and agents to scan.
 - Added a README `Legend` section that defines repo-specific terms in plain language for adopters and maintainers.
+- Simplified more README wording outside the Legend so the main guide uses less contract-heavy language.
 
 ---
 
