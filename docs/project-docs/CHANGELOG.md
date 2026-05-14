@@ -6,17 +6,21 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
-- No unreleased changes yet.
+### Changed in Unreleased
+
+- Tightened `00-project-docs-refresh.md` so legacy or reference folders such as `docs-old/` and `docs-legacy/` can promote still-valid optional docs, active guideline sets, and phased-planning docs into `docs/project-docs/` instead of being left stranded in reference-only paths.
+- Clarified README Step 3 with explicit migration guidance and example prompts for promoting legacy `guidelines/` and `phases/` material during refresh-oriented adoption.
+- Added a narrow contract-level migration rule so reusable prompts promote justified legacy optional docs into the active owner-doc set and update the relevant registries.
 
 ---
 
 ## [1.7.0] - 2026-05-13
 
-### Added
+### Added in 1.7.0
 
 - Added a README `Legend` section that defines repo-specific terms in plain language for adopters and maintainers.
 
-### Changed
+### Changed in 1.7.0
 
 - Made legacy-doc migration explicit across the README, contract, and reusable prompts by treating clearly named folders such as `docs-legacy/` as reference input instead of active owner docs.
 - Condensed README Step 3 into a smaller scenario guide and migration checklist that is easier for both humans and agents to scan.
@@ -25,7 +29,7 @@ All notable changes to Eye Hate Agent are documented here.
 - Rephrased the README explanation of regular docs versus guidelines with simpler language and clearer examples.
 - Reworked README Step 3 into a shorter tutorial-style flow with one explicit procedure for new repos, existing docs, and legacy-doc migration.
 
-### Removed
+### Removed in 1.7.0
 
 - Removed one more redundant recap from README Step 3 so the prompt-selection flow reads more directly.
 - Removed two advanced Legend terms and shortened the README guideline example list so the guide stays lighter for first-time readers.
@@ -34,7 +38,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.6.0] - 2026-05-12
 
-### Added
+### Added in 1.6.0
 
 - Added explicit maintainer-facing anchors for where to register new optional regular doc types and guideline types.
 - Added a registry-driven extension model for optional regular docs and guideline types.
@@ -45,7 +49,7 @@ All notable changes to Eye Hate Agent are documented here.
 - Added a central skill-selection matrix in `docs/eyehateagent-contract.md` to separate analysis, audit, design, verification, elevation, and consistency work more clearly.
 - Added a new `full-verification` skill as the broad verification entry point for code, docs, contracts, architecture, quality, and project-health checks.
 
-### Changed
+### Changed in 1.6.0
 
 - Refreshed `README.md` with a table of contents, a clearer file index, and more explicit registry-driven extension entry points.
 - Clarified the contract split between core project docs and technical guideline docs.
@@ -57,11 +61,11 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.5.0] - 2026-05-12
 
-### Added
+### Added in 1.5.0
 
 - Added a repository index to `README.md` and refreshed the adoption examples to show the new contract layout.
 
-### Changed
+### Changed in 1.5.0
 
 - Moved the canonical template anchors under `docs/` as `docs/eyehateagent-contract.md` and `docs/eyehateagent-maintenance.md`.
 - Retargeted the mirrored rules, reusable prompts, skills, and changelog references to the new docs-anchor paths.
@@ -71,17 +75,17 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.4.0] - 2026-05-11
 
-### Added
+### Added in 1.4.0
 
 - Added template governance through `docs/eyehateagent-maintenance.md`.
 
-### Changed
+### Changed in 1.4.0
 
 - Moved the contract anchors to the repository root and retargeted live references.
 - Formalized Scenario 2 support in `docs/eyehateagent-contract.md` while keeping Scenario 3 outside the contract.
 - Turned `README.md` into the main operator guide with a chained adoption flow: topology, target project category, and starter reusable prompt.
 
-### Removed
+### Removed in 1.4.0
 
 - Removed standalone adoption-guide surfaces that are now absorbed into the root `README.md`.
 
@@ -89,12 +93,12 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.3.0] - 2026-05-10
 
-### Changed
+### Changed in 1.3.0
 
 - Simplified the mirrored rule files and clarified response-shape precedence through `docs/eyehateagent-contract.md`.
 - Shifted template verification back to a document-first, human-reviewed maintenance flow.
 
-### Removed
+### Removed in 1.3.0
 
 - Removed outdated sample-oriented docs from the active template tree.
 
@@ -102,7 +106,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.2.0] - 2026-05-09
 
-### Changed
+### Changed in 1.2.0
 
 - Refined contract, testing, quick-reference, and maintenance docs for clearer ownership and consistency.
 - Updated `README.md` and mirrored rules to better match the template workflow and terminology.
@@ -111,12 +115,12 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.1.0] - 2026-05-08
 
-### Added
+### Added in 1.1.0
 
 - Added the root `README.md` as the first human-facing adoption guide.
 - Added optional starter docs for `PRD.md` and `PRODUCTION_RUNBOOK.md`.
 
-### Changed
+### Changed in 1.1.0
 
 - Clarified keep, replace, and remove rules for copying the template into target repositories.
 - Tightened starter-pack and reusable-prompt guidance for downstream doc management.
@@ -125,12 +129,12 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [1.0.0] - 2026-05-07
 
-### Added
+### Added in 1.0.0
 
 - Initial release of the template foundation with project-doc owner files, mirrored agent rules, reusable prompts, and reusable skills.
 - Added the first downstream adoption guide and the starter scaffold under `docs/vibes/project-docs-template/`.
 - Added starter `GETTING_STARTED.md` and `CHANGELOG.md` for the scaffold.
 
-### Changed
+### Changed in 1.0.0
 
 - Elevated reusable prompts as a first-class template surface and standardized skill documentation for clearer guidance.

@@ -100,6 +100,7 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 
 - If a required project doc is missing, note the gap explicitly, create or update the smallest owning doc that unblocks the task, and limit confidence until the gap is resolved.
 - If project docs conflict, treat the contract and the owning doc as the source of truth, classify the mismatch as drift, and update the owner or ask the user when ownership is still unclear.
+- If legacy or reference docs show that a still-valid optional doc, guideline set, or phased-planning surface should be active under `docs/project-docs/`, promote it into the active owner-doc set and update the relevant registries instead of leaving it only in reference folders.
 - If the user requests a skill that is clearly unnecessary or mismatched, say so briefly and proceed directly unless the user insists.
 - If attached context is outdated or conflicts with active docs, prefer the active docs and treat the attachment as reference only.
 - If no suitable skill exists, continue through the direct path using the contract, project docs, and the strongest applicable non-skill method.
@@ -135,12 +136,12 @@ Use the repository in five categories.
 | Docs anchors | `docs/eyehateagent-contract.md`, `docs/eyehateagent-maintenance.md` | Documentation-level routing, governance, and template-maintainer anchors |
 | Active project docs | `docs/project-docs/` | Canonical project-specific truth for scope, architecture, testing, workflow, and conventions |
 | Reusable template assets | `docs/vibes/` | Reusable prompts, skills, and starter assets that operate from the active contract |
-| Reference or archive material | explicit non-contract paths such as `archive/`, `reference/`, `docs-legacy/`, or other clearly named folders | Historical, migrated, or example material that may inform work but must not override active contract truth |
+| Reference or archive material | explicit non-contract paths such as `archive/`, `reference/`, `docs-legacy/`, `docs-old/`, or other clearly named folders | Historical, migrated, or example material that may inform work but must not override active contract truth |
 
 `docs/eyehateagent-contract.md` plus the owning docs under `docs/project-docs/` form the active contract layer.
 Project-specific facts still belong in `docs/project-docs/`.
 When present, `docs/eyehateagent-maintenance.md` remains template-repo-only governance and must not become the owner of adopted-repository facts.
-When adopting Eye Hate Agent into a repo that already has another documentation format, move the old docs you want to preserve into a clearly non-owner reference folder such as `docs-legacy/` or `archive/legacy-docs/` before refresh.
+When adopting Eye Hate Agent into a repo that already has another documentation format, move the old docs you want to preserve into a clearly non-owner reference folder such as `docs-legacy/`, `docs-old/`, or `archive/legacy-docs/` before refresh.
 Reusable prompts may read those folders as reference input during migration, but `docs/project-docs/` remains the only active owner-doc surface.
 
 ---
@@ -398,7 +399,8 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 
 - Use this contract to decide which docs to generate or refresh.
 - Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the inventory source of truth for optional regular docs and guideline types when they exist.
-- When clearly named reference or archive folders such as `docs-legacy/`, `archive/`, or `reference/` exist, treat them as secondary migration input only and not as owner docs.
+- When clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` exist, treat them as secondary migration input only and not as owner docs.
+- When those reference folders contain still-valid optional-doc, guideline, or phased-planning material, promote the justified docs into the active owner-doc set and update the relevant registries instead of leaving the material reference-only.
 - Use a stable top-level section model: `Goal`, `Required Behavior`, `Output Contract`, `Final Pass`, and `Inputs`.
 - Use optional top-level sections only when needed, such as `Scope`, `Minimum Outputs`, `Constraints`, or `Ownership Examples`.
 - Keep review sequences, category examples, and file-by-file expectations inside those sections instead of inventing unrelated top-level structure.

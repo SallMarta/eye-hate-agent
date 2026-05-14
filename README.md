@@ -1,17 +1,19 @@
 # Eye Hate Agent
-### Documentation repository for AI-agent-assisted project work.
 
-###### authored by SuLyAdEe.
+## Documentation repository for AI-agent-assisted project work
+
+Authored by SuLyAdEe.
 
 ---
 
 ## Table of Contents
+
 - [Eye Hate Agent](#eye-hate-agent)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [How to Adopt](#how-to-adopt)
     - [Step 1 — Choose The Topology](#step-1--choose-the-topology)
-        - [Scenario 1 — Distributed Self-Contained Repos](#scenario-1--distributed-self-contained-repos)
+      - [Scenario 1 — Distributed Self-Contained Repos](#scenario-1--distributed-self-contained-repos)
       - [Scenario 2 — Shared Template Repo, Local Project Docs](#scenario-2--shared-template-repo-local-project-docs)
       - [Scenario 3 — Centralized Portfolio-Doc Repo](#scenario-3--centralized-portfolio-doc-repo)
     - [Step 2 — Choose The Project Category](#step-2--choose-the-project-category)
@@ -178,17 +180,23 @@ Recommended technical-guidance layer for a fully documented repo when those doma
 | Mature with unclear docs | `00-project-docs-consistency-audit.md` | existing repo with contradictions, stale summaries, or unclear doc responsibilities |
 | Mature with strong docs | `00-project-docs-consistency-audit.md`, then `00-project-docs-refresh.md` | mature repo with a strong pre-existing documentation system |
 
-Use `00-project-docs-consistency-audit.md` first when it is unclear which doc should cover each topic, docs conflict, or summaries look stale. Continue to `00-project-docs-refresh.md` only after the audit shows the right main doc for each topic.
+Use `00-project-docs-consistency-audit.md` first when it is unclear which doc should cover each topic, docs conflict, summaries look stale, or legacy docs contain structured material that may need promotion into active `guidelines/` or `phases/` folders. Continue to `00-project-docs-refresh.md` only after the audit shows the right main doc for each topic.
 
 After you choose the starting prompt, follow this tutorial:
 
 1. If this is a new repo, run `00-project-docs-bootstrap.md` to create the first project docs in `docs/project-docs/`.
 2. If project docs already exist and mostly make sense, run `00-project-docs-refresh.md` to update them.
-3. If docs conflict, summaries look stale, or it is unclear which doc should cover each topic, run `00-project-docs-consistency-audit.md` first. Run refresh only after the audit shows the right main doc for each topic.
-4. If the repo already uses another documentation format, move the old docs you still want to keep into `docs-legacy/` or another clearly named reference folder, then run consistency audit first and refresh second.
-5. Keep active project docs in `docs/project-docs/`. Keep `docs-legacy/` only for history and lookup.
+3. If legacy docs contain technical-guidance domains, epic or phase tracking, or other optional-doc structures that should stay active under `docs/project-docs/`, say that explicitly in the prompt and have refresh promote them into the active owner-doc set.
+4. If docs conflict, summaries look stale, or it is unclear which doc should cover each topic, run `00-project-docs-consistency-audit.md` first. Run refresh only after the audit shows the right main doc for each topic.
+5. If the repo already uses another documentation format, move the old docs you still want to keep into `docs-legacy/`, `docs-old/`, or another clearly named reference folder, then run consistency audit first and refresh second.
+6. Keep active project docs in `docs/project-docs/`. Keep `docs-legacy/`, `docs-old/`, or similar folders only for history and lookup.
 
 Example: if the repo already has `README.md` setup notes plus older architecture and testing docs, move those old docs into `docs-legacy/`, run consistency audit to map them to `GETTING_STARTED.md`, `ARCHITECTURE.md`, and `TESTING.md`, then run refresh to merge the still-valid parts.
+
+Example prompts:
+
+- `Read docs/eyehateagent-contract.md, inspect docs-old/ and docs-legacy/ as reference input, then execute 00-project-docs-refresh.md. If the legacy docs contain still-valid technical-guidance domains or phased planning, promote them into active docs/project-docs/guidelines/ and docs/project-docs/phases/ instead of leaving them only in legacy folders.`
+- `Read docs/eyehateagent-contract.md, then execute 00-project-docs-consistency-audit.md against docs-old/ and docs/project-docs/. Identify any legacy guideline or phase docs that should become active owner docs. After that, execute 00-project-docs-refresh.md using that ownership map.`
 
 If more template prompts are added later, start here unless another prompt is clearly a better fit.
 
