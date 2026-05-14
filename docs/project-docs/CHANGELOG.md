@@ -11,6 +11,9 @@ All notable changes to Eye Hate Agent are documented here.
 - Tightened `00-project-docs-refresh.md` so legacy or reference folders such as `docs-old/` and `docs-legacy/` can promote still-valid optional docs, active guideline sets, and phased-planning docs into `docs/project-docs/` instead of being left stranded in reference-only paths.
 - Clarified README Step 3 with explicit migration guidance and example prompts for promoting legacy `guidelines/` and `phases/` material during refresh-oriented adoption.
 - Added a narrow contract-level migration rule so reusable prompts promote justified legacy optional docs into the active owner-doc set and update the relevant registries.
+- Refined the contract, refresh prompt, consistency-audit prompt, and README so legacy docs are mapped by governed concern and content rather than by legacy folder or filename.
+- Added representative semantic-normalization examples such as `epic` or `roadmap` mapping to phased-planning owners and `protocol` or `standard` mapping to guideline owners when their content matches those concerns.
+- Added an explicit ask-the-user fallback pattern for ambiguous legacy mappings so agents do not silently guess when a legacy label may need to be preserved or may map to multiple active owners.
 
 ---
 
