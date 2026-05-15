@@ -58,10 +58,12 @@ Follow this order:
 
 ```text
 target-repo/
-├── .github/instructions/
-├── .claude/rules/
+├── .github/
+│   └── instructions/
+├── .claude/
+│   └── rules/
 └── docs/
-  ├── eyehateagent-contract.md
+    ├── eyehateagent-contract.md
     ├── project-docs/
     └── vibes/
         ├── reusable-prompts/
@@ -84,8 +86,10 @@ Remove `docs/eyehateagent-maintenance.md` after setup unless the target is also 
 ```text
 workspace/
 ├── eye-hate-agent/
-│   ├── .github/instructions/
-│   ├── .claude/rules/
+│   ├── .github/
+│   │   └── instructions/
+│   ├── .claude/
+│   │   └── rules/
 │   └── docs/
 │       ├── eyehateagent-contract.md
 │       ├── eyehateagent-maintenance.md
@@ -94,7 +98,7 @@ workspace/
 │           └── skills/
 └── target-repo/
     └── docs/
-    ├── eyehateagent-contract.md
+        ├── eyehateagent-contract.md
         └── project-docs/
 ```
 
@@ -118,14 +122,16 @@ Use local rule mirrors only when an agent platform requires repo-local instructi
 ```text
 workspace/
 ├── eye-hate-agent/
-│   ├── .github/instructions/
-│   ├── .claude/rules/
+│   ├── .github/
+│   │   └── instructions/
+│   ├── .claude/
+│   │   └── rules/
 │   └── docs/
 │       ├── eyehateagent-contract.md
 │       ├── eyehateagent-maintenance.md
-│       └── vibes/
-│           ├── reusable-prompts/
-│           └── skills/
+│       ├── vibes/
+│       │   ├── reusable-prompts/
+│       │   └── skills/
 │       ├── project-docs-target-repo-a/
 │       └── project-docs-target-repo-b/
 ├── target-repo-a/
