@@ -100,6 +100,8 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 
 - If a required project doc is missing, note the gap explicitly, create or update the smallest owning doc that unblocks the task, and limit confidence until the gap is resolved.
 - If project docs conflict, treat the contract and the owning doc as the source of truth, classify the mismatch as drift, and update the owner or ask the user when ownership is still unclear.
+- If code, tests, configs, or runtime-facing artifacts conflict with active docs and the repository does not explicitly define which side is authoritative for that fact, do not guess; surface the conflict, cite the evidence, and ask the user before choosing the fix path.
+- If the repository clearly establishes authority for that fact, state the governing evidence explicitly and proceed using the owning surface.
 - When mapping legacy or reference docs into the active owner-doc set, classify them by the durable concern they govern rather than by the legacy folder or filename; legacy names are hints, not the source-of-truth ownership model.
 - If legacy or reference docs show that a still-valid optional doc, guideline set, or phased-planning surface should be active under `docs/project-docs/`, promote it into the active owner-doc set and update the relevant registries instead of leaving it only in reference folders.
 - If the user requests a skill that is clearly unnecessary or mismatched, say so briefly and proceed directly unless the user insists.

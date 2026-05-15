@@ -1,12 +1,12 @@
 ---
 name: consistency-audit
-description: "Expert-role audit of repository drift across project docs, rules, skills, reusable prompts, workflows, and quick-reference material. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
+description: "Expert-role audit of repository drift across project docs, rules, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
 argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, rules and skills, or a specific workstream"
 ---
 
 # Consistency Audit — Project-Aware
 
-Performs an **expert repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, and historical artifacts that should be classified rather than confused with active truth.
+Performs an **expert repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, code-vs-doc authority conflicts, and historical artifacts that should be classified rather than confused with active truth.
 
 This skill is the reusable complement to the consistency-audit reusable prompt. Use it when the task is analytical rather than generative.
 
@@ -25,6 +25,7 @@ This skill is the reusable complement to the consistency-audit reusable prompt. 
 | Rule / instruction files | Automatic behavior layer |
 | Skills and reusable prompts | Reusable procedure and generation layers |
 | Workflow, handoff, and historical docs | Potentially valid references or stale artifacts |
+| Relevant code, tests, configs, and runtime-facing artifacts | Evidence for whether active docs still match the current repository |
 
 ---
 
@@ -33,7 +34,7 @@ This skill is the reusable complement to the consistency-audit reusable prompt. 
 | Trigger | Example request |
 | --- | --- |
 | Full-repo review | "Audit the whole repository for drift after a cleanup pass" |
-| Documentation review | "Check whether project docs and reusable prompts still agree" |
+| Documentation review | "Check whether project docs, reusable prompts, and the current repository still agree" |
 | Template maintenance | "Audit rules and skills after changing the contract" |
 | Handoff preparation | "Find contradictions before handing this repo to another maintainer" |
 
@@ -51,6 +52,7 @@ Check for disagreement across:
 - API or integration ownership
 - reusable prompt outputs vs project-doc contract
 - rule expectations vs documented workflow
+- active docs vs current code, tests, configs, or runtime-facing behavior when authority is disputed
 
 ---
 
@@ -58,7 +60,7 @@ Check for disagreement across:
 
 ### Step 1 — Establish the source of truth
 
-Use the project docs defined by `docs/eyehateagent-contract.md` as the default source of truth unless the repository explicitly states otherwise.
+Use the project docs defined by `docs/eyehateagent-contract.md` as the default source of truth for documentation ownership unless the repository explicitly states otherwise.
 
 ### Step 2 — Compare dependent layers
 
@@ -69,6 +71,9 @@ Compare the source-of-truth docs against:
 - reusable prompts
 - workflow docs
 - quick references and summaries
+- relevant code, tests, configs, and runtime-facing artifacts when a finding depends on current implementation behavior or authority order
+
+If code and docs conflict and the repository does not explicitly define which side is authoritative for that fact, surface the conflict and ask the user before choosing the fix path.
 
 ### Step 3 — Classify each mismatch
 
@@ -89,6 +94,7 @@ Determine whether the mismatch affects:
 - reusable prompt outputs
 - onboarding clarity
 - release or verification confidence
+- authority certainty between docs and implementation
 
 ### Step 5 — Recommend ownership-level fixes
 
@@ -107,6 +113,7 @@ For each finding, include:
 5. classification
 6. why it matters
 7. recommended owner to update
+8. whether user direction is required before deciding the fix path
 
 End with:
 
@@ -121,6 +128,7 @@ End with:
 - Do not propose fixing both sides of a contradiction when one side clearly owns the fact
 - Distinguish blocking contradictions from harmless historical leftovers
 - Keep the audit actionable, not just descriptive
+- Do not assume docs or code win when authority for the disputed fact is not explicit
 
 ---
 
@@ -130,6 +138,7 @@ End with:
 - Reporting drift without naming the owning file or layer that should change
 - Escalating every historical artifact as a blocker instead of classifying it correctly
 - Duplicating the same fact across multiple layers as a fix for drift
+- Assuming implementation drift or documentation drift without checking whether the repository defines authority for that fact
 
 ---
 

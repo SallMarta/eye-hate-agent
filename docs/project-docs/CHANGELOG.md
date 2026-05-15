@@ -6,8 +6,13 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
-### Changed in Unreleased
+---
 
+## [1.8.0] - 2026-05-15
+
+### Changed in 1.8.0
+
+- Expanded the consistency-audit prompt and related contract and skill surfaces so audits can inspect current implementation evidence when code and docs disagree, and require an ask-the-user pause when authority between docs and code is not explicit.
 - Tightened `00-project-docs-refresh.md` so legacy or reference folders such as `docs-old/` and `docs-legacy/` can promote still-valid optional docs, active guideline sets, and phased-planning docs into `docs/project-docs/` instead of being left stranded in reference-only paths.
 - Clarified README Step 3 with explicit migration guidance and example prompts for promoting legacy `guidelines/` and `phases/` material during refresh-oriented adoption.
 - Added a narrow contract-level migration rule so reusable prompts promote justified legacy optional docs into the active owner-doc set and update the relevant registries.

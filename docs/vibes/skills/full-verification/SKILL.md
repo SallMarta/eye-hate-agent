@@ -78,6 +78,8 @@ Extract:
 - project stage and readiness expectations
 - available evidence and validation commands
 
+If documentation and implementation disagree, determine whether the repository already defines which side is authoritative for that fact. If it does not, surface the conflict and ask the user before deciding the fix path.
+
 ### Step 3 — Choose the dominant verification mode
 
 Prefer the single strongest verification path unless the user explicitly asks for a broader sweep.
@@ -137,6 +139,7 @@ When using this skill, the output should include:
 5. the recommended checks or commands to run, or the reason no executable check exists
 6. the expected output or findings type from the selected path
 7. any residual risks or uncovered verification areas
+8. whether user direction is required before deciding between conflicting docs and implementation
 
 ---
 
@@ -147,6 +150,7 @@ When using this skill, the output should include:
 - Do not assume frameworks or commands before checking the project docs
 - Keep executable and non-executable verification clearly separated
 - State when confidence is limited by missing docs or missing evidence
+- Do not assume docs or implementation win when the repository does not define authority for the disputed fact
 
 ---
 

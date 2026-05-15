@@ -6,7 +6,7 @@ Audit the repository for **documentation-system drift**.
 
 ## Goal
 
-Find mismatches where project docs, rules, skills, reusable prompts, workflow docs, or quick-reference material disagree about the same fact.
+Find mismatches where project docs, rules, skills, reusable prompts, workflow docs, quick-reference material, or relevant implementation evidence disagree about the same fact.
 
 ## Scope
 
@@ -15,6 +15,7 @@ Check at least these areas when present:
 - `docs/project-docs/`
 - `docs/project-docs/index.md`
 - `docs/project-docs/guidelines/`
+- relevant code, tests, configs, or runtime-facing artifacts when a finding depends on current implementation behavior or source-of-truth ownership
 - clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/`
 - rule / instruction files
 - `docs/vibes/skills/`
@@ -30,13 +31,14 @@ Check at least these areas when present:
 - API / integration ownership
 - technical guideline ownership, overlap, and missing guideline index coverage
 - semantic legacy-to-owner mapping mismatches where content is relevant but naming differs
+- code-vs-doc authority mismatches where current implementation and active docs disagree
 - workflow expectations
 - roadmap / phase naming
 - project identity and naming
 
 ## Required Behavior
 
-1. Use project docs as the primary source of truth unless the repository explicitly states otherwise.
+1. Use project docs as the primary source of truth for documentation ownership and doc-to-doc drift unless the repository explicitly states otherwise.
 2. Treat `docs/eyehateagent-contract.md` as the ownership map.
 3. Treat `docs/project-docs/index.md` and `docs/project-docs/guidelines/index.md` as the authoritative inventories for optional regular docs and guideline docs when present.
 4. Treat clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` as migration input only, not as owner-doc paths.
@@ -52,9 +54,13 @@ Check at least these areas when present:
 10. Treat a missing `guidelines/index.md` as drift when guideline files exist.
 11. Treat registry entries without matching files and files without matching registry entries as drift unless the registry explicitly marks them deprecated or archived.
 12. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
-13. If a legacy artifact could plausibly map to more than one active owner, or if preserving the legacy label may be intentional, ask the user for direction instead of silently classifying it.
-14. When asking for that direction, prefer a concise question that states the inferred owner and the fallback choices. Example: `I found legacy "protocol" docs that look like technical guidance. Should I 1. skip them, 2. migrate them into active guideline docs, or 3. preserve "protocol" as a project-specific doc type?`
-15. Do not fix anything unless explicitly asked.
+13. When a finding depends on whether the implementation or the documentation is authoritative, inspect the relevant code, tests, configs, or runtime-facing artifacts before classifying the issue.
+14. If code and documentation conflict and the repository does not explicitly declare which source is authoritative for that fact, do not assume. Report the conflict and ask the user for direction before recommending a fix path.
+15. If a legacy artifact could plausibly map to more than one active owner, or if preserving the legacy label may be intentional, ask the user for direction instead of silently classifying it.
+16. When asking for that direction, prefer a concise question that names the fact in conflict and the likely choices. Example: `I found a conflict between the code and the docs for the active API behavior. Should I treat 1. the code as correct and update the docs, 2. the docs as correct and treat the code as drift, or 3. mark this as an intentional temporary mismatch?`
+17. If strong repository evidence already establishes the authority order for that fact, state that evidence explicitly instead of asking.
+18. Treat missing code evidence the same as missing doc evidence: reduce confidence, state the limitation, and avoid guessing.
+19. Do not fix anything unless explicitly asked.
 
 ## Output Contract
 
@@ -64,8 +70,10 @@ For each finding, include:
 - fact in conflict
 - source-of-truth file
 - conflicting file
+- whether the conflict is doc-vs-doc, code-vs-doc, or registry-vs-file
 - why it matters
 - recommended owner to update
+- whether user direction is required before deciding the fix path
 
 ## Final Pass
 
