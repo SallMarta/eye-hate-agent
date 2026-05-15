@@ -35,8 +35,8 @@ Document the durable API rules for the repository: boundary ownership, versionin
 
 ## Related Docs
 
-- `ARCHITECTURE.md`
-- `PRD.md` when request or response behavior is user-facing
+- `architecture.md`
+- `prd.md` when request or response behavior is user-facing
 - `guidelines/json.md`
 - `guidelines/error-handling.md`
 

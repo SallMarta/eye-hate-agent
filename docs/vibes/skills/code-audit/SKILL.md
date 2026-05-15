@@ -17,10 +17,10 @@ This skill is reusable across application code, backend services, scripts, autom
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Defines where the relevant truth should live |
-| `docs/project-docs/ARCHITECTURE.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
-| `docs/project-docs/TESTING.md` | Defines available validation and evidence strength |
-| `docs/project-docs/PROJECT.md` | Clarifies scope, non-goals, and project stage |
-| `docs/project-docs/QUICK_REFERENCE.md` | Provides conventions and high-signal operational facts |
+| `docs/project-docs/architecture.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
+| `docs/project-docs/testing.md` | Defines available validation and evidence strength |
+| `docs/project-docs/project.md` | Clarifies scope, non-goals, and project stage |
+| `docs/project-docs/quick-reference.md` | Provides conventions and high-signal operational facts |
 | Relevant feature or guideline docs | Clarify local behavior, workflows, APIs, schemas, or UX expectations |
 | The target code and nearby tests | Provide actual evidence for findings |
 
@@ -63,7 +63,7 @@ Look for:
 
 ### Step 3 — Check boundary violations
 
-Use `ARCHITECTURE.md` to inspect:
+Use `architecture.md` to inspect:
 
 - layer or module import violations
 - leaked internal types across boundaries
@@ -149,7 +149,7 @@ Include:
 
 - Calling something dead code without checking workspace usage
 - Calling something a bug without defining the failure condition
-- Criticizing a pattern that the project explicitly chose in `ARCHITECTURE.md`
+- Criticizing a pattern that the project explicitly chose in `architecture.md`
 - Recommending wide rewrites before testing a local fix or a smaller boundary change
 
 ---

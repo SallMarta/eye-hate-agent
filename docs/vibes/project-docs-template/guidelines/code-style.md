@@ -35,8 +35,8 @@ Document the repo-specific code-style rules that matter beyond formatter, linter
 
 ## Related Docs
 
-- `QUICK_REFERENCE.md`
-- `TESTING.md`
+- `quick-reference.md`
+- `testing.md`
 - language- or framework-specific tooling docs when present
 
 ## Open Questions

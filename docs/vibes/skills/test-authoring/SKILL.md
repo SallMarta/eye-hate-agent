@@ -21,10 +21,10 @@ Read the relevant docs before proposing or writing tests.
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Tells you which docs are required and where project-specific truth should live |
-| `docs/project-docs/TESTING.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
-| `docs/project-docs/ARCHITECTURE.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
-| `docs/project-docs/QUICK_REFERENCE.md` | Fast lookup for commands, paths, conventions, and common patterns |
-| `docs/project-docs/STATUS.md` | Reveals current implementation state, risks, and which workstream the change belongs to |
+| `docs/project-docs/testing.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
+| `docs/project-docs/architecture.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
+| `docs/project-docs/quick-reference.md` | Fast lookup for commands, paths, conventions, and common patterns |
+| `docs/project-docs/status.md` | Reveals current implementation state, risks, and which workstream the change belongs to |
 | Relevant feature docs under `docs/project-docs/` or `docs/project-docs/guidelines/` | Provide domain-specific behavior, API contracts, or user-flow expectations |
 | Existing test files in the repo | Show naming, folder structure, harness setup, and local conventions |
 
@@ -66,7 +66,7 @@ Determine what changed:
 
 ### Step 2 — Read the project-specific verification rules
 
-Use `TESTING.md` as the first stop.
+Use `testing.md` as the first stop.
 
 Extract:
 
@@ -92,7 +92,7 @@ If the user asked to write tests, still make this decision first before drafting
 
 ### Step 4 — Match the check to the architecture boundary
 
-Use `ARCHITECTURE.md` to decide whether the test should sit at:
+Use `architecture.md` to decide whether the test should sit at:
 
 - domain or business-logic boundary
 - interface or contract boundary
@@ -118,7 +118,7 @@ If the repo does not define a convention yet, propose one briefly and keep it mi
 
 ### Step 6 — Execute the documented checks
 
-Run the exact commands from `TESTING.md` or `QUICK_REFERENCE.md` when they exist.
+Run the exact commands from `testing.md` or `quick-reference.md` when they exist.
 
 If the repo is documentation-only or otherwise lacks executable checks:
 
@@ -140,13 +140,13 @@ Separate:
 
 | Scenario | Preferred check type | Read first |
 | --- | --- | --- |
-| Pure function, mapper, validator, parser | Unit | `TESTING.md`, `ARCHITECTURE.md` |
-| Internal coordination, service, or module behavior | Unit or component | `TESTING.md`, `ARCHITECTURE.md`, feature docs |
-| State transition, migration, or persistence rule | Persistence / migration test | `TESTING.md`, `ARCHITECTURE.md`, data-model docs |
-| Interface, handler, adapter, or contract boundary | Contract or integration test | `TESTING.md`, API / integration docs |
-| Interactive or end-user-visible flow | UI or end-to-end test | `TESTING.md`, app-flow / UI docs |
-| Asynchronous, scheduled, staged, or event-driven processing | Integration or component test | `TESTING.md`, `ARCHITECTURE.md`, workflow docs |
-| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `docs/eyehateagent-contract.md`, `TESTING.md` |
+| Pure function, mapper, validator, parser | Unit | `testing.md`, `architecture.md` |
+| Internal coordination, service, or module behavior | Unit or component | `testing.md`, `architecture.md`, feature docs |
+| State transition, migration, or persistence rule | Persistence / migration test | `testing.md`, `architecture.md`, data-model docs |
+| Interface, handler, adapter, or contract boundary | Contract or integration test | `testing.md`, API / integration docs |
+| Interactive or end-user-visible flow | UI or end-to-end test | `testing.md`, app-flow / UI docs |
+| Asynchronous, scheduled, staged, or event-driven processing | Integration or component test | `testing.md`, `architecture.md`, workflow docs |
+| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `docs/eyehateagent-contract.md`, `testing.md` |
 
 ---
 
@@ -167,18 +167,18 @@ When using this skill, the output should include:
 ## Quality Checks
 
 - Choose the narrowest check that can falsify the current assumption
-- Do not recommend commands before checking `TESTING.md` and `QUICK_REFERENCE.md`
-- Keep the verification boundary aligned with `ARCHITECTURE.md`
+- Do not recommend commands before checking `testing.md` and `quick-reference.md`
+- Keep the verification boundary aligned with `architecture.md`
 - Separate what was verified from what still depends on manual review or future automation
 
 ---
 
 ## Anti-Patterns
 
-- Hardcoding one framework's tools into the skill text when that belongs in `TESTING.md`
+- Hardcoding one framework's tools into the skill text when that belongs in `testing.md`
 - Writing an end-to-end test when a narrow unit or contract test would falsify the same assumption
 - Jumping straight to writing test code before choosing the verification boundary and check type
-- Recommending commands without first checking `TESTING.md`
+- Recommending commands without first checking `testing.md`
 - Guessing naming conventions instead of checking the repo
 - Treating documentation-only repositories as if they must already have executable tests
 - Confusing architecture examples with mandatory implementation details

@@ -61,7 +61,7 @@ target-repo/
 ├── .github/instructions/
 ├── .claude/rules/
 └── docs/
-    ├── eyehateagent-contract.md
+  ├── eyehateagent-contract.md
     ├── project-docs/
     └── vibes/
         ├── reusable-prompts/
@@ -94,7 +94,7 @@ workspace/
 │           └── skills/
 └── target-repo/
     └── docs/
-        ├── eyehateagent-contract.md
+    ├── eyehateagent-contract.md
         └── project-docs/
 ```
 
@@ -147,28 +147,28 @@ Scenario 3 has no standard project-category flow because it is outside this cont
 
 Always keep these required project docs in the target repo:
 
-- `PROJECT.md`
-- `ARCHITECTURE.md`
-- `TESTING.md`
-- `STATUS.md`
-- `QUICK_REFERENCE.md`
+- `project.md`
+- `architecture.md`
+- `testing.md`
+- `status.md`
+- `quick-reference.md`
 
 Recommended next docs for most target repos:
 
-- `CHANGELOG.md`
-- `GETTING_STARTED.md`
+- `changelog.md`
+- `getting-started.md`
 
 Optional docs when they add durable value:
 
-- `PRD.md`
-- `PRODUCTION_RUNBOOK.md`
+- `prd.md`
+- `production-runbook.md`
 
-When optional or conditional regular docs are active in a target repo, declare them in `docs/project-docs/INDEX.md`.
-When guideline docs are active in a target repo, declare them in `docs/project-docs/guidelines/INDEX.md`.
+When optional or conditional regular docs are active in a target repo, declare them in `docs/project-docs/index.md`.
+When guideline docs are active in a target repo, declare them in `docs/project-docs/guidelines/index.md`.
 
 Recommended technical-guidance layer for a fully documented repo when those domains are relevant:
 
-- `guidelines/INDEX.md`
+- `guidelines/index.md`
 - guideline docs listed as active in that registry, such as `guidelines/api.md`, `guidelines/database.md`, and `guidelines/code-style.md`
 
 ### Step 3 — Run The Relevant Starter Reusable Prompt
@@ -191,7 +191,7 @@ After you choose the starting prompt, follow this tutorial:
 5. If the repo already uses another documentation format, move the old docs you still want to keep into `docs-legacy/`, `docs-old/`, or another clearly named reference folder, then run consistency audit first and refresh second.
 6. Keep active project docs in `docs/project-docs/`. Keep `docs-legacy/`, `docs-old/`, or similar folders only for history and lookup.
 
-Example: if the repo already has `README.md` setup notes plus older architecture and testing docs, move those old docs into `docs-legacy/`, run consistency audit to map them to `GETTING_STARTED.md`, `ARCHITECTURE.md`, and `TESTING.md`, then run refresh to merge the still-valid parts.
+Example: if the repo already has `README.md` setup notes plus older architecture and testing docs, move those old docs into `docs-legacy/`, run consistency audit to map them to `getting-started.md`, `architecture.md`, and `testing.md`, then run refresh to merge the still-valid parts.
 
 Example prompts:
 
@@ -202,8 +202,8 @@ If more template prompts are added later, start here unless another prompt is cl
 
 Template extension follows a different path:
 
-- add known optional regular doc types in `docs/vibes/project-docs-template/INDEX.md`
-- add known guideline types in `docs/vibes/project-docs-template/guidelines/INDEX.md`
+- add known optional regular doc types in `docs/vibes/project-docs-template/index.md`
+- add known guideline types in `docs/vibes/project-docs-template/guidelines/index.md`
 - add or update a starter template file only when a reusable scaffold would still provide durable value
 
 ## Key Paths
@@ -215,13 +215,13 @@ Template extension follows a different path:
 | Maintenance | `docs/eyehateagent-maintenance.md` | template-repo-only maintenance workflow |
 | Project docs | `docs/project-docs/` | main project-specific docs |
 | Guideline docs | `docs/project-docs/guidelines/` | technical guidance docs for the target repo |
-| Optional-doc index | `docs/project-docs/INDEX.md` | main index file for active optional and conditional regular docs |
-| Guideline index | `docs/project-docs/guidelines/INDEX.md` | main index file for active guideline docs |
+| Optional-doc index | `docs/project-docs/index.md` | main index file for active optional and conditional regular docs |
+| Guideline index | `docs/project-docs/guidelines/index.md` | main index file for active guideline docs |
 | Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and consistency-audit workflows |
 | Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
 | Starter templates | `docs/vibes/project-docs-template/` | reusable starter scaffolds for docs and guidelines |
 
-For template extension, add known optional regular doc types in `docs/vibes/project-docs-template/INDEX.md` and known guideline types in `docs/vibes/project-docs-template/guidelines/INDEX.md`.
+For template extension, add known optional regular doc types in `docs/vibes/project-docs-template/index.md` and known guideline types in `docs/vibes/project-docs-template/guidelines/index.md`.
 If a new regular doc type needs brand-new standard headings, update `docs/eyehateagent-contract.md` first.
 
 ## Core Docs vs Guidelines
@@ -241,7 +241,7 @@ A target repo is fully documented when it has both: the general project docs plu
 - `active truth`: the docs agents should trust first as the current source of truth, usually `docs/project-docs/`
 - `reusable prompt`: a reusable workflow file under `docs/vibes/reusable-prompts/`, such as bootstrap, refresh, or consistency-audit
 - `skill`: a reusable expert procedure under `docs/vibes/skills/`
-- `registry`: an index file that lists active optional docs or guidelines, such as `docs/project-docs/INDEX.md`
+- `registry`: an index file that lists active optional docs or guidelines, such as `docs/project-docs/index.md`
 - `topology` or `scenario`: the layout you choose for where template assets and project docs live
 - `docs-legacy` or `reference input`: old docs kept only for migration or reference, not as the active source of truth
 

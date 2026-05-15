@@ -36,8 +36,8 @@ Document the durable JSON rules for the repository: field naming, nullability, s
 ## Related Docs
 
 - `guidelines/api.md`
-- `ARCHITECTURE.md`
-- `TESTING.md`
+- `architecture.md`
+- `testing.md`
 
 ## Open Questions
 

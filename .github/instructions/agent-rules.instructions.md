@@ -52,7 +52,7 @@ Skip this for trivial single-step edits.
 - Stronger formats win: explicit user formatting requests, mode-specific agent files, and skill or reusable prompt `Output Contract` sections.
 - Keep reusable rules free of stack-specific commands or framework assumptions unless the repository intentionally keeps them there.
 - Before finishing, re-read output for correctness, edge cases, boundary issues, and missing error handling.
-- Run the narrowest applicable verification from `docs/project-docs/TESTING.md`.
+- Run the narrowest applicable verification from `docs/project-docs/testing.md`.
 - If no stronger executable check exists, run the strongest structural or consistency review and say so.
 - After code or rule changes, sync affected docs and update mirrored rule files together when needed.
 - If the request, scope, or output format is ambiguous, clarify before finalizing.

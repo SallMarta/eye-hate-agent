@@ -17,11 +17,11 @@ This skill is the reusable complement to the consistency-audit reusable prompt. 
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Ownership map and canonical doc contract |
-| `docs/project-docs/PROJECT.md` | Active project identity and scope |
-| `docs/project-docs/ARCHITECTURE.md` | Active stack and architecture truth |
-| `docs/project-docs/TESTING.md` | Active verification truth |
-| `docs/project-docs/STATUS.md` | Active roadmap and current-state truth |
-| `docs/project-docs/QUICK_REFERENCE.md` | Summary layer likely to drift if not refreshed |
+| `docs/project-docs/project.md` | Active project identity and scope |
+| `docs/project-docs/architecture.md` | Active stack and architecture truth |
+| `docs/project-docs/testing.md` | Active verification truth |
+| `docs/project-docs/status.md` | Active roadmap and current-state truth |
+| `docs/project-docs/quick-reference.md` | Summary layer likely to drift if not refreshed |
 | Rule / instruction files | Automatic behavior layer |
 | Skills and reusable prompts | Reusable procedure and generation layers |
 | Workflow, handoff, and historical docs | Potentially valid references or stale artifacts |

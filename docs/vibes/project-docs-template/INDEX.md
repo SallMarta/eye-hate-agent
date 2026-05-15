@@ -12,22 +12,22 @@ This index is the authoritative registry for optional and conditional regular do
 
 ## Core Required Docs
 
-- `PROJECT.md`
-- `ARCHITECTURE.md`
-- `TESTING.md`
-- `STATUS.md`
-- `QUICK_REFERENCE.md`
+- `project.md`
+- `architecture.md`
+- `testing.md`
+- `status.md`
+- `quick-reference.md`
 
 ## Optional And Conditional Docs
 
 | File | Purpose | Status | Owner | Creation trigger |
 | --- | --- | --- | --- | --- |
-| `CHANGELOG.md` | Release or milestone change history | conditional | TBD | When changes need release or milestone tracking |
-| `GETTING_STARTED.md` | Setup, onboarding, and first-run guidance | conditional | TBD | When setup or onboarding needs a dedicated owner doc |
-| `FEATURE_INVENTORY.md` | Detailed feature catalog | conditional | TBD | When the feature surface is large enough to need inventory-level tracking |
-| `PRD.md` | Detailed requirements, flows, and acceptance criteria | conditional | TBD | When the project relies on formal requirements or flow-level acceptance criteria |
-| `PRODUCTION_RUNBOOK.md` | Release, rollback, smoke-check, and recovery guidance | conditional | TBD | Before production operation needs a dedicated runbook |
-| `phases/INDEX.md` | Multi-phase planning or epic registry | conditional | TBD | When roadmap work needs explicit phase tracking |
+| `changelog.md` | Release or milestone change history | conditional | TBD | When changes need release or milestone tracking |
+| `getting-started.md` | Setup, onboarding, and first-run guidance | conditional | TBD | When setup or onboarding needs a dedicated owner doc |
+| `feature-inventory.md` | Detailed feature catalog | conditional | TBD | When the feature surface is large enough to need inventory-level tracking |
+| `prd.md` | Detailed requirements, flows, and acceptance criteria | conditional | TBD | When the project relies on formal requirements or flow-level acceptance criteria |
+| `production-runbook.md` | Release, rollback, smoke-check, and recovery guidance | conditional | TBD | Before production operation needs a dedicated runbook |
+| `phases/index.md` | Multi-phase planning or epic registry | conditional | TBD | When roadmap work needs explicit phase tracking |
 | `YOUR_NEW_DOC.md` | State the purpose of the next optional regular doc here | conditional | TBD | State the creation trigger for the next optional regular doc here |
 
 Use status values such as `active`, `conditional`, `deprecated`, or `archived`.

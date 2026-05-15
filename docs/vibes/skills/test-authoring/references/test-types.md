@@ -1,6 +1,6 @@
 # Test Type Decision Table — Project-Aware
 
-Use this table to choose the smallest verification type that matches the actual boundary being changed. Confirm the final choice against the repository's `TESTING.md`.
+Use this table to choose the smallest verification type that matches the actual boundary being changed. Confirm the final choice against the repository's `testing.md`.
 
 | Scenario | Preferred check type | Why |
 | --- | --- | --- |

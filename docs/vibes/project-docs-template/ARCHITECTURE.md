@@ -41,4 +41,4 @@ Describe the main data stores, persistence boundaries, and ownership rules.
 
 ## Testing Stack
 
-Cross-reference `TESTING.md` and note any architecture-specific testing constraints.
+Cross-reference `testing.md` and note any architecture-specific testing constraints.

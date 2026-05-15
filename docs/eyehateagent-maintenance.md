@@ -68,7 +68,7 @@ For a breaking change:
 2. Update both mirrored rule files in the same change.
 3. Update affected skills, reusable prompts, onboarding docs, and summaries.
 4. Update downstream copies that still track the template's canonical paths.
-5. Add migration notes for adopters in `CHANGELOG.md` or the affected owner doc.
+5. Add migration notes for adopters in `changelog.md` or the affected owner doc.
 6. Run the full maintenance audit.
 
 ---
@@ -85,11 +85,11 @@ For a breaking change:
 
 1. Classify the change before editing.
 2. Use `docs/eyehateagent-contract.md` for extension rules that must survive adoption.
-3. When adding a known optional regular doc type, start by updating `docs/vibes/project-docs-template/INDEX.md`.
-4. When adding a known guideline type, start by updating `docs/vibes/project-docs-template/guidelines/INDEX.md`.
+3. When adding a known optional regular doc type, start by updating `docs/vibes/project-docs-template/index.md`.
+4. When adding a known guideline type, start by updating `docs/vibes/project-docs-template/guidelines/index.md`.
 5. If the new doc class needs a new stable heading pattern or ownership rule, update `docs/eyehateagent-contract.md` before relying on the registries.
 6. Do not remove the roughly 65% context-compaction exception from the mirrored rule files unless the contract is intentionally updated in the same change.
 7. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
 8. Update mirrors, summaries, skills, reusable prompts, registries, starter template files, and downstream copies that quote or depend on the changed owner.
 9. Run the maintenance audit sequence.
-10. Record maintainer-facing changes in `CHANGELOG.md`.
+10. Record maintainer-facing changes in `changelog.md`.

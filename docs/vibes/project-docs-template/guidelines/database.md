@@ -35,9 +35,9 @@ Document the durable database and persistence rules for the repository: naming, 
 
 ## Related Docs
 
-- `ARCHITECTURE.md`
-- `PRODUCTION_RUNBOOK.md` when production migration procedure matters
-- `TESTING.md`
+- `architecture.md`
+- `production-runbook.md` when production migration procedure matters
+- `testing.md`
 
 ## Open Questions
 

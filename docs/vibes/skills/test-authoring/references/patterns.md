@@ -1,6 +1,6 @@
 # Test Patterns Reference — Project-Aware
 
-Quick reference for common test-pattern shapes. Use these as **structural examples**, then adapt them using the repository's `TESTING.md`, `ARCHITECTURE.md`, and local conventions.
+Quick reference for common test-pattern shapes. Use these as **structural examples**, then adapt them using the repository's `testing.md`, `architecture.md`, and local conventions.
 
 ---
 
@@ -113,4 +113,4 @@ Prefer observable behavior over internal implementation details.
 - asserting on private implementation details
 - using full integration tests when a narrow unit or contract test would falsify the same assumption
 - naming tests after implementation rather than behavior
-- copying framework-specific scaffolds without checking `TESTING.md`
+- copying framework-specific scaffolds without checking `testing.md`

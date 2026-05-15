@@ -35,8 +35,8 @@ Document the preferred design patterns, boundary patterns, and coupling rules th
 
 ## Related Docs
 
-- `ARCHITECTURE.md`
-- `STATUS.md` when pattern adoption is part of active roadmap work
+- `architecture.md`
+- `status.md` when pattern adoption is part of active roadmap work
 - `guidelines/code-style.md`
 
 ## Open Questions

@@ -30,7 +30,7 @@ Explain how to set up, run, and orient a new contributor or operator in this rep
 ## Verification
 
 - first validation command: TBD
-- where to find deeper testing guidance: `TESTING.md`
+- where to find deeper testing guidance: `testing.md`
 
 ## Troubleshooting
 

@@ -17,11 +17,11 @@ This skill is reusable across product, backend, frontend, infrastructure, monore
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Defines which project docs should hold the relevant truth |
-| `docs/project-docs/PROJECT.md` | Clarifies goals, scope, stakeholders, and success metrics |
-| `docs/project-docs/ARCHITECTURE.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
-| `docs/project-docs/STATUS.md` | Reveals maturity, roadmap, active workstreams, and known blockers |
-| `docs/project-docs/TESTING.md` | Shows what validation exists and how strong the available evidence can be |
-| `docs/project-docs/QUICK_REFERENCE.md` | Provides high-signal conventions, commands, and paths |
+| `docs/project-docs/project.md` | Clarifies goals, scope, stakeholders, and success metrics |
+| `docs/project-docs/architecture.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
+| `docs/project-docs/status.md` | Reveals maturity, roadmap, active workstreams, and known blockers |
+| `docs/project-docs/testing.md` | Shows what validation exists and how strong the available evidence can be |
+| `docs/project-docs/quick-reference.md` | Provides high-signal conventions, commands, and paths |
 | Relevant feature, workflow, API, or guideline docs | Supply domain-specific truth for the topic being analyzed |
 | Relevant code, logs, tests, or runtime evidence | Support findings with direct evidence rather than guesswork |
 
@@ -153,7 +153,7 @@ Your output should include:
 - Jumping to the first plausible conclusion
 - Treating all options as equally valid when evidence favors one
 - Recommending a rewrite when an incremental fix would solve the problem
-- Ignoring the project stage, roadmap, or non-goals in `PROJECT.md` and `STATUS.md`
+- Ignoring the project stage, roadmap, or non-goals in `project.md` and `status.md`
 
 ---
 

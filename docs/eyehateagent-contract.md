@@ -50,12 +50,12 @@ Use two operating modes.
 
 | User request | Mode | Read first | Skill | Expected output |
 | --- | --- | --- | --- | --- |
-| "create evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
-| "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, and relevant feature docs | Usually `test-authoring` | Verification strategy, recommended checks, and tests when needed |
-| "verify this feature against the docs, contract, and code" | Normal work | `docs/eyehateagent-contract.md`, `TESTING.md`, `ARCHITECTURE.md`, `PROJECT.md`, `STATUS.md`, and relevant guidelines or feature docs | Usually `full-verification` | Routed verification path, selected specialist skill, and checks or findings |
-| "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
-| "what should we improve before this workflow is production-ready" | Normal work | `docs/eyehateagent-contract.md`, `PROJECT.md`, `STATUS.md`, `ARCHITECTURE.md`, `TESTING.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
-| "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `ARCHITECTURE.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
+| "create evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `architecture.md`, `project.md`, `status.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
+| "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `testing.md`, `architecture.md`, and relevant feature docs | Usually `test-authoring` | Verification strategy, recommended checks, and tests when needed |
+| "verify this feature against the docs, contract, and code" | Normal work | `docs/eyehateagent-contract.md`, `testing.md`, `architecture.md`, `project.md`, `status.md`, and relevant guidelines or feature docs | Usually `full-verification` | Routed verification path, selected specialist skill, and checks or findings |
+| "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `architecture.md`, `testing.md`, `status.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
+| "what should we improve before this workflow is production-ready" | Normal work | `docs/eyehateagent-contract.md`, `project.md`, `status.md`, `architecture.md`, `testing.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
+| "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `architecture.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
 | "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
 
 ### Skill Invocation Rule
@@ -105,7 +105,7 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 - If the user requests a skill that is clearly unnecessary or mismatched, say so briefly and proceed directly unless the user insists.
 - If attached context is outdated or conflicts with active docs, prefer the active docs and treat the attachment as reference only.
 - If no suitable skill exists, continue through the direct path using the contract, project docs, and the strongest applicable non-skill method.
-- If no stronger validation exists, follow the fallback rules in `TESTING.md` and state the limitation explicitly.
+- If no stronger validation exists, follow the fallback rules in `testing.md` and state the limitation explicitly.
 
 ### Output By Mode
 
@@ -174,20 +174,20 @@ Scenario 3 is intentionally outside this contract because it changes the ownersh
 | File | Required | Purpose |
 | --- | --- | --- |
 | `docs/eyehateagent-contract.md` | Yes | Docs anchor for routing, ownership, precedence, stable structures, and adoption rules |
-| `PROJECT.md` | Yes | Product or service intent, goals, scope, stakeholders, non-goals, success metrics |
-| `ARCHITECTURE.md` | Yes | Stack, runtime model, boundaries, integration patterns, dependency rules, core commands |
-| `TESTING.md` | Yes | Verification matrix, commands, quality gates, test layers, manual-check fallback |
-| `STATUS.md` | Yes | Roadmap, phases, epic/task status, sequencing, current implementation state |
-| `QUICK_REFERENCE.md` | Yes | High-signal commands, paths, conventions, glossary, fast lookup |
-| `INDEX.md` | Conditional | Required when optional or conditional regular project docs are active; inventories optional and extended regular doc types for the repo |
-| `CHANGELOG.md` | Recommended | What changed, by release or milestone |
-| `GETTING_STARTED.md` | Recommended | Setup, local run, environment bootstrap |
+| `project.md` | Yes | Product or service intent, goals, scope, stakeholders, non-goals, success metrics |
+| `architecture.md` | Yes | Stack, runtime model, boundaries, integration patterns, dependency rules, core commands |
+| `testing.md` | Yes | Verification matrix, commands, quality gates, test layers, manual-check fallback |
+| `status.md` | Yes | Roadmap, phases, epic/task status, sequencing, current implementation state |
+| `quick-reference.md` | Yes | High-signal commands, paths, conventions, glossary, fast lookup |
+| `index.md` | Conditional | Required when optional or conditional regular project docs are active; inventories optional and extended regular doc types for the repo |
+| `changelog.md` | Recommended | What changed, by release or milestone |
+| `getting-started.md` | Recommended | Setup, local run, environment bootstrap |
 | `docs/eyehateagent-maintenance.md` | Optional for template repositories | Template-repo-only governance, lifecycle, deprecation, and maintainer workflow |
-| `FEATURE_INVENTORY.md` | Optional | Detailed feature catalog when product scope is large |
-| `PRD.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `PROJECT.md` remains summary-level |
-| `PRODUCTION_RUNBOOK.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
-| `phases/INDEX.md` | Optional | Epic registry when phased planning exists |
-| `guidelines/INDEX.md` | Conditional | Required when any guideline docs exist; serves as the authoritative registry for active guideline types in the repo |
+| `feature-inventory.md` | Optional | Detailed feature catalog when product scope is large |
+| `prd.md` | Optional | Detailed requirements, flows, acceptance criteria, and requirement-level assumptions when `project.md` remains summary-level |
+| `production-runbook.md` | Optional | Production environment setup, release, rollback, smoke-check, and recovery guidance when operations need a dedicated owner |
+| `phases/index.md` | Optional | Epic registry when phased planning exists |
+| `guidelines/index.md` | Conditional | Required when any guideline docs exist; serves as the authoritative registry for active guideline types in the repo |
 | `guidelines/*` | Recommended when relevant | Domain-specific technical rules such as API, database, logging, error handling, JSON, code style, and design patterns |
 
 Use optional files only when they add durable value. Do not create them as placeholders without a real purpose.
@@ -197,17 +197,17 @@ Use guideline docs under `docs/project-docs/guidelines/` to capture durable tech
 
 ### Registry Policy
 
-- Keep the always-required core docs explicit in this contract. Do not use a registry to replace `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, or `QUICK_REFERENCE.md`.
-- Use `docs/project-docs/INDEX.md` as the authoritative registry for optional and conditional regular project docs in a repo.
-- Use `docs/project-docs/guidelines/INDEX.md` as the authoritative registry for active guideline types in a repo.
+- Keep the always-required core docs explicit in this contract. Do not use a registry to replace `project.md`, `architecture.md`, `testing.md`, `status.md`, or `quick-reference.md`.
+- Use `docs/project-docs/index.md` as the authoritative registry for optional and conditional regular project docs in a repo.
+- Use `docs/project-docs/guidelines/index.md` as the authoritative registry for active guideline types in a repo.
 - A registry entry activates a known optional doc type or guideline type for bootstrap, refresh, and consistency-audit behavior even if no starter template file exists.
 - Starter template files under `docs/vibes/project-docs-template/` are recommended references, not the activation mechanism.
 - Registry entries for regular docs should capture at least file path, purpose, status, owner, and creation trigger.
 - Registry entries for guideline docs should capture at least file path, domain, purpose, owner, and review trigger.
 - If a brand-new regular doc type should be scaffolded without a starter template file, define its stable headings or equivalent structure in this contract first.
 
-If you want to add your own known optional regular doc type to the template system, add a row to `docs/vibes/project-docs-template/INDEX.md` first.
-If you want to add your own known guideline type to the template system, add a row to `docs/vibes/project-docs-template/guidelines/INDEX.md` first.
+If you want to add your own known optional regular doc type to the template system, add a row to `docs/vibes/project-docs-template/index.md` first.
+If you want to add your own known guideline type to the template system, add a row to `docs/vibes/project-docs-template/guidelines/index.md` first.
 If the new doc class needs a new stable heading pattern or new ownership rule, update this contract before relying on bootstrap to scaffold it.
 
 ### Guideline Policy
@@ -215,10 +215,10 @@ If the new doc class needs a new stable heading pattern or new ownership rule, u
 - Keep guidelines focused on technical guidance, not on broad project summary; if a fact is general repository truth, it belongs in the core project docs.
 - A target repo is fully documented when the core project docs describe the repository generally and the active guidelines describe the durable technical rules that recurring work should follow.
 - Create a guideline only when a domain has durable cross-cutting rules that would otherwise be repeated across tasks, reviews, or features.
-- When any guideline files exist, create and maintain `guidelines/INDEX.md` as the authoritative registry for the active guideline set.
+- When any guideline files exist, create and maintain `guidelines/index.md` as the authoritative registry for the active guideline set.
 - Keep one primary domain per guideline file so ownership stays clear.
 - Avoid placeholder guideline files; omit a domain until the repository has real guidance worth preserving.
-- Avoid copying the same rules into `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, or `PRD.md`; instead, cross-reference the owning guideline.
+- Avoid copying the same rules into `project.md`, `architecture.md`, `testing.md`, or `prd.md`; instead, cross-reference the owning guideline.
 - For a fully documented target repo, the baseline recommended starter set is: API, database, logging, error handling, JSON, code style, and design patterns.
 - Add other guideline domains only when the project needs them, such as UI, security, observability, performance, AI, configuration, or migrations.
 
@@ -228,7 +228,7 @@ If the new doc class needs a new stable heading pattern or new ownership rule, u
 
 These headings should remain stable across projects whenever the file exists.
 
-### `PROJECT.md`
+### `project.md`
 
 - `## Summary` or `## Executive Summary`
 - `## Problem`
@@ -237,7 +237,7 @@ These headings should remain stable across projects whenever the file exists.
 - `## Stakeholders` or `## Personas`
 - `## Success Metrics`
 
-### `ARCHITECTURE.md`
+### `architecture.md`
 
 - `## Stack Overview`
 - `## Architecture Pattern`
@@ -245,9 +245,9 @@ These headings should remain stable across projects whenever the file exists.
 - `## Integrations`
 - `## Data / Storage`
 - `## Commands` or `## Build and Run`
-- `## Testing Stack` (or cross-reference `TESTING.md`)
+- `## Testing Stack` (or cross-reference `testing.md`)
 
-### `TESTING.md`
+### `testing.md`
 
 - `## Verification Policy`
 - `## Verification Matrix`
@@ -257,28 +257,28 @@ These headings should remain stable across projects whenever the file exists.
 - `## CI / Release Gates`
 - `## Manual Checks`
 
-### `STATUS.md`
+### `status.md`
 
 - `## Current State`
 - `## Roadmap` or `## Execution Map`
 - `## Epics` or `## Workstreams`
 - `## Risks / Blockers` if tracked
 
-### `QUICK_REFERENCE.md`
+### `quick-reference.md`
 
 - `## Commands`
 - `## Paths`
 - `## Conventions`
 - `## Troubleshooting` or `## Gotchas`
 
-### `INDEX.md` (if present)
+### `index.md` (if present)
 
 - `## Summary`
 - `## Core Required Docs`
 - `## Optional And Conditional Docs`
 - `## Registry Rules`
 
-### `PRD.md` (if present)
+### `prd.md` (if present)
 
 - `## Summary`
 - `## Requirements Scope`
@@ -288,7 +288,7 @@ These headings should remain stable across projects whenever the file exists.
 - `## Acceptance Criteria`
 - `## Open Questions` or `## Assumptions`
 
-### `PRODUCTION_RUNBOOK.md` (if present)
+### `production-runbook.md` (if present)
 
 - `## Summary`
 - `## Environment Overview`
@@ -308,7 +308,7 @@ These headings should remain stable across projects whenever the file exists.
 - `## Deprecation Policy`
 - `## Maintainer Workflow`
 
-### `guidelines/INDEX.md` (if present)
+### `guidelines/index.md` (if present)
 
 - `## Summary`
 - `## When To Add A Guideline`
@@ -332,7 +332,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 ## Naming And Surface Rules
 
 - Keep the anchor filenames stable inside `docs/`: `eyehateagent-contract.md` and `eyehateagent-maintenance.md`.
-- Keep the canonical project-doc filenames stable inside `docs/project-docs/`: `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, `QUICK_REFERENCE.md`.
+- Keep the canonical project-doc filenames stable inside `docs/project-docs/`: `project.md`, `architecture.md`, `testing.md`, `status.md`, `quick-reference.md`.
 - Name reusable assets by job and scope, not by one adopted project's product name or stack.
 - Keep mirrored instruction files aligned by base name and meaning, even when platform-specific extensions or frontmatter fields differ.
 - Use numeric prefixes only when a surface is intentionally ordered as a small canonical sequence.
@@ -347,7 +347,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 - Use explicit headings instead of burying key rules in prose.
 - Prefer summary tables for commands, stack, or decision matrices.
 - Put the **durable truth** in project docs, not in reusable prompt text or skill text.
-- Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the authoritative inventories for optional regular docs and guideline types when they exist.
+- Treat `docs/project-docs/index.md` and `docs/project-docs/guidelines/index.md` as the authoritative inventories for optional regular docs and guideline types when they exist.
 - When a fact changes, update the owning project doc first, then update any dependent rules, skills, or reusable prompts that quote or summarize it.
 - Mirror platform instruction metadata where the platform supports the same field set.
 
@@ -358,16 +358,16 @@ If a project uses different headings, keep a clear cross-reference at the top of
 | Type of information | Owning location |
 | --- | --- |
 | Contract routing, precedence, stable structures, and adoption rules | `docs/eyehateagent-contract.md` |
-| Product goals, scope, stakeholders | `PROJECT.md` |
-| Detailed requirements, flows, and acceptance criteria | `PRD.md` if present |
-| Stack and architecture decisions | `ARCHITECTURE.md` |
-| Production environment operation, release, rollback, and smoke checks | `PRODUCTION_RUNBOOK.md` if present |
-| Verification commands and quality gates | `TESTING.md` |
-| Execution plan and progress | `STATUS.md` and `phases/` |
-| Fast command lookup and conventions | `QUICK_REFERENCE.md` |
-| Optional and conditional regular project-doc inventory | `INDEX.md` when present |
+| Product goals, scope, stakeholders | `project.md` |
+| Detailed requirements, flows, and acceptance criteria | `prd.md` if present |
+| Stack and architecture decisions | `architecture.md` |
+| Production environment operation, release, rollback, and smoke checks | `production-runbook.md` if present |
+| Verification commands and quality gates | `testing.md` |
+| Execution plan and progress | `status.md` and `phases/` |
+| Fast command lookup and conventions | `quick-reference.md` |
+| Optional and conditional regular project-doc inventory | `index.md` when present |
 | Template governance, lifecycle, and deprecation | `docs/eyehateagent-maintenance.md` if present |
-| Guideline inventory, guideline scope, and review ownership | `guidelines/INDEX.md` when present |
+| Guideline inventory, guideline scope, and review ownership | `guidelines/index.md` when present |
 | Domain-specific technical rules, implementation conventions, and preferred patterns | `guidelines/*` |
 | Reusable prompt behavior | `docs/vibes/reusable-prompts/` in the adopted repo or in the shared template repo chosen by the topology |
 | Skill procedure behavior | `docs/vibes/skills/` in the adopted repo or in the shared template repo chosen by the topology |
@@ -399,7 +399,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 ### When writing or updating reusable prompts
 
 - Use this contract to decide which docs to generate or refresh.
-- Treat `docs/project-docs/INDEX.md` and `docs/project-docs/guidelines/INDEX.md` as the inventory source of truth for optional regular docs and guideline types when they exist.
+- Treat `docs/project-docs/index.md` and `docs/project-docs/guidelines/index.md` as the inventory source of truth for optional regular docs and guideline types when they exist.
 - When clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` exist, treat them as secondary migration input only and not as owner docs.
 - When mapping legacy artifacts to active docs, use the document's governed concern and content as the primary signal. Do not assume a legacy name must be preserved just because it does not match template terminology.
 - When those reference folders contain still-valid optional-doc, guideline, or phased-planning material, promote the justified docs into the active owner-doc set and update the relevant registries instead of leaving the material reference-only.
@@ -418,10 +418,10 @@ These rules belong in the contract because downstream repositories may remove `d
 
 | If you are adding or changing... | Update first | Usually also update | Core rule |
 | --- | --- | --- | --- |
-| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `docs/eyehateagent-contract.md` if the expected skill structure or inputs changed; summaries such as `QUICK_REFERENCE.md` only if discovery changes | keep the skill procedural, expert-role, and start from project docs |
-| a rule or instruction point | the mirrored rule files in the owning template surface | `docs/eyehateagent-contract.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `TESTING.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
+| a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `docs/eyehateagent-contract.md` if the expected skill structure or inputs changed; summaries such as `quick-reference.md` only if discovery changes | keep the skill procedural, expert-role, and start from project docs |
+| a rule or instruction point | the mirrored rule files in the owning template surface | `docs/eyehateagent-contract.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `testing.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
 | a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `docs/eyehateagent-contract.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
-| the contract itself | `docs/eyehateagent-contract.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `CHANGELOG.md` | contract changes are highest-impact and should be treated as template-level changes |
+| the contract itself | `docs/eyehateagent-contract.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `changelog.md` | contract changes are highest-impact and should be treated as template-level changes |
 
 Notes:
 
@@ -438,9 +438,9 @@ Notes:
 
 1. Copy the template into the adopted repository.
 2. Keep `docs/eyehateagent-contract.md`.
-3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under `docs/project-docs/` first.
-4. If optional or conditional regular docs are active, declare them in `docs/project-docs/INDEX.md`.
-5. If guideline docs are active, declare them in `docs/project-docs/guidelines/INDEX.md`.
+3. Populate `project.md`, `architecture.md`, `testing.md`, `status.md`, and `quick-reference.md` under `docs/project-docs/` first.
+4. If optional or conditional regular docs are active, declare them in `docs/project-docs/index.md`.
+5. If guideline docs are active, declare them in `docs/project-docs/guidelines/index.md`.
 6. Remove `docs/eyehateagent-maintenance.md` from the adopted repository.
 7. Review rules and skills only for template-level changes, not project-specific facts.
 8. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
@@ -449,9 +449,9 @@ Notes:
 
 1. Keep the shared template repo available in the same workspace or other agent-visible context.
 2. Copy `docs/eyehateagent-contract.md` into each adopted repository.
-3. Populate `PROJECT.md`, `ARCHITECTURE.md`, `TESTING.md`, `STATUS.md`, and `QUICK_REFERENCE.md` under each adopted repo's local `docs/project-docs/` path.
-4. If optional or conditional regular docs are active, declare them in each adopted repo's local `docs/project-docs/INDEX.md`.
-5. If guideline docs are active, declare them in each adopted repo's local `docs/project-docs/guidelines/INDEX.md`.
+3. Populate `project.md`, `architecture.md`, `testing.md`, `status.md`, and `quick-reference.md` under each adopted repo's local `docs/project-docs/` path.
+4. If optional or conditional regular docs are active, declare them in each adopted repo's local `docs/project-docs/index.md`.
+5. If guideline docs are active, declare them in each adopted repo's local `docs/project-docs/guidelines/index.md`.
 6. Keep reusable prompts, reusable skills, and starter assets in the shared template repo unless a local copy is intentionally needed.
 7. Keep local instruction mirrors only when an agent platform requires repo-local instruction loading.
 8. Remove `docs/eyehateagent-maintenance.md` from adopted repositories.

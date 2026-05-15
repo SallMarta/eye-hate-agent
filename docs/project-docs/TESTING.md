@@ -7,7 +7,7 @@ Last updated: 2026-05-12
 ## Verification Policy
 
 This repository is a documentation template, not an application runtime.
-This owner doc applies to the `eye-hate-agent` repository itself; downstream repositories should define their own local `docs/project-docs/TESTING.md`, typically starting from `docs/vibes/project-docs-template/TESTING.md`.
+This owner doc applies to the `eye-hate-agent` repository itself; downstream repositories should define their own local `docs/project-docs/testing.md`, typically starting from `docs/vibes/project-docs-template/testing.md`.
 Validation for template-maintenance work is therefore document-first.
 Use the narrowest check that can prove the changed contract, prompt, skill, template, or summary doc is internally consistent.
 When no stronger executable test exists, use editor diagnostics, targeted consistency searches, and a maintenance-audit review instead of inventing a fake command.
@@ -40,9 +40,9 @@ Replace `<changed-term>|<path>|<heading>` with the concrete contract term, file 
 
 ## Naming and File Conventions
 
-- Owner testing doc path: `docs/project-docs/TESTING.md`
-- Adoption starter for downstream repos: `docs/vibes/project-docs-template/TESTING.md`
-- Changelog path for maintainer-facing changes: `docs/project-docs/CHANGELOG.md`
+- Owner testing doc path: `docs/project-docs/testing.md`
+- Adoption starter for downstream repos: `docs/vibes/project-docs-template/testing.md`
+- Changelog path for maintainer-facing changes: `docs/project-docs/changelog.md`
 - Template starter docs live under `docs/vibes/project-docs-template/`
 - Reusable prompts live under `docs/vibes/reusable-prompts/`
 - Skills live under `docs/vibes/skills/`
@@ -51,7 +51,7 @@ Replace `<changed-term>|<path>|<heading>` with the concrete contract term, file 
 
 - Required before merge: changed Markdown files are diagnostic-clean.
 - Required before merge: owning docs and dependent docs are checked for consistency.
-- Required before merge: maintainer-facing template changes are recorded in `docs/project-docs/CHANGELOG.md`.
+- Required before merge: maintainer-facing template changes are recorded in `docs/project-docs/changelog.md`.
 - Required before release of breaking template changes: run the full maintenance audit sequence described by `docs/eyehateagent-maintenance.md`.
 - Advisory: confirm mirrored rule files were either updated or explicitly left unchanged because they remain generic.
 

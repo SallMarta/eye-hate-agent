@@ -26,10 +26,10 @@ It should **not** assume one language, framework, transport, or architecture sty
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Defines where project-specific truth should live |
-| `docs/project-docs/ARCHITECTURE.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
-| `docs/project-docs/PROJECT.md` | Clarifies scope, constraints, stakeholders, and non-goals |
-| `docs/project-docs/QUICK_REFERENCE.md` | Provides fast lookup for conventions, commands, and naming patterns |
-| `docs/project-docs/TESTING.md` | Defines how the contract should be validated |
+| `docs/project-docs/architecture.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
+| `docs/project-docs/project.md` | Clarifies scope, constraints, stakeholders, and non-goals |
+| `docs/project-docs/quick-reference.md` | Provides fast lookup for conventions, commands, and naming patterns |
+| `docs/project-docs/testing.md` | Defines how the contract should be validated |
 | Relevant feature docs, API docs, or guidelines | Provide domain-specific rules, request/response shapes, workflows, and edge cases |
 | Existing code or contracts in the repo | Show local naming, layering, serialization, validation, and error conventions |
 
@@ -66,7 +66,7 @@ Questions to answer:
 - Which side owns validation?
 - Which side owns retries and failure translation?
 
-Use `ARCHITECTURE.md` to avoid violating the project's dependency or layering rules.
+Use `architecture.md` to avoid violating the project's dependency or layering rules.
 
 ### Step 2 — Identify the project-specific constraints
 
@@ -127,7 +127,7 @@ If the repo already defines a standard result wrapper, exception hierarchy, or e
 
 ### Step 6 — Define verification requirements
 
-Use `TESTING.md` to decide how the contract should be validated.
+Use `testing.md` to decide how the contract should be validated.
 
 Examples:
 
@@ -168,7 +168,7 @@ Use this checklist when reviewing an existing contract:
 - Are transport details separated from durable domain concepts where required?
 - Are failure modes documented and actionable?
 - Does the contract create hidden coupling or leak implementation details?
-- Is there a clear verification strategy in `TESTING.md`?
+- Is there a clear verification strategy in `testing.md`?
 
 ---
 
@@ -179,7 +179,7 @@ Use this checklist when reviewing an existing contract:
 - Mixing transport payload shape with domain concepts when the project separates them
 - Returning ambiguous success or failure semantics
 - Ignoring versioning, compatibility, or migration concerns for externally visible contracts
-- Over-designing the contract far beyond the current scope in `PROJECT.md`
+- Over-designing the contract far beyond the current scope in `project.md`
 
 ---
 

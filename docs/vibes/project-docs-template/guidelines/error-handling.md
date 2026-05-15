@@ -35,8 +35,8 @@ Document the durable error-handling rules for the repository: error categories, 
 
 ## Related Docs
 
-- `TESTING.md`
-- `PRODUCTION_RUNBOOK.md` when incident response depends on error classes
+- `testing.md`
+- `production-runbook.md` when incident response depends on error classes
 - `guidelines/logging.md`
 - `guidelines/api.md` when errors cross API boundaries
 

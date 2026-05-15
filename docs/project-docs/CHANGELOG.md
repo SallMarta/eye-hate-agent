@@ -45,9 +45,9 @@ All notable changes to Eye Hate Agent are documented here.
 
 - Added explicit maintainer-facing anchors for where to register new optional regular doc types and guideline types.
 - Added a registry-driven extension model for optional regular docs and guideline types.
-- Added a starter `docs/vibes/project-docs-template/INDEX.md` registry and retuned reusable prompts to treat registries as inventory sources of truth.
-- Added a local `docs/project-docs/TESTING.md` owner doc for template-maintenance validation rules.
-- Added a recommended starter guideline pack and a required `guidelines/INDEX.md` when guideline files exist.
+- Added a starter `docs/vibes/project-docs-template/index.md` registry and retuned reusable prompts to treat registries as inventory sources of truth.
+- Added a local `docs/project-docs/testing.md` owner doc for template-maintenance validation rules.
+- Added a recommended starter guideline pack and a required `guidelines/index.md` when guideline files exist.
 - Added starter guideline templates and updated reusable prompts and maintainer docs to keep guideline guidance consistent.
 - Added a central skill-selection matrix in `docs/eyehateagent-contract.md` to separate analysis, audit, design, verification, elevation, and consistency work more clearly.
 - Added a new `full-verification` skill as the broad verification entry point for code, docs, contracts, architecture, quality, and project-health checks.
@@ -121,7 +121,7 @@ All notable changes to Eye Hate Agent are documented here.
 ### Added in 1.1.0
 
 - Added the root `README.md` as the first human-facing adoption guide.
-- Added optional starter docs for `PRD.md` and `PRODUCTION_RUNBOOK.md`.
+- Added optional starter docs for `prd.md` and `production-runbook.md`.
 
 ### Changed in 1.1.0
 
@@ -136,7 +136,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 - Initial release of the template foundation with project-doc owner files, mirrored agent rules, reusable prompts, and reusable skills.
 - Added the first downstream adoption guide and the starter scaffold under `docs/vibes/project-docs-template/`.
-- Added starter `GETTING_STARTED.md` and `CHANGELOG.md` for the scaffold.
+- Added starter `getting-started.md` and `changelog.md` for the scaffold.
 
 ### Changed in 1.0.0
 

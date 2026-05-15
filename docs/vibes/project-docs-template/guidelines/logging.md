@@ -35,8 +35,8 @@ Document the durable logging rules for the repository: event naming, levels, cor
 
 ## Related Docs
 
-- `ARCHITECTURE.md`
-- `PRODUCTION_RUNBOOK.md` when log delivery or retention matters
+- `architecture.md`
+- `production-runbook.md` when log delivery or retention matters
 - `guidelines/error-handling.md`
 
 ## Open Questions
