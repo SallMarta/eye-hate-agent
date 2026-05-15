@@ -36,7 +36,7 @@ Add a new row in the `## Optional And Conditional Docs` table above for each add
 ## Registry Rules
 
 - Add a new row in the `## Optional And Conditional Docs` table above when an optional or conditional regular doc becomes part of the repo's active documentation set.
-- A row in this index activates a known optional doc type for bootstrap, refresh, and consistency-audit behavior.
+- A row in this index activates a known optional doc type for bootstrap, refresh, and parity behavior.
 - If no starter template file exists for a listed doc type, use the stable headings or ownership rules defined in the contract.
 - Keep this index aligned with the files that actually exist under `docs/project-docs/`.
 - If a listed doc is deprecated or archived, update its status rather than silently removing its history.

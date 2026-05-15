@@ -45,7 +45,7 @@ Use a specialist skill directly when the dominant question is already obvious:
 
 - `test-authoring` for executable verification strategy, stack-aware test selection, and test-writing decisions
 - `code-audit` for code correctness, bug, risk, security, and boundary review
-- `consistency-audit` for repository drift across docs, rules, skills, prompts, and summaries
+- `parity` for repository drift across docs, rules, skills, prompts, and summaries
 - `project-elevation` for forward-looking improvement and readiness planning
 - `analysis` for root-cause reasoning, trade-off evaluation, and requirement or decision analysis
 - `api-design` for API, schema, interface, or boundary contract design and review
@@ -89,7 +89,7 @@ Prefer the single strongest verification path unless the user explicitly asks fo
 | How should this be verified, tested, or regression-checked in the current stack? | `test-authoring` |
 | Is this code correct, safe, consistent, and free of obvious bugs or boundary violations? | `code-audit` |
 | Does this API or interface contract match the docs, code, and boundary rules? | `api-design` |
-| Do the docs, rules, skills, prompts, and repository artifacts still agree? | `consistency-audit` |
+| Do the docs, rules, skills, prompts, and repository artifacts still agree? | `parity` |
 | What should improve next, and how healthy or mature is this project at its current stage? | `project-elevation` |
 | Do the requirements, trade-offs, design decisions, or explanations hold up? | `analysis` |
 

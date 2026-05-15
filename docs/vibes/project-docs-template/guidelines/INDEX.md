@@ -37,7 +37,7 @@ Remove rows for inactive domains and add a new row in the `## Active Guidelines`
 ## Ownership And Review
 
 - Keep this index aligned with the files that actually exist under `guidelines/`.
-- A row in this index activates a known guideline type for bootstrap, refresh, and consistency-audit behavior.
+- A row in this index activates a known guideline type for bootstrap, refresh, and parity behavior.
 - If no starter template file exists for a listed guideline type, use the stable guideline headings from the contract.
 - Update the relevant row whenever a guideline changes owner, scope, or review trigger.
 - Cross-reference owning project docs such as `architecture.md` or `testing.md` when a guideline depends on them.

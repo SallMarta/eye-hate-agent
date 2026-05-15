@@ -8,6 +8,15 @@ All notable changes to Eye Hate Agent are documented here.
 
 ---
 
+## [1.9.0] - 2026-05-15
+
+### Changed in 1.9.0
+
+- Renamed the `consistency-audit` workflow family to `parity` across the reusable prompt, matching skill, routing docs, README guidance, and verification guidance so the user-facing and internal names stay aligned.
+- Retired the old `00-project-docs-consistency-audit.md` and `docs/vibes/skills/consistency-audit/` paths so only the canonical parity surfaces remain in the active template.
+
+---
+
 ## [1.8.0] - 2026-05-15
 
 ### Changed in 1.8.0

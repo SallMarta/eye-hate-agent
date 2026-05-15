@@ -1,4 +1,4 @@
-# Project Docs Consistency Audit Reusable Prompt
+# Project Docs Parity Reusable Prompt
 
 Read `docs/eyehateagent-contract.md` first.
 

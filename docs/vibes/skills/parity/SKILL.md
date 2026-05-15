@@ -1,14 +1,13 @@
----
-name: consistency-audit
-description: "Expert-role audit of repository drift across project docs, rules, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
+name: parity
+description: "Expert-role parity check across project docs, rules, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
 argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, rules and skills, or a specific workstream"
 ---
 
-# Consistency Audit — Project-Aware
+# Parity — Project-Aware
 
 Performs an **expert repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, code-vs-doc authority conflicts, and historical artifacts that should be classified rather than confused with active truth.
 
-This skill is the reusable complement to the consistency-audit reusable prompt. Use it when the task is analytical rather than generative.
+This skill is the reusable complement to the parity reusable prompt. Use it when the task is analytical rather than generative.
 
 ---
 

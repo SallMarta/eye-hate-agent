@@ -35,7 +35,7 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 - `Reusable prompt` means a reusable workflow file under `docs/vibes/reusable-prompts/`.
 - Reusable prompts create and refresh the project docs.
 - Reusable prompts should follow the file responsibilities and stable headings defined in this contract.
-- Reusable prompts may be split into bootstrap, refresh, and consistency-audit families.
+- Reusable prompts may be split into bootstrap, refresh, and parity families.
 
 ### Runtime Modes
 
@@ -44,7 +44,7 @@ Use two operating modes.
 | Mode | Typical request | Default path | Reusable prompts |
 | --- | --- | --- | --- |
 | Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> `docs/eyehateagent-contract.md` and relevant project docs -> optional skill -> output | No |
-| Template or doc maintenance | bootstrap docs, refresh docs after a material change, audit consistency, or update template structure | maintenance request -> reusable prompt or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or consistency-audit is the task |
+| Template or doc maintenance | bootstrap docs, refresh docs after a material change, run parity, or update template structure | maintenance request -> reusable prompt or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or parity is the task |
 
 ### Request Routing Examples
 
@@ -56,7 +56,7 @@ Use two operating modes.
 | "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `architecture.md`, `testing.md`, `status.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
 | "what should we improve before this workflow is production-ready" | Normal work | `docs/eyehateagent-contract.md`, `project.md`, `status.md`, `architecture.md`, `testing.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
 | "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `architecture.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
-| "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `consistency-audit` | Drift report and ownership-level fixes |
+| "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `parity` | Drift report and ownership-level fixes |
 
 ### Skill Invocation Rule
 
@@ -82,7 +82,7 @@ Use this matrix when multiple skills sound plausible.
 | Contract or boundary shape for an API, service, repository, adapter, or event | `api-design` | `analysis` when the primary deliverable is a contract or interface shape rather than a broad judgment memo | Proposed boundary design, validation rules, and verification strategy |
 | Verification boundary, check type, commands, and whether tests should be added | `test-authoring` | `code-audit` when the question is how to verify a change, not whether the implementation is correct | Verification strategy and tests when needed |
 | Forward-looking improvements, missing capabilities, or what to do next | `project-elevation` | `analysis` when the task is prioritizing realistic next improvements rather than explaining existing behavior | Prioritized improvement roadmap |
-| Drift, contradiction, or ownership mismatches across docs, rules, skills, and prompts | `consistency-audit` | `analysis` when the problem is repository-wide disagreement rather than local technical reasoning | Classified drift findings with ownership-level fixes |
+| Drift, contradiction, or ownership mismatches across docs, rules, skills, and prompts | `parity` | `analysis` when the problem is repository-wide disagreement rather than local technical reasoning | Classified drift findings with ownership-level fixes |
 
 ### Decision Precedence
 
@@ -202,7 +202,7 @@ Use guideline docs under `docs/project-docs/guidelines/` to capture durable tech
 - Keep the always-required core docs explicit in this contract. Do not use a registry to replace `project.md`, `architecture.md`, `testing.md`, `status.md`, or `quick-reference.md`.
 - Use `docs/project-docs/index.md` as the authoritative registry for optional and conditional regular project docs in a repo.
 - Use `docs/project-docs/guidelines/index.md` as the authoritative registry for active guideline types in a repo.
-- A registry entry activates a known optional doc type or guideline type for bootstrap, refresh, and consistency-audit behavior even if no starter template file exists.
+- A registry entry activates a known optional doc type or guideline type for bootstrap, refresh, and parity behavior even if no starter template file exists.
 - Starter template files under `docs/vibes/project-docs-template/` are recommended references, not the activation mechanism.
 - Registry entries for regular docs should capture at least file path, purpose, status, owner, and creation trigger.
 - Registry entries for guideline docs should capture at least file path, domain, purpose, owner, and review trigger.
