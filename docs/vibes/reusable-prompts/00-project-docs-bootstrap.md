@@ -10,6 +10,7 @@ Create the smallest complete set of project docs that lets rules and skills oper
 
 This reusable prompt assumes you are starting from a project brief or equivalent starting facts. If the repository already has meaningful code, docs, or contradictory summaries, use those as inputs and consider whether refresh or parity should run first.
 If those older docs are being replaced, move them into a clearly non-owner reference folder such as `docs-legacy/` before using them as migration input.
+If the repository has meaningful code but no documentation or project brief, treat the codebase itself as the primary input. Inspect code, comments, configs, tests, and repository structure to extract project facts and domain knowledge.
 
 ## Required Behavior
 
@@ -23,7 +24,9 @@ If those older docs are being replaced, move them into a clearly non-owner refer
 8. If you create optional regular docs beyond the always-required core set, also create `docs/project-docs/index.md` and keep it aligned with the active optional set.
 9. If you create guideline docs, also create `docs/project-docs/guidelines/index.md` and keep it aligned with the active guideline set.
 10. When clearly named reference or archive folders such as `docs-legacy/`, `archive/`, or `reference/` exist, treat them as background migration input only and keep active owner docs under `docs/project-docs/`.
-11. Keep the docs mutually consistent.
+11. When migrating from legacy documentation, preserve valuable project-specific knowledge that does not fit into the starter template headings. Evaluate the content to decide whether it warrants a new custom section in an existing document or a completely new file. Ask the user if the right location is ambiguous.
+12. When the codebase is the only source of truth (no docs or brief exist), inspect code structure, comments, commit messages, configs, and tests for valuable domain knowledge that goes beyond standard template headings. Surface these findings as new custom sections in existing docs or as new files when justified. Mark codebase-inferred facts as `Inferred from code` or `Open Question` until the user confirms them.
+13. Keep the docs mutually consistent.
 
 For template maintenance: add new known optional regular doc types to `docs/vibes/project-docs-template/index.md` and new known guideline types to `docs/vibes/project-docs-template/guidelines/index.md`.
 Only rely on registry-only scaffolding when the contract already defines the needed stable headings or ownership rules.

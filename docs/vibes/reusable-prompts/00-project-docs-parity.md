@@ -35,6 +35,7 @@ Check at least these areas when present:
 - workflow expectations
 - roadmap / phase naming
 - project identity and naming
+- undocumented domain knowledge embedded in the codebase (e.g., decision rationale in comments, architectural constraints in configs, domain rules in validation logic) that should be surfaced into project docs
 
 ## Required Behavior
 

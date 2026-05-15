@@ -104,6 +104,8 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 - If the repository clearly establishes authority for that fact, state the governing evidence explicitly and proceed using the owning surface.
 - When mapping legacy or reference docs into the active owner-doc set, classify them by the durable concern they govern rather than by the legacy folder or filename; legacy names are hints, not the source-of-truth ownership model.
 - If legacy or reference docs show that a still-valid optional doc, guideline set, or phased-planning surface should be active under `docs/project-docs/`, promote it into the active owner-doc set and update the relevant registries instead of leaving it only in reference folders.
+- If legacy or reference docs contain valuable project-specific information (such as 'Decision Rationale') that does not fit into standard template headings, do not discard it. Evaluate its value and decide whether it should become a new custom section in an existing document or if it warrants a new separate file. If ambiguous, ask the user before discarding the knowledge.
+- When no project docs or legacy docs exist and the codebase is the only source of truth, inspect code, comments, commit messages, configs, tests, and repository structure for valuable domain knowledge that goes beyond standard template headings. Surface these findings and decide whether each should become a new custom section in an existing document, a new separate file, or should be confirmed with the user first. Mark codebase-derived facts with lower confidence than doc-derived facts until the user confirms them.
 - If the user requests a skill that is clearly unnecessary or mismatched, say so briefly and proceed directly unless the user insists.
 - If attached context is outdated or conflicts with active docs, prefer the active docs and treat the attachment as reference only.
 - If no suitable skill exists, continue through the direct path using the contract, project docs, and the strongest applicable non-skill method.
@@ -228,7 +230,7 @@ If the new doc class needs a new stable heading pattern or new ownership rule, u
 
 ## Stable Headings Agents Can Depend On
 
-These headings should remain stable across projects whenever the file exists.
+These headings should remain stable across projects whenever the file exists. The list of stable headings is a minimum baseline. You may preserve valuable project-specific knowledge from legacy docs or from codebase analysis as new custom headings (e.g., `## Decision Rationale`) alongside these stable headings.
 
 ### `project.md`
 
@@ -405,6 +407,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 - When clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` exist, treat them as secondary migration input only and not as owner docs.
 - When mapping legacy artifacts to active docs, use the document's governed concern and content as the primary signal. Do not assume a legacy name must be preserved just because it does not match template terminology.
 - When those reference folders contain still-valid optional-doc, guideline, or phased-planning material, promote the justified docs into the active owner-doc set and update the relevant registries instead of leaving the material reference-only.
+- Evaluate valuable information from legacy docs or codebase analysis that lacks a standard template heading. Do not discard it; instead, decide whether it should become a new custom section in an existing document or a new separate file, and ask the user if the best approach is ambiguous.
 - Use a stable top-level section model: `Goal`, `Required Behavior`, `Output Contract`, `Final Pass`, and `Inputs`.
 - Use optional top-level sections only when needed, such as `Scope`, `Minimum Outputs`, `Constraints`, or `Ownership Examples`.
 - Keep review sequences, category examples, and file-by-file expectations inside those sections instead of inventing unrelated top-level structure.

@@ -6,6 +6,21 @@ All notable changes to Eye Hate Agent are documented here.
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+### Removed
+
+---
+
+## [1.10.0] - 2026-05-16
+
+### Added in 1.10.0
+
+- Added explicit rules and guidance across the contract, reusable prompts, and agent rules for preserving valuable project-specific knowledge from legacy documentation (e.g., 'Decision Rationale') even if it lacks a standard template heading. Agents are now instructed to evaluate whether such information should become a new custom section in an existing document or a new separate file, and to ask the user if the best approach is ambiguous.
+- Added explicit rules for codebase-only knowledge discovery during documentation bootstrap and refresh. When no legacy docs exist, agents now inspect code, comments, configs, tests, and repository structure for valuable domain knowledge and surface it as custom sections or files, marking codebase-inferred facts with lower confidence until the user confirms them.
+
 ---
 
 ## [1.9.0] - 2026-05-15

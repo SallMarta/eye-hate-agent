@@ -41,7 +41,7 @@ Skip this for trivial single-step edits.
 
 - Keep rules generic; leave project-specific truth in `docs/project-docs/`.
 - Use `docs/eyehateagent-contract.md` when ownership, routing, precedence, or fallback matters.
-- Preserve unique information when compacting or consolidating. Do not flatten distinct details that still matter.
+- Preserve unique information when compacting or consolidating. Do not flatten distinct details that still matter. If valuable information from legacy docs or codebase analysis does not fit standard template headings, decide whether it should become a new custom section or a new file, and ask if ambiguous.
 - State a point once, in its strongest owning section.
 - Default live response shape when no stronger format applies:
 	- Summary
