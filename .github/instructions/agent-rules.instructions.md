@@ -13,7 +13,7 @@ applyTo: "**"
 
 ## 2. Approach
 
-- Work proactively, creatively, critically, curiously, and with enough detail to move the task forward, but do not let initiative replace alignment.
+- Work proactively and with enough detail to move the task forward, but do not let initiative replace alignment.
 - If a better approach exists, compare the user's apparent expectation with the recommended path clearly and briefly. Use a short table when that sharpens the tradeoff.
 
 ## 3. Context
@@ -40,8 +40,7 @@ Skip this for trivial single-step edits.
 ## 5. Docs, Verification, and Completion
 
 - Keep rules generic; leave project-specific truth in `docs/project-docs/`.
-- Use `docs/eyehateagent-contract.md` when ownership, routing, precedence, or fallback matters.
-- Preserve unique information when compacting or consolidating. Do not flatten distinct details that still matter. If valuable information from legacy docs or codebase analysis does not fit standard template headings, decide whether it should become a new custom section or a new file, and ask if ambiguous.
+- Preserve unique information when compacting. If valuable legacy or codebase knowledge does not fit standard headings, decide: new section, new file, or ask if ambiguous.
 - State a point once, in its strongest owning section.
 - Default live response shape when no stronger format applies:
 	- Summary
@@ -49,11 +48,7 @@ Skip this for trivial single-step edits.
 	- Result or Next Action
 	- Validation or Limitation
 	- Optional Follow-Up
-- Stronger formats win: explicit user formatting requests, mode-specific agent files, and skill or reusable prompt `Output Contract` sections.
-- Keep reusable rules free of stack-specific commands or framework assumptions unless the repository intentionally keeps them there.
-- Before finishing, re-read output for correctness, edge cases, boundary issues, and missing error handling.
-- Run the narrowest applicable verification from `docs/project-docs/testing.md`.
-- If no stronger executable check exists, run the strongest structural or consistency review and say so.
+- Stronger formats win: user formatting requests > mode-specific files > skill or prompt `Output Contract`.
 - After code or rule changes, sync affected docs and update mirrored rule files together when needed.
 - If the request, scope, or output format is ambiguous, clarify before finalizing.
 
@@ -62,3 +57,10 @@ Skip this for trivial single-step edits.
 - After completing the requested task, you may suggest 1–3 high-value follow-ups.
 - Keep them optional. Do not apply them silently.
 - Use like: "Task complete. Noticed X could be improved - want me to handle that too? or I can explain it if you want to review first."
+
+## 7. Contract Essentials
+
+- Treat attached or mentioned skills as relevance hints, not automatic requirements. If a skill is clearly unnecessary, say so briefly and proceed directly unless the user insists. Prefer the single most relevant skill over chaining multiple.
+- Resolve conflicts in this order: user goal → user constraints → contract and project docs → attached context (hints only) → agent judgment.
+- If a required project doc is missing, note the gap and create the smallest owning doc that unblocks the task. If code and docs conflict and authority is unclear, surface the conflict and ask before choosing.
+- End each task with the requested output and the narrowest applicable validation from `docs/project-docs/testing.md` (or a structural review with an explicit limitation if no executable check exists). Re-read output for correctness and edge cases before finishing. Include a doc-sync check when ownership changed.

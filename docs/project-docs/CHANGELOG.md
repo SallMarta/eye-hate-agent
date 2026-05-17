@@ -4,13 +4,20 @@ All notable changes to Eye Hate Agent are documented here.
 
 ---
 
-## [Unreleased]
+## [1.11.0] - 2026-05-18
 
 ### Added
 
+- Added `## 7. Contract Essentials` section to all three mirrored agent rule files (`.claude/rules/agent-rules.md`, `.github/instructions/agent-rules.instructions.md`, `.agents/rules/agent.md`). Extracts four critical behavioral rules from the contract that agents need on every task: skill invocation override, decision precedence order, core fallback behaviors, and completion requirements. This ensures agents follow these rules even when they don't open the full contract.
+
 ### Changed
 
+- Refined all three agent rule files: tightened wording for knowledge preservation, format precedence, approach description, and merged scattered verification rules into a single completion bullet in § 7.
+
 ### Removed
+
+- Removed redundant contract file-reading trigger (line 43) from all rule files — § 7 Contract Essentials now covers what agents would find there.
+- Removed template-maintainer guidance ("Keep reusable rules free of stack-specific commands...") from always-on rules — this belongs in the contract's authoring section, not in agent behavior rules.
 
 ---
 
