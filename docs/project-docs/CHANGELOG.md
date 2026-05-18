@@ -11,6 +11,7 @@ All notable changes to Eye Hate Agent are documented here.
 - Added `## Guidelines` as a stable heading to the `architecture.md` template and contract to ensure domain-specific rules are properly delegated to `guidelines/index.md`.
 - Added a note to `README.md` clarifying that adopters only need to keep the platform instruction surface(s) they actually use (typically `.agents` for Gemini, `.claude` for Claude, or `.github` for GitHub Copilot).
 - Added `.agents/rules/` to the adoption topology folder trees in `README.md` to match the newly supported 3-mirror architecture.
+- Added explicit, punchy "Pros and Cons" summaries to all three topology scenarios in `README.md` to help adopters choose the right architecture (including strict target isolation benefits for Scenario 3).
 
 ### Changed
 

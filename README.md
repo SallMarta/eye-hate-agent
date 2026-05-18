@@ -58,6 +58,15 @@ Follow this order:
 
 ### Scenario 1 — Distributed Self-Contained Repos
 
+**Pros:**
+- **Autonomy:** The AI agent has everything it needs locally. It doesn't rely on cross-workspace permissions to read instructions.
+- **Customizability:** Modify contracts, skills, or prompts safely per project.
+- **Portability:** Agent rules travel seamlessly with the repository.
+
+**Cons:**
+- **Maintenance:** When `eye-hate-agent` template gets an update, you must manually sync updates to every target repositories.
+- **Drift:** Independent rule tweaks make all target repositories harder to manage over time.
+
 ```text
 target-repo/
 ├── .agents/
@@ -87,6 +96,14 @@ Keep in the target repo:
 Remove `docs/eyehateagent-maintenance.md` after setup unless the target is also a template repo.
 
 ### Scenario 2 — Shared Template Repo, Local Project Docs
+
+**Pros:**
+- **Single Source of Truth:** Centralized rules and skills instantly update all local projects.
+- **Clean Target Repositories:** Target repositories only hold project docs, not agent-related docs.
+
+**Cons:**
+- **Dependency:** AI agents require simultaneous read access to the shared `eye-hate-agent` repository. If an agent platform restricts access to outside folders, the agent goes blind.
+- **Rigidity:** Overriding or customizing a shared rule for one target repository may affect all other target repositories. For example, if a target repository needs a unique rule, you can't easily alter the shared rule without affecting other target repositories.
 
 ```text
 workspace/
@@ -126,6 +143,16 @@ Keep the shared `eye-hate-agent` repo available in the same workspace or other a
 Use local rule mirrors only when an agent platform requires repo-local instruction loading.
 
 ### Scenario 3 — Centralized Portfolio-Doc Repo
+
+**Pros:**
+- **Absolute Centralization:** All project docs, rules, and skills exist in exactly one repository.
+- **Cross-Project Visibility:** Easy to enforce portfolio-wide standards and view all project states simultaneously.
+- **Strict Target Isolation:** Target repos hold zero documentation, making it ideal if organizational restrictions forbid placing meta-artifacts inside the codebase.
+
+**Cons:**
+- **Contract Violation:** Breaks this template's core assumption that a target repository owns its own docs.
+- **Context Bloat:** Agents must parse through docs for unrelated projects, risking confusion or context limit errors.
+- **Extreme Dependency:** If the central repo breaks or loses access, all target projects lose agent context.
 
 ```text
 workspace/
