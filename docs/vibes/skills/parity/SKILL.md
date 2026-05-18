@@ -1,6 +1,7 @@
+---
 name: parity
-description: "Expert-role parity check across project docs, rules, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
-argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, rules and skills, or a specific workstream"
+description: "Expert-role parity check across project docs, platform instruction surfaces, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
+argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, platform instruction surfaces and skills, or a specific workstream"
 ---
 
 # Parity — Project-Aware
@@ -34,7 +35,7 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 | --- | --- |
 | Full-repo review | "Audit the whole repository for drift after a cleanup pass" |
 | Documentation review | "Check whether project docs, reusable prompts, and the current repository still agree" |
-| Template maintenance | "Audit rules and skills after changing the contract" |
+| Template maintenance | "Audit platform instruction surfaces and skills after changing the contract" |
 | Handoff preparation | "Find contradictions before handing this repo to another maintainer" |
 
 Use `full-verification` instead when the user asks for a broad verification entry point and repository drift is only one possible verification path.
@@ -145,7 +146,7 @@ End with:
 
 - "Check whether the docs and repository still agree."
 - "Audit this repo for drift after the latest changes."
-- "Find contradictions across docs, rules, skills, and prompts."
+- "Find contradictions across docs, platform instruction surfaces, skills, and prompts."
 - "Tell me which mismatches are real blockers versus harmless leftovers."
 
 ---

@@ -42,3 +42,7 @@ Describe the main data stores, persistence boundaries, and ownership rules.
 ## Testing Stack
 
 Cross-reference `testing.md` and note any architecture-specific testing constraints.
+
+## Guidelines
+
+See `guidelines/index.md` for domain-specific implementation rules (e.g., API design, error handling, database patterns). Do not duplicate those rules here.

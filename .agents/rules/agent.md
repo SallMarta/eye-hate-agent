@@ -53,7 +53,7 @@ Skip this for trivial single-step edits.
 	- Validation or Limitation
 	- Optional Follow-Up
 - Stronger formats win: user formatting requests > mode-specific files > skill or prompt `Output Contract`.
-- After code or rule changes, sync affected docs and update mirrored rule files together when needed.
+- After code or rule changes, sync affected docs and update platform instruction surfaces (mirrored rule files) together when needed.
 - If the request, scope, or output format is ambiguous, clarify before finalizing.
 
 ## 6. Follow-Up Suggestions

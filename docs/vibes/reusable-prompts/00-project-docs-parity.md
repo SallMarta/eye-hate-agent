@@ -6,7 +6,7 @@ Audit the repository for **documentation-system drift**.
 
 ## Goal
 
-Find mismatches where project docs, rules, skills, reusable prompts, workflow docs, quick-reference material, or relevant implementation evidence disagree about the same fact.
+Find mismatches where project docs, platform instruction surfaces (rules), skills, reusable prompts, workflow docs, quick-reference material, or relevant implementation evidence disagree about the same fact.
 
 ## Scope
 
@@ -17,7 +17,7 @@ Check at least these areas when present:
 - `docs/project-docs/guidelines/`
 - relevant code, tests, configs, or runtime-facing artifacts when a finding depends on current implementation behavior or source-of-truth ownership
 - clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/`
-- rule / instruction files
+- platform instruction surfaces (mirrored rule files)
 - `docs/vibes/skills/`
 - `docs/vibes/reusable-prompts/`
 - workflow docs and handoff docs
@@ -85,4 +85,4 @@ End with:
 
 ## Inputs
 
-Use the current repository docs, rule files, skills, reusable prompts, and any relevant workflow or summary artifacts available below.
+Use the current repository docs, platform instruction surfaces, skills, reusable prompts, and any relevant workflow or summary artifacts available below.

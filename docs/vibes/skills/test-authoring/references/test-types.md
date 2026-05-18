@@ -10,7 +10,7 @@ Use this table to choose the smallest verification type that matches the actual 
 | Request, handler, controller, or public API contract | Contract or integration test | Verifies visible boundary behavior and schema expectations |
 | UI or operator interaction flow | Flow / interaction test | Verifies user-visible behavior rather than isolated internals |
 | Async job, workflow, or queue behavior | Component or integration test | Verifies sequencing, retry, and side-effect behavior |
-| Documentation, reusable prompt, or rules change | Structural consistency review | Executable tests may not exist; consistency becomes the real boundary |
+| Documentation, reusable prompt, or platform instruction surfaces change | Structural consistency review | Executable tests may not exist; consistency becomes the real boundary |
 
 ---
 
@@ -23,7 +23,7 @@ Use this table to choose the smallest verification type that matches the actual 
 | Persistence / contract | Durable state or schema behavior | Low to medium | Medium to high |
 | Flow / interaction | User or system-visible path | Medium | Medium |
 | Integration | Real dependency or end-to-end boundary | Highest | Lowest |
-| Consistency review | Docs, reusable prompts, rules, and template systems | Low | High |
+| Consistency review | Docs, reusable prompts, platform instruction surfaces, and template systems | Low | High |
 
 ---
 

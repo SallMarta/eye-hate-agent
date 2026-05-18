@@ -73,7 +73,7 @@ Your result should state:
 Before finishing, check that:
 
 1. the updated docs still match the contract in `docs/eyehateagent-contract.md`
-2. rules and skills would now read the correct project-specific truth
+2. platform instruction surfaces and skills would now read the correct project-specific truth
 3. no stale summary remains in `quick-reference.md`, `status.md`, `docs/project-docs/index.md`, `guidelines/index.md`, or other index docs
 
 ## Inputs

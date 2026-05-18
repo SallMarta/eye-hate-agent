@@ -20,7 +20,7 @@ Read the relevant docs before proposing or writing tests.
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/eyehateagent-contract.md` | Tells you which docs are required and where project-specific truth should live |
+
 | `docs/project-docs/testing.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
 | `docs/project-docs/architecture.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
 | `docs/project-docs/quick-reference.md` | Fast lookup for commands, paths, conventions, and common patterns |
@@ -39,7 +39,7 @@ If one of the required docs is missing and the task depends on it, surface that 
 | Change verification | "Choose the right verification for this repository-layer change" |
 | API contract update | "What tests should cover this API contract update?" |
 | Migration or persistence change | "Write a test plan for this migration change" |
-| Documentation-only repo change | "How should I validate a reusable prompt or rules update?" |
+| Documentation-only repo change | "How should I validate a reusable prompt or platform instruction surface update?" |
 
 Use `full-verification` instead when the user wants a broad verification entry point that may need to choose between code review, docs consistency, contract review, health assessment, or executable testing.
 
@@ -199,4 +199,4 @@ When using this skill, the output should include:
 - "Choose the right verification for this repository-layer change"
 - "What tests should cover this API contract update?"
 - "Write a test plan for this migration change"
-- "This repo has no code yet — how should I validate a reusable prompt or rules update?"
+- "This repo has no code yet — how should I validate a reusable prompt or platform instruction surface update?"

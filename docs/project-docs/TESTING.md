@@ -19,12 +19,12 @@ When no stronger executable test exists, use editor diagnostics, targeted consis
 | Summary-only doc clarification | Markdown diagnostics on changed files, then targeted diff review | Manual read-through of the changed owner doc and dependent summary docs |
 | Contract, maintenance, reusable-prompt, or skill change | Markdown diagnostics, targeted consistency search across affected docs, then maintenance audit review | Structured manual consistency review across contract owner, dependent docs, and changelog |
 | Starter template change under `docs/vibes/project-docs-template/` | Markdown diagnostics on added or changed templates, then check that referenced template surfaces and indexes stay aligned | Manual folder inventory plus cross-reference review |
-| Canonical path, filename, stable heading, or routing change | Markdown diagnostics, consistency search across docs and mirrored rule surfaces, then full maintenance audit review | Manual owner-by-owner review only if search tooling is unavailable |
+| Canonical path, filename, stable heading, or routing change | Markdown diagnostics, consistency search across docs and platform instruction surfaces, then full maintenance audit review | Manual owner-by-owner review only if search tooling is unavailable |
 
 ## Commands
 
 - changed-file diagnostics: use editor or Problems diagnostics for every changed Markdown file
-- targeted consistency search: `rg -n "<changed-term>|<path>|<heading>" README.md docs .github .claude`
+- targeted consistency search: `rg -n "<changed-term>|<path>|<heading>" README.md docs .agents .github .claude`
 - changed-doc review: `git --no-pager diff -- README.md docs`
 - folder inventory for scaffold changes: `rg --files docs/vibes/project-docs-template`
 
@@ -53,7 +53,7 @@ Replace `<changed-term>|<path>|<heading>` with the concrete contract term, file 
 - Required before merge: owning docs and dependent docs are checked for consistency.
 - Required before merge: maintainer-facing template changes are recorded in `docs/project-docs/changelog.md`.
 - Required before release of breaking template changes: run the full maintenance audit sequence described by `docs/eyehateagent-maintenance.md`.
-- Advisory: confirm mirrored rule files were either updated or explicitly left unchanged because they remain generic.
+- Advisory: confirm platform instruction surfaces (mirrored rule files) were either updated or explicitly left unchanged because they remain generic.
 
 ## Manual Checks
 

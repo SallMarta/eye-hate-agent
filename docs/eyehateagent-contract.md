@@ -20,13 +20,13 @@ If a repository changes stacks, runtime models, or framework choices, the requir
 
 - Rules enforce behavior, guardrails, and quality expectations.
 - Rules must **not** hardcode stack-specific commands or framework assumptions when that information belongs in project docs.
-- This repository intentionally keeps the context-compaction trigger of roughly 65% in the mirrored rule files as an agent-operating threshold. Treat it as a deliberate exception to the general preference for principle-based reusable rules.
-- Rules should read `docs/eyehateagent-contract.md` and the relevant files in `docs/project-docs/` directly.
+- This repository intentionally keeps the context-compaction trigger of roughly 65% in the platform instruction surfaces (mirrored rule files) as an agent-operating threshold. Treat it as a deliberate exception to the general preference for principle-based reusable rules.
+- Rules should read the relevant files in `docs/project-docs/` directly.
 
 ### Skills
 
 - Skills define reusable expert-role procedures such as testing, analysis, API design, auditing, or documentation refresh.
-- Skills should begin by reading `docs/eyehateagent-contract.md` and the relevant project docs before applying their reusable expert procedure.
+- Skills should begin by reading the relevant project docs before applying their reusable expert procedure.
 - Skills may include examples, but examples must not become hidden project-specific requirements.
 
 ### Reusable prompts
@@ -43,24 +43,24 @@ Use two operating modes.
 
 | Mode | Typical request | Default path | Reusable prompts |
 | --- | --- | --- | --- |
-| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> `docs/eyehateagent-contract.md` and relevant project docs -> optional skill -> output | No |
+| Normal work | build, create, fix, test, review, or analyze a feature, bug, or code path | user prompt -> instructions -> relevant project docs -> optional skill -> output | No |
 | Template or doc maintenance | bootstrap docs, refresh docs after a material change, run parity, or update template structure | maintenance request -> reusable prompt or maintenance workflow -> contract or docs update | Yes, when bootstrap, refresh, or parity is the task |
 
 ### Request Routing Examples
 
 | User request | Mode | Read first | Skill | Expected output |
 | --- | --- | --- | --- | --- |
-| "create evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `architecture.md`, `project.md`, `status.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
-| "test evaluation feature api" | Normal work | `docs/eyehateagent-contract.md`, `testing.md`, `architecture.md`, and relevant feature docs | Usually `test-authoring` | Verification strategy, recommended checks, and tests when needed |
-| "verify this feature against the docs, contract, and code" | Normal work | `docs/eyehateagent-contract.md`, `testing.md`, `architecture.md`, `project.md`, `status.md`, and relevant guidelines or feature docs | Usually `full-verification` | Routed verification path, selected specialist skill, and checks or findings |
-| "analyze why evaluation api is flaky" | Normal work | `docs/eyehateagent-contract.md`, `architecture.md`, `testing.md`, `status.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
-| "what should we improve before this workflow is production-ready" | Normal work | `docs/eyehateagent-contract.md`, `project.md`, `status.md`, `architecture.md`, `testing.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
+| "create evaluation feature api" | Normal work | `architecture.md`, `project.md`, `status.md`, and any relevant API docs | Optional, usually `api-design` only if the boundary is non-trivial | Implemented API change or design-ready boundary update |
+| "test evaluation feature api" | Normal work | `testing.md`, `architecture.md`, and relevant feature docs | Usually `test-authoring` | Verification strategy, recommended checks, and tests when needed |
+| "verify this feature against the docs, contract, and code" | Normal work | `testing.md`, `architecture.md`, `project.md`, `status.md`, and relevant guidelines or feature docs | Usually `full-verification` | Routed verification path, selected specialist skill, and checks or findings |
+| "analyze why evaluation api is flaky" | Normal work | `architecture.md`, `testing.md`, `status.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
+| "what should we improve before this workflow is production-ready" | Normal work | `project.md`, `status.md`, `architecture.md`, `testing.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
 | "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `architecture.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
 | "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `parity` | Drift report and ownership-level fixes |
 
 ### Skill Invocation Rule
 
-- Read the relevant contract and project docs first.
+- Read the relevant project docs first.
 - Act directly when the task is local, obvious after reading the docs, and primarily implementation, editing, or straightforward verification.
 - Use a skill when the task benefits from a reusable expert-role method, deeper reasoning, boundary-specific design, expert auditing, or expert verification planning.
 - If the user explicitly requests a skill, treat that as a stronger signal than automatic judgment and use the skill unless it is clearly irrelevant or unnecessary for the task.
@@ -120,13 +120,13 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 
 These are completion requirements, not a universal response template.
 
-When a repository defines a default live-response shape in its mirrored rule files, treat that shape as a lightweight baseline only.
+When a repository defines a default live-response shape in its platform instruction surfaces, treat that shape as a lightweight baseline only.
 If multiple output-shape signals apply, use this precedence:
 
 1. the user's explicit format request
 2. the active mode or mode-specific agent file
 3. the active skill or reusable prompt `Output Contract`
-4. the mirrored rule-file default live-response shape
+4. the platform instruction surface default live-response shape
 5. the agent's local judgment
 
 ---
@@ -137,7 +137,7 @@ Use the repository in five categories.
 
 | Category | Primary paths | Role |
 | --- | --- | --- |
-| Platform instruction surfaces | `.github/instructions/`, `.claude/rules/` | Agent-platform specific entry points that enforce generic behavior and point back to the contract and project docs |
+| Platform instruction surfaces | `.github/instructions/`, `.claude/rules/`, `.agents/rules/` | Agent-platform specific entry points that enforce generic behavior (via embedded Contract Essentials) and point to project docs |
 | Docs anchors | `docs/eyehateagent-contract.md`, `docs/eyehateagent-maintenance.md` | Documentation-level routing, governance, and template-maintainer anchors |
 | Active project docs | `docs/project-docs/` | Canonical project-specific truth for scope, architecture, testing, workflow, and conventions |
 | Reusable template assets | `docs/vibes/` | Reusable prompts, skills, and starter assets that operate from the active contract |
@@ -250,6 +250,7 @@ These headings should remain stable across projects whenever the file exists. Th
 - `## Data / Storage`
 - `## Commands` or `## Build and Run`
 - `## Testing Stack` (or cross-reference `testing.md`)
+- `## Guidelines` (or cross-reference `guidelines/index.md`)
 
 ### `testing.md`
 
@@ -386,7 +387,7 @@ In Scenario 2, only reusable assets may centralize. Project-specific facts must 
 ### When writing or updating rules
 
 - Keep the rule generic.
-- Point the rule at `docs/eyehateagent-contract.md` and the relevant project docs.
+- Point the rule at the relevant project docs in `docs/project-docs/`.
 - Preserve the normal-work versus template-maintenance distinction defined in the operating model.
 - If a rule defines a default live-response shape, keep it short and treat it as a baseline rather than a universal override.
 - Avoid embedding concrete stack-specific commands directly unless the repository has intentionally chosen to keep them in the rule.
@@ -424,9 +425,9 @@ These rules belong in the contract because downstream repositories may remove `d
 | If you are adding or changing... | Update first | Usually also update | Core rule |
 | --- | --- | --- | --- |
 | a reusable skill | the owning skill file in `docs/vibes/skills/` for the chosen topology | `docs/eyehateagent-contract.md` if the expected skill structure or inputs changed; summaries such as `quick-reference.md` only if discovery changes | keep the skill procedural, expert-role, and start from project docs |
-| a rule or instruction point | the mirrored rule files in the owning template surface | `docs/eyehateagent-contract.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `testing.md` if verification expectations changed; local mirrors if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
+| a rule or instruction point | the platform instruction surfaces in the owning template | `docs/eyehateagent-contract.md` if routing, precedence, fallback, output-by-mode, or ownership changed; `testing.md` if verification expectations changed; local instruction surfaces if a platform requires repo-local instruction loading | keep the rule generic and point back to project docs |
 | a project-doc owner or reusable optional doc | the owning doc first; if it becomes template-wide, update `docs/eyehateagent-contract.md` first | `docs/vibes/project-docs-template/` if adopters should get a starter version; onboarding or adoption docs if discovery changes | if only one adopted repository needs it, keep it local to that repository instead of promoting it into the template |
-| the contract itself | `docs/eyehateagent-contract.md` | mirrored rules, affected skills, reusable prompts, onboarding docs, summaries, and `changelog.md` | contract changes are highest-impact and should be treated as template-level changes |
+| the contract itself | `docs/eyehateagent-contract.md` | platform instruction surfaces (mirrored rule files), affected skills, reusable prompts, onboarding docs, summaries, and `changelog.md` | contract changes are highest-impact and should be treated as template-level changes |
 
 Notes:
 
@@ -471,6 +472,6 @@ If this contract changes:
 
 1. Update this file first.
 2. Update the rule files that reference it.
-3. If one mirrored rule file changes, update the other mirror in the same change unless divergence is intentional and documented.
+3. If one platform instruction surface changes, update the other surfaces in the same change unless divergence is intentional and documented.
 4. Update any skill or reusable prompt that depends on the old contract.
 5. Run a consistency review so the template does not drift.

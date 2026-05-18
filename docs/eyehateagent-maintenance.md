@@ -8,7 +8,7 @@ This file owns template governance, lifecycle expectations, and maintainer workf
 
 - `docs/eyehateagent-contract.md`
 - docs-level contract anchors
-- mirrored rule files
+- platform instruction surfaces (mirrored rule files)
 - reusable prompts
 - skills
 - adoption and onboarding docs
@@ -24,7 +24,7 @@ This file covers:
 - template-level structure, naming, routing, and lifecycle changes
 - backward-compatible vs. breaking template changes
 - deprecation and removal of template surfaces
-- maintainer workflow across the contract anchors, project-doc owners, skills, reusable prompts, and summary docs
+- maintainer workflow across the contract anchors, platform instruction surfaces, project-doc owners, skills, reusable prompts, and summary docs
 - registry-driven extension of optional regular docs and guideline types
 - starter guideline template additions or revisions under `docs/vibes/project-docs-template/guidelines/`
 
@@ -65,7 +65,7 @@ Treat these as breaking unless proven otherwise:
 For a breaking change:
 
 1. Update the owning document first, usually `docs/eyehateagent-contract.md`.
-2. Update both mirrored rule files in the same change.
+2. Update all platform instruction surfaces (mirrored rule files) in the same change (e.g., `.agents/`, `.claude/`, `.github/`).
 3. Update affected skills, reusable prompts, onboarding docs, and summaries.
 4. Update downstream copies that still track the template's canonical paths.
 5. Add migration notes for adopters in `changelog.md` or the affected owner doc.
@@ -88,8 +88,9 @@ For a breaking change:
 3. When adding a known optional regular doc type, start by updating `docs/vibes/project-docs-template/index.md`.
 4. When adding a known guideline type, start by updating `docs/vibes/project-docs-template/guidelines/index.md`.
 5. If the new doc class needs a new stable heading pattern or ownership rule, update `docs/eyehateagent-contract.md` before relying on the registries.
-6. Do not remove the roughly 65% context-compaction exception from the mirrored rule files unless the contract is intentionally updated in the same change.
-7. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
-8. Update mirrors, summaries, skills, reusable prompts, registries, starter template files, and downstream copies that quote or depend on the changed owner.
-9. Run the maintenance audit sequence.
-10. Record maintainer-facing changes in `changelog.md`.
+6. Do not remove the roughly 65% context-compaction exception from the platform instruction surfaces (mirrored rule files) unless the contract is intentionally updated in the same change.
+7. Ensure any changes to routing, precedence, fallback, or output rules in the contract are also synchronized into the "Contract Essentials" embedded in all platform instruction surfaces (mirrored rule files).
+8. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
+9. Update mirrors, summaries, skills, reusable prompts, registries, starter template files, and downstream copies that quote or depend on the changed owner.
+10. Run the maintenance audit sequence.
+11. Record maintainer-facing changes in `changelog.md`.

@@ -72,6 +72,7 @@ Recommended when useful or when declared as active in the registries:
 - integrations
 - data or storage model
 - commands or build and run guidance
+- guidelines or cross-reference
 
 ### `testing.md`
 
@@ -150,7 +151,7 @@ Recommended when useful or when declared as active in the registries:
 
 Before finishing, check that:
 
-1. rules and skills could read these docs directly without hidden assumptions
+1. platform instruction surfaces and skills could read these docs directly without hidden assumptions
 2. the testing doc is actionable
 3. architecture and testing do not conflict
 4. roadmap and scope do not conflict

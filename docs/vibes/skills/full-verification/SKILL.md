@@ -19,6 +19,7 @@ This skill is intentionally **not tied to any single stack or framework**. When 
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Defines routing, ownership, precedence, and the active skill model |
+
 | `docs/project-docs/testing.md` | Defines executable and non-executable verification rules, commands, and fallback policy |
 | `docs/project-docs/architecture.md` | Defines boundaries, stack, interfaces, dependency rules, and runtime assumptions |
 | `docs/project-docs/project.md` | Defines goals, scope, non-goals, and success criteria |
@@ -45,7 +46,7 @@ Use a specialist skill directly when the dominant question is already obvious:
 
 - `test-authoring` for executable verification strategy, stack-aware test selection, and test-writing decisions
 - `code-audit` for code correctness, bug, risk, security, and boundary review
-- `parity` for repository drift across docs, rules, skills, prompts, and summaries
+- `parity` for repository drift across docs, platform instruction surfaces, skills, prompts, and summaries
 - `project-elevation` for forward-looking improvement and readiness planning
 - `analysis` for root-cause reasoning, trade-off evaluation, and requirement or decision analysis
 - `api-design` for API, schema, interface, or boundary contract design and review
@@ -89,7 +90,7 @@ Prefer the single strongest verification path unless the user explicitly asks fo
 | How should this be verified, tested, or regression-checked in the current stack? | `test-authoring` |
 | Is this code correct, safe, consistent, and free of obvious bugs or boundary violations? | `code-audit` |
 | Does this API or interface contract match the docs, code, and boundary rules? | `api-design` |
-| Do the docs, rules, skills, prompts, and repository artifacts still agree? | `parity` |
+| Do the docs, platform instruction surfaces, skills, prompts, and repository artifacts still agree? | `parity` |
 | What should improve next, and how healthy or mature is this project at its current stage? | `project-elevation` |
 | Do the requirements, trade-offs, design decisions, or explanations hold up? | `analysis` |
 
@@ -100,7 +101,7 @@ Example prompt shapes by verification category:
 | Executable verification strategy | "Verify this Python bug fix and tell me which `pytest` checks should run." / "Use the right test approach for this Go handler and tell me what command to run." |
 | Code quality, bug, risk, or security review | "Verify whether this module has bug risks, security issues, or boundary violations." / "Check this implementation against the docs and code-quality rules." |
 | API or interface contract alignment | "Verify whether this API matches the project docs, guideline standards, and actual code." / "Check whether this repository contract still matches the service and its documented boundary rules." |
-| Docs, contract, or repository consistency | "Verify whether the project docs still match the current repository and contract." / "Check for drift across docs, rules, skills, prompts, and quick-reference files." |
+| Docs, contract, or repository consistency | "Verify whether the project docs still match the current repository and contract." / "Check for drift across docs, platform instruction surfaces, skills, prompts, and quick-reference files." |
 | Architecture, health, maturity, or readiness | "Verify this project's health and maturity against the contract and current repository state." / "Check whether the architecture and current implementation still support production readiness." |
 | Requirements, trade-offs, or decision consistency | "Verify whether these requirements and design decisions still hold up against the current repo." / "Check whether this technical trade-off still makes sense given the architecture and status docs." |
 

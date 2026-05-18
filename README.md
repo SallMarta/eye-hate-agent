@@ -54,10 +54,14 @@ Follow this order:
 | Scenario 2. Shared template repo, local project docs | one shared `eye-hate-agent` repo should serve many repos, while each repo keeps its own main project docs | Supported alternative |
 | Scenario 3. Centralized portfolio-doc repo | one shared repo should own multiple repos' project docs | Outside this contract |
 
+> **Note on Agent Platforms:** When copying this repository, you can choose one of `.agents`, `.claude`, or `.github` as desired instead of keeping all three. Typically `.agents` is for Gemini, `.claude` is for Claude, and `.github` is for GitHub Copilot.
+
 ### Scenario 1 — Distributed Self-Contained Repos
 
 ```text
 target-repo/
+├── .agents/
+│   └── rules/
 ├── .github/
 │   └── instructions/
 ├── .claude/
@@ -73,6 +77,7 @@ target-repo/
 Keep in the target repo:
 
 - `docs/eyehateagent-contract.md`
+- `.agents/rules/`
 - `.github/instructions/`
 - `.claude/rules/`
 - `docs/project-docs/`
@@ -86,6 +91,8 @@ Remove `docs/eyehateagent-maintenance.md` after setup unless the target is also 
 ```text
 workspace/
 ├── eye-hate-agent/
+│   ├── .agents/
+│   │   └── rules/
 │   ├── .github/
 │   │   └── instructions/
 │   ├── .claude/
@@ -109,6 +116,7 @@ Keep in the target repo:
 
 Keep in the shared `eye-hate-agent` repo:
 
+- `.agents/rules/`
 - `.github/instructions/`
 - `.claude/rules/`
 - `docs/vibes/reusable-prompts/`
@@ -122,6 +130,8 @@ Use local rule mirrors only when an agent platform requires repo-local instructi
 ```text
 workspace/
 ├── eye-hate-agent/
+│   ├── .agents/
+│   │   └── rules/
 │   ├── .github/
 │   │   └── instructions/
 │   ├── .claude/
@@ -253,7 +263,7 @@ A target repo is fully documented when it has both: the general project docs plu
 ### Additional Terms
 
 - `stable heading`: a standard heading pattern that prompts and agents are expected to rely on
-- `mirrored rule files`: matching rule files under `.github/instructions/` and `.claude/rules/` that point back to the same contract
+- `platform instruction surfaces (mirrored rule files)`: matching rule files under `.agents/rules/`, `.github/instructions/`, and `.claude/rules/` that enforce Contract Essentials
 - `guideline`: a technical guidance doc under `docs/project-docs/guidelines/`
 - `project category`: whether the target repo is a new project, a running project, or a mature or unclear project
 - `optional` or `conditional doc`: a non-core doc that exists only when the project needs it

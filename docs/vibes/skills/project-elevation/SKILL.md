@@ -16,7 +16,7 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/eyehateagent-contract.md` | Defines where project truth and ownership live |
+
 | `docs/project-docs/project.md` | Clarifies goals, stakeholders, non-goals, and success metrics |
 | `docs/project-docs/architecture.md` | Defines stack, boundaries, and implementation constraints |
 | `docs/project-docs/status.md` | Shows maturity, roadmap, and current execution state |

@@ -16,7 +16,7 @@ This skill is reusable across application code, backend services, scripts, autom
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/eyehateagent-contract.md` | Defines where the relevant truth should live |
+
 | `docs/project-docs/architecture.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
 | `docs/project-docs/testing.md` | Defines available validation and evidence strength |
 | `docs/project-docs/project.md` | Clarifies scope, non-goals, and project stage |

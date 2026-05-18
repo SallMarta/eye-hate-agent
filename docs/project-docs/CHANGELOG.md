@@ -4,6 +4,23 @@ All notable changes to Eye Hate Agent are documented here.
 
 ---
 
+## [1.12.0] - 2026-05-18
+
+### Added
+
+- Added `## Guidelines` as a stable heading to the `architecture.md` template and contract to ensure domain-specific rules are properly delegated to `guidelines/index.md`.
+- Added a note to `README.md` clarifying that adopters only need to keep the platform instruction surface(s) they actually use (typically `.agents` for Gemini, `.claude` for Claude, or `.github` for GitHub Copilot).
+- Added `.agents/rules/` to the adoption topology folder trees in `README.md` to match the newly supported 3-mirror architecture.
+
+### Changed
+
+- Unified repository taxonomy by changing all scattered references of "mirrored rule files" and "rules" to "platform instruction surfaces (mirrored rule files)" across the contract, maintenance doc, README, reusable prompts, and skills.
+- Restored the explicit `docs/eyehateagent-contract.md` dependency to the `full-verification` skill so it can accurately route template-level consistency checks to `parity`.
+- Updated the testing diagnostic commands in `docs/project-docs/testing.md` to explicitly search the new `.agents` directory for consistency checking.
+- Streamlined `api-design`, `analysis`, `test-authoring`, `project-elevation`, and `code-audit` skills by removing redundant dependencies on the meta-contract, focusing them strictly on `docs/project-docs/` for normal work.
+
+---
+
 ## [1.11.0] - 2026-05-18
 
 ### Added
@@ -107,7 +124,7 @@ All notable changes to Eye Hate Agent are documented here.
 ### Changed in 1.5.0
 
 - Moved the canonical template anchors under `docs/` as `docs/eyehateagent-contract.md` and `docs/eyehateagent-maintenance.md`.
-- Retargeted the mirrored rules, reusable prompts, skills, and changelog references to the new docs-anchor paths.
+- Retargeted the platform instruction surfaces (mirrored rule files), reusable prompts, skills, and changelog references to the new docs-anchor paths.
 - Refined the contract and maintenance wording to match the new docs-anchor model while preserving the 65% context-compaction exception.
 
 ---
@@ -134,7 +151,7 @@ All notable changes to Eye Hate Agent are documented here.
 
 ### Changed in 1.3.0
 
-- Simplified the mirrored rule files and clarified response-shape precedence through `docs/eyehateagent-contract.md`.
+- Simplified the platform instruction surfaces (mirrored rule files) and clarified response-shape precedence through `docs/eyehateagent-contract.md`.
 - Shifted template verification back to a document-first, human-reviewed maintenance flow.
 
 ### Removed in 1.3.0
@@ -148,7 +165,7 @@ All notable changes to Eye Hate Agent are documented here.
 ### Changed in 1.2.0
 
 - Refined contract, testing, quick-reference, and maintenance docs for clearer ownership and consistency.
-- Updated `README.md` and mirrored rules to better match the template workflow and terminology.
+- Updated `README.md` and platform instruction surfaces (mirrored rule files) to better match the template workflow and terminology.
 
 ---
 
