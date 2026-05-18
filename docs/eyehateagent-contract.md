@@ -56,7 +56,7 @@ Use two operating modes.
 | "analyze why evaluation api is flaky" | Normal work | `architecture.md`, `testing.md`, `status.md`, and runtime evidence | Usually `analysis` or `code-audit` | Findings, likely cause, and next action |
 | "what should we improve before this workflow is production-ready" | Normal work | `project.md`, `status.md`, `architecture.md`, `testing.md`, and relevant workflow docs | Usually `project-elevation` | Prioritized improvement roadmap grounded in current scope and maturity |
 | "refresh docs after architecture change" | Template or doc maintenance | `docs/eyehateagent-contract.md`, `architecture.md`, and the owning docs | Optional | Updated docs only, usually through the refresh reusable prompt workflow |
-| "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, rule files, reusable prompt files, skill files, and summary docs | Usually `parity` | Drift report and ownership-level fixes |
+| "audit reusable prompt and skill drift" | Template or doc maintenance | `docs/eyehateagent-contract.md`, platform instruction surfaces, reusable prompt files, skill files, and summary docs | Usually `parity` | Drift report and ownership-level fixes |
 
 ### Skill Invocation Rule
 
@@ -82,7 +82,7 @@ Use this matrix when multiple skills sound plausible.
 | Contract or boundary shape for an API, service, repository, adapter, or event | `api-design` | `analysis` when the primary deliverable is a contract or interface shape rather than a broad judgment memo | Proposed boundary design, validation rules, and verification strategy |
 | Verification boundary, check type, commands, and whether tests should be added | `test-authoring` | `code-audit` when the question is how to verify a change, not whether the implementation is correct | Verification strategy and tests when needed |
 | Forward-looking improvements, missing capabilities, or what to do next | `project-elevation` | `analysis` when the task is prioritizing realistic next improvements rather than explaining existing behavior | Prioritized improvement roadmap |
-| Drift, contradiction, or ownership mismatches across docs, rules, skills, and prompts | `parity` | `analysis` when the problem is repository-wide disagreement rather than local technical reasoning | Classified drift findings with ownership-level fixes |
+| Drift, contradiction, or ownership mismatches across docs, platform instruction surfaces, skills, and prompts | `parity` | `analysis` when the problem is repository-wide disagreement rather than local technical reasoning | Classified drift findings with ownership-level fixes |
 
 ### Decision Precedence
 
@@ -116,7 +116,7 @@ If a higher-precedence signal conflicts with a lower one, follow the higher sign
 | Mode | Must end with |
 | --- | --- |
 | Normal work | The requested output, the narrowest applicable validation or an explicit limitation, and a documentation-sync update or check when ownership changed |
-| Template or doc maintenance | Updated docs, rules, skills, or reusable prompts, a consistency validation step, and any unresolved drift or follow-up items |
+| Template or doc maintenance | Updated docs, platform instruction surfaces, skills, or reusable prompts, a consistency validation step, and any unresolved drift or follow-up items |
 
 These are completion requirements, not a universal response template.
 
@@ -353,7 +353,7 @@ If a project uses different headings, keep a clear cross-reference at the top of
 - Prefer summary tables for commands, stack, or decision matrices.
 - Put the **durable truth** in project docs, not in reusable prompt text or skill text.
 - Treat `docs/project-docs/index.md` and `docs/project-docs/guidelines/index.md` as the authoritative inventories for optional regular docs and guideline types when they exist.
-- When a fact changes, update the owning project doc first, then update any dependent rules, skills, or reusable prompts that quote or summarize it.
+- When a fact changes, update the owning project doc first, then update any dependent platform instruction surfaces, skills, or reusable prompts that quote or summarize it.
 - Mirror platform instruction metadata where the platform supports the same field set.
 
 ---
@@ -448,7 +448,7 @@ Notes:
 4. If optional or conditional regular docs are active, declare them in `docs/project-docs/index.md`.
 5. If guideline docs are active, declare them in `docs/project-docs/guidelines/index.md`.
 6. Remove `docs/eyehateagent-maintenance.md` from the adopted repository.
-7. Review rules and skills only for template-level changes, not project-specific facts.
+7. Review platform instruction surfaces and skills only for template-level changes, not project-specific facts.
 8. Use reusable prompts to create or refresh docs instead of editing many scattered files by hand.
 
 ### Scenario 2 — Shared Template Repo With Local Project Docs
@@ -471,7 +471,7 @@ Notes:
 If this contract changes:
 
 1. Update this file first.
-2. Update the rule files that reference it.
+2. Update the platform instruction surfaces that reference it.
 3. If one platform instruction surface changes, update the other surfaces in the same change unless divergence is intentional and documented.
 4. Update any skill or reusable prompt that depends on the old contract.
 5. Run a consistency review so the template does not drift.

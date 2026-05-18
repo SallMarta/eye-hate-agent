@@ -6,7 +6,7 @@ Generate the **initial project documentation set** for a new repository using th
 
 ## Goal
 
-Create the smallest complete set of project docs that lets rules and skills operate without embedding project-specific assumptions.
+Create the smallest complete set of project docs that lets platform instruction surfaces and skills operate without embedding project-specific assumptions.
 
 This reusable prompt assumes you are starting from a project brief or equivalent starting facts. If the repository already has meaningful code, docs, or contradictory summaries, use those as inputs and consider whether refresh or parity should run first.
 If those older docs are being replaced, move them into a clearly non-owner reference folder such as `docs-legacy/` before using them as migration input.

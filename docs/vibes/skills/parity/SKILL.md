@@ -22,7 +22,7 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 | `docs/project-docs/testing.md` | Active verification truth |
 | `docs/project-docs/status.md` | Active roadmap and current-state truth |
 | `docs/project-docs/quick-reference.md` | Summary layer likely to drift if not refreshed |
-| Rule / instruction files | Automatic behavior layer |
+| Platform instruction surfaces | Automatic behavior layer |
 | Skills and reusable prompts | Reusable procedure and generation layers |
 | Workflow, handoff, and historical docs | Potentially valid references or stale artifacts |
 | Relevant code, tests, configs, and runtime-facing artifacts | Evidence for whether active docs still match the current repository |
@@ -66,7 +66,7 @@ Use the project docs defined by `docs/eyehateagent-contract.md` as the default s
 
 Compare the source-of-truth docs against:
 
-- rule files
+- platform instruction surfaces
 - skills
 - reusable prompts
 - workflow docs

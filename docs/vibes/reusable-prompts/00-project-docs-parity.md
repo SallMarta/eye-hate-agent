@@ -6,7 +6,7 @@ Audit the repository for **documentation-system drift**.
 
 ## Goal
 
-Find mismatches where project docs, platform instruction surfaces (rules), skills, reusable prompts, workflow docs, quick-reference material, or relevant implementation evidence disagree about the same fact.
+Find mismatches where project docs, platform instruction surfaces (mirrored rule files), skills, reusable prompts, workflow docs, quick-reference material, or relevant implementation evidence disagree about the same fact.
 
 ## Scope
 
