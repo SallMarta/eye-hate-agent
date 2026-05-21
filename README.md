@@ -56,7 +56,7 @@ Follow this order:
 
 > **Note on Agent Platforms:** When copying this repository, you can choose one of `.agents`, `.claude`, or `.github` as desired instead of keeping all three. Typically `.agents` is for Gemini, `.claude` is for Claude, and `.github` is for GitHub Copilot.
 
-### Scenario 1 — Distributed Self-Contained Repos (Recommended)
+### Scenario 1 — Distributed Self-Contained Repos **(Recommended)**
 
 **Pros:**
 - **Autonomy:** The AI agent has everything it needs locally. It doesn't rely on cross-workspace permissions to read instructions.
