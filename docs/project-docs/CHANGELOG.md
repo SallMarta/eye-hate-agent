@@ -4,6 +4,17 @@ All notable changes to Eye Hate Agent are documented here.
 
 ---
 
+## [1.13.0] - 2026-05-22
+
+### Changed
+
+- Replaced the generic `[AGENT-SPECIFIC CACHE RULE GOES HERE]` placeholder in all three platform instruction surfaces with researched, platform-specific cache-integrity rules:
+  - **Gemini** (`.agents/rules/agent.md`): Added `Prefix Stability` rule targeting implicit prefix cache protection, byte-identical prefix requirements, and non-deterministic serialization risks.
+  - **Claude** (`.claude/rules/agent-rules.md`): Added `Prefix & Lookback Integrity` rule targeting byte-identical prefix order (tools → system → messages), dynamic injection prevention, and the ~20-block lookback window overflow in heavy agentic loops.
+  - **Copilot** (`.github/instructions/agent-rules.instructions.md`): Added `Context Efficiency` rule targeting usage-based AI Credits billing for cached tokens, explicit over implicit context, and session hygiene between unrelated tasks.
+
+---
+
 ## [1.12.0] - 2026-05-18
 
 ### Added
