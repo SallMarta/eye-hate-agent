@@ -2,6 +2,12 @@
 
 All notable changes to Eye Hate Agent are documented here.
 
+## [1.14.0] - 2026-05-22
+
+### Changed
+
+- Enhanced Rule 2.5 (Claude) and Rule 2.4 (Gemini, Copilot) for Session Continuity across all platform instruction surfaces. Standardized the handoff filename to a predictable, overwriting `session-handoff.md` under `/memories/session/session-handoff.md` to prevent directory clutter. Explicitly defined handoff compilation requirements to mandate a comprehensive active conversation summary, strict redaction of sensitive data (API keys, credentials, PII), dynamic tailoring based on user-provided compaction arguments, and providing a copy-pasteable short prompt (e.g., "Resume session from memories/session/session-handoff.md") for seamless onboarding.
+
 ---
 
 ## [1.13.0] - 2026-05-22
