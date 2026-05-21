@@ -1,4 +1,4 @@
-# Eye Hate Agent
+# Eye Hate Agent (EHA)
 
 ## Documentation repository for AI-agent-assisted project work
 

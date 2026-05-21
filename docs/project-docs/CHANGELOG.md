@@ -8,10 +8,17 @@ All notable changes to Eye Hate Agent are documented here.
 
 ### Changed
 
-- Replaced the generic `[AGENT-SPECIFIC CACHE RULE GOES HERE]` placeholder in all three platform instruction surfaces with researched, platform-specific cache-integrity rules:
+- Consolidated all three platform instruction surfaces (`.claude/rules/agent-rules.md`, `.agents/rules/agent.md`, and `.github/instructions/agent-rules.instructions.md`) to a point-numbered (`#1.1`, `#2.4`, etc.) 5-heading schema to achieve perfect consistency and remove redundancy.
+- Replaced the generic `[AGENT-SPECIFIC CACHE RULE GOES HERE]` placeholder with researched, platform-specific cache-integrity rules:
   - **Gemini** (`.agents/rules/agent.md`): Added `Prefix Stability` rule targeting implicit prefix cache protection, byte-identical prefix requirements, and non-deterministic serialization risks.
-  - **Claude** (`.claude/rules/agent-rules.md`): Added `Prefix & Lookback Integrity` rule targeting byte-identical prefix order (tools → system → messages), dynamic injection prevention, and the ~20-block lookback window overflow in heavy agentic loops.
-  - **Copilot** (`.github/instructions/agent-rules.instructions.md`): Added `Context Efficiency` rule targeting usage-based AI Credits billing for cached tokens, explicit over implicit context, and session hygiene between unrelated tasks.
+  - **Claude** (`.claude/rules/agent-rules.md`): Added `Prefix & Lookback Integrity` rule targeting byte-identical prefix order, dynamic injection prevention, and the ~20-block lookback window overflow.
+  - **Copilot** (`.github/instructions/agent-rules.instructions.md`): Added `Context Efficiency` rule targeting usage-based AI Credits billing, explicit over implicit context, and session hygiene.
+- Merged redundant rule **4.1** (`Keep rules generic...`) into **2.1** (`Context Limit`) under `## 2. Context & Cache Integrity`, cleanly shift-renumbering all Section 4 items to keep the completion section tightly focused.
+- Strengthened **Section 5 (Contract Essentials)** across all surfaces with bolded subtitles and advanced behavioral safeguards:
+  - Formally embedded the nested **Decision Precedence** list directly from the contract.
+  - Upgraded **Failure & Fallback** to explicitly address code-doc drift (the "do not guess" rule on code, tests, and configs).
+  - Introduced **Codebase & Comment Integrity** to strictly prevent the silent deletion of comments, docstrings, formatting, and structures.
+  - Elevated **Completion & Verification** to actively search for correctness, edge cases, and unexpected side effects.
 
 ---
 
