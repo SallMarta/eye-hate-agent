@@ -56,7 +56,7 @@ Follow this order:
 
 > **Note on Agent Platforms:** When copying this repository, you can choose one of `.agents`, `.claude`, or `.github` as desired instead of keeping all three. Typically `.agents` is for Gemini, `.claude` is for Claude, and `.github` is for GitHub Copilot.
 
-### Scenario 1 — Distributed Self-Contained Repos
+### Scenario 1 — Distributed Self-Contained Repos (Recommended)
 
 **Pros:**
 - **Autonomy:** The AI agent has everything it needs locally. It doesn't rely on cross-workspace permissions to read instructions.
@@ -95,7 +95,7 @@ Keep in the target repo:
 
 Remove `docs/eyehateagent-maintenance.md` after setup unless the target is also a template repo.
 
-### Scenario 2 — Shared Template Repo, Local Project Docs
+### Scenario 2 — Shared Template Repo, Local Project Docs (Alternative)
 
 **Pros:**
 - **Single Source of Truth:** Centralized rules and skills instantly update all local projects.
@@ -142,7 +142,7 @@ Keep in the shared `eye-hate-agent` repo:
 Keep the shared `eye-hate-agent` repo available in the same workspace or other agent-visible context.
 Use local rule mirrors only when an agent platform requires repo-local instruction loading.
 
-### Scenario 3 — Centralized Portfolio-Doc Repo
+### Scenario 3 — Centralized Portfolio-Doc Repo (Not Recommended)
 
 **Pros:**
 - **Absolute Centralization:** All project docs, rules, and skills exist in exactly one repository.
