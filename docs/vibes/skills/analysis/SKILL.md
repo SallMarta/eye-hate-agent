@@ -17,11 +17,10 @@ This skill is reusable across product, backend, frontend, infrastructure, monore
 | Document | Why it matters |
 | --- | --- |
 
-| `docs/project-docs/project.md` | Clarifies goals, scope, stakeholders, and success metrics |
-| `docs/project-docs/architecture.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
-| `docs/project-docs/status.md` | Reveals maturity, roadmap, active workstreams, and known blockers |
-| `docs/project-docs/testing.md` | Shows what validation exists and how strong the available evidence can be |
-| `docs/project-docs/quick-reference.md` | Provides high-signal conventions, commands, and paths |
+| `docs/project-docs/foundation/prd.md` | Clarifies goals, scope, stakeholders, and success metrics |
+| `docs/project-docs/foundation/architecture.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
+| `docs/project-docs/foundation/status.md` | Reveals maturity, roadmap, active workstreams, and known blockers |
+| `docs/project-docs/technical/testing.md` | Shows what validation exists and how strong the available evidence can be |
 | Relevant feature, workflow, API, or guideline docs | Supply domain-specific truth for the topic being analyzed |
 | Relevant code, logs, tests, or runtime evidence | Support findings with direct evidence rather than guesswork |
 
@@ -153,7 +152,7 @@ Your output should include:
 - Jumping to the first plausible conclusion
 - Treating all options as equally valid when evidence favors one
 - Recommending a rewrite when an incremental fix would solve the problem
-- Ignoring the project stage, roadmap, or non-goals in `project.md` and `status.md`
+- Ignoring the project stage, roadmap, or non-goals in `prd.md` and `status.md`
 
 ---
 

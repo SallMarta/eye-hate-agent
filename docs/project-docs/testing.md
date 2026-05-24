@@ -41,7 +41,7 @@ Replace `<changed-term>|<path>|<heading>` with the concrete contract term, file 
 ## Naming and File Conventions
 
 - Owner testing doc path: `docs/project-docs/testing.md`
-- Adoption starter for downstream repos: `docs/vibes/project-docs-template/testing.md`
+- Adoption starter for downstream repos: `docs/vibes/project-docs-template/technical/testing.md`
 - Changelog path for maintainer-facing changes: `docs/project-docs/changelog.md`
 - Template starter docs live under `docs/vibes/project-docs-template/`
 - Reusable prompts live under `docs/vibes/reusable-prompts/`

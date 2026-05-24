@@ -1,6 +1,41 @@
 # Changelog — Eye Hate Agent
 
-All notable changes to Eye Hate Agent are documented here.
+All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
+
+## [1.16.0] - 2026-05-24
+
+### Changed
+
+- **Parity Fix — `guidelines/` → `technical-guidelines/`**: Standardized all references across the contract, README, maintenance doc, template `technical-guidelines/index.md`, `full-verification` skill, and `test-authoring` skill to use `technical-guidelines/` as the canonical subdirectory name. Eliminates the most pervasive naming inconsistency in the repository.
+- **Parity Fix — flat paths → 4-layer paths**: Updated all stale flat-path references (`project.md`, `architecture.md`, `testing.md`, `status.md`) to use 4-layer taxonomy paths (`foundation/prd.md`, `foundation/architecture.md`, `technical/testing.md`, `foundation/status.md`) across the contract (Naming And Surface Rules, Request Routing Examples, Registry Policy, Guideline Policy, Adoption Checklists), README (required docs list, recommended docs), and all seven skills.
+- **Parity Fix — drop `quick-reference.md`**: Removed all ghost references to `quick-reference.md` from the contract (Naming And Surface Rules, Adoption Checklists), and from the Required Project Inputs tables of all seven skills (`parity`, `full-verification`, `analysis`, `api-design`, `code-audit`, `project-elevation`, `test-authoring`).
+- **Parity Fix — `project.md` → `prd.md`**: Updated all remaining references to the absorbed `project.md` to `prd.md` or `foundation/prd.md` across skills and the contract.
+- **Parity Fix — maintenance doc headings**: Added numbered prefixes to all section headings in `docs/eyehateagent-maintenance.md` to match the Stable Headings defined in the contract.
+- **Parity Fix — file casing**: Renamed `docs/project-docs/CHANGELOG.md` → `changelog.md` and `docs/project-docs/TESTING.md` → `testing.md` to match the contract's lowercase convention.
+- **Parity Fix — CLI and package**: Fixed `bin/eha.js` version from `2.0.0` to `1.0.0` to match `package.json`. Added missing `commander` and `chalk` dependencies to `package.json`. Removed stale `"main": "index.js"` entry.
+- **Parity Fix — template guideline paths**: Updated `docs/vibes/project-docs-template/technical-guidelines/index.md` guideline file paths from `guidelines/` to `technical-guidelines/`.
+- **Parity Fix — testing.md starter path**: Updated `docs/project-docs/testing.md` to reference the correct 4-layer starter template path.
+
+---
+
+## [1.15.0] - 2026-05-24
+
+### Added
+
+- **EHA CLI Tool**: Introduced `bin/eha.js` and a `package.json` to make Eye Hate Agent an executable Node module. The CLI allows users to initialize and run parity/SDD prompts directly via terminal commands.
+- **Spec-Driven Development (SDD) Prompts**: Created brand new executable AI workflows `01-sdd-execute.md` (for TDD/SDD code generation) and `02-sdd-discuss.md` (for brainstorming specifications before writing code) to formalize the agile execution loop.
+
+### Changed
+
+- **Massive Template Overhaul**: Restructured `docs/vibes/project-docs-template` into a strict 4-layer taxonomy (`foundation`, `operations`, `technical`, `technical-guidelines`).
+- **Mega PRD Integration**: Absorbed `project.md` and `business-process.md` into `foundation/prd.md` to prevent context fragmentation.
+- **Testing Consolidation**: Absorbed `test-plan.md` and `test-case.md` into `technical/testing.md` to streamline the verification policy.
+- **Data Dictionary**: Formalized a Data Dictionary section inside `technical/database.md`.
+- **Backlog Unified**: Designated `foundation/phases.md` as the unified agile sprint tracker, officially replacing `sprints.md`.
+- **Contract Sync**: Completely rewrote `eyehateagent-contract.md` and `README.md` to align the "Required Document Set", "Stable Headings", and "Ownership Rules" with the new 4-layer architecture.
+- **Reusable Prompts Sync**: Rewrote the Output Contracts and target paths across all executable AI workflows (`00-project-docs-bootstrap.md`, `01-sdd-execute.md`, `02-sdd-discuss.md`, `00-project-docs-parity.md`, `00-project-docs-refresh.md`) to strictly enforce the new 4-layer taxonomy and eliminate hardcoded legacy folders.
+
+---
 
 ## [1.14.0] - 2026-05-22
 

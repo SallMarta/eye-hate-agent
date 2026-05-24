@@ -190,29 +190,29 @@ Scenario 3 has no standard project-category flow because it is outside this cont
 
 Always keep these required project docs in the target repo:
 
-- `project.md`
-- `architecture.md`
-- `testing.md`
-- `status.md`
-- `quick-reference.md`
+- `foundation/prd.md`
+- `foundation/architecture.md`
+- `technical/testing.md`
+- `foundation/workflow.md`
+- `foundation/status.md`
 
 Recommended next docs for most target repos:
 
-- `changelog.md`
+- `foundation/changelog.md`
 - `getting-started.md`
 
 Optional docs when they add durable value:
 
-- `prd.md`
+- `feature-inventory.md`
 - `production-runbook.md`
 
 When optional or conditional regular docs are active in a target repo, declare them in `docs/project-docs/index.md`.
-When guideline docs are active in a target repo, declare them in `docs/project-docs/guidelines/index.md`.
+When guideline docs are active in a target repo, declare them in `docs/project-docs/technical-guidelines/index.md`.
 
 Recommended technical-guidance layer for a fully documented repo when those domains are relevant:
 
-- `guidelines/index.md`
-- guideline docs listed as active in that registry, such as `guidelines/api.md`, `guidelines/database.md`, and `guidelines/code-style.md`
+- `technical-guidelines/index.md`
+- guideline docs listed as active in that registry, such as `technical-guidelines/api.md`, `technical-guidelines/database.md`, and `technical-guidelines/code-style.md`
 
 ### Step 3 — Run The Relevant Starter Reusable Prompt
 
@@ -237,7 +237,7 @@ After choosing a prompt, keep these rules in mind:
 
 **Example prompts:**
 
-- `Read docs/eyehateagent-contract.md, inspect docs-legacy/ as reference input, classify legacy docs by content, and execute 00-project-docs-refresh.md. Promote legacy guideline or phase material into docs/project-docs/guidelines/ and docs/project-docs/phases/.`
+- `Read docs/eyehateagent-contract.md, inspect docs-legacy/ as reference input, classify legacy docs by content, and execute 00-project-docs-refresh.md. Promote legacy guideline or phase material into docs/project-docs/technical-guidelines/ and docs/project-docs/phases/.`
 - `Read docs/eyehateagent-contract.md, execute 00-project-docs-parity.md against docs-legacy/, docs/project-docs/, and relevant code. If code and docs conflict, ask before assuming. Then execute 00-project-docs-refresh.md using that ownership map.`
 
 If more template prompts are added later, start here unless another prompt is clearly a better fit.
@@ -245,7 +245,7 @@ If more template prompts are added later, start here unless another prompt is cl
 Template extension follows a different path:
 
 - add known optional regular doc types in `docs/vibes/project-docs-template/index.md`
-- add known guideline types in `docs/vibes/project-docs-template/guidelines/index.md`
+- add known guideline types in `docs/vibes/project-docs-template/technical-guidelines/index.md`
 - add or update a starter template file only when a reusable scaffold would still provide durable value
 
 ## Key Paths
@@ -256,21 +256,21 @@ Template extension follows a different path:
 | Contract | `docs/eyehateagent-contract.md` | main template rules, doc responsibilities, decision order, and adoption rules |
 | Maintenance | `docs/eyehateagent-maintenance.md` | template-repo-only maintenance workflow |
 | Project docs | `docs/project-docs/` | main project-specific docs |
-| Guideline docs | `docs/project-docs/guidelines/` | technical guidance docs for the target repo |
+| Guideline docs | `docs/project-docs/technical-guidelines/` | technical guidance docs for the target repo |
 | Optional-doc index | `docs/project-docs/index.md` | main index file for active optional and conditional regular docs |
-| Guideline index | `docs/project-docs/guidelines/index.md` | main index file for active guideline docs |
+| Guideline index | `docs/project-docs/technical-guidelines/index.md` | main index file for active guideline docs |
 | Reusable prompts | `docs/vibes/reusable-prompts/` | bootstrap, refresh, and parity workflows |
 | Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
 | Starter templates | `docs/vibes/project-docs-template/` | reusable starter scaffolds for docs and guidelines |
 
-For template extension, add known optional regular doc types in `docs/vibes/project-docs-template/index.md` and known guideline types in `docs/vibes/project-docs-template/guidelines/index.md`.
+For template extension, add known optional regular doc types in `docs/vibes/project-docs-template/index.md` and known guideline types in `docs/vibes/project-docs-template/technical-guidelines/index.md`.
 If a new regular doc type needs brand-new standard headings, update `docs/eyehateagent-contract.md` first.
 
 ## Core Docs vs Guidelines
 
 Use the regular docs under `docs/project-docs/` for the general picture of the repository or project, such as scope, architecture, tech stack, business process, testing, and roadmap.
 
-Use `docs/project-docs/guidelines/` for technical specs and rules, such as API, database, UI, logging, or code style.
+Use `docs/project-docs/technical-guidelines/` for technical specs and rules, such as API, database, UI, logging, or code style.
 
 A target repo is fully documented when it has both: the general project docs plus the technical guidelines it actually needs.
 
@@ -291,7 +291,7 @@ A target repo is fully documented when it has both: the general project docs plu
 
 - `stable heading`: a standard heading pattern that prompts and agents are expected to rely on
 - `platform instruction surfaces (mirrored rule files)`: matching rule files under `.agents/rules/`, `.github/instructions/`, and `.claude/rules/` that enforce Contract Essentials
-- `guideline`: a technical guidance doc under `docs/project-docs/guidelines/`
+- `guideline`: a technical guidance doc under `docs/project-docs/technical-guidelines/`
 - `project category`: whether the target repo is a new project, a running project, or a mature or unclear project
 - `optional` or `conditional doc`: a non-core doc that exists only when the project needs it
 - `starter template`: a reusable scaffold or example under `docs/vibes/project-docs-template/`

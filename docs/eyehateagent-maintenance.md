@@ -1,6 +1,6 @@
 # Template Maintenance — Template Repository
 
-## Summary
+## 1. Summary
 
 Use this file when changing the template itself rather than adopting the template into another repository.
 
@@ -17,7 +17,7 @@ It does not own project-specific facts for adopted repositories.
 
 ---
 
-## Scope
+## 2. Scope
 
 This file covers:
 
@@ -26,11 +26,11 @@ This file covers:
 - deprecation and removal of template surfaces
 - maintainer workflow across the contract anchors, platform instruction surfaces, project-doc owners, skills, reusable prompts, and summary docs
 - registry-driven extension of optional regular docs and guideline types
-- starter guideline template additions or revisions under `docs/vibes/project-docs-template/guidelines/`
+- starter guideline template additions or revisions under `docs/vibes/project-docs-template/technical-guidelines/`
 
 ---
 
-## Ownership Boundaries
+## 3. Ownership Boundaries
 
 | Question | Owner |
 | --- | --- |
@@ -42,7 +42,7 @@ This file covers:
 
 ---
 
-## Change Classes
+## 4. Change Classes
 
 | Class | Typical example | Required response |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ This file covers:
 | Backward-compatible template change | Add an optional doc, add a registry entry for a known optional doc type, add a reusable skill, add a starter template, or refine maintainer guidance without changing canonical paths | Update the owning doc, dependent summaries, and run the maintenance audit |
 | Breaking template change | Move `docs/eyehateagent-contract.md`, move `docs/eyehateagent-maintenance.md`, rename canonical paths, change stable headings, or change routing, precedence, fallback, or output rules | Update the contract first, add migration notes, update dependents, and run the full maintenance audit |
 
-## Compatibility And Breaking Changes
+## 5. Compatibility And Breaking Changes
 
 Treat these as breaking unless proven otherwise:
 
@@ -73,7 +73,7 @@ For a breaking change:
 
 ---
 
-## Deprecation Policy
+## 6. Deprecation Policy
 
 - Mark a deprecated surface in place with its replacement and the reason for deprecation.
 - Do not remove a reusable prompt, skill, canonical doc reference, or contract anchor until a replacement and migration note exist.
@@ -81,12 +81,12 @@ For a breaking change:
 
 ---
 
-## Maintainer Workflow
+## 7. Maintainer Workflow
 
 1. Classify the change before editing.
 2. Use `docs/eyehateagent-contract.md` for extension rules that must survive adoption.
 3. When adding a known optional regular doc type, start by updating `docs/vibes/project-docs-template/index.md`.
-4. When adding a known guideline type, start by updating `docs/vibes/project-docs-template/guidelines/index.md`.
+4. When adding a known guideline type, start by updating `docs/vibes/project-docs-template/technical-guidelines/index.md`.
 5. If the new doc class needs a new stable heading pattern or ownership rule, update `docs/eyehateagent-contract.md` before relying on the registries.
 6. Do not remove the roughly 65% context-compaction exception from the platform instruction surfaces (mirrored rule files) unless the contract is intentionally updated in the same change.
 7. Ensure any changes to routing, precedence, fallback, or output rules in the contract are also synchronized into the "Contract Essentials" embedded in all platform instruction surfaces (mirrored rule files).

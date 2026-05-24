@@ -1,4 +1,4 @@
-# Getting Started
+# CI/CD Configuration
 
 Last update: YYYY-MM-DD
 
@@ -7,7 +7,7 @@ Status: [Proposed | Draft | Live | Deprecated | Archived]
 ---
 
 ## 1. Description
-> [!NOTE] Explain how to set up, run, and orient a new contributor or operator in this repository.
+> [!NOTE] Briefly describe the purpose of this document and what it contains.
 
 ## 2. Important
 > [!NOTE] Notes of important findings or critical constraints. Can be empty.
@@ -24,23 +24,27 @@ Status: [Proposed | Draft | Live | Deprecated | Archived]
 ## 6. Non Goals
 > [!NOTE] What is explicitly excluded from the scope of this document.
 
-## 7. Prerequisites
-> [!NOTE] Required tools, accounts, credentials, environment variables, or secrets handling.
+## 7. Pipeline Architecture
+> [!NOTE] Overview of the branching and deployment flow. Flowcharts are preferred. Use mermaid.
 
-## 8. First Steps
-1. Clone or open the repository.
-2. Install dependencies or required tools.
-3. Configure local environment values.
-4. Run the standard startup or verification commands.
+```mermaid
+graph LR
+    A[Commit] --> B[Build]
+    B --> C[Test]
+    C --> D[Deploy]
+```
 
-## 9. Local Setup
-> [!NOTE] Detailed steps for install, environment bootstrap, and local run.
+## 8. Build Steps
+> [!NOTE] Compilation, bundling, and artifact generation.
 
-## 10. Verification
-> [!NOTE] First validation command and where to find deeper testing guidance (e.g., `testing.md`).
+## 9. Testing & Quality Gates
+> [!NOTE] Automated tests, linting, and security scans.
 
-## 11. Troubleshooting
-> [!NOTE] List known setup issues and their solutions.
+## 10. Deployment Environments
+> [!NOTE] Staging, UAT, and Production definitions.
+
+## 11. Secrets & Environment Variables
+> [!NOTE] Required credentials (stored securely).
 
 ## 12. Success Metrics
 > [!NOTE] How we measure if the goals of this document are achieved.

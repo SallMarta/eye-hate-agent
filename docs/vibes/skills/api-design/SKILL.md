@@ -26,10 +26,9 @@ It should **not** assume one language, framework, transport, or architecture sty
 | Document | Why it matters |
 | --- | --- |
 
-| `docs/project-docs/architecture.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
-| `docs/project-docs/project.md` | Clarifies scope, constraints, stakeholders, and non-goals |
-| `docs/project-docs/quick-reference.md` | Provides fast lookup for conventions, commands, and naming patterns |
-| `docs/project-docs/testing.md` | Defines how the contract should be validated |
+| `docs/project-docs/foundation/architecture.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
+| `docs/project-docs/foundation/prd.md` | Clarifies scope, constraints, stakeholders, and non-goals |
+| `docs/project-docs/technical/testing.md` | Defines how the contract should be validated |
 | Relevant feature docs, API docs, or guidelines | Provide domain-specific rules, request/response shapes, workflows, and edge cases |
 | Existing code or contracts in the repo | Show local naming, layering, serialization, validation, and error conventions |
 
@@ -179,7 +178,7 @@ Use this checklist when reviewing an existing contract:
 - Mixing transport payload shape with domain concepts when the project separates them
 - Returning ambiguous success or failure semantics
 - Ignoring versioning, compatibility, or migration concerns for externally visible contracts
-- Over-designing the contract far beyond the current scope in `project.md`
+- Over-designing the contract far beyond the current scope in `prd.md`
 
 ---
 

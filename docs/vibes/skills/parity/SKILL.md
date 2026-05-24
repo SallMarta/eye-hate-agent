@@ -17,11 +17,10 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 | Document | Why it matters |
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Ownership map and canonical doc contract |
-| `docs/project-docs/project.md` | Active project identity and scope |
-| `docs/project-docs/architecture.md` | Active stack and architecture truth |
-| `docs/project-docs/testing.md` | Active verification truth |
-| `docs/project-docs/status.md` | Active roadmap and current-state truth |
-| `docs/project-docs/quick-reference.md` | Summary layer likely to drift if not refreshed |
+| `docs/project-docs/foundation/prd.md` | Active project identity and scope |
+| `docs/project-docs/foundation/architecture.md` | Active stack and architecture truth |
+| `docs/project-docs/technical/testing.md` | Active verification truth |
+| `docs/project-docs/foundation/status.md` | Active roadmap and current-state truth |
 | Platform instruction surfaces | Automatic behavior layer |
 | Skills and reusable prompts | Reusable procedure and generation layers |
 | Workflow, handoff, and historical docs | Potentially valid references or stale artifacts |

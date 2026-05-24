@@ -14,7 +14,7 @@ Check at least these areas when present:
 
 - `docs/project-docs/`
 - `docs/project-docs/index.md`
-- `docs/project-docs/guidelines/`
+- `docs/project-docs/technical-guidelines/`
 - relevant code, tests, configs, or runtime-facing artifacts when a finding depends on current implementation behavior or source-of-truth ownership
 - clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/`
 - platform instruction surfaces (mirrored rule files)
@@ -41,10 +41,10 @@ Check at least these areas when present:
 
 1. Use project docs as the primary source of truth for documentation ownership and doc-to-doc drift unless the repository explicitly states otherwise.
 2. Treat `docs/eyehateagent-contract.md` as the ownership map.
-3. Treat `docs/project-docs/index.md` and `docs/project-docs/guidelines/index.md` as the authoritative inventories for optional regular docs and guideline docs when present.
+3. Treat `docs/project-docs/index.md` and `docs/project-docs/technical-guidelines/index.md` as the authoritative inventories for optional regular docs and guideline docs when present.
 4. Treat clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` as migration input only, not as owner-doc paths.
 5. When evaluating legacy material, classify it by the durable concern it governs rather than by its legacy name or path. Treat names such as `epic`, `milestone`, `roadmap`, `protocol`, `procedure`, `policy`, or `standard` as hints only.
-6. Report likely mappings when content points to an active owner even if naming differs, such as phased-planning content that should map to `phases/` or technical-rule content that should map to `guidelines/`.
+6. Report likely mappings when content points to an active owner even if naming differs, such as phased-planning content that should map to `foundation/phases/` or technical-rule content that should map to `technical-guidelines/`.
 7. Distinguish between:
    - true contradiction
    - stale summary
@@ -52,7 +52,7 @@ Check at least these areas when present:
    - optional module not currently active
 8. When a repo is migrating from another documentation format, use those reference folders to map legacy topics into the correct owner docs under `docs/project-docs/`.
 9. Treat a missing `docs/project-docs/index.md` as drift when optional or conditional regular docs exist beyond the always-required core set.
-10. Treat a missing `guidelines/index.md` as drift when guideline files exist.
+10. Treat a missing `technical-guidelines/index.md` as drift when guideline files exist.
 11. Treat registry entries without matching files and files without matching registry entries as drift unless the registry explicitly marks them deprecated or archived.
 12. Treat a missing recommended guideline as drift only when the repo already claims that domain is covered or the repo claims to be fully documented for that domain.
 13. When a finding depends on whether the implementation or the documentation is authoritative, inspect the relevant code, tests, configs, or runtime-facing artifacts before classifying the issue.

@@ -17,11 +17,10 @@ This skill is designed to avoid generic wish lists. It should recommend improvem
 | Document | Why it matters |
 | --- | --- |
 
-| `docs/project-docs/project.md` | Clarifies goals, stakeholders, non-goals, and success metrics |
-| `docs/project-docs/architecture.md` | Defines stack, boundaries, and implementation constraints |
-| `docs/project-docs/status.md` | Shows maturity, roadmap, and current execution state |
-| `docs/project-docs/testing.md` | Shows current verification maturity and release confidence |
-| `docs/project-docs/quick-reference.md` | Supplies high-signal operational details |
+| `docs/project-docs/foundation/prd.md` | Clarifies goals, stakeholders, non-goals, and success metrics |
+| `docs/project-docs/foundation/architecture.md` | Defines stack, boundaries, and implementation constraints |
+| `docs/project-docs/foundation/status.md` | Shows maturity, roadmap, and current execution state |
+| `docs/project-docs/technical/testing.md` | Shows current verification maturity and release confidence |
 | Relevant feature, API, workflow, or UX docs | Clarify what the system already promises |
 
 ---
@@ -103,7 +102,7 @@ Classify each recommendation as:
 - nice-to-have
 - future
 
-Tie the rating back to current goals and constraints from `project.md` and `status.md`.
+Tie the rating back to current goals and constraints from `prd.md` and `status.md`.
 
 Prefer the smallest realistic next step over a broad rewrite when both could address the same gap.
 

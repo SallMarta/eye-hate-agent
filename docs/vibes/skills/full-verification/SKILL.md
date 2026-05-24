@@ -10,7 +10,7 @@ Provides an **expert, project-aware broad verification entry point** for request
 
 This skill is **routing-first**. Its primary job is to identify the dominant verification question and route to the single best specialist skill rather than duplicating every verification procedure itself.
 
-This skill is intentionally **not tied to any single stack or framework**. When executable checks are needed, it should select the correct framework, commands, and conventions from the project's `testing.md`, `architecture.md`, `quick-reference.md`, and local repository patterns.
+This skill is intentionally **not tied to any single stack or framework**. When executable checks are needed, it should select the correct framework, commands, and conventions from the project's `technical/testing.md`, `foundation/architecture.md`, and local repository patterns.
 
 ---
 
@@ -20,12 +20,11 @@ This skill is intentionally **not tied to any single stack or framework**. When 
 | --- | --- |
 | `docs/eyehateagent-contract.md` | Defines routing, ownership, precedence, and the active skill model |
 
-| `docs/project-docs/testing.md` | Defines executable and non-executable verification rules, commands, and fallback policy |
-| `docs/project-docs/architecture.md` | Defines boundaries, stack, interfaces, dependency rules, and runtime assumptions |
-| `docs/project-docs/project.md` | Defines goals, scope, non-goals, and success criteria |
-| `docs/project-docs/status.md` | Defines maturity, roadmap, active workstreams, and readiness context |
-| `docs/project-docs/quick-reference.md` | Provides high-signal commands, paths, and local conventions |
-| Relevant guideline docs under `docs/project-docs/guidelines/` | Define technical standards such as API, logging, database, error-handling, code style, or design patterns |
+| `docs/project-docs/technical/testing.md` | Defines executable and non-executable verification rules, commands, and fallback policy |
+| `docs/project-docs/foundation/architecture.md` | Defines boundaries, stack, interfaces, dependency rules, and runtime assumptions |
+| `docs/project-docs/foundation/prd.md` | Defines goals, scope, non-goals, and success criteria |
+| `docs/project-docs/foundation/status.md` | Defines maturity, roadmap, active workstreams, and readiness context |
+| Relevant guideline docs under `docs/project-docs/technical-guidelines/` | Define technical standards such as API, logging, database, error-handling, code style, or design patterns |
 | Relevant code, tests, docs, contracts, and repository artifacts | Provide the actual evidence surfaces to verify against |
 
 If required project docs are missing, surface that gap explicitly and limit confidence rather than guessing.

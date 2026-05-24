@@ -21,11 +21,10 @@ Read the relevant docs before proposing or writing tests.
 | Document | Why it matters |
 | --- | --- |
 
-| `docs/project-docs/testing.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
-| `docs/project-docs/architecture.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
-| `docs/project-docs/quick-reference.md` | Fast lookup for commands, paths, conventions, and common patterns |
-| `docs/project-docs/status.md` | Reveals current implementation state, risks, and which workstream the change belongs to |
-| Relevant feature docs under `docs/project-docs/` or `docs/project-docs/guidelines/` | Provide domain-specific behavior, API contracts, or user-flow expectations |
+| `docs/project-docs/technical/testing.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
+| `docs/project-docs/foundation/architecture.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
+| `docs/project-docs/foundation/status.md` | Reveals current implementation state, risks, and which workstream the change belongs to |
+| Relevant feature docs under `docs/project-docs/` or `docs/project-docs/technical-guidelines/` | Provide domain-specific behavior, API contracts, or user-flow expectations |
 | Existing test files in the repo | Show naming, folder structure, harness setup, and local conventions |
 
 If one of the required docs is missing and the task depends on it, surface that explicitly and create or update the doc instead of guessing.
@@ -118,7 +117,7 @@ If the repo does not define a convention yet, propose one briefly and keep it mi
 
 ### Step 6 — Execute the documented checks
 
-Run the exact commands from `testing.md` or `quick-reference.md` when they exist.
+Run the exact commands from `testing.md` when they exist.
 
 If the repo is documentation-only or otherwise lacks executable checks:
 
@@ -167,7 +166,7 @@ When using this skill, the output should include:
 ## Quality Checks
 
 - Choose the narrowest check that can falsify the current assumption
-- Do not recommend commands before checking `testing.md` and `quick-reference.md`
+- Do not recommend commands before checking `testing.md`
 - Keep the verification boundary aligned with `architecture.md`
 - Separate what was verified from what still depends on manual review or future automation
 

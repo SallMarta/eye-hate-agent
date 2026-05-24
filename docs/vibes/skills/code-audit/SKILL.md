@@ -17,10 +17,9 @@ This skill is reusable across application code, backend services, scripts, autom
 | Document | Why it matters |
 | --- | --- |
 
-| `docs/project-docs/architecture.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
-| `docs/project-docs/testing.md` | Defines available validation and evidence strength |
-| `docs/project-docs/project.md` | Clarifies scope, non-goals, and project stage |
-| `docs/project-docs/quick-reference.md` | Provides conventions and high-signal operational facts |
+| `docs/project-docs/foundation/architecture.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
+| `docs/project-docs/technical/testing.md` | Defines available validation and evidence strength |
+| `docs/project-docs/foundation/prd.md` | Clarifies scope, non-goals, and project stage |
 | Relevant feature or guideline docs | Clarify local behavior, workflows, APIs, schemas, or UX expectations |
 | The target code and nearby tests | Provide actual evidence for findings |
 
