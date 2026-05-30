@@ -23,5 +23,5 @@ Act as a Senior Engineer / Agile Product Manager to help the user brainstorm and
 ## Inputs
 
 - The user's rough feature idea or concept.
-- `docs/project-docs/foundation/prd.md` (to understand current scope)
-- `docs/project-docs/foundation/architecture.md` (to understand current stack constraints)
+- Read `docs/project-docs/foundation/prd.md` if it exists (to understand current scope).
+- Read `docs/project-docs/foundation/architecture.md` if it exists (to understand current stack constraints).

@@ -12,6 +12,8 @@ This file owns template governance, lifecycle expectations, and maintainer workf
 - reusable prompts
 - skills
 - adoption and onboarding docs
+- engine and installer code under `bin/` and `src/`
+- runtime projection behavior for repo-local generated outputs
 
 It does not own project-specific facts for adopted repositories.
 
@@ -22,6 +24,7 @@ It does not own project-specific facts for adopted repositories.
 This file covers:
 
 - template-level structure, naming, routing, and lifecycle changes
+- engine-level structure, runtime projections, and installer lifecycle changes
 - backward-compatible vs. breaking template changes
 - deprecation and removal of template surfaces
 - maintainer workflow across the contract anchors, platform instruction surfaces, project-doc owners, skills, reusable prompts, and summary docs
@@ -38,6 +41,8 @@ This file covers:
 | How to add skills, rule points, project-doc owners, or contract changes in any repository using this system | `docs/eyehateagent-contract.md` |
 | First orientation for someone opening the repo | `README.md` |
 | Adoption workflow for copying the template into another repo | `README.md` |
+| EHA engine architecture and runtime support model | `docs/project-docs/foundation/architecture.md` |
+| EHA maintainer and development loop | `docs/project-docs/foundation/workflow.md` |
 | Template governance, lifecycle, and deprecation | this file |
 
 ---
@@ -48,6 +53,7 @@ This file covers:
 | --- | --- | --- |
 | Summary-only clarification | Tighten wording in `README.md` without changing behavior | Update the owner or summary, then run the narrowest maintenance audit |
 | Backward-compatible template change | Add an optional doc, add a registry entry for a known optional doc type, add a reusable skill, add a starter template, or refine maintainer guidance without changing canonical paths | Update the owning doc, dependent summaries, and run the maintenance audit |
+| Backward-compatible engine change | Add a new engine module, installer behavior, runtime projection, or CLI command without changing canonical contract ownership | Update the owning project docs, dependent summaries, and run the narrowest code-plus-doc validation |
 | Breaking template change | Move `docs/eyehateagent-contract.md`, move `docs/eyehateagent-maintenance.md`, rename canonical paths, change stable headings, or change routing, precedence, fallback, or output rules | Update the contract first, add migration notes, update dependents, and run the full maintenance audit |
 
 ## 5. Compatibility And Breaking Changes
@@ -91,6 +97,7 @@ For a breaking change:
 6. Do not remove the roughly 65% context-compaction exception from the platform instruction surfaces (mirrored rule files) unless the contract is intentionally updated in the same change.
 7. Ensure any changes to routing, precedence, fallback, or output rules in the contract are also synchronized into the "Contract Essentials" embedded in all platform instruction surfaces (mirrored rule files).
 8. Update template-repo-only workflow or governance here only when the change affects this repository as a template.
-9. Update mirrors, summaries, skills, reusable prompts, registries, starter template files, and downstream copies that quote or depend on the changed owner.
-10. Run the maintenance audit sequence.
-11. Record maintainer-facing changes in `changelog.md`.
+9. Update engine owner docs under `docs/project-docs/` when runtime support, installer behavior, or CLI behavior changes.
+10. Update mirrors, summaries, skills, reusable prompts, registries, starter template files, and downstream copies that quote or depend on the changed owner.
+11. Run the maintenance audit sequence.
+12. Record maintainer-facing changes in `changelog.md`.

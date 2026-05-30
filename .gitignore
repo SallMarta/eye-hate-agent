@@ -1,4 +1,9 @@
 .vscode
 .DS_Store
+/node_modules
 /memories/session/
-docs/eyehateagent-maintenance.md
+.eha/state/
+.eha/generated/
+.claude/commands/eha/
+.github/instructions/eha-workflows.instructions.md
+*.tgz
