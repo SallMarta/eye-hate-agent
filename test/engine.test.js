@@ -47,8 +47,8 @@ test('initProject generates Claude command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-analysis.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analysis.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-system-analysis.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis.md must exist');
   
   const rulesPath = path.join(rootDir, '.claude', 'rules', 'eha-agent-rules.md');
   assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist');
@@ -72,8 +72,8 @@ test('initProject generates Copilot prompt files', () => {
   const instructionsPath = path.join(rootDir, '.github', 'instructions', 'eha-workflows.instructions.md');
   assert.ok(fs.existsSync(instructionsPath), 'Instructions routing file must exist');
 
-  const analysisSkillPath = path.join(rootDir, '.github', 'prompts', 'skills', 'eha-analysis.prompt.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analysis.prompt.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.github', 'prompts', 'skills', 'eha-system-analysis.prompt.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis.prompt.md must exist');
 
   const rulesPath = path.join(rootDir, '.github', 'instructions', 'eha-agent-rules.instructions.md');
   assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.instructions.md must exist');
@@ -88,8 +88,8 @@ test('initProject generates Antigravity command files', () => {
   assert.equal(result.agentId, 'antigravity');
   assert.ok(result.fileCount >= 14, 'Expected at least 14 generated files');
 
-  const bootstrapPath = path.join(rootDir, '.antigravity', 'commands', 'eha', 'eha-bootstrap.md');
-  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist');
+  const bootstrapPath = path.join(rootDir, '.agents', 'skills', 'eha-bootstrap', 'SKILL.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap SKILL.md must exist');
 
   const content = fs.readFileSync(bootstrapPath, 'utf8');
   assert.match(content, /description:/, 'Missing YAML frontmatter');
@@ -97,11 +97,11 @@ test('initProject generates Antigravity command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.antigravity', 'skills', 'eha-analysis.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analysis.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.agents', 'skills', 'eha-system-analysis', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis SKILL.md must exist');
   
-  const rulesPath = path.join(rootDir, '.antigravity', 'rules', 'eha-agent-rules.md');
-  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist');
+  const rulesPath = path.join(rootDir, '.agents', 'skills', 'eha-agent-rules', 'SKILL.md');
+  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules SKILL.md must exist');
 
   assert.equal(readConfig(rootDir).agent, 'antigravity');
 });
