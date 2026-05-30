@@ -1,7 +1,5 @@
 # Project Docs Parity Reusable Prompt
 
-Read `docs/eyehateagent-contract.md` first.
-
 Audit the repository for **documentation-system drift**.
 
 ## Goal
@@ -40,7 +38,7 @@ Check at least these areas when present:
 ## Required Behavior
 
 1. Use project docs as the primary source of truth for documentation ownership and doc-to-doc drift unless the repository explicitly states otherwise.
-2. Treat `docs/eyehateagent-contract.md` as the ownership map.
+2. Use the EHA Project Doc Rules above as the ownership map.
 3. Treat `docs/project-docs/index.md` and `docs/project-docs/technical-guidelines/index.md` as the authoritative inventories for optional regular docs and guideline docs when present.
 4. Treat clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` as migration input only, not as owner-doc paths.
 5. When evaluating legacy material, classify it by the durable concern it governs rather than by its legacy name or path. Treat names such as `epic`, `milestone`, `roadmap`, `protocol`, `procedure`, `policy`, or `standard` as hints only.

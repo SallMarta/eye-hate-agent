@@ -1,18 +1,52 @@
 {
-  "name": "eye-hate-agent",
+  "name": "@sallmarta/eye-hate-agent",
   "version": "1.0.0",
-  "description": "## Documentation repository for AI-agent-assisted project work",
+  "description": "Template-and-engine toolkit for AI-agent-assisted project workflows.",
   "directories": {
     "doc": "docs"
   },
+  "files": [
+    "bin",
+    "src",
+    "docs",
+    ".claude",
+    ".github",
+    ".agents",
+    "README.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "ai-agent",
+    "agent-workflow",
+    "cli",
+    "claude",
+    "copilot",
+    "project-docs",
+    "prompt-engineering",
+    "template"
+  ],
+  "author": "SallMarta",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SallMarta/eye-hate-agent.git"
+  },
+  "homepage": "https://github.com/SallMarta/eye-hate-agent#readme",
+  "bugs": {
+    "url": "https://github.com/SallMarta/eye-hate-agent/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "bin": {
-    "eha": "./bin/eha.js"
+    "eha": "./bin/eha.js",
+    "eye-hate-agent": "./bin/eha.js",
+    "eyehateagent": "./bin/eha.js"
   },
   "dependencies": {
     "commander": "^12.0.0",

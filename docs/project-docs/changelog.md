@@ -2,7 +2,107 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
-## [1.16.0] - 2026-05-24
+## [1.0.0] - 2026-05-30
+
+### Changed (breaking)
+
+- **Total CLI refactor**: Replaced the execution-orchestration CLI with a minimal install→generate→use flow. The CLI is now `eha init` / `eha remove` / `eha doctor`. Bare `eha` or `eyehateagent` runs the init wizard.
+- **Removed commands**: `eha install`, `eha uninstall`, `eha bootstrap`, `eha refresh`, `eha parity`, `eha discuss`, `eha execute`, `eha verify`, `eha runtimes`, and all `eha config *` subcommands are gone.
+- **Removed engine modules**: `run.js` deleted. Execution orchestration, run records, automation command templates, and guided/automated mode removed entirely.
+- **Config schema simplified**: `.eha/config.json` now only stores `{ configVersion, agent }`. The old `defaultRuntime`, `installedRuntimes`, `allowAutomation`, and `runtimeSettings` fields are gone.
+- **Self-contained generated files**: Each generated command file now embeds a compact EHA rules block (4-layer taxonomy, ownership map, SDD rule) directly. No external `docs/eyehateagent-contract.md` reference required in target repos.
+- **Copilot upgraded**: Copilot now generates `.github/prompts/*.prompt.md` files (with `mode: agent` frontmatter) instead of a single instruction file. Full prompt content is embedded in each file.
+- **Reusable prompts updated**: All 4 prompts (`bootstrap`, `refresh`, `parity`, `discuss`) are now self-contained — the `Read docs/eyehateagent-contract.md first.` line is removed.
+
+### Added
+
+- **`eyehateagent` bin alias**: Three aliases now exist — `eha`, `eye-hate-agent`, `eyehateagent`.
+- **`eha remove`**: Removes all generated files tracked in `.eha/manifest.json` plus the manifest and config.
+- **`eha doctor`**: Shows agent, config path, and ✓/✗ presence of each generated file.
+- **Overwrite/Discard prompt**: Re-init on an already-initialized project now shows `[O]verwrite / [D]iscard (default: D)` instead of a verbose confirmation.
+- **Manifest**: `.eha/manifest.json` tracks generated file paths for clean removal.
+
+## [0.18.3] - 2026-05-26
+
+### Added
+
+- **Runtime config and orchestration**: Added repo-local runtime config in `.eha/config.json`, run records under `.eha/state/runs/`, and workflow orchestration that resolves a default runtime with per-run override support.
+- **Automation command templates**: Added command-template-based runtime automation for supported agents, with guided fallback when no callable automation template is configured.
+- **Config commands**: Added CLI config management commands for inspecting config, changing the default runtime, toggling automation, and setting or clearing runtime command templates.
+
+### Changed
+
+- **Install flow**: Extended `eha install` so it can capture a preferred default runtime and automation settings in addition to generating runtime surfaces.
+- **Workflow commands**: Updated workflow commands such as `bootstrap` and `execute` so they can now resolve runtime config, run in guided mode, or attempt automated execution through configured runtime command templates.
+
+## [0.18.5] - 2026-05-26
+
+### Changed
+
+- **Trusted publishing compatibility**: Updated `.github/workflows/publish.yml` to use Node.js 24 so the GitHub Actions publish flow better matches npm's current trusted-publishing tooling requirements.
+- **Release workflow guidance**: Updated `docs/project-docs/foundation/workflow.md` to document the Node.js 24 baseline and the need to keep the registered workflow filename aligned with npm Trusted Publishing settings.
+
+## [0.18.4] - 2026-05-26
+
+### Changed
+
+- **Generated artifact ignore policy**: Updated `.gitignore` to ignore runtime projections, generated `.eha` install artifacts, and local `.tgz` pack outputs while keeping canonical source docs and engine code committed.
+- **Source-vs-generated docs**: Updated `README.md`, `docs/project-docs/foundation/architecture.md`, and `docs/project-docs/foundation/workflow.md` to reflect the cleaner-source-repo model where generated runtime surfaces are install-time artifacts rather than committed source.
+
+## [0.18.1] - 2026-05-26
+
+### Changed
+
+- **npx entrypoint compatibility**: Added a package-name bin alias (`eye-hate-agent`) alongside `eha` and bumped `package.json` to `0.0.1` so `npx @sallmarta/eye-hate-agent ...` resolves correctly after republishing.
+
+## [0.18.3] - 2026-05-26
+
+### Added
+
+- **Provenance publish workflow**: Added `.github/workflows/publish.yml` to run `npm ci`, `npm test`, `npm pack --dry-run`, and `npm publish --provenance --access public` on release publication or manual dispatch.
+
+### Changed
+
+- **Release automation docs**: Updated `docs/project-docs/foundation/workflow.md` and `docs/project-docs/testing.md` to document the new GitHub Actions publish flow and its trusted-publishing prerequisite.
+
+## [0.18.2] - 2026-05-26
+
+### Changed
+
+- **npx verification guidance**: Documented the real execution conditions for the published CLI: bare `npx @sallmarta/eye-hate-agent ...` should be tested from a normal target project directory, empty folders need `package.json` or `.git` first, and this source repository should use `node bin/eha.js ...` or `npx @sallmarta/eye-hate-agent@latest ...` when forcing the published package.
+
+## [0.18.0] - 2026-05-26
+
+### Added
+
+- **MIT license file**: Added a root `LICENSE` file so the published npm package has an explicit license artifact.
+
+### Changed
+
+- **Scoped package identity**: Updated `package.json` to use the public scoped package name `@sallmarta/eye-hate-agent`.
+- **npm metadata hardening**: Added repository, homepage, bugs URL, keywords, author, `publishConfig.access`, and a Node.js engine requirement for npm publishing.
+- **README install guidance**: Updated `README.md` to distinguish local development, global install, and one-off `npx` usage for the scoped package.
+- **Packaged CLI portability**: Updated the engine to accept generic project roots and materialize bundled contract and workflow sources into `.eha/generated/sources/` so installed tarballs work outside the EHA source repo.
+- **Release workflow docs**: Updated `docs/project-docs/foundation/workflow.md` and `docs/project-docs/testing.md` with package validation and publish-preparation steps.
+
+## [0.17.0] - 2026-05-25
+
+### Added
+
+- **EHA engine foundation**: Added `src/engine/` with a workflow registry, repo-root/state handling, runtime adapters, install/uninstall orchestration, and workflow prompt preparation.
+- **Engine-backed CLI**: Replaced the thin prompt-printing CLI with an engine-backed `eha` control plane supporting `install`, `uninstall`, `doctor`, `bootstrap`, `refresh`, `parity`, `discuss`, `execute`, `verify`, and `init`.
+- **Repo-local runtime projections**: Added generated runtime outputs for Claude (`.claude/commands/eha/`) and GitHub Copilot (`.github/instructions/eha-workflows.instructions.md`).
+- **Owner docs for the engine**: Added `docs/project-docs/index.md`, `foundation/architecture.md`, `foundation/workflow.md`, and `foundation/status.md` to own the new engine direction.
+- **Engine tests**: Added a Node built-in test suite covering workflow dispatch, repo-root discovery, and install/uninstall behavior.
+- **Newest workflow reference**: Added `newest-flow.md` at the repository root with full current-state flowcharts and step-by-step workflows for new projects and running/mature projects.
+
+### Changed
+
+- **Repository identity**: Updated `README.md` so EHA is described as a template-and-engine repository instead of template-only.
+- **Verification policy**: Updated `docs/project-docs/testing.md` so engine and CLI changes require executable checks in addition to the existing document-first maintenance review.
+- **Maintenance scope**: Updated `docs/eyehateagent-maintenance.md` so engine code, installer behavior, and runtime projections are explicitly part of template-repo maintenance.
+
+## [0.16.0] - 2026-05-24
 
 ### Changed
 
@@ -12,13 +112,13 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 - **Parity Fix — `project.md` → `prd.md`**: Updated all remaining references to the absorbed `project.md` to `prd.md` or `foundation/prd.md` across skills and the contract.
 - **Parity Fix — maintenance doc headings**: Added numbered prefixes to all section headings in `docs/eyehateagent-maintenance.md` to match the Stable Headings defined in the contract.
 - **Parity Fix — file casing**: Renamed `docs/project-docs/CHANGELOG.md` → `changelog.md` and `docs/project-docs/TESTING.md` → `testing.md` to match the contract's lowercase convention.
-- **Parity Fix — CLI and package**: Fixed `bin/eha.js` version from `2.0.0` to `1.0.0` to match `package.json`. Added missing `commander` and `chalk` dependencies to `package.json`. Removed stale `"main": "index.js"` entry.
+- **Parity Fix — CLI and package**: Fixed `bin/eha.js` version from `1.0.0` to `0.0.0` to match `package.json`. Added missing `commander` and `chalk` dependencies to `package.json`. Removed stale `"main": "index.js"` entry.
 - **Parity Fix — template guideline paths**: Updated `docs/vibes/project-docs-template/technical-guidelines/index.md` guideline file paths from `guidelines/` to `technical-guidelines/`.
 - **Parity Fix — testing.md starter path**: Updated `docs/project-docs/testing.md` to reference the correct 4-layer starter template path.
 
 ---
 
-## [1.15.0] - 2026-05-24
+## [0.15.0] - 2026-05-24
 
 ### Added
 
@@ -37,7 +137,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.14.0] - 2026-05-22
+## [0.14.0] - 2026-05-22
 
 ### Changed
 
@@ -45,7 +145,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.13.0] - 2026-05-22
+## [0.13.0] - 2026-05-22
 
 ### Changed
 
@@ -63,7 +163,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.12.0] - 2026-05-18
+## [0.12.0] - 2026-05-18
 
 ### Added
 
@@ -81,7 +181,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.11.0] - 2026-05-18
+## [0.11.0] - 2026-05-18
 
 ### Added
 
@@ -98,27 +198,27 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.10.0] - 2026-05-16
+## [0.10.0] - 2026-05-16
 
-### Added in 1.10.0
+### Added in 0.10.0
 
 - Added explicit rules and guidance across the contract, reusable prompts, and agent rules for preserving valuable project-specific knowledge from legacy documentation (e.g., 'Decision Rationale') even if it lacks a standard template heading. Agents are now instructed to evaluate whether such information should become a new custom section in an existing document or a new separate file, and to ask the user if the best approach is ambiguous.
 - Added explicit rules for codebase-only knowledge discovery during documentation bootstrap and refresh. When no legacy docs exist, agents now inspect code, comments, configs, tests, and repository structure for valuable domain knowledge and surface it as custom sections or files, marking codebase-inferred facts with lower confidence until the user confirms them.
 
 ---
 
-## [1.9.0] - 2026-05-15
+## [0.9.0] - 2026-05-15
 
-### Changed in 1.9.0
+### Changed in 0.9.0
 
 - Renamed the `consistency-audit` workflow family to `parity` across the reusable prompt, matching skill, routing docs, README guidance, and verification guidance so the user-facing and internal names stay aligned.
 - Retired the old `00-project-docs-consistency-audit.md` and `docs/vibes/skills/consistency-audit/` paths so only the canonical parity surfaces remain in the active template.
 
 ---
 
-## [1.8.0] - 2026-05-15
+## [0.8.0] - 2026-05-15
 
-### Changed in 1.8.0
+### Changed in 0.8.0
 
 - Expanded the consistency-audit prompt and related contract and skill surfaces so audits can inspect current implementation evidence when code and docs disagree, and require an ask-the-user pause when authority between docs and code is not explicit.
 - Tightened `00-project-docs-refresh.md` so legacy or reference folders such as `docs-old/` and `docs-legacy/` can promote still-valid optional docs, active guideline sets, and phased-planning docs into `docs/project-docs/` instead of being left stranded in reference-only paths.
@@ -130,13 +230,13 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.7.0] - 2026-05-13
+## [0.7.0] - 2026-05-13
 
-### Added in 1.7.0
+### Added in 0.7.0
 
 - Added a README `Legend` section that defines repo-specific terms in plain language for adopters and maintainers.
 
-### Changed in 1.7.0
+### Changed in 0.7.0
 
 - Made legacy-doc migration explicit across the README, contract, and reusable prompts by treating clearly named folders such as `docs-legacy/` as reference input instead of active owner docs.
 - Condensed README Step 3 into a smaller scenario guide and migration checklist that is easier for both humans and agents to scan.
@@ -145,16 +245,16 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 - Rephrased the README explanation of regular docs versus guidelines with simpler language and clearer examples.
 - Reworked README Step 3 into a shorter tutorial-style flow with one explicit procedure for new repos, existing docs, and legacy-doc migration.
 
-### Removed in 1.7.0
+### Removed in 0.7.0
 
 - Removed one more redundant recap from README Step 3 so the prompt-selection flow reads more directly.
 - Removed two advanced Legend terms and shortened the README guideline example list so the guide stays lighter for first-time readers.
 
 ---
 
-## [1.6.0] - 2026-05-12
+## [0.6.0] - 2026-05-12
 
-### Added in 1.6.0
+### Added in 0.6.0
 
 - Added explicit maintainer-facing anchors for where to register new optional regular doc types and guideline types.
 - Added a registry-driven extension model for optional regular docs and guideline types.
@@ -165,7 +265,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 - Added a central skill-selection matrix in `docs/eyehateagent-contract.md` to separate analysis, audit, design, verification, elevation, and consistency work more clearly.
 - Added a new `full-verification` skill as the broad verification entry point for code, docs, contracts, architecture, quality, and project-health checks.
 
-### Changed in 1.6.0
+### Changed in 0.6.0
 
 - Refreshed `README.md` with a table of contents, a clearer file index, and more explicit registry-driven extension entry points.
 - Clarified the contract split between core project docs and technical guideline docs.
@@ -175,13 +275,13 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.5.0] - 2026-05-12
+## [0.5.0] - 2026-05-12
 
-### Added in 1.5.0
+### Added in 0.5.0
 
 - Added a repository index to `README.md` and refreshed the adoption examples to show the new contract layout.
 
-### Changed in 1.5.0
+### Changed in 0.5.0
 
 - Moved the canonical template anchors under `docs/` as `docs/eyehateagent-contract.md` and `docs/eyehateagent-maintenance.md`.
 - Retargeted the platform instruction surfaces (mirrored rule files), reusable prompts, skills, and changelog references to the new docs-anchor paths.
@@ -189,68 +289,68 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ---
 
-## [1.4.0] - 2026-05-11
+## [0.4.0] - 2026-05-11
 
-### Added in 1.4.0
+### Added in 0.4.0
 
 - Added template governance through `docs/eyehateagent-maintenance.md`.
 
-### Changed in 1.4.0
+### Changed in 0.4.0
 
 - Moved the contract anchors to the repository root and retargeted live references.
 - Formalized Scenario 2 support in `docs/eyehateagent-contract.md` while keeping Scenario 3 outside the contract.
 - Turned `README.md` into the main operator guide with a chained adoption flow: topology, target project category, and starter reusable prompt.
 
-### Removed in 1.4.0
+### Removed in 0.4.0
 
 - Removed standalone adoption-guide surfaces that are now absorbed into the root `README.md`.
 
 ---
 
-## [1.3.0] - 2026-05-10
+## [0.3.0] - 2026-05-10
 
-### Changed in 1.3.0
+### Changed in 0.3.0
 
 - Simplified the platform instruction surfaces (mirrored rule files) and clarified response-shape precedence through `docs/eyehateagent-contract.md`.
 - Shifted template verification back to a document-first, human-reviewed maintenance flow.
 
-### Removed in 1.3.0
+### Removed in 0.3.0
 
 - Removed outdated sample-oriented docs from the active template tree.
 
 ---
 
-## [1.2.0] - 2026-05-09
+## [0.2.0] - 2026-05-09
 
-### Changed in 1.2.0
+### Changed in 0.2.0
 
 - Refined contract, testing, quick-reference, and maintenance docs for clearer ownership and consistency.
 - Updated `README.md` and platform instruction surfaces (mirrored rule files) to better match the template workflow and terminology.
 
 ---
 
-## [1.1.0] - 2026-05-08
+## [0.1.0] - 2026-05-08
 
-### Added in 1.1.0
+### Added in 0.1.0
 
 - Added the root `README.md` as the first human-facing adoption guide.
 - Added optional starter docs for `prd.md` and `production-runbook.md`.
 
-### Changed in 1.1.0
+### Changed in 0.1.0
 
 - Clarified keep, replace, and remove rules for copying the template into target repositories.
 - Tightened starter-pack and reusable-prompt guidance for downstream doc management.
 
 ---
 
-## [1.0.0] - 2026-05-07
+## [0.0.0] - 2026-05-07
 
-### Added in 1.0.0
+### Added in 0.0.0
 
 - Initial release of the template foundation with project-doc owner files, mirrored agent rules, reusable prompts, and reusable skills.
 - Added the first downstream adoption guide and the starter scaffold under `docs/vibes/project-docs-template/`.
 - Added starter `getting-started.md` and `changelog.md` for the scaffold.
 
-### Changed in 1.0.0
+### Changed in 0.0.0
 
 - Elevated reusable prompts as a first-class template surface and standardized skill documentation for clearer guidance.

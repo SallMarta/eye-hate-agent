@@ -1,7 +1,5 @@
 # Project Docs Refresh Reusable Prompt
 
-Read `docs/eyehateagent-contract.md` first.
-
 Refresh the existing project documentation after a change in scope, stack, workflow, architecture, testing policy, or product behavior.
 
 ## Goal
@@ -11,7 +9,7 @@ Update **only the docs that own the changed information** while keeping the docu
 ## Required Behavior
 
 1. Read the current project docs before editing anything.
-2. Use `docs/eyehateagent-contract.md` to identify which files own the changed information.
+2. Use the EHA Project Doc Rules above to identify which files own the changed information.
 3. Read `docs/project-docs/index.md` and `docs/project-docs/technical-guidelines/index.md` when present and treat them as the authoritative inventories for optional docs and guideline docs.
 4. When clearly named reference or archive folders such as `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` exist, read them as migration input only and do not treat them as owner-doc paths.
 5. Update only the affected docs and any documents that summarize them.
@@ -72,7 +70,7 @@ Your result should state:
 
 Before finishing, check that:
 
-1. the updated docs still match the contract in `docs/eyehateagent-contract.md`
+1. the updated docs still match the EHA Project Doc Rules above
 2. platform instruction surfaces and skills would now read the correct project-specific truth
 3. no stale summary remains in `foundation/status.md`, `docs/project-docs/index.md`, `technical-guidelines/index.md`, or other index docs
 
