@@ -7,3 +7,7 @@
 .claude/commands/eha/
 .github/instructions/eha-workflows.instructions.md
 *.tgz
+.claude/skills/
+.claude/rules/
+.github/prompts/skills/
+.github/instructions/eha-agent-rules.instructions.md

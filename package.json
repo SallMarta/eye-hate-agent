@@ -8,10 +8,7 @@
   "files": [
     "bin",
     "src",
-    "docs",
-    ".claude",
-    ".github",
-    ".agents",
+    "docs/vibes",
     "README.md"
   ],
   "scripts": {

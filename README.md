@@ -1,6 +1,6 @@
 # Eye Hate Agent (EHA)
 
-## Documentation and engine repository for AI-agent-assisted project work
+## Documentation and engine toolkit for AI-agent-assisted project workflows
 
 Authored by SuLyAdEe.
 
@@ -13,18 +13,14 @@ Authored by SuLyAdEe.
   - [Quick Start](#quick-start)
   - [CLI Commands](#cli-commands)
   - [What Gets Generated](#what-gets-generated)
-  - [Maintainer Notes (This Repository)](#maintainer-notes-this-repository)
-  - [Key Paths](#key-paths)
 
 ## Purpose
 
-Designed to give multiple agents a shared contract, shared rules, and shared planning/doc workflows across app types, while the actual app code lives in your target repo.
+Eye Hate Agent (EHA) is designed to give your AI agents (like Claude and GitHub Copilot) a shared set of rules, skills, and documentation workflows across any project.
 
-It provides generic agent rules, reusable skills and prompts, a project-doc contract, and a repo-local EHA engine/CLI for generating runtime-facing command/prompt files.
+It acts as a CLI engine that generates agent-specific instruction files directly into your repository. This ensures that every agent you use follows the same structural contract, adheres to consistent rules, and has access to reusable skills without relying on disparate, global instructions. EHA materializes runtime-facing surfaces directly into your target repository so your team (and their agents) can stay perfectly aligned.
 
-This repository is no longer template-only. It ships both reusable template assets and the EHA engine code that materializes runtime-facing surfaces in the target repository.
-
-Use this README as the main operator guide for installing and running EHA.
+Use this README as the main guide for installing and running EHA in your projects.
 
 ## Quick Start
 
@@ -64,57 +60,19 @@ eha doctor            Show EHA status and verify generated files
 
 ## What Gets Generated
 
-**Claude** — `.claude/commands/eha/eha-{bootstrap,refresh,parity,discuss}.md` + README
+**Claude**
+- **Workflows**: `.claude/commands/eha/eha-{bootstrap,refresh,parity,discuss}.md` + README
+- **Skills**: `.claude/skills/eha-{analysis,api-design,code-audit,full-verification,parity,project-elevation,test-authoring}.md`
+- **Rules**: `.claude/rules/eha-agent-rules.md`
 
-**Copilot** — `.github/prompts/eha-{bootstrap,refresh,parity,discuss}.prompt.md` + `.github/instructions/eha-workflows.instructions.md`
+**Copilot**
+- **Workflows**: `.github/prompts/eha-{bootstrap,refresh,parity,discuss}.prompt.md` + `.github/instructions/eha-workflows.instructions.md`
+- **Skills**: `.github/prompts/skills/eha-{analysis,api-design,code-audit,full-verification,parity,project-elevation,test-authoring}.prompt.md`
+- **Rules**: `.github/instructions/eha-agent-rules.instructions.md`
 
-Each generated file contains:
+Each generated workflow/skill file contains:
 1. Agent-specific frontmatter (Claude `description:`, Copilot `mode: agent`)
 2. A compact EHA rules block — the 4-layer taxonomy, ownership map, and SDD rule
-3. The full workflow prompt — self-contained, no external files required
+3. The full content — self-contained, no external files required
 
 The generated files are committed into the target repository. After updating `@sallmarta/eye-hate-agent`, run `eha` — it detects the version mismatch and prompts to regenerate automatically. You can also re-run `eha init` at any time to force a regeneration.
-
-### Local Development (This Repository)
-
-```bash
-npm install
-node bin/eha.js --help
-node bin/eha.js init claude
-node bin/eha.js doctor
-```
-
-## Maintainer Notes (This Repository)
-
-This section is for maintainers of `eye-hate-agent` itself.
-
-If you are using EHA in another project, you usually only need the Quick Start section above.
-
-### Workflow Sources
-
-EHA generates runtime files from these reusable prompt sources:
-
-- `docs/vibes/reusable-prompts/00-project-docs-bootstrap.md`
-- `docs/vibes/reusable-prompts/00-project-docs-refresh.md`
-- `docs/vibes/reusable-prompts/00-project-docs-parity.md`
-- `docs/vibes/reusable-prompts/02-sdd-discuss.md`
-
-### Rule and Contract Ownership
-
-- `docs/eyehateagent-contract.md` is the canonical contract and authority order
-- `docs/eyehateagent-maintenance.md` is for maintaining this repository
-- `.github/instructions/`, `.claude/rules/`, and `.agents/rules/` are platform surfaces
-
-When updating workflow behavior or prompt content, keep generated runtime behavior and project docs in sync.
-
-## Key Paths
-
-| Area | Path | Role |
-| --- | --- | --- |
-| README | `README.md` | main human guide for installing and using EHA |
-| Contract | `docs/eyehateagent-contract.md` | canonical EHA contract and decision order |
-| Maintenance | `docs/eyehateagent-maintenance.md` | maintenance workflow for this repository |
-| Project docs | `docs/project-docs/` | canonical docs for this repository |
-| Reusable prompts | `docs/vibes/reusable-prompts/` | source prompts used to generate runtime files |
-| Skills | `docs/vibes/skills/` | reusable procedures for analysis, testing, auditing, and design |
-| Starter templates | `docs/vibes/project-docs-template/` | reusable scaffolds for project docs |

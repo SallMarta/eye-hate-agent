@@ -3,6 +3,7 @@ const path = require('node:path');
 const { version: EHA_PACKAGE_VERSION } = require('../../package.json');
 
 const { listWorkflows } = require('./workflow-registry');
+const { listSkills } = require('./skill-registry');
 const { getRuntimeAdapter, listSupportedRuntimes } = require('./runtime-adapters');
 const {
   ensureDir,
@@ -41,7 +42,8 @@ function initProject({ rootDir, agentId }) {
   const normalizedAgentId = resolveAgentId(agentId);
   const adapter = getRuntimeAdapter(normalizedAgentId);
   const workflows = listWorkflows();
-  const files = adapter.generateFiles(rootDir, workflows);
+  const skills = listSkills();
+  const files = adapter.generateFiles(rootDir, workflows, skills);
 
   for (const file of files) {
     const absolutePath = path.join(rootDir, file.relativePath);

@@ -16,7 +16,7 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/eyehateagent-contract.md` | Ownership map and canonical doc contract |
+| EHA Rules | Ownership map and canonical doc taxonomy |
 | `docs/project-docs/foundation/prd.md` | Active project identity and scope |
 | `docs/project-docs/foundation/architecture.md` | Active stack and architecture truth |
 | `docs/project-docs/technical/testing.md` | Active verification truth |
@@ -59,7 +59,7 @@ Check for disagreement across:
 
 ### Step 1 — Establish the source of truth
 
-Use the project docs defined by `docs/eyehateagent-contract.md` as the default source of truth for documentation ownership unless the repository explicitly states otherwise.
+Use the active EHA rules as the default source of truth for documentation ownership unless the repository explicitly states otherwise.
 
 ### Step 2 — Compare dependent layers
 

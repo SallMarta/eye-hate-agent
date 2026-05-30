@@ -18,7 +18,7 @@ This skill is intentionally **not tied to any single stack or framework**. When 
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/eyehateagent-contract.md` | Defines routing, ownership, precedence, and the active skill model |
+| EHA Rules | Defines routing, ownership, precedence, and the active skill model |
 
 | `docs/project-docs/technical/testing.md` | Defines executable and non-executable verification rules, commands, and fallback policy |
 | `docs/project-docs/foundation/architecture.md` | Defines boundaries, stack, interfaces, dependency rules, and runtime assumptions |

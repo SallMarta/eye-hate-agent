@@ -1,11 +1,3 @@
----
-trigger: always_on
----
-
----
-description: "Lean always-on rules for guardrails, context, intake, verification, and doc sync."
----
-
 # Agent Rules
 
 ## 1. Guardrails & Approach
@@ -22,7 +14,10 @@ Protect the prompt prefix cache and manage context-window capacity to preserve t
 
 - **2.1** Keep always-on context small. Keep rules generic and leave project-specific facts in project docs under `docs/project-docs/`.
 - **2.2** Read the smallest owning doc that resolves the decision rather than scanning the entire repository.
-- **2.3** **Prefix Stability (Gemini):** Never reorder tool definitions, system instructions, or serialized schemas mid-session — the implicit prefix cache requires a byte-identical prompt prefix for the 90% cached-token discount. Do not inject dynamic content (timestamps, session IDs, reordered JSON keys) before or between stable blocks. Append all per-turn dynamic data after the stable prefix. If cache-hit rates drop unexpectedly, suspect non-deterministic serialization or framework-injected metadata before other causes.
+- **2.3** **Agent-Specific Cache Strategies:**
+  - **Claude (Prefix & Lookback Integrity):** Cache reads cost 90% less but require a byte-identical prefix in tools -> system -> messages order. Never reorder, add, or remove tool definitions mid-session. Never inject dynamic content (timestamps, per-request IDs) into the system prompt. In heavy agentic loops, be aware of the ~20-block lookback window; explicitly request the user to perform a minor conversational interaction to prevent silent cache misses.
+  - **Gemini (Prefix Stability):** Never reorder tool definitions, system instructions, or serialized schemas mid-session. The implicit prefix cache requires a byte-identical prompt prefix for the 90% cached-token discount. Append all per-turn dynamic data after the stable prefix. If cache-hit rates drop unexpectedly, suspect non-deterministic serialization.
+  - **Copilot (Context Efficiency):** Under usage-based billing, cached tokens still cost AI Credits — keep instruction files and session context lean rather than exhaustive. Prefer explicit context (`#file`, `#selection`) over broad implicit context. Start a fresh session or use `/clear` when switching to an unrelated task to prevent context clutter.
 - **2.4** **Session Continuity (No Dynamic Compaction):** Never modify, compact, or delete prior chat turns mid-session—this destroys the hardware prefix cache. If context reaches ~65% capacity, compile a comprehensive session-handoff.md to `active-repo/memories/session/session-handoff.md` (overwriting any previous handoff, and ensure `active-repo/memories/session/` is added to `.gitignore` if created). The handoff must contain a full, detailed summary of the active conversation's progress, decisions, and open threads, strictly redact all sensitive information (such as API keys, passwords, credentials, or PII), and incorporate any user-provided compaction arguments as next-session focus areas. Prompt the user to run `/clear` or open a new session with this file loaded, providing a copy-pasteable short prompt (e.g., "Resume session from memories/session/session-handoff.md") to load the handoff instantly.
 
 ## 3. Intake & Scope Alignment
@@ -58,7 +53,7 @@ Embed the critical behavioral rules from the contract so agents follow them with
 - **5.2 Decision Precedence:** Resolve routing, conflict, and behavior decisions in this strict order:
   1. User's requested goal and output.
   2. User's explicit constraints or preferences.
-  3. The active contract (`docs/eyehateagent-contract.md`) and the owning project docs under `docs/project-docs/`.
+  3. The active EHA rules and the owning project docs under `docs/project-docs/`.
   4. Attached context (skills, notes, or examples) treated as relevance hints unless made mandatory.
   5. Automatic agent judgment.
 - **5.3 Failure & Fallback:** If a required project doc is missing, note the gap and create the smallest owning doc that unblocks the task. If code, tests, configs, or runtime-facing artifacts conflict with active docs and authority is unclear, do not guess: surface the conflict, cite the evidence, and ask the user before choosing the fix path.

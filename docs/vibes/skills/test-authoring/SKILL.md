@@ -145,7 +145,7 @@ Separate:
 | Interface, handler, adapter, or contract boundary | Contract or integration test | `testing.md`, API / integration docs |
 | Interactive or end-user-visible flow | UI or end-to-end test | `testing.md`, app-flow / UI docs |
 | Asynchronous, scheduled, staged, or event-driven processing | Integration or component test | `testing.md`, `architecture.md`, workflow docs |
-| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | `docs/eyehateagent-contract.md`, `testing.md` |
+| Rule, skill, reusable prompt, or documentation change | Consistency review or structural validation | EHA rules, `testing.md` |
 
 ---
 

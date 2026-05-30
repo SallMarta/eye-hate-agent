@@ -36,7 +36,7 @@ test('initProject generates Claude command files', () => {
   const result = initProject({ rootDir, agentId: 'claude' });
 
   assert.equal(result.agentId, 'claude');
-  assert.ok(result.fileCount >= 5, 'Expected at least 5 generated files');
+  assert.ok(result.fileCount >= 13, 'Expected at least 13 generated files');
 
   const bootstrapPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
   assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist');
@@ -46,6 +46,12 @@ test('initProject generates Claude command files', () => {
   assert.match(content, /4-Layer Taxonomy/, 'Missing compact EHA rules block');
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
+
+  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-analysis.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analysis.md must exist');
+  
+  const rulesPath = path.join(rootDir, '.claude', 'rules', 'eha-agent-rules.md');
+  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist');
 
   assert.equal(readConfig(rootDir).agent, 'claude');
 });
@@ -66,6 +72,12 @@ test('initProject generates Copilot prompt files', () => {
   const instructionsPath = path.join(rootDir, '.github', 'instructions', 'eha-workflows.instructions.md');
   assert.ok(fs.existsSync(instructionsPath), 'Instructions routing file must exist');
 
+  const analysisSkillPath = path.join(rootDir, '.github', 'prompts', 'skills', 'eha-analysis.prompt.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analysis.prompt.md must exist');
+
+  const rulesPath = path.join(rootDir, '.github', 'instructions', 'eha-agent-rules.instructions.md');
+  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.instructions.md must exist');
+
   assert.equal(readConfig(rootDir).agent, 'copilot');
 });
 
@@ -79,7 +91,7 @@ test('initProject overwrites existing files on reinit', () => {
   initProject({ rootDir, agentId: 'claude' });
   const result = initProject({ rootDir, agentId: 'claude' });
   assert.equal(result.agentId, 'claude');
-  assert.ok(result.fileCount >= 5);
+  assert.ok(result.fileCount >= 13);
 });
 
 // ─── removeProject ────────────────────────────────────────────────────────────
