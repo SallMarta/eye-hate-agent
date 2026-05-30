@@ -18,7 +18,7 @@ const {
   writeText,
 } = require('./state');
 
-const SUPPORTED_AGENT_IDS = ['claude', 'copilot'];
+const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'gemini'];
 
 function resolveAgentId(agentId) {
   const normalized = String(agentId || '').trim().toLowerCase();

@@ -36,7 +36,7 @@ test('initProject generates Claude command files', () => {
   const result = initProject({ rootDir, agentId: 'claude' });
 
   assert.equal(result.agentId, 'claude');
-  assert.ok(result.fileCount >= 13, 'Expected at least 13 generated files');
+  assert.ok(result.fileCount >= 14, 'Expected at least 14 generated files');
 
   const bootstrapPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
   assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist');
@@ -81,6 +81,31 @@ test('initProject generates Copilot prompt files', () => {
   assert.equal(readConfig(rootDir).agent, 'copilot');
 });
 
+test('initProject generates Gemini command files', () => {
+  const rootDir = createSandbox();
+  const result = initProject({ rootDir, agentId: 'gemini' });
+
+  assert.equal(result.agentId, 'gemini');
+  assert.ok(result.fileCount >= 14, 'Expected at least 14 generated files');
+
+  const bootstrapPath = path.join(rootDir, '.gemini', 'commands', 'eha', 'eha-bootstrap.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist');
+
+  const content = fs.readFileSync(bootstrapPath, 'utf8');
+  assert.match(content, /description:/, 'Missing YAML frontmatter');
+  assert.match(content, /4-Layer Taxonomy/, 'Missing compact EHA rules block');
+  assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
+  assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
+
+  const analysisSkillPath = path.join(rootDir, '.gemini', 'skills', 'eha-analysis.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analysis.md must exist');
+  
+  const rulesPath = path.join(rootDir, '.gemini', 'rules', 'eha-agent-rules.md');
+  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist');
+
+  assert.equal(readConfig(rootDir).agent, 'gemini');
+});
+
 test('initProject throws for unsupported agent', () => {
   const rootDir = createSandbox();
   assert.throws(() => initProject({ rootDir, agentId: 'unknown-agent' }), /Unsupported agent/i);
@@ -91,7 +116,7 @@ test('initProject overwrites existing files on reinit', () => {
   initProject({ rootDir, agentId: 'claude' });
   const result = initProject({ rootDir, agentId: 'claude' });
   assert.equal(result.agentId, 'claude');
-  assert.ok(result.fileCount >= 13);
+  assert.ok(result.fileCount >= 14);
 });
 
 // ─── removeProject ────────────────────────────────────────────────────────────
@@ -141,8 +166,9 @@ test('doctor reports uninitialized state correctly', () => {
 
 // ─── SUPPORTED_AGENT_IDS ──────────────────────────────────────────────────────
 
-test('SUPPORTED_AGENT_IDS contains claude and copilot', () => {
+test('SUPPORTED_AGENT_IDS contains claude, copilot, gemini', () => {
   assert.ok(SUPPORTED_AGENT_IDS.includes('claude'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('copilot'));
+  assert.ok(SUPPORTED_AGENT_IDS.includes('gemini'));
 });
 

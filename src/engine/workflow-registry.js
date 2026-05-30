@@ -25,6 +25,12 @@ const WORKFLOW_DEFINITIONS = {
     description: 'Brainstorm and finalize a feature spec before implementation',
     repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '02-sdd-discuss.md'),
   },
+  'sdd-execute': {
+    id: 'sdd-execute',
+    commandName: 'sdd-execute',
+    description: 'Translate a project specification into tested, working code',
+    repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '01-sdd-execute.md'),
+  },
 };
 
 const WORKFLOW_ALIASES = {};
