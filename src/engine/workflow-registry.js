@@ -5,31 +5,31 @@ const WORKFLOW_DEFINITIONS = {
     id: 'bootstrap',
     commandName: 'bootstrap',
     description: 'Generate the initial project documentation set',
-    repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '00-project-docs-bootstrap.md'),
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '00-project-docs-bootstrap.md'),
   },
   refresh: {
     id: 'refresh',
     commandName: 'refresh',
     description: 'Refresh project docs after a change in scope, stack, or behavior',
-    repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '00-project-docs-refresh.md'),
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '00-project-docs-refresh.md'),
   },
   parity: {
     id: 'parity',
     commandName: 'parity',
     description: 'Audit for documentation drift and ownership mismatches',
-    repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '00-project-docs-parity.md'),
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '00-project-docs-parity.md'),
   },
   discuss: {
     id: 'discuss',
     commandName: 'discuss',
     description: 'Brainstorm and finalize a feature spec before implementation',
-    repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '02-sdd-discuss.md'),
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '02-sdd-discuss.md'),
   },
   'sdd-execute': {
     id: 'sdd-execute',
     commandName: 'sdd-execute',
     description: 'Translate a project specification into tested, working code',
-    repoRelativePath: path.join('docs', 'vibes', 'reusable-prompts', '01-sdd-execute.md'),
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '01-sdd-execute.md'),
   },
 };
 

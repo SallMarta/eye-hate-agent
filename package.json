@@ -8,7 +8,7 @@
   "files": [
     "bin",
     "src",
-    "docs/vibes",
+    "docs/templates",
     "README.md"
   ],
   "scripts": {

@@ -62,7 +62,7 @@ function loadSkillContent(skill) {
 }
 
 function loadRuleContent(agentId) {
-  const rulePath = getBundledAssetPath(path.join('docs', 'vibes', 'rules', 'agent-rules.md'));
+  const rulePath = getBundledAssetPath(path.join('docs', 'templates', 'rules', 'agent-rules.md'));
   let content = fs.readFileSync(rulePath, 'utf8').replace(/^\n+/, '');
   
   if (agentId) {
