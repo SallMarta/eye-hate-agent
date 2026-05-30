@@ -13,7 +13,7 @@ Use this index to list the optional and conditional regular project docs that ar
 Notes of important findings or critical constraints. Can be empty.
 
 ## 3. Table of Contents
-TOC goes here.
+[Generate a hyperlinked table of contents here containing ALL headings in this file (1 through N). Use standard markdown links, e.g., - [1. Description](#1-description)]
 
 ## 4. Scope
 The boundaries of what this document covers.
