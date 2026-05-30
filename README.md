@@ -73,7 +73,7 @@ Each generated file contains:
 2. A compact EHA rules block — the 4-layer taxonomy, ownership map, and SDD rule
 3. The full workflow prompt — self-contained, no external files required
 
-The generated files are committed into the target repository. Re-run `eha init` to regenerate (e.g., after updating `@sallmarta/eye-hate-agent`).
+The generated files are committed into the target repository. After updating `@sallmarta/eye-hate-agent`, run `eha` — it detects the version mismatch and prompts to regenerate automatically. You can also re-run `eha init` at any time to force a regeneration.
 
 ### Local Development (This Repository)
 

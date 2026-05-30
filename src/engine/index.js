@@ -1,7 +1,7 @@
 const { getWorkflow, listWorkflows } = require('./workflow-registry');
 const { findRepoRoot, readConfig } = require('./state');
 const { listSupportedRuntimes } = require('./runtime-adapters');
-const { SUPPORTED_AGENT_IDS, doctor, initProject, removeProject } = require('./install');
+const { SUPPORTED_AGENT_IDS, doctor, initProject, readProjectManifest, removeProject } = require('./install');
 
 module.exports = {
   SUPPORTED_AGENT_IDS,
@@ -12,5 +12,6 @@ module.exports = {
   listSupportedRuntimes,
   listWorkflows,
   readConfig,
+  readProjectManifest,
   removeProject,
 };

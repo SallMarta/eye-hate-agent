@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { version: EHA_PACKAGE_VERSION } = require('../../package.json');
 
 const { listWorkflows } = require('./workflow-registry');
 const { getRuntimeAdapter, listSupportedRuntimes } = require('./runtime-adapters');
@@ -54,6 +55,7 @@ function initProject({ rootDir, agentId }) {
     agent: normalizedAgentId,
     files: files.map((f) => f.relativePath),
     updatedAt: new Date().toISOString(),
+    packageVersion: EHA_PACKAGE_VERSION,
   };
   writeJson(enginePaths.manifestPath, manifest);
   const config = writeConfig(rootDir, { agent: normalizedAgentId });
@@ -108,9 +110,15 @@ function doctor({ rootDir }) {
   };
 }
 
+function readProjectManifest(rootDir) {
+  const { manifestPath } = getEnginePaths(rootDir);
+  return readManifest(manifestPath);
+}
+
 module.exports = {
   SUPPORTED_AGENT_IDS,
   doctor,
   initProject,
+  readProjectManifest,
   removeProject,
 };

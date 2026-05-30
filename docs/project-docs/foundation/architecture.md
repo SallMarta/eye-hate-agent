@@ -38,13 +38,13 @@ Human-authored source-of-truth assets:
 ### Config and manifest
 
 - Config: `.eha/config.json` — `{ configVersion: 1, agent: "claude" | "copilot" }`
-- Manifest: `.eha/manifest.json` — list of generated file paths for clean removal
+- Manifest: `.eha/manifest.json` — tracks generated file paths, `updatedAt` timestamp, and `packageVersion` (the EHA version that wrote the files); used for clean removal and staleness detection
 
 ## CLI layer (`bin/eha.js`)
 
 | Command | Behavior |
 |---|---|
-| `eha` / `eha init` | Wizard: detect root → prompt agent if TTY → call `initProject` |
+| `eha` / `eha init` | Wizard: detect root → if initialized and manifest `packageVersion` differs from installed EHA version, prompt to regenerate (default Y); else prompt agent if TTY → call `initProject` |
 | `eha init [agent]` | Non-interactive init with explicit agent |
 | `eha remove` | Confirm + `removeProject` |
 | `eha doctor` | Print config, agent, and generated-file status |
