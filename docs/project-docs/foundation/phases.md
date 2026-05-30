@@ -13,9 +13,18 @@ This document tracks the roadmap and upcoming epics for the Eye Hate Agent (EHA)
 As EHA is a stable meta-tool, new phases are only introduced when adding support for fundamentally new AI IDEs or major architectural shifts in prompt structures.
 
 ## 3. Table of Contents
-1. Overall Project Timeline
-> 2. Phase Registry
-> 3. Sprint Tracker
+- [1. Description](#1-description)
+- [2. Important](#2-important)
+- [3. Table of Contents](#3-table-of-contents)
+- [4. Scope](#4-scope)
+- [5. Goals](#5-goals)
+- [6. Non Goals](#6-non-goals)
+- [7. Overall Project Timeline](#7-overall-project-timeline)
+- [8. Phase Registry](#8-phase-registry)
+- [9. Sprint Tracker](#9-sprint-tracker)
+- [10. Success Metrics](#10-success-metrics)
+- [11. Related Documents](#11-related-documents)
+- [12. Open Questions](#12-open-questions)
 
 ## 4. Scope
 Roadmap planning and epic tracking for the EHA engine and its templates.
@@ -41,7 +50,7 @@ gantt
 
 ## 8. Phase Registry
 - Phase 1: Registry Adapter Architecture (Completed)
-> - Phase 2: Domain Skills Refactoring (Active)
+- Phase 2: Domain Skills Refactoring (Active)
 
 ## 9. Sprint Tracker
 ### 9.1. Current Sprint (Date Range)
@@ -49,7 +58,7 @@ May 2026
 
 ### 9.2. Active Tasks
 - Migrating local `.agents/rules/` to avoid frontmatter duplication.
-> - Establishing `project-docs` parity with `project-docs-template`.
+- Establishing `project-docs` parity with `project-docs-template`.
 
 ### 9.3. Blockers
 None.

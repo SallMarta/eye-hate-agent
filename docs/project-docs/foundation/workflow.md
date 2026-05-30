@@ -13,13 +13,22 @@ This document outlines the engineering and collaboration workflows for modifying
 Always test `eha init` and `eha remove` in a dummy directory before committing template modifications.
 
 ## 3. Table of Contents
-1. Local Development Loop
-> 2. Branching Strategy
-> 3. PR & Code Review Process
-> 4. Issue Tracking & Triage
+- [1. Description](#1-description)
+- [2. Important](#2-important)
+- [3. Table of Contents](#3-table-of-contents)
+- [4. Scope](#4-scope)
+- [5. Goals](#5-goals)
+- [6. Non Goals](#6-non-goals)
+- [7. Local Development Loop](#7-local-development-loop)
+- [8. Branching Strategy](#8-branching-strategy)
+- [9. PR & Code Review Process](#9-pr--code-review-process)
+- [10. Issue Tracking & Triage](#10-issue-tracking--triage)
+- [11. Success Metrics](#11-success-metrics)
+- [12. Related Documents](#12-related-documents)
+- [13. Open Questions](#13-open-questions)
 
 ## 4. Scope
-Covers the day-to-day workflow for the sole maintainer (Sulyadee) and AI Agents working in this repo.
+Covers the day-to-day workflow for the sole maintainer and AI Agents working in this repo.
 
 ## 5. Goals
 Standardize how changes are proposed, tested, and shipped.
@@ -29,9 +38,9 @@ Does not cover architecture specifics (see `architecture.md`).
 
 ## 7. Local Development Loop
 1. **Modify:** Edit `docs/templates/` or engine code (`src/engine/`).
-> 2. **Register:** If adding a new skill/workflow, update `skill-registry.js` or `workflow-registry.js`.
-> 3. **Test:** Run `eha init` in a dummy project via `npm link` (see `testing.md`).
-> 4. **Commit:** Ensure `changelog.md` and `status.md` are updated.
+2. **Register:** If adding a new skill/workflow, update `skill-registry.js` or `workflow-registry.js`.
+3. **Test:** Run `eha init` in a dummy project via `npm link` (see `testing.md`).
+4. **Commit:** Ensure `changelog.md` and `status.md` are updated.
 
 ## 8. Branching Strategy
 EHA uses a Trunk-Based Development model since it is maintained by a single person. All changes are committed directly to `main`. 

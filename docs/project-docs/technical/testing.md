@@ -10,27 +10,36 @@ Status: Live
 This document outlines the testing strategies and validation loops for the Eye Hate Agent (EHA) project. EHA is tested primarily via end-to-end (E2E) generation validation.
 
 ## 2. Important
-Since EHA is a meta-tool generating files, the primary validation is ensuring the generated folder structures map 1:1 with the expected template formats.
+Since EHA is a meta-tool generating files, the primary validation is ensuring the generated folder structures map 1:1 with the expected template formats without breaking markdown formatting.
 
 ## 3. Table of Contents
-1. Verification Policy & Objectives
-2. Verification Matrix & Coverage
-3. Test Layers & Environments
-4. Commands & CI Gates
-5. Naming & File Conventions
-6. Manual Checks & Fallbacks
+- [1. Description](#1-description)
+- [2. Important](#2-important)
+- [3. Table of Contents](#3-table-of-contents)
+- [4. Scope](#4-scope)
+- [5. Goals](#5-goals)
+- [6. Non Goals](#6-non-goals)
+- [7. Verification Policy & Objectives](#7-verification-policy--objectives)
+- [8. Verification Matrix & Coverage](#8-verification-matrix--coverage)
+- [9. Test Layers & Environments](#9-test-layers--environments)
+- [10. Commands & CI Gates](#10-commands--ci-gates)
+- [11. Naming & File Conventions](#11-naming--file-conventions)
+- [12. Manual Checks & Fallbacks](#12-manual-checks--fallbacks)
+- [13. Success Metrics](#13-success-metrics)
+- [14. Related Documents](#14-related-documents)
+- [15. Open Questions](#15-open-questions)
 
 ## 4. Scope
 Covers local CLI tests, template validity checks, and NPM package testing.
 
 ## 5. Goals
-Guarantee that `eha init` and `eha remove` execute deterministically and do not corrupt the target repository.
+Guarantee that `eha init`, `eha doctor`, and `eha remove` execute deterministically and do not corrupt the target repository.
 
 ## 6. Non Goals
-Unit testing individual node modules. We prioritize E2E integration testing.
+Unit testing individual node modules. We prioritize E2E integration testing over unit tests for this CLI tool.
 
 ## 7. Verification Policy & Objectives
-We verify EHA by running it in isolated "dummy" directories. The objective is to prove that running `eha init` produces exactly the expected number of `.agents/` files, and `eha remove` leaves no trace.
+We verify EHA by running it in isolated "dummy" directories. The objective is to prove that running `eha init` produces exactly the expected number of files (e.g., in `.agents/`), and `eha remove` leaves no trace.
 
 ## 8. Verification Matrix & Coverage
 | Change type | Preferred validation | Fallback |
@@ -50,7 +59,7 @@ EHA uses a manual E2E loop:
 7. Verify clean state.
 
 ## 10. Commands & CI Gates
-CI currently uses GitHub Actions (`publish.yml`) to automatically publish. There is no automated test suite gate yet; Sulyadee executes the dummy loop locally before merging.
+CI currently uses GitHub Actions (`publish.yml`) to automatically test via `npm test` and publish via NPM Provenance. There is no automated robust test suite gate yet; the maintainer executes the dummy loop locally before merging major template changes.
 
 ## 11. Naming & File Conventions
 No automated test files (`*.spec.js`) exist. The engine is small enough that manual E2E validation is sufficient.

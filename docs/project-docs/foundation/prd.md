@@ -7,20 +7,30 @@ Status: Live
 ---
 
 ## 1. Description
-Eye Hate Agent (EHA) is a CLI meta-tool and agentic template engine. It initializes, manages, and structures repositories with standard SDD documentation and pre-configured instructions tailored to different AI coding agents (Antigravity, Copilot, Cursor).
+Eye Hate Agent (EHA) is a CLI meta-tool and agentic template engine. It initializes, manages, and structures repositories with standard SDD documentation and pre-configured instructions tailored to different AI coding agents (Antigravity, Copilot, Cursor, Claude).
 
 ## 2. Important
-This is the central requirement document. Changes to EHA's CLI workflow or agent templates must align with this PRD.
+This is the central requirement document. Changes to EHA's CLI workflow or agent templates must align with this PRD. EHA is self-hosting; it uses its own architecture and templates to manage its codebase.
 
 ## 3. Table of Contents
-1. Vision Statement
-2. Target Personas
-3. Core Business Value
-4. User Journeys & App Flow
-5. Feature Workflows
-6. Functional Requirements
-7. Non-Functional Requirements
-8. Acceptance Criteria
+- [1. Description](#1-description)
+- [2. Important](#2-important)
+- [3. Table of Contents](#3-table-of-contents)
+- [4. Scope](#4-scope)
+- [5. Goals](#5-goals)
+- [6. Non Goals](#6-non-goals)
+- [7. Vision Statement](#7-vision-statement)
+- [8. Target Personas](#8-target-personas)
+- [9. Core Business Value](#9-core-business-value)
+- [10. User Journeys & App Flow](#10-user-journeys--app-flow)
+- [11. Feature Workflows](#11-feature-workflows)
+- [12. Functional Requirements](#12-functional-requirements)
+- [13. Non-Functional Requirements](#13-non-functional-requirements)
+- [14. Acceptance Criteria](#14-acceptance-criteria)
+- [15. External Dependencies & Partners](#15-external-dependencies--partners)
+- [16. Success Metrics](#16-success-metrics)
+- [17. Related Documents](#17-related-documents)
+- [18. Open Questions](#18-open-questions)
 
 ## 4. Scope
 Defines requirements for the EHA engine, CLI arguments, and the `.agents/` template generation output.
@@ -32,14 +42,14 @@ Establish a universal repository structure that any AI agent can seamlessly hook
 We do not build custom agent models or runtime sandboxes. EHA only generates the instruction files that existing IDE agents consume.
 
 ## 7. Vision Statement
-Make AI agents perfectly predictable and strictly aligned with the repository maintainer's intentions by forcing them to read standard instructions.
+Make AI agents perfectly predictable and strictly aligned with the repository maintainer's intentions by forcing them to read standard instructions and standard file structures.
 
 ## 8. Target Personas
-- **Solo Maintainer:** Generating templates quickly for new projects.
-- **AI Agent:** Reading `.agents/` files to understand what it is allowed to do.
+- **Solo Maintainer:** Generating templates quickly for new projects or managing the meta-tool itself.
+- **AI Agent:** Reading `.agents/` (or other platform-specific instruction surfaces) files to understand what it is allowed to do.
 
 ## 9. Core Business Value
-Saves hours of prompt engineering per repository by centralizing agent instructions.
+Saves hours of prompt engineering per repository by centralizing agent instructions. Ensures 100% adherence to Spec-Driven Development (SDD).
 
 ## 10. User Journeys & App Flow
 ```mermaid
@@ -48,7 +58,7 @@ journey
     section EHA Init
       Run eha init: 5: Maintainer
       Select Agent: 5: Maintainer
-      Generate .agents/: 5: System
+      Generate rules to .agents/: 5: System
 ```
 
 ## 11. Feature Workflows
@@ -58,31 +68,36 @@ flowchart TD
     B -- Yes --> C[Run Adapter]
     B -- No --> D[Prompt Selection]
     C --> E[Generate SKILL.md]
+    C --> F[Generate rules block]
 ```
 
 ## 12. Functional Requirements
-- CLI must support `init`, `remove`, and auto-update prompts.
-- Engine must dynamically load templates from `docs/templates/skills/`.
-- Must generate `.agents/skills/[skill-name]/SKILL.md` structure.
+- CLI must support `init`, `remove`, `doctor`, and auto-update prompts based on manifest staleness.
+- Engine must dynamically load templates from `docs/templates/skills/` recursively.
+- Engine must run specific formatting adapters (e.g., Antigravity, Claude, Copilot) when writing the output.
+- Must generate `.agents/skills/[skill-name]/SKILL.md` (or equivalent target folder) structure.
 
 ## 13. Non-Functional Requirements
-- Must execute in <2s.
-- Must have no heavy external dependencies (keep `package.json` lean).
+- Must execute quickly and dependably.
+- Must have no heavy external dependencies (keep `package.json` lean, e.g., only `commander` and `chalk`).
+- Must operate entirely statelessly relying on the bundled templates and `.eha/manifest.json`.
 
 ## 14. Acceptance Criteria
 - Running `eha init antigravity` creates exactly 18 template files in `.agents/`.
-- Running `eha remove` cleanly uninstalls everything.
+- Running `eha remove` cleanly uninstalls everything tracked by the manifest.
+- Version mismatch triggers the auto-update prompt on next invocation.
 
 ## 15. External Dependencies & Partners
-- Node.js environment.
+- Node.js environment (v18+).
+- GitHub Actions with NPM Provenance via OIDC for automated publishing.
 
 ## 16. Success Metrics
-- 0% bug rate on `eha init` file generation.
-- Templates perfectly align with agent parsers.
+- 0% bug rate on `eha init` file generation across supported IDEs.
+- Generated instructions are flawlessly parsed and respected by Antigravity and Copilot.
 
 ## 17. Related Documents
-- [Architecture](architecture.md)
-- [Testing](../technical/testing.md)
+- [Architecture](architecture.md) - Details the pipeline and adapter pattern.
+- [Testing](../technical/testing.md) - E2E verification policy.
 
 ## 18. Open Questions
 None.
