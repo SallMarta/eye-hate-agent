@@ -1,78 +1,49 @@
 # Eye Hate Agent (EHA)
 
-## Documentation and engine toolkit for AI-agent-assisted project workflows
-
-Authored by SuLyAdEe.
+A CLI engine that generates a shared set of rules, skills, and documentation workflows for AI agents (Claude, GitHub Copilot) directly into your repository.
 
 ---
 
-## Table of Contents
-
-- [Eye Hate Agent](#eye-hate-agent)
-  - [Purpose](#purpose)
-  - [Quick Start](#quick-start)
-  - [CLI Commands](#cli-commands)
-  - [What Gets Generated](#what-gets-generated)
-
-## Purpose
-
-Eye Hate Agent (EHA) is designed to give your AI agents (like Claude and GitHub Copilot) a shared set of rules, skills, and documentation workflows across any project.
-
-It acts as a CLI engine that generates agent-specific instruction files directly into your repository. This ensures that every agent you use follows the same structural contract, adheres to consistent rules, and has access to reusable skills without relying on disparate, global instructions. EHA materializes runtime-facing surfaces directly into your target repository so your team (and their agents) can stay perfectly aligned.
-
-Use this README as the main guide for installing and running EHA in your projects.
-
 ## Quick Start
 
-Two ways to run EHA — both ask the same questions and generate the same files:
-
-| How | What it means |
-|---|---|
-| `npm install -g @sallmarta/eye-hate-agent` | `eha` binary available globally. Run `eha` in any project, any time. |
-| `npx @sallmarta/eye-hate-agent` | One-shot: runs the wizard in the current directory, generates files, no binary left behind. |
+### 1. Initialize EHA in your project
+Run the wizard in your project root to generate the required agent instructions:
 
 ```bash
-# global
-npm install -g @sallmarta/eye-hate-agent
-cd your-project
-eha
-
-# one-shot
-cd your-project
 npx @sallmarta/eye-hate-agent
 ```
+*(Or install globally: `npm i -g @sallmarta/eye-hate-agent` and run `eha`)*
 
-After running `eha init`, open your agent and use the generated commands:
+### 2. Trigger your agent
+Once generated, the files are immediately ready to use in your IDE. Trigger the workflows using your agent's native slash commands, file mentions, or prompt attachments (e.g., typing `/eha-bootstrap` or attaching the bootstrap file in chat).
 
-| Agent | How to trigger |
-|---|---|
-| Claude | `/eha-bootstrap`, `/eha-refresh`, `/eha-parity`, `/eha-discuss` |
-| GitHub Copilot | Attach `#eha-bootstrap.prompt.md` (or the relevant prompt) in agent mode |
+### 3. Commit the generated files
+The generated files (`.claude/` or `.github/`) act as your project's AI contract. Commit them to version control so your whole team shares the same agent behaviors and documentation standards.
+
+---
 
 ## CLI Commands
 
+```bash
+eha [init]          # Wizard: detect project root, choose agent, generate files
+eha init [agent]    # Set up EHA directly (e.g., claude, copilot, etc.)
+eha doctor          # Verify generated files and EHA status
+eha remove          # Remove all EHA-generated files and config
 ```
-eha [init]            Wizard: detect project root, choose agent, generate files
-eha init [agent]      Set up EHA. Agent: claude | copilot
-eha remove            Remove all EHA-generated files and config
-eha doctor            Show EHA status and verify generated files
-```
+
+---
 
 ## What Gets Generated
 
-**Claude**
-- **Workflows**: `.claude/commands/eha/eha-{bootstrap,refresh,parity,discuss}.md` + README
-- **Skills**: `.claude/skills/eha-{analysis,api-design,code-audit,full-verification,parity,project-elevation,test-authoring}.md`
-- **Rules**: `.claude/rules/eha-agent-rules.md`
+Running `eha` detects your chosen agent and outputs fully self-contained files into its native configuration directory (e.g., `.claude/`, `.github/`, or `.gemini/`). Every file is pre-injected with EHA's compact rules (4-layer taxonomy, ownership map, and Spec-Driven Development rules).
 
-**Copilot**
-- **Workflows**: `.github/prompts/eha-{bootstrap,refresh,parity,discuss}.prompt.md` + `.github/instructions/eha-workflows.instructions.md`
-- **Skills**: `.github/prompts/skills/eha-{analysis,api-design,code-audit,full-verification,parity,project-elevation,test-authoring}.prompt.md`
-- **Rules**: `.github/instructions/eha-agent-rules.instructions.md`
+Regardless of the target agent, the output always includes:
+- **Workflows**: Ready-to-use commands for project bootstrapping, doc refreshing, parity checks, and discussions.
+- **Skills**: Expert capabilities like `code-audit`, `api-design`, `test-authoring`, and `full-verification`.
+- **Rules**: A central instruction file enforcing the EHA project contract.
 
-Each generated workflow/skill file contains:
-1. Agent-specific frontmatter (Claude `description:`, Copilot `mode: agent`)
-2. A compact EHA rules block — the 4-layer taxonomy, ownership map, and SDD rule
-3. The full content — self-contained, no external files required
+---
 
-The generated files are committed into the target repository. After updating `@sallmarta/eye-hate-agent`, run `eha` — it detects the version mismatch and prompts to regenerate automatically. You can also re-run `eha init` at any time to force a regeneration.
+## Updating
+
+When a new version of EHA is released, simply run `eha` in your repository again. The engine will detect the version mismatch and automatically prompt you to regenerate the files with the latest improvements.
