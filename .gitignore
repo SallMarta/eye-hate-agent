@@ -2,12 +2,6 @@
 .DS_Store
 /node_modules
 /memories/session/
-.eha/state/
-.eha/generated/
-.claude/commands/eha/
-.github/instructions/eha-workflows.instructions.md
+.eha
 *.tgz
-.claude/skills/
-.claude/rules/
-.github/prompts/skills/
-.github/instructions/eha-agent-rules.instructions.md
+maintaining.md

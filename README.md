@@ -35,7 +35,7 @@ eha remove          # Remove all EHA-generated files and config
 
 ## What Gets Generated
 
-Running `eha` detects your chosen agent and outputs fully self-contained files into its native configuration directory (e.g., `.claude/`, `.github/`, or `.gemini/`). Every file is pre-injected with EHA's compact rules (4-layer taxonomy, ownership map, and Spec-Driven Development rules).
+Running `eha` detects your chosen agent and outputs fully self-contained files into its native configuration directory (e.g., `.claude/`, `.github/`, or `.antigravity/`). Every file is pre-injected with EHA's compact rules (4-layer taxonomy, ownership map, and Spec-Driven Development rules).
 
 Regardless of the target agent, the output always includes:
 - **Workflows**: Ready-to-use commands for project bootstrapping, doc refreshing, parity checks, and discussions.
@@ -47,3 +47,21 @@ Regardless of the target agent, the output always includes:
 ## Updating
 
 When a new version of EHA is released, simply run `eha` in your repository again. The engine will detect the version mismatch and automatically prompt you to regenerate the files with the latest improvements.
+
+---
+
+## Uninstallation & Cleanup
+
+To completely remove EHA from your project and device:
+
+### 1. Remove project files
+Run the following command in your project root to clean up all generated AI context files and project metadata (`.eha/`):
+```bash
+eha remove
+```
+
+### 2. Uninstall the CLI (Total Removal)
+To completely remove the CLI from your device, run:
+```bash
+npm uninstall -g @sallmarta/eye-hate-agent
+```

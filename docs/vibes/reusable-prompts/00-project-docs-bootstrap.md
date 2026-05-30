@@ -1,4 +1,4 @@
-# Project Docs Bootstrap Reusable Prompt (v1.0.0)
+# Project Docs Bootstrap Reusable Prompt
 
 Generate the **initial project documentation set** for a repository. 
 You must dynamically adjust your behavior based on the current state of the repository.
