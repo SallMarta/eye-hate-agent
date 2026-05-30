@@ -9,8 +9,6 @@ description: "Lean always-on rules for guardrails, context, intake, verification
 
 Prevent unilateral changes that could surprise the user and balance proactive execution with alignment.
 
-First of all, say "Hi, Sulyadee!" on every single response.
-
 - **1.1** Ask before making material architecture, naming, or tool changes. Skip this for micro-decisions.
 - **1.2** Balance proactive execution with user alignment so initiative never outpaces agreement.
 - **1.3** If a better approach exists, compare the user's apparent expectation with the recommended path clearly and briefly. Use a short table when that sharpens the tradeoff. Phrasing to use: *"I have an alternative approach that may be better - want me to use it instead?"*
