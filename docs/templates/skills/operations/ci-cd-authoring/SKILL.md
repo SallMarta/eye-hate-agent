@@ -1,13 +1,102 @@
-# CI/CD Authoring Skill
+---
+name: ci-cd-authoring
+description: "Project-aware expert-role for CI/CD pipeline design and implementation. Reads project docs first, enforces build caching, security gates, test execution, and deployment safety."
+argument-hint: "Describe the workflow, pipeline, or deployment stage to build or review"
+---
 
-You are a DevOps Engineer specializing in Continuous Integration and Continuous Deployment pipelines.
+# CI/CD Authoring — Project-Aware
 
-## Responsibilities
-1. Generate automation scripts (GitHub Actions, GitLab CI, Jenkinsfiles, etc.) based on the project's build, test, and deployment requirements.
-2. Write optimized `Dockerfile` and `docker-compose.yml` configurations utilizing multi-stage builds for minimal production image sizes.
-3. Configure secure handling of secrets and environment variables.
+Produces a **project-aware, expert-level CI/CD pipeline implementation** by reading the repository's project docs first, then applying robust deployment engineering practices.
 
-## Output Constraints
-- Prioritize security: Never hardcode secrets. Always use native secret injection mechanisms.
-- Prioritize performance: Utilize caching mechanisms for dependencies (e.g., node_modules, maven layers).
-- Keep pipeline YAML configurations extremely clean and well-commented.
+This skill is reusable across CI providers (GitHub Actions, GitLab CI, Jenkins) and deployment targets (AWS, GCP, Vercel, Kubernetes).
+
+It should **not** assume a specific CI provider or deployment strategy until the project docs confirm them.
+
+---
+
+## Required Project Inputs
+
+| Document | Why it matters |
+| --- | --- |
+| `docs/project-docs/operations/ci-cd.md` | Defines the required CI provider, branch protection rules, required jobs, and deployment environments. |
+| `docs/project-docs/technical/testing.md` | Defines which test suites must run and their coverage thresholds. |
+| `docs/project-docs/operations/security.md` | Defines required security scanning tools (SAST, DAST, dependency checks). |
+
+If the repository lacks the CI/CD docs needed for deployment, call that out and create or update the missing docs instead of blindly writing deployment scripts.
+
+---
+
+## When To Use
+
+Use this skill when building or reviewing one of these boundary types.
+
+| Boundary type | Typical artifacts |
+| --- | --- |
+| Continuous Integration (CI) | Build scripts, linter checks, test runners, Docker builds. |
+| Continuous Deployment (CD) | Terraform/Pulumi execution, environment promotion, artifact publishing. |
+| Security & Compliance | Dependabot configuration, secret scanning, static analysis gates. |
+| Pipeline Optimization | Caching strategies, matrix builds, job parallelization. |
+
+---
+
+## Procedure
+
+### Step 1 — Identify the Pipeline Engine and Target
+Extract from `ci-cd.md`:
+- The CI platform (e.g., GitHub Actions).
+- The deployment target (e.g., AWS ECS).
+- Authentication mechanisms (e.g., OIDC vs long-lived secrets).
+
+### Step 2 — Define the Build Matrix and Caching
+- Ensure language-specific dependencies (node_modules, pip cache, go mod cache) are aggressively cached to reduce build times.
+- If building Docker images, implement layer caching.
+
+### Step 3 — Enforce Testing and Security Gates
+Consult `testing.md` and `security.md`:
+- The pipeline MUST block merges if linters or tests fail.
+- The pipeline MUST block merges if critical security vulnerabilities are detected.
+
+### Step 4 — Implement Safe Deployment Strategies
+If deploying to production:
+- Ensure the pipeline respects environment segregation.
+- Implement rollback capabilities or canary/blue-green deployment steps if specified in `ci-cd.md`.
+- Never hardcode secrets in the pipeline file; always use the CI provider's secrets manager.
+
+### Step 5 — Verify Pipeline Robustness
+Ensure the pipeline:
+- Only triggers on appropriate branches or tags.
+- Has reasonable timeout limits to prevent hung jobs.
+- Cleans up temporary artifacts after execution.
+
+---
+
+## Output Contract
+
+When using this skill, the output should include:
+
+1. the project docs consulted
+2. the proposed pipeline architecture (triggers, jobs, steps)
+3. the caching and optimization strategies used
+4. the security and testing gates enforced
+5. the final pipeline YAML or script
+
+---
+
+## Quality Checks
+
+Use this checklist when reviewing an existing CI/CD configuration:
+
+- Are dependencies and build outputs being cached?
+- Are secrets injected securely via environment variables?
+- Does a failing test or linter correctly fail the entire job?
+- Is the deployment step locked down to specific branches or environments?
+- Are timeouts explicitly defined to prevent runaway costs?
+
+---
+
+## Anti-Patterns
+
+- Hardcoding API keys or passwords directly in the YAML file.
+- Writing a pipeline that deploys to production from any branch.
+- Skipping tests to make the pipeline run faster.
+- Downloading dependencies without verifying lockfiles.

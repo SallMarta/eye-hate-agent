@@ -32,7 +32,7 @@ Structure incoming requests before acting to reduce rework and catch ambiguity e
   5. Treat a user-provided list as full scope unless the user changes it.
   6. Confirm if the plan could materially change scope, output, or direction.
   7. Then proceed.
-- **3.2** Skip the intake checklist only for trivial single-step edits.
+- **3.2** **Lite Mode (Micro-Tasks):** Skip the 7-step intake checklist and SDD requirements ONLY if the user explicitly triggers Lite Mode (e.g., using a `/lite` slash command, or prefixing their request with "Lite task:") AND the task is a trivial, isolated edit (e.g., typo fix, single UI tweak). For Lite Mode, bypass PRD validation and execute immediately to save time.
 
 ## 4. Docs, Verification, and Completion
 
