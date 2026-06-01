@@ -35,6 +35,7 @@ Once initialized, EHA projects a series of interactive workflows directly into y
 | **`/eha-refresh`** | The main workhorse for repos with **any existing documentation**. Updates active SDD docs, migrates legacy docs, converts non-SDD docs, and creates missing SDD files — all by cross-referencing the actual codebase alongside existing material. Auto-detects the appropriate Taxonomy Tier for migration scenarios. Prompts the user to resolve any drift between codebase and docs. |
 | **`/sdd-discuss`** | Collaborative brainstorming. Interviews you about edge cases, API shapes, data models, and constraints, then drafts spec snippets ready for injection into project docs. No code output. |
 | **`/sdd-execute`** | Spec-Driven code generation via strict TDD. Reads specs → generates tests → generates code → validates against architecture. Refuses to code features not in the spec. |
+| **`/eha-help`** | **EHA Help & Tutorial.** Interactive guide providing descriptions of EHA's 4-layer taxonomy, active workflows, and specialist skills. |
 
 > **Looking for parity audits?** Use the `parity-audit` skill directly:
 > `@agent use parity-audit on this repository`

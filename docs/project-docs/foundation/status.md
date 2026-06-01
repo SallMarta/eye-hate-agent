@@ -1,6 +1,6 @@
 # Status
 
-Last update: 2026-05-30
+Last update: 2026-06-02
 
 Status: Live
 
@@ -40,22 +40,26 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks (see `phases.md` for epics).
 
 ## 7. Current State
-EHA has reached `1.0.6` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, and consolidates doc-lifecycle workflows from 5 commands to 4 (bootstrap, refresh, discuss, execute).
+EHA has reached `1.0.7` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu.
 
 ## 8. Recent Accomplishments
-- Replaced Gemini with Antigravity natively.
+- Replaced Gemini with Antigravity natively, relocating rules to dedicated `.agents/rules/` directory.
 - Streamlined templates directory under a Single Master Registry catalog index (`index.md`) and guidelines catalog index, completely removing redundant boilerplate files.
 - Globally renamed EHA 4-layer taxonomy's third layer from `technical/` to `development/` across engine rules, templates, specialist skills, workflow prompts, tests, and EHA's internal docs.
 - Consolidated high-overlap specialist skills and documents (observability/error-handling, security/compliance, phases/feature-inventory) under Tier 3.
 - Clarified that humans and AI agents are fully authorized to append custom domain-specific headings during documentation generation tasks to accurately capture codebase realities.
 - Automated GitHub Actions publishing pipeline.
 - Consolidated doc-lifecycle prompts from 3 (bootstrap, parity, refresh) to 2 (bootstrap, refresh). Retired `/eha-parity` command; upgraded `parity-audit` skill to absorb all behavioral rules. Rewrote Refresh with mandatory codebase cross-referencing and user-prompted drift resolution.
+- Upgraded EHA configuration and manifests to accumulate multiple installed agents simultaneously.
+- Implemented targeted uninstallation supporting `eha remove [agent]`, preserving other agents' files.
+- Added a numbered selection menu with a stabilized default option and a new "All Agents" initialization command.
+- Refined success logs to print non-deterministic, friendly instruction headers and documented local development testing options (npm link, direct Node execution, local file dependencies) in `maintaining.md`.
 
 ## 9. Upcoming Focus
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.6
+- NPM Version: 1.0.7
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
 - Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).

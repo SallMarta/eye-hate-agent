@@ -348,3 +348,19 @@ test('removeProject supporting Option B targeted removal', () => {
   assert.ok(!fs.existsSync(path.join(rootDir, '.eha')), '.eha should be removed');
 });
 
+test('CLI supports init all to initialize all agents at once', () => {
+  const { execSync } = require('node:child_process');
+  const binPath = path.resolve(__dirname, '..', 'bin', 'eha.js');
+  const rootDir = createSandbox();
+
+  const output = execSync(`node "${binPath}" init all`, { cwd: rootDir }).toString();
+  assert.match(output, /✓ EHA is ready for all agents/i);
+
+  assert.ok(fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md')));
+  assert.ok(fs.existsSync(path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md')));
+  assert.ok(fs.existsSync(path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md')));
+
+  const config = readConfig(rootDir);
+  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot']);
+});
+

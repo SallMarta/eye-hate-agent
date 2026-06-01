@@ -25,33 +25,34 @@ async function promptAgentChoice(currentAgent) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   try {
     const runtimes = listSupportedRuntimes();
-    const defaultIndex = currentAgent
-      ? runtimes.findIndex(r => r.id === currentAgent) + 1
-      : 1;
+    const defaultIndex = 1;
 
     console.log('');
     console.log('Which agent?');
     for (let i = 0; i < runtimes.length; i++) {
       console.log(`  ${i + 1}. ${runtimes[i].name}`);
     }
+    console.log(`  ${runtimes.length + 1}. All Agents`);
 
+    const maxChoice = runtimes.length + 1;
     const answer = await rl.question(
-      `Choose [1-${runtimes.length}] (default: ${defaultIndex}): `,
+      `Choose [1-${maxChoice}] (default: ${defaultIndex}): `,
     );
     const trimmed = answer.trim();
 
-    // Accept number or name
     if (!trimmed) return runtimes[defaultIndex - 1].id;
 
     const num = parseInt(trimmed, 10);
     if (num >= 1 && num <= runtimes.length) return runtimes[num - 1].id;
+    if (num === maxChoice) return 'all';
 
-    // Fallback: try to match by name (backward compat)
     const normalized = trimmed.toLowerCase();
+    if (normalized === 'all') return 'all';
+
     const match = runtimes.find(r => r.id === normalized);
     if (match) return match.id;
 
-    return trimmed.toLowerCase(); // Let it fall through
+    return trimmed.toLowerCase();
   } finally {
     rl.close();
   }
@@ -76,11 +77,11 @@ function resolveRootDir() {
   } catch {
     console.error(
       chalk.red('No project root found.') +
-        ' Run ' +
-        chalk.cyan('npm init -y') +
-        ' or ' +
-        chalk.cyan('git init') +
-        ' first.',
+      ' Run ' +
+      chalk.cyan('npm init -y') +
+      ' or ' +
+      chalk.cyan('git init') +
+      ' first.',
     );
     process.exit(1);
   }
@@ -96,15 +97,13 @@ function printInitSummary(result) {
   }
   console.log('');
 
-  if (result.agentId === 'claude') {
-    console.log('Open Claude in this project and run ' + chalk.cyan('/eha-bootstrap') + ' to get started.');
-  } else if (result.agentId === 'copilot') {
-    console.log(
-      'Open GitHub Copilot agent mode and attach ' +
-        chalk.cyan('#eha-bootstrap.prompt.md') +
-        ' to get started.',
-    );
-  }
+  const agentNames = {
+    claude: 'Claude',
+    copilot: 'GitHub Copilot',
+    antigravity: 'Antigravity',
+  };
+  const name = agentNames[result.agentId] || result.agentId;
+  console.log(`Open ${name} in this project and run ${chalk.cyan('/eha-help')} to get started!`);
   console.log('');
 }
 
@@ -158,12 +157,44 @@ async function runInitWizard(agentIdArg) {
   }
 
   const normalized = String(agentId).trim().toLowerCase();
+
+  if (normalized === 'all') {
+    const installedAgents = config.agents || (config.agent ? [config.agent] : []);
+    if (isInteractive && installedAgents.length > 0) {
+      const listStr = installedAgents.map(a => chalk.cyan(a)).join(', ');
+      const confirm = await promptConfirm(
+        `EHA is set up for: ${listStr}. Overwrite / setup all agents?`,
+        true,
+      );
+      if (!confirm) {
+        console.log('Skipped.');
+        return;
+      }
+    }
+
+    console.log(chalk.blue('\nInitializing EHA for all agents...'));
+    let fileCount = 0;
+    for (const id of SUPPORTED_AGENT_IDS) {
+      const result = initProject({ rootDir, agentId: id });
+      fileCount += result.fileCount;
+    }
+
+    console.log('');
+    console.log(chalk.green('✓ EHA is ready for all agents.'));
+    console.log(`  Agents : ${SUPPORTED_AGENT_IDS.map(a => chalk.cyan(a)).join(', ')}`);
+    console.log(`  Files  : ${fileCount} file(s) generated`);
+    console.log('');
+    console.log('Open Agents in this project and run ' + chalk.cyan('/eha-help') + ' to get started or run ' + chalk.cyan('eha doctor') + ' to see all files.');
+    console.log('');
+    return;
+  }
+
   if (!SUPPORTED_AGENT_IDS.includes(normalized)) {
     const runtimes = listSupportedRuntimes();
     const list = runtimes.map((r, i) => `${i + 1}. ${r.name}`).join(', ');
     console.error(
       chalk.red(`Unsupported agent: ${agentIdArg || agentId}.`) +
-        ` Choose one of: ${list}.`,
+      ` Choose one of: ${list}, or ${runtimes.length + 1}. All Agents.`,
     );
     process.exit(1);
   }

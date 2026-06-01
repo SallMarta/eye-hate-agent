@@ -2,6 +2,17 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.7] - 2026-06-02
+
+### Added
+- **"All Agents" Multi-Project Option:** Added option `4. All Agents` (selectable via `4` or `all` parameter) to `eha init`, allowing rules, templates, and specialist skill stubs to be generated for all supported agents (Claude, Copilot, and Antigravity) in a single command.
+- **Interactive Help Command (`/eha-help`):** Created a new workflow prompt (`00-eha-help.md`) projected as `/eha-help` in Claude, `#eha-help.prompt.md` in Copilot, and `eha-help` skill in Antigravity. This acts as an always-on interactive guide, detailing the 4-layer taxonomy, workflows, and skills.
+- **Maintainer CLI Testing Guide:** Added a comprehensive manual developer testing framework in `maintaining.md` documenting global symlinking (`npm link`), direct absolute binary execution (`node bin/eha.js`), and local path installations.
+
+### Changed
+- **CLI Prompt Selection Stabilized:** Locked the interactive choice's default agent number to always be `1` (Claude) to ensure a perfectly stable, non-shifting menu experience across different configurations.
+- **Non-Deterministic CLI Prints:** Updated EHA's initialization success logs to print a highly simplified, non-deterministic instruction (`Open <AgentName> to start EHA.`) instead of forcing the bootstrap prompt, enabling users to choose bootstrap or refresh organically based on repo status.
+
 ## [1.0.6] - 2026-06-02
 
 ### Added

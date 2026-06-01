@@ -1,6 +1,12 @@
 const path = require('node:path');
 
 const WORKFLOW_DEFINITIONS = {
+  help: {
+    id: 'help',
+    commandName: 'help',
+    description: 'Get help and tutorial on EHA workflows and philosophy',
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '00-eha-help.md'),
+  },
   bootstrap: {
     id: 'bootstrap',
     commandName: 'bootstrap',
