@@ -2,6 +2,23 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.6] - 2026-06-02
+
+### Added
+- **Multi-Agent Setup & Manifest Accumulation:** Upgraded `.eha/config.json` and `.eha/manifest.json` to accumulate multiple installed agents and track their file sets simultaneously rather than overwriting. Allows a repo to be configured for Claude, Copilot, and Antigravity at the same time.
+- **Targeted Single-Agent Uninstallation (Option B):** Extended `eha remove` to accept an optional targeted agent parameter: `eha remove [agent]`. This cleanly deletes only the files projected for the specified agent and updates the manifest/config while leaving other installed agents' files perfectly intact. Running `eha remove` with no arguments continues to perform a full EHA uninstallation.
+
+### Changed
+- **CLI Numbered Menu:** Changed agent selection from free-text input to a clean numbered list menu. Users now choose `1`, `2`, or `3` instead of typing the full agent name. Still accepts name input for full backward compatibility.
+- **Antigravity Rules Path Fix:** Relocated EHA agent rules from `.agents/skills/eha-agent-rules/SKILL.md` to `.agents/rules/eha-agent-rules.md`, aligning Antigravity with Claude and Copilot's dedicated always-on rules folder conventions.
+- **Prompt Consolidation (3→2):** Retired the `/eha-parity` reusable prompt command. Parity auditing is now exclusively handled by the upgraded `parity-audit` specialist skill, which absorbed 14 behavioral rules and 5 drift categories from the retired prompt.
+- **Refresh Rewrite — Codebase Cross-Referencing:** Rewrote `/eha-refresh` as the single workhorse for all repos with existing documentation (SDD, legacy, non-SDD, or mixed). Refresh now mandates codebase inspection (source code, configs, tests, CI/CD pipelines) alongside existing docs/legacy material, auto-detects Taxonomy Tier for migration scenarios, and prompts the user with option selection to resolve any drift between codebase and documentation.
+- **Bootstrap Guardrail:** Added a pre-flight check to `/eha-bootstrap` that stops execution and redirects to Refresh when existing documentation or legacy folders are detected. Bootstrap is now strictly for repos with no documentation at all.
+
+### Removed
+- **`/eha-parity` command** — replaced by `parity-audit` skill (available via `@agent use parity-audit`).
+- **`00-project-docs-parity.md`** — deleted from reusable prompts.
+
 ## [1.0.5] - 2026-06-01
 
 ### Added

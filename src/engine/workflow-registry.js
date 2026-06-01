@@ -13,12 +13,6 @@ const WORKFLOW_DEFINITIONS = {
     description: 'Refresh project docs after a change in scope, stack, or behavior',
     repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '00-project-docs-refresh.md'),
   },
-  parity: {
-    id: 'parity',
-    commandName: 'parity',
-    description: 'Audit for documentation drift and ownership mismatches',
-    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '00-project-docs-parity.md'),
-  },
   discuss: {
     id: 'discuss',
     commandName: 'discuss',

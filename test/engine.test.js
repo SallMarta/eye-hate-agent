@@ -112,8 +112,8 @@ test('initProject generates Antigravity command files', () => {
   const analysisSkillPath = path.join(rootDir, '.agents', 'skills', 'eha-system-analysis', 'SKILL.md');
   assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis SKILL.md must exist');
   
-  const rulesPath = path.join(rootDir, '.agents', 'skills', 'eha-agent-rules', 'SKILL.md');
-  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules SKILL.md must exist');
+  const rulesPath = path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
+  assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist in .agents/rules/');
 
   assert.equal(readConfig(rootDir).agent, 'antigravity');
 });
@@ -295,5 +295,56 @@ test('CLI runs successfully in non-TTY mode (H2)', () => {
   const removeOutput = execSync(`node "${binPath}" remove`, { cwd: rootDir }).toString();
   assert.match(removeOutput, /✓ EHA removed/i);
   assert.ok(!fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md')));
+});
+
+test('initProject accumulates multiple agents in config and manifest', () => {
+  const rootDir = createSandbox();
+
+  initProject({ rootDir, agentId: 'claude' });
+  initProject({ rootDir, agentId: 'copilot' });
+  const result = initProject({ rootDir, agentId: 'antigravity' });
+
+  const config = readConfig(rootDir);
+  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot']);
+  assert.equal(config.agent, 'antigravity');
+
+  const claudeBootstrap = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
+  const copilotBootstrap = path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md');
+  const antigravBootstrap = path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
+  assert.ok(fs.existsSync(claudeBootstrap), 'Claude files should still exist');
+  assert.ok(fs.existsSync(copilotBootstrap), 'Copilot files should still exist');
+  assert.ok(fs.existsSync(antigravBootstrap), 'Antigravity files should exist');
+});
+
+test('removeProject removes files from all installed agents', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'claude' });
+  initProject({ rootDir, agentId: 'copilot' });
+
+  const result = removeProject({ rootDir });
+
+  assert.ok(!fs.existsSync(path.join(rootDir, '.claude')), '.claude should be removed');
+  assert.ok(!fs.existsSync(path.join(rootDir, '.github')), '.github should be removed');
+  assert.ok(!fs.existsSync(path.join(rootDir, '.eha')), '.eha should be removed');
+});
+
+test('removeProject supporting Option B targeted removal', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'claude' });
+  initProject({ rootDir, agentId: 'copilot' });
+
+  const result = removeProject({ rootDir, agentId: 'claude' });
+
+  assert.ok(!fs.existsSync(path.join(rootDir, '.claude')), '.claude should be removed');
+  assert.ok(fs.existsSync(path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md')), 'Copilot files should still exist');
+
+  const config = readConfig(rootDir);
+  assert.deepEqual(config.agents, ['copilot']);
+  assert.equal(config.agent, 'copilot');
+
+  removeProject({ rootDir, agentId: 'copilot' });
+
+  assert.ok(!fs.existsSync(path.join(rootDir, '.github')), '.github should be removed');
+  assert.ok(!fs.existsSync(path.join(rootDir, '.eha')), '.eha should be removed');
 });
 

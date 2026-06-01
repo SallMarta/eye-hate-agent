@@ -3,8 +3,9 @@ const path = require('node:path');
 
 const ROOT_MARKERS = ['package.json', '.git'];
 const DEFAULT_CONFIG = {
-  configVersion: 1,
+  configVersion: 2,
   agent: null,
+  agents: [],
 };
 
 function ensureDir(dirPath) {
@@ -72,9 +73,15 @@ function getEnginePaths(rootDir) {
 
 function normalizeConfig(config) {
   const candidate = config && typeof config === 'object' ? config : {};
+  const agent = candidate.agent ? String(candidate.agent).trim().toLowerCase() : null;
+  let agents = Array.isArray(candidate.agents) ? candidate.agents : [];
+  if (agent && agents.length === 0) {
+    agents = [agent];
+  }
   return {
-    configVersion: Number.isInteger(candidate.configVersion) ? candidate.configVersion : DEFAULT_CONFIG.configVersion,
-    agent: candidate.agent ? String(candidate.agent).trim().toLowerCase() : null,
+    configVersion: 2,
+    agent,
+    agents: [...new Set(agents)],
   };
 }
 

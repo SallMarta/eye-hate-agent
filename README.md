@@ -31,11 +31,14 @@ Once initialized, EHA projects a series of interactive workflows directly into y
 
 | Slash Trigger | Primary Purpose |
 | :--- | :--- |
-| **`/eha-bootstrap`** | Initializes the repository's SDD document set, generating a tailored 4-layer taxonomy (Lite, Standard, Enterprise). |
-| **`/eha-refresh`** | Re-aligns and updates the existing documentation set when project scope, stack, or directory layouts shift. |
-| **`/eha-parity`** | Audits the repository to check for document drift, stale headings, structural errors, and ownership mismatches. |
-| **`/sdd-discuss`** | Initiates collaborative scoping and brainstorming sessions to align intent and draft specs before writing code. |
-| **`/sdd-execute`** | Spec-Driven Development execution—translates agreed specifications into robust, verified, and tested code. |
+| **`/eha-bootstrap`** | Initializes the SDD document set for repos with **no existing documentation**. Scans codebase complexity, asks for a Taxonomy Tier (Lite/Standard/Enterprise), generates the tailored doc set. Stops and redirects to Refresh if existing docs or legacy docs are detected. |
+| **`/eha-refresh`** | The main workhorse for repos with **any existing documentation**. Updates active SDD docs, migrates legacy docs, converts non-SDD docs, and creates missing SDD files — all by cross-referencing the actual codebase alongside existing material. Auto-detects the appropriate Taxonomy Tier for migration scenarios. Prompts the user to resolve any drift between codebase and docs. |
+| **`/sdd-discuss`** | Collaborative brainstorming. Interviews you about edge cases, API shapes, data models, and constraints, then drafts spec snippets ready for injection into project docs. No code output. |
+| **`/sdd-execute`** | Spec-Driven code generation via strict TDD. Reads specs → generates tests → generates code → validates against architecture. Refuses to code features not in the spec. |
+
+> **Looking for parity audits?** Use the `parity-audit` skill directly:
+> `@agent use parity-audit on this repository`
+> This provides a full drift analysis without needing a dedicated command.
 
 ---
 
@@ -48,7 +51,7 @@ The EHA CLI provides a lightweight, frictionless setup and maintenance toolbelt:
 | `eha init` (or `npx...`) | Automatically scans your repo root, lets you choose your target AI agent, and projects standard rules/skills. |
 | `eha init <agent>` | Directly initiates the EHA project setup for a specific agent (e.g. `copilot`, `claude`, `antigravity`)  |
 | `eha doctor` | Performs a health check verifying that all projected rules, stubs, and workflows are present and intact. |
-| `eha remove` | Safely deletes EHA's configuration directories, manifest registries, and generated contract files from your repository. |
+| `eha remove [agent]` | Safely deletes EHA's generated contract files for the specified agent (or all agents if omitted), along with configuration files. |
 
 ---
 
@@ -67,9 +70,9 @@ in your repository. The engine will detect the version mismatch automatically, p
 To completely remove EHA from your project and device:
 
 ### 1. Remove project files
-Run the following command in your project root to clean up all projected AI files:
+To clean up projected AI files, run the following command in your project root. You can optionally specify a target agent (e.g. `claude`, `copilot`, `antigravity`) to remove only that agent's files while preserving other active installations:
 ```bash
-$ eha remove
+$ eha remove [agent]
 ```
 
 ### 2. Uninstall the CLI globally

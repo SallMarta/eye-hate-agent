@@ -40,7 +40,7 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks (see `phases.md` for epics).
 
 ## 7. Current State
-EHA has reached `1.0.5` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, and uses NPM Provenance via OIDC for deployment, then added new specific keyword for npm.
+EHA has reached `1.0.6` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, and consolidates doc-lifecycle workflows from 5 commands to 4 (bootstrap, refresh, discuss, execute).
 
 ## 8. Recent Accomplishments
 - Replaced Gemini with Antigravity natively.
@@ -49,14 +49,16 @@ EHA has reached `1.0.5` stability. The codebase has fully migrated to a robust n
 - Consolidated high-overlap specialist skills and documents (observability/error-handling, security/compliance, phases/feature-inventory) under Tier 3.
 - Clarified that humans and AI agents are fully authorized to append custom domain-specific headings during documentation generation tasks to accurately capture codebase realities.
 - Automated GitHub Actions publishing pipeline.
+- Consolidated doc-lifecycle prompts from 3 (bootstrap, parity, refresh) to 2 (bootstrap, refresh). Retired `/eha-parity` command; upgraded `parity-audit` skill to absorb all behavioral rules. Rewrote Refresh with mandatory codebase cross-referencing and user-prompted drift resolution.
 
 ## 9. Upcoming Focus
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.5
-- Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`; generates 19 total files per agent including the README).
-- New specific keyword for npm.
+- NPM Version: 1.0.6
+- Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
+- Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
+- Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).
 
 ## 11. Roadmap
 | Workstream | Status | Notes |

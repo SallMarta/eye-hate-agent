@@ -3,8 +3,28 @@
 Generate the **initial project documentation set** for a repository. 
 You must dynamically adjust your behavior based on the current state of the repository.
 
-## Step 1: State & Complexity Detection (The Adaptive Taxonomy)
-Before writing any documents, analyze the workspace to determine its state (Zero Docs vs. Unclear Docs vs. Mature Docs) and its complexity. 
+## Step 0: Pre-Flight Check
+
+Before analyzing complexity, scan the repository for existing documentation:
+
+1. Check for `docs/project-docs/` with any content.
+2. Check for `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` folders with content.
+3. Check for any `docs/` folder containing structured markdown beyond a bare root README.
+
+**If ANY of the above exist:**
+STOP. Do not proceed with bootstrap. Inform the user:
+
+"I found existing documentation in this repository:
+- [list what was found]
+
+Bootstrap is for repos with no documentation. For repos with existing docs (even legacy or non-SDD format), use the **Refresh** workflow instead — it can migrate, update, and create SDD docs from your existing content combined with codebase analysis.
+
+Should I switch to the Refresh workflow?"
+
+**If NONE exist (only code and/or a bare root README):** Proceed to Step 1.
+
+## Step 1: Complexity Detection (The Adaptive Taxonomy)
+Analyze the workspace to determine its complexity by inspecting the codebase. 
 
 Based on the repository's complexity, you MUST recommend one of the following **Taxonomy Tiers**:
 
@@ -37,4 +57,4 @@ Before finishing, check that:
 3. The generated documents strictly match the approved Taxonomy Tier and structural definitions cataloged in the master registry.
 
 ## Inputs
-Use the project brief, codebase, and constraints provided below to begin your Phase 1 analysis.
+Use the project brief, codebase, and constraints provided below to begin your analysis.
