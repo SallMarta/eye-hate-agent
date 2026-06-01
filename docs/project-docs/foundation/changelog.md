@@ -44,19 +44,6 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 - **Overwrite/Discard prompt**: Re-init on an already-initialized project now shows `[O]verwrite / [D]iscard (default: D)` instead of a verbose confirmation.
 - **Manifest**: `.eha/manifest.json` tracks generated file paths for clean removal.
 
-## [0.18.3] - 2026-05-26
-
-### Added
-
-- **Runtime config and orchestration**: Added repo-local runtime config in `.eha/config.json`, run records under `.eha/state/runs/`, and workflow orchestration that resolves a default runtime with per-run override support.
-- **Automation command templates**: Added command-template-based runtime automation for supported agents, with guided fallback when no callable automation template is configured.
-- **Config commands**: Added CLI config management commands for inspecting config, changing the default runtime, toggling automation, and setting or clearing runtime command templates.
-
-### Changed
-
-- **Install flow**: Extended `eha install` so it can capture a preferred default runtime and automation settings in addition to generating runtime surfaces.
-- **Workflow commands**: Updated workflow commands such as `bootstrap` and `execute` so they can now resolve runtime config, run in guided mode, or attempt automated execution through configured runtime command templates.
-
 ## [0.18.5] - 2026-05-26
 
 ### Changed
@@ -71,20 +58,19 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 - **Generated artifact ignore policy**: Updated `.gitignore` to ignore runtime projections, generated `.eha` install artifacts, and local `.tgz` pack outputs while keeping canonical source docs and engine code committed.
 - **Source-vs-generated docs**: Updated `README.md`, `docs/project-docs/foundation/architecture.md`, and `docs/project-docs/foundation/workflow.md` to reflect the cleaner-source-repo model where generated runtime surfaces are install-time artifacts rather than committed source.
 
-## [0.18.1] - 2026-05-26
-
-### Changed
-
-- **npx entrypoint compatibility**: Added a package-name bin alias (`eye-hate-agent`) alongside `eha` and bumped `package.json` to `0.0.1` so `npx @sallmarta/eye-hate-agent ...` resolves correctly after republishing.
-
 ## [0.18.3] - 2026-05-26
 
 ### Added
 
+- **Runtime config and orchestration**: Added repo-local runtime config in `.eha/config.json`, run records under `.eha/state/runs/`, and workflow orchestration that resolves a default runtime with per-run override support.
+- **Automation command templates**: Added command-template-based runtime automation for supported agents, with guided fallback when no callable automation template is configured.
+- **Config commands**: Added CLI config management commands for inspecting config, changing the default runtime, toggling automation, and setting or clearing runtime command templates.
 - **Provenance publish workflow**: Added `.github/workflows/publish.yml` to run `npm ci`, `npm test`, `npm pack --dry-run`, and `npm publish --provenance --access public` on release publication or manual dispatch.
 
 ### Changed
 
+- **Install flow**: Extended `eha install` so it can capture a preferred default runtime and automation settings in addition to generating runtime surfaces.
+- **Workflow commands**: Updated workflow commands such as `bootstrap` and `execute` so they can now resolve runtime config, run in guided mode, or attempt automated execution through configured runtime command templates.
 - **Release automation docs**: Updated `docs/project-docs/foundation/workflow.md` and `docs/project-docs/testing.md` to document the new GitHub Actions publish flow and its trusted-publishing prerequisite.
 
 ## [0.18.2] - 2026-05-26
@@ -92,6 +78,12 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 ### Changed
 
 - **npx verification guidance**: Documented the real execution conditions for the published CLI: bare `npx @sallmarta/eye-hate-agent ...` should be tested from a normal target project directory, empty folders need `package.json` or `.git` first, and this source repository should use `node bin/eha.js ...` or `npx @sallmarta/eye-hate-agent@latest ...` when forcing the published package.
+
+## [0.18.1] - 2026-05-26
+
+### Changed
+
+- **npx entrypoint compatibility**: Added a package-name bin alias (`eye-hate-agent`) alongside `eha` and bumped `package.json` to `0.0.1` so `npx @sallmarta/eye-hate-agent ...` resolves correctly after republishing.
 
 ## [0.18.0] - 2026-05-26
 

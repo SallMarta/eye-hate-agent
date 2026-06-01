@@ -5,6 +5,8 @@ const path = require('node:path');
 
 const { getBundledAssetPath } = require('./state');
 
+const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity'];
+
 // Compact EHA rules embedded in every generated command file so the agent
 // has all structural context without needing any external file reference.
 const EHA_COMPACT_RULES = `## EHA Project Doc Rules
@@ -66,7 +68,7 @@ function loadRuleContent(agentId) {
   let content = fs.readFileSync(rulePath, 'utf8').replace(/^\n+/, '');
   
   if (agentId) {
-    const agentsToFilter = ['claude', 'antigravity', 'copilot'].filter(a => a !== agentId.toLowerCase());
+    const agentsToFilter = SUPPORTED_AGENT_IDS.filter(a => a !== agentId.toLowerCase());
     for (const a of agentsToFilter) {
       const regex = new RegExp(`^\\s*-\\s*\\*\\*${a}.*$\\n?`, 'gmi');
       content = content.replace(regex, '');
@@ -316,4 +318,5 @@ function listSupportedRuntimes() {
 module.exports = {
   getRuntimeAdapter,
   listSupportedRuntimes,
+  SUPPORTED_AGENT_IDS,
 };

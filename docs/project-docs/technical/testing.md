@@ -59,16 +59,16 @@ EHA uses a manual E2E loop:
 7. Verify clean state.
 
 ## 10. Commands & CI Gates
-CI currently uses GitHub Actions (`publish.yml`) to automatically test via `npm test` and publish via NPM Provenance. There is no automated robust test suite gate yet; the maintainer executes the dummy loop locally before merging major template changes.
+CI uses GitHub Actions (`publish.yml`) to automatically run the automated test suite via `npm test` before any package is published.
 
 ## 11. Naming & File Conventions
-No automated test files (`*.spec.js`) exist. The engine is small enough that manual E2E validation is sufficient.
+Automated tests are located in the `test/` directory (e.g., `test/engine.test.js`). Run `npm test` to execute the suite.
 
 ## 12. Manual Checks & Fallbacks
 If the CLI prompt fails, manually review `src/engine/runtime-adapters.js` to ensure the adapter string processing didn't drop characters.
 
 ## 13. Success Metrics
-- 0 generation failures for supported IDEs (Cursor, Copilot, Antigravity, Claude).
+- 0 generation failures for supported IDEs (Copilot, Antigravity, Claude).
 
 ## 14. Related Documents
 - [Workflow](../foundation/workflow.md) - Day-to-day development loop.

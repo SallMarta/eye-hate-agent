@@ -25,7 +25,7 @@ eha
 Once generated, the files are immediately ready to use in your IDE. Trigger the workflows using your agent's native slash commands, file mentions, or prompt attachments (e.g., typing `/eha-bootstrap` or attaching the bootstrap file in chat).
 
 ### 3. Commit the generated files
-The generated files (`.claude/` or `.github/`) act as your project's AI contract. Commit them to version control so your whole team shares the same agent behaviors and documentation standards.
+The generated files (`.claude/`, `.github/`, or `.agents/`) act as your project's AI contract. Commit them to version control so your whole team shares the same agent behaviors and documentation standards.
 
 ---
 
@@ -42,7 +42,7 @@ eha remove          # Remove all EHA-generated files and config
 
 ## What Gets Generated
 
-Running `eha` detects your chosen agent and outputs fully self-contained files into its native configuration directory (e.g., `.claude/`, `.github/`, or `.antigravity/`). Every file is pre-injected with EHA's compact rules (4-layer taxonomy, ownership map, and Spec-Driven Development rules).
+Running `eha` detects your chosen agent and outputs fully self-contained files into its native configuration directory (e.g., `.claude/`, `.github/`, or `.agents/`). Every file is pre-injected with EHA's compact rules (4-layer taxonomy, ownership map, and Spec-Driven Development rules).
 
 Regardless of the target agent, the output always includes:
 - **Workflows**: Ready-to-use commands for project bootstrapping, doc refreshing, parity checks, and discussions.

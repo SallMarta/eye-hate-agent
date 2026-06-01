@@ -1,6 +1,10 @@
 ---
 trigger: always_on
-description: "Lean always-on rules for guardrails, context, intake, verification, and doc sync."
+---
+
+---
+name: "eha-agent-rules"
+description: "EHA agent rules"
 ---
 
 # Agent Rules
@@ -19,7 +23,8 @@ Protect the prompt prefix cache and manage context-window capacity to preserve t
 
 - **2.1** Keep always-on context small. Keep rules generic and leave project-specific facts in project docs under `docs/project-docs/`.
 - **2.2** Read the smallest owning doc that resolves the decision rather than scanning the entire repository.
-- **2.3** **Prefix Stability (Antigravity):** Never reorder tool definitions, system instructions, or serialized schemas mid-session — the implicit prefix cache requires a byte-identical prompt prefix for the 90% cached-token discount. Do not inject dynamic content (timestamps, session IDs, reordered JSON keys) before or between stable blocks. Append all per-turn dynamic data after the stable prefix. If cache-hit rates drop unexpectedly, suspect non-deterministic serialization or framework-injected metadata before other causes.
+- **2.3** **Agent-Specific Cache Strategies:**
+  - **Antigravity (Prefix Stability):** Never reorder tool definitions, system instructions, or serialized schemas mid-session. The implicit prefix cache requires a byte-identical prompt prefix for the 90% cached-token discount. Append all per-turn dynamic data after the stable prefix. If cache-hit rates drop unexpectedly, suspect non-deterministic serialization.
 - **2.4** **Session Continuity (No Dynamic Compaction):** Never modify, compact, or delete prior chat turns mid-session—this destroys the hardware prefix cache. If context reaches ~65% capacity, compile a comprehensive session-handoff.md to `active-repo/memories/session/session-handoff.md` (overwriting any previous handoff, and ensure `active-repo/memories/session/` is added to `.gitignore` if created). The handoff must contain a full, detailed summary of the active conversation's progress, decisions, and open threads, strictly redact all sensitive information (such as API keys, passwords, credentials, or PII), and incorporate any user-provided compaction arguments as next-session focus areas. Prompt the user to run `/clear` or open a new session with this file loaded, providing a copy-pasteable short prompt (e.g., "Resume session from memories/session/session-handoff.md") to load the handoff instantly.
 
 ## 3. Intake & Scope Alignment
@@ -34,7 +39,7 @@ Structure incoming requests before acting to reduce rework and catch ambiguity e
   5. Treat a user-provided list as full scope unless the user changes it.
   6. Confirm if the plan could materially change scope, output, or direction.
   7. Then proceed.
-- **3.2** Skip the intake checklist only for trivial single-step edits.
+- **3.2** **Lite Mode (Micro-Tasks):** Skip the 7-step intake checklist and SDD requirements ONLY if the user explicitly triggers Lite Mode (e.g., using a `/lite` slash command, or prefixing their request with "Lite task:") AND the task is a trivial, isolated edit (e.g., typo fix, single UI tweak). For Lite Mode, bypass PRD validation and execute immediately to save time.
 
 ## 4. Docs, Verification, and Completion
 

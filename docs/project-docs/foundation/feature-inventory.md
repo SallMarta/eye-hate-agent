@@ -42,7 +42,7 @@ EHA provides an interactive CLI that generates AI-specific instruction files int
 ## 8. Core Functions (Epic-level)
 - **CLI Orchestrator:** The `eha` command-line interface.
 - **Template Engine:** Reads and processes `docs/templates/`.
-- **Runtime Adapters:** Formats the output for specific agents (e.g., Cursor, GitHub Copilot, Antigravity).
+- **Runtime Adapters:** Formats the output for specific agents (e.g., Claude, GitHub Copilot, Antigravity).
 
 ## 9. Sub-Functions (Task-level)
 - `eha init`: Prompts user to select an agent, generates files, and saves manifest.

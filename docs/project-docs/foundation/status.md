@@ -52,13 +52,13 @@ Ensuring complete parity of EHA's own internal SDD documentation against the new
 
 ## 10. Key Metrics Health
 - NPM Version: 1.0.3
-- Registry Size: 18 Templates
+- Registry Size: 18 content templates (5 workflows, 12 skills, 1 global ruleset; generates 19 total files per agent including the README)
 
 ## 11. Roadmap
 | Workstream | Status | Notes |
 | --- | --- | --- |
 | Template Parity | Active | Aligning EHA internal docs to template |
-| Agent Support | Live | Claude, Copilot, Antigravity, Cursor |
+| Agent Support | Live | Claude, Copilot, Antigravity |
 
 ## 12. Epics
 See `phases.md`.

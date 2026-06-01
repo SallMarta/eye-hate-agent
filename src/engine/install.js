@@ -4,7 +4,7 @@ const { version: EHA_PACKAGE_VERSION } = require('../../package.json');
 
 const { listWorkflows } = require('./workflow-registry');
 const { listSkills } = require('./skill-registry');
-const { getRuntimeAdapter, listSupportedRuntimes } = require('./runtime-adapters');
+const { getRuntimeAdapter, listSupportedRuntimes, SUPPORTED_AGENT_IDS } = require('./runtime-adapters');
 const {
   ensureDir,
   getBundledAssetPath,
@@ -17,8 +17,6 @@ const {
   writeJson,
   writeText,
 } = require('./state');
-
-const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity'];
 
 function resolveAgentId(agentId) {
   const normalized = String(agentId || '').trim().toLowerCase();

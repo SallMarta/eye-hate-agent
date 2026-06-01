@@ -44,11 +44,13 @@ AI agents should start by reading `prd.md` to understand the overarching rules a
 The sole maintainer owns all documentation in this repository.
 
 ## 9. Foundational Required Docs
+- `getting-started.md`
 - `foundation/prd.md`
 - `foundation/architecture.md`
 - `technical/testing.md`
 - `foundation/workflow.md`
 - `foundation/status.md`
+- `operations/ci-cd.md`
 
 ## 10. Optional And Conditional Docs
 | File | Purpose | Status | Owner | Creation trigger |
@@ -56,6 +58,7 @@ The sole maintainer owns all documentation in this repository.
 | `changelog.md` | Release or milestone change history | active | Maintainer | Maintained for NPM releases |
 | `feature-inventory.md` | Detailed feature catalog | active | Maintainer | Used to track registry capabilities |
 | `phases.md` | Multi-phase planning or epic registry | active | Maintainer | Used to roadmap future agents or workflows |
+| `technical-guidelines/index.md` | Technical guidelines index | active | Maintainer | Used to registry code rules |
 
 Use status values such as `active`, `conditional`, `deprecated`, or `archived`. Add a new row in the `## 10. Optional And Conditional Docs` table above for each additional optional regular doc type that the repo activates.
 

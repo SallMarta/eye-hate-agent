@@ -6,8 +6,16 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 
-const { SUPPORTED_AGENT_IDS, doctor, findRepoRoot, initProject, readConfig, removeProject } =
-  require('../src/engine');
+const {
+  SUPPORTED_AGENT_IDS,
+  doctor,
+  findRepoRoot,
+  initProject,
+  readConfig,
+  removeProject,
+  listSkills,
+  listWorkflows,
+} = require('../src/engine');
 
 function createSandbox() {
   const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'eha-engine-'));
@@ -36,7 +44,8 @@ test('initProject generates Claude command files', () => {
   const result = initProject({ rootDir, agentId: 'claude' });
 
   assert.equal(result.agentId, 'claude');
-  assert.ok(result.fileCount >= 14, 'Expected at least 14 generated files');
+  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
   assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist');
@@ -61,6 +70,8 @@ test('initProject generates Copilot prompt files', () => {
   const result = initProject({ rootDir, agentId: 'copilot' });
 
   assert.equal(result.agentId, 'copilot');
+  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const promptPath = path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md');
   assert.ok(fs.existsSync(promptPath), 'eha-bootstrap.prompt.md must exist');
@@ -86,7 +97,8 @@ test('initProject generates Antigravity command files', () => {
   const result = initProject({ rootDir, agentId: 'antigravity' });
 
   assert.equal(result.agentId, 'antigravity');
-  assert.ok(result.fileCount >= 14, 'Expected at least 14 generated files');
+  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.agents', 'skills', 'eha-bootstrap', 'SKILL.md');
   assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap SKILL.md must exist');
@@ -116,7 +128,8 @@ test('initProject overwrites existing files on reinit', () => {
   initProject({ rootDir, agentId: 'claude' });
   const result = initProject({ rootDir, agentId: 'claude' });
   assert.equal(result.agentId, 'claude');
-  assert.ok(result.fileCount >= 14);
+  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  assert.equal(result.fileCount, expectedCount);
 });
 
 // ─── removeProject ────────────────────────────────────────────────────────────
@@ -170,5 +183,104 @@ test('SUPPORTED_AGENT_IDS contains claude, copilot, antigravity', () => {
   assert.ok(SUPPORTED_AGENT_IDS.includes('claude'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('copilot'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('antigravity'));
+});
+
+// ─── G5 & H4: Registry Mappings & Synchronization ──────────────────────────────
+
+test('registries point to valid existing files on disk (G5)', () => {
+  const { getBundledAssetPath } = require('../src/engine/state');
+
+  for (const skill of listSkills()) {
+    const fullPath = getBundledAssetPath(skill.repoRelativePath);
+    assert.ok(fs.existsSync(fullPath), `Skill file does not exist: ${skill.repoRelativePath}`);
+  }
+
+  for (const workflow of listWorkflows()) {
+    const fullPath = getBundledAssetPath(workflow.repoRelativePath);
+    assert.ok(fs.existsSync(fullPath), `Workflow file does not exist: ${workflow.repoRelativePath}`);
+  }
+
+  const rulesPath = getBundledAssetPath(path.join('docs', 'templates', 'rules', 'agent-rules.md'));
+  assert.ok(fs.existsSync(rulesPath), `Global rules template does not exist: ${rulesPath}`);
+});
+
+test('skill and workflow registries are in bidirectional sync with template directories (H4)', () => {
+  const { getPackageRoot } = require('../src/engine/state');
+  const root = getPackageRoot();
+
+  // 1. Skill sync
+  const skillsDir = path.join(root, 'docs', 'templates', 'skills');
+  const diskSkills = fs.readdirSync(skillsDir)
+    .filter(name => fs.statSync(path.join(skillsDir, name)).isDirectory());
+  const registeredSkills = listSkills().map(s => s.id);
+
+  for (const name of diskSkills) {
+    assert.ok(registeredSkills.includes(name), `Skill directory on disk '${name}' is not registered in skill-registry.js`);
+  }
+
+  for (const id of registeredSkills) {
+    assert.ok(diskSkills.includes(id), `Registered skill ID '${id}' does not have a matching subdirectory under docs/templates/skills/`);
+  }
+
+  // 2. Workflow sync
+  const promptsDir = path.join(root, 'docs', 'templates', 'reusable-prompts');
+  const diskPrompts = fs.readdirSync(promptsDir)
+    .filter(name => name.endsWith('.md') && fs.statSync(path.join(promptsDir, name)).isFile());
+  const registeredWorkflows = listWorkflows();
+
+  for (const w of registeredWorkflows) {
+    const basename = path.basename(w.repoRelativePath);
+    assert.ok(diskPrompts.includes(basename), `Registered workflow '${w.id}' references file '${basename}' which is missing on disk`);
+  }
+
+  const registeredBasenames = registeredWorkflows.map(w => path.basename(w.repoRelativePath));
+  for (const filename of diskPrompts) {
+    assert.ok(registeredBasenames.includes(filename), `Prompt file on disk '${filename}' is not registered in workflow-registry.js`);
+  }
+});
+
+// ─── H2: CLI Exit Code & Integration Tests ─────────────────────────────────────
+
+test('CLI exit code 1 on unsupported agent (H2)', () => {
+  const { execSync } = require('node:child_process');
+  const binPath = path.resolve(__dirname, '..', 'bin', 'eha.js');
+  assert.throws(() => {
+    execSync(`node "${binPath}" init unknown-agent`, { stdio: 'pipe' });
+  }, (err) => {
+    assert.equal(err.status, 1);
+    assert.match(err.stderr.toString(), /Unsupported agent/i);
+    return true;
+  });
+});
+
+test('CLI exit code 1 on no root found (H2)', () => {
+  const { execSync } = require('node:child_process');
+  const binPath = path.resolve(__dirname, '..', 'bin', 'eha.js');
+  const isolated = fs.mkdtempSync(path.join(os.tmpdir(), 'eha-cli-no-root-'));
+  try {
+    assert.throws(() => {
+      execSync(`node "${binPath}" init claude`, { cwd: isolated, stdio: 'pipe' });
+    }, (err) => {
+      assert.equal(err.status, 1);
+      assert.match(err.stderr.toString(), /No project root found/i);
+      return true;
+    });
+  } finally {
+    fs.rmdirSync(isolated);
+  }
+});
+
+test('CLI runs successfully in non-TTY mode (H2)', () => {
+  const { execSync } = require('node:child_process');
+  const binPath = path.resolve(__dirname, '..', 'bin', 'eha.js');
+  const rootDir = createSandbox();
+
+  const output = execSync(`node "${binPath}" init claude`, { cwd: rootDir }).toString();
+  assert.match(output, /✓ EHA is ready/i);
+  assert.ok(fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md')));
+
+  const removeOutput = execSync(`node "${binPath}" remove`, { cwd: rootDir }).toString();
+  assert.match(removeOutput, /✓ EHA removed/i);
+  assert.ok(!fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md')));
 });
 
