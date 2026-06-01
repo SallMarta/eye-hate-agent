@@ -1,10 +1,10 @@
 ---
-name: full-verification
+name: "code-audit"
 description: "Project-aware expert-role broad verification that reads project docs first, classifies the verification target, and routes to the best specialist skill for executable or non-executable checks across code, contracts, docs, architecture, quality, security, reliability, and project health."
 argument-hint: "Describe what should be verified against the contract, project docs, guidelines, code, APIs, architecture, or repository state"
 ---
 
-# Full Verification — Project-Aware
+# Code Audit
 
 Provides an **expert, project-aware broad verification entry point** for requests that ask whether something is correct, consistent, healthy, complete, or aligned with the repository's contract and project docs.
 
@@ -12,26 +12,21 @@ This skill is **routing-first**. Its primary job is to identify the dominant ver
 
 This skill is intentionally **not tied to any single stack or framework**. When executable checks are needed, it should select the correct framework, commands, and conventions from the project's `technical/testing.md`, `foundation/architecture.md`, and local repository patterns.
 
----
-
 ## Required Project Inputs
 
 | Document | Why it matters |
 | --- | --- |
 | EHA Rules | Defines routing, ownership, precedence, and the active skill model |
-
-| `docs/project-docs/technical/testing.md` | Defines executable and non-executable verification rules, commands, and fallback policy |
-| `docs/project-docs/foundation/architecture.md` | Defines boundaries, stack, interfaces, dependency rules, and runtime assumptions |
-| `docs/project-docs/foundation/prd.md` | Defines goals, scope, non-goals, and success criteria |
+| `docs/project-docs/foundation/architecture.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
+| `docs/project-docs/technical/testing.md` | Defines available validation and evidence strength |
+| `docs/project-docs/foundation/prd.md` | Clarifies scope, non-goals, and project stage |
 | `docs/project-docs/foundation/status.md` | Defines maturity, roadmap, active workstreams, and readiness context |
 | Relevant guideline docs under `docs/project-docs/technical-guidelines/` | Define technical standards such as API, logging, database, error-handling, code style, or design patterns |
 | Relevant code, tests, docs, contracts, and repository artifacts | Provide the actual evidence surfaces to verify against |
 
 If required project docs are missing, surface that gap explicitly and limit confidence rather than guessing.
 
----
-
-## When To Use
+## When to Use
 
 | Trigger | Example request |
 | --- | --- |
@@ -43,14 +38,11 @@ If required project docs are missing, surface that gap explicitly and limit conf
 
 Use a specialist skill directly when the dominant question is already obvious:
 
-- `test-authoring` for executable verification strategy, stack-aware test selection, and test-writing decisions
+- `system-tester` for executable verification strategy, stack-aware test selection, and test-writing decisions
 - `code-audit` for code correctness, bug, risk, security, and boundary review
-- `parity` for repository drift across docs, platform instruction surfaces, skills, prompts, and summaries
-- `project-elevation` for forward-looking improvement and readiness planning
-- `analysis` for root-cause reasoning, trade-off evaluation, and requirement or decision analysis
+- `parity-audit` for repository drift across docs, platform instruction surfaces, skills, prompts, and summaries
+- `system-analysis` for root-cause reasoning, trade-off evaluation, and requirement or decision analysis
 - `api-design` for API, schema, interface, or boundary contract design and review
-
----
 
 ## Procedure
 
@@ -86,12 +78,11 @@ Prefer the single strongest verification path unless the user explicitly asks fo
 
 | Dominant verification question | Route to |
 | --- | --- |
-| How should this be verified, tested, or regression-checked in the current stack? | `test-authoring` |
+| How should this be verified, tested, or regression-checked in the current stack? | `system-tester` |
 | Is this code correct, safe, consistent, and free of obvious bugs or boundary violations? | `code-audit` |
 | Does this API or interface contract match the docs, code, and boundary rules? | `api-design` |
-| Do the docs, platform instruction surfaces, skills, prompts, and repository artifacts still agree? | `parity` |
-| What should improve next, and how healthy or mature is this project at its current stage? | `project-elevation` |
-| Do the requirements, trade-offs, design decisions, or explanations hold up? | `analysis` |
+| Do the docs, platform instruction surfaces, skills, prompts, and repository artifacts still agree? | `parity-audit` |
+| Do the requirements, trade-offs, design decisions, or explanations hold up? | `system-analysis` |
 
 Example prompt shapes by verification category:
 
@@ -108,7 +99,7 @@ Example prompt shapes by verification category:
 
 When executable validation is required, choose the appropriate framework and commands from project docs and local repo conventions.
 
-Examples of the decision pattern:
+**Examples** of the decision pattern:
 
 - Go project -> use the Go testing approach documented in `testing.md`
 - Python project -> use the Python testing approach documented in `testing.md`
@@ -126,7 +117,20 @@ State:
 - what evidence and checks should be used
 - what remains outside the chosen verification path
 
----
+## Quality Check
+
+- No finding without evidence from the target artifact
+- No severity inflation
+- No style nitpicks disguised as bugs
+- No architecture complaint without reference to actual project boundaries
+- No recommendation that ignores project stage or available validation
+
+## Anti-Pattern
+
+- Calling something dead code without checking workspace usage
+- Calling something a bug without defining the failure condition
+- Criticizing a pattern that the project explicitly chose in `architecture.md`
+- Recommending wide rewrites before testing a local fix or a smaller boundary change
 
 ## Output Contract
 
@@ -141,33 +145,11 @@ When using this skill, the output should include:
 7. any residual risks or uncovered verification areas
 8. whether user direction is required before deciding between conflicting docs and implementation
 
----
+## Neutral Prompt Shape
+`@agent use code-audit on [Target File/Change] focusing on [Specific Risks/Boundaries].`
 
-## Quality Checks
-
-- Route to the single best specialist skill unless the user explicitly asks for a broader sweep
-- Do not duplicate another skill's full procedure inside this skill
-- Do not assume frameworks or commands before checking the project docs
-- Keep executable and non-executable verification clearly separated
-- State when confidence is limited by missing docs or missing evidence
-- Do not assume docs or implementation win when the repository does not define authority for the disputed fact
-
----
-
-## Anti-Patterns
-
-- Treating verification as synonymous with writing tests
-- Hardcoding stack-specific frameworks into the skill text
-- Routing a docs-drift problem to `code-audit`
-- Routing a forward-looking improvement question to `analysis`
-- Running a multi-skill sweep by default when one dominant verification path would answer the request
-- Claiming the repository passed a check when the relevant evidence or command was never examined
-
----
-
-## Example Requests
-
-- "Verify this feature against the project docs, contract, and actual code"
-- "Check whether this API matches the docs, code, and guideline standards"
-- "Evaluate this project for health, maturity, architecture drift, and consistency"
-- "Use the right verification approach for this stack and tell me what to run"
+## Example Prompt
+- "Audit this service for boundary violations"
+- "Review this change for correctness risks"
+- "Check this module for dead code and duplication"
+- "Audit this workflow implementation for operability gaps"

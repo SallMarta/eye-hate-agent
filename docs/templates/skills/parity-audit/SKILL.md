@@ -1,16 +1,14 @@
 ---
-name: parity
+name: "parity-audit"
 description: "Expert-role parity check across project docs, platform instruction surfaces, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
 argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, platform instruction surfaces and skills, or a specific workstream"
 ---
 
-# Parity — Project-Aware
+# Parity Audit
 
-Performs an **expert repository-wide drift audit** to find contradictions, stale summaries, duplicated ownership, code-vs-doc authority conflicts, and historical artifacts that should be classified rather than confused with active truth.
+Performs an expert repository-wide drift audit to find contradictions, stale summaries, duplicated ownership, code-vs-doc authority conflicts, and historical artifacts that should be classified rather than confused with active truth.
 
 This skill is the reusable complement to the parity reusable prompt. Use it when the task is analytical rather than generative.
-
----
 
 ## Required Project Inputs
 
@@ -26,9 +24,7 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 | Workflow, handoff, and historical docs | Potentially valid references or stale artifacts |
 | Relevant code, tests, configs, and runtime-facing artifacts | Evidence for whether active docs still match the current repository |
 
----
-
-## When To Use
+## When to Use
 
 | Trigger | Example request |
 | --- | --- |
@@ -36,10 +32,6 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 | Documentation review | "Check whether project docs, reusable prompts, and the current repository still agree" |
 | Template maintenance | "Audit platform instruction surfaces and skills after changing the contract" |
 | Handoff preparation | "Find contradictions before handing this repo to another maintainer" |
-
-Use `full-verification` instead when the user asks for a broad verification entry point and repository drift is only one possible verification path.
-
-Typical audit targets include:
 
 Check for disagreement across:
 
@@ -52,8 +44,6 @@ Check for disagreement across:
 - reusable prompt outputs vs project-doc contract
 - rule expectations vs documented workflow
 - active docs vs current code, tests, configs, or runtime-facing behavior when authority is disputed
-
----
 
 ## Procedure
 
@@ -99,7 +89,21 @@ Determine whether the mismatch affects:
 
 Recommend which owning file or layer should be updated. Do not spread the same fact across more files than necessary.
 
----
+## Quality Check
+
+- Do not confuse reference material with active truth
+- Do not propose fixing both sides of a contradiction when one side clearly owns the fact
+- Distinguish blocking contradictions from harmless historical leftovers
+- Keep the audit actionable, not just descriptive
+- Do not assume docs or code win when authority for the disputed fact is not explicit
+
+## Anti-Pattern
+
+- Treating summary files as the owner when the contract defines a different source of truth
+- Reporting drift without naming the owning file or layer that should change
+- Escalating every historical artifact as a blocker instead of classifying it correctly
+- Duplicating the same fact across multiple layers as a fix for drift
+- Assuming implementation drift or documentation drift without checking whether the repository defines authority for that fact
 
 ## Output Contract
 
@@ -115,43 +119,13 @@ For each finding, include:
 8. whether user direction is required before deciding the fix path
 
 End with:
-
 1. highest-priority drift items
 2. acceptable historical artifacts that should not be treated as blockers
 
----
+## Neutral Prompt Shape
+`@agent use parity-audit on [Target Scope/Repo] focusing on [Specific Conflicts/Docs].`
 
-## Quality Checks
-
-- Do not confuse reference material with active truth
-- Do not propose fixing both sides of a contradiction when one side clearly owns the fact
-- Distinguish blocking contradictions from harmless historical leftovers
-- Keep the audit actionable, not just descriptive
-- Do not assume docs or code win when authority for the disputed fact is not explicit
-
----
-
-## Anti-Patterns
-
-- Treating summary files as the owner when the contract defines a different source of truth
-- Reporting drift without naming the owning file or layer that should change
-- Escalating every historical artifact as a blocker instead of classifying it correctly
-- Duplicating the same fact across multiple layers as a fix for drift
-- Assuming implementation drift or documentation drift without checking whether the repository defines authority for that fact
-
----
-
-## Natural Prompt Shapes
-
-- "Check whether the docs and repository still agree."
-- "Audit this repo for drift after the latest changes."
-- "Find contradictions across docs, platform instruction surfaces, skills, and prompts."
-- "Tell me which mismatches are real blockers versus harmless leftovers."
-
----
-
-## Example Requests
-
+## Example Prompt
 - "Audit the repository for contradictions after the latest template changes"
 - "Check whether reusable prompts and skills still match the contract"
 - "Find stale summaries in the project docs"

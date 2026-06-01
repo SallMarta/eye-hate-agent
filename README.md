@@ -39,7 +39,7 @@ Running `eha` detects your chosen agent and outputs fully self-contained files i
 
 Regardless of the target agent, the output always includes:
 - **Workflows**: Ready-to-use commands for project bootstrapping, doc refreshing, parity checks, and discussions.
-- **Skills**: Expert capabilities like `code-audit`, `api-design`, `test-authoring`, and `full-verification`.
+- **Skills**: Expert capabilities like `code-audit`, `api-design`, `system-tester`, and `security-audit`.
 - **Rules**: A central instruction file enforcing the EHA project contract.
 
 ---

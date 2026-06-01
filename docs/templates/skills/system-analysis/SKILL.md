@@ -1,22 +1,19 @@
 ---
-name: analysis
+name: "system-analysis"
 description: "Project-aware expert-role analysis for architecture, debugging, trade-offs, risk, performance, requirements, and design questions. Reads project docs first, then applies expert structured reasoning to the current repository context."
 argument-hint: "Describe the problem, decision, artifact, or system to analyze"
 ---
 
-# Analysis — Project-Aware
+# System Analysis
 
 Produces a **rigorous, expert-level analysis** of a problem, decision, artifact, or system after first reading the project documentation that defines the repository's actual context.
 
 This skill is reusable across product, backend, frontend, infrastructure, monorepo, and documentation-heavy projects. It should not assume a particular stack until the project docs confirm it.
 
----
-
 ## Required Project Inputs
 
 | Document | Why it matters |
 | --- | --- |
-
 | `docs/project-docs/foundation/prd.md` | Clarifies goals, scope, stakeholders, and success metrics |
 | `docs/project-docs/foundation/architecture.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
 | `docs/project-docs/foundation/status.md` | Reveals maturity, roadmap, active workstreams, and known blockers |
@@ -26,9 +23,7 @@ This skill is reusable across product, backend, frontend, infrastructure, monore
 
 If the required project docs are missing, note the gap explicitly and limit confidence accordingly.
 
----
-
-## When To Use
+## When to Use
 
 | Trigger | Example request |
 | --- | --- |
@@ -39,8 +34,6 @@ If the required project docs are missing, note the gap explicitly and limit conf
 | Risk assessment | "Analyze the release risk of this change" |
 | Performance diagnosis | "Analyze where this request path will bottleneck" |
 | Product or roadmap question | "Analyze whether this feature belongs in MVP" |
-
----
 
 ## Procedure
 
@@ -121,11 +114,25 @@ When comparing options or hypotheses:
 - say what could change the conclusion
 - tie the recommendation back to the project's actual constraints
 
----
+## Quality Check
+
+- No claim without evidence or clearly marked assumption
+- No false precision when evidence is weak
+- No generic advice detached from project constraints
+- No vague recommendation without an actionable next step
+- No hidden stack assumptions that were not confirmed from project docs
+
+## Anti-Pattern
+
+- Listing facts without evaluating them
+- Jumping to the first plausible conclusion
+- Treating all options as equally valid when evidence favors one
+- Recommending a rewrite when an incremental fix would solve the problem
+- Ignoring the project stage, roadmap, or non-goals in `prd.md` and `status.md`
 
 ## Output Contract
 
-Your output should include:
+When using this skill, the output should include:
 
 1. summary
 2. analysis by area or component
@@ -134,40 +141,11 @@ Your output should include:
 5. risks and open questions
 6. confidence and evidence limitations when relevant
 
----
+## Neutral Prompt Shape
+`@agent use system-analysis on [Target Directory/Component] focusing on [Specific Goal/Flow].`
 
-## Quality Checks
-
-- No claim without evidence or clearly marked assumption
-- No false precision when evidence is weak
-- No generic advice detached from project constraints
-- No vague recommendation without an actionable next step
-- No hidden stack assumptions that were not confirmed from project docs
-
----
-
-## Anti-Patterns
-
-- Listing facts without evaluating them
-- Jumping to the first plausible conclusion
-- Treating all options as equally valid when evidence favors one
-- Recommending a rewrite when an incremental fix would solve the problem
-- Ignoring the project stage, roadmap, or non-goals in `prd.md` and `status.md`
-
----
-
-## Natural Prompt Shapes
-
-- "Why is this failing, and what do you think is the real cause?"
+## Example Prompt
 - "Analyze this decision and tell me whether it still makes sense."
-- "What are the trade-offs and risks of these two options?"
-- "Check whether these requirements or assumptions still hold up."
-
----
-
-## Example Requests
-
 - "Analyze this module boundary for coupling risk"
 - "Analyze why this workflow fails intermittently"
 - "Analyze option A vs option B for this integration"
-- "Analyze whether this feature belongs in MVP"

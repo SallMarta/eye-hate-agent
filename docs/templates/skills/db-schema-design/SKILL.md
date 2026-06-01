@@ -1,23 +1,21 @@
 ---
-name: db-schema-design
+name: "db-schema-design"
 description: "Project-aware expert-role database schema and modeling design. Reads project docs first, then produces a schema design, migration plan, or query optimization strategy consistent with the current repository constraints."
 argument-hint: "Describe the domain entities, tables, relationships, or queries to design or review"
 ---
 
-# Database Schema Design — Project-Aware
+# Database Schema Design
 
 Produces a **project-aware, expert-level database schema design or review** by reading the repository's project docs first, then applying a rigorous data modeling method.
 
 This skill is reusable across:
 
-- Relational Databases (PostgreSQL, MySQL)
-- Document / NoSQL Databases (MongoDB, DynamoDB)
-- In-memory / Cache Models (Redis)
-- Event Stores
+- Relational Databases (PostgreSQL, MySQL, Aurora, etc)
+- Document / NoSQL Databases (MongoDB, DynamoDB, etc)
+- In-memory / Cache Models (Redis, Memcache, etc)
+- Event Stores (Kafka, Pulsar, etc)
 
 It should **not** assume a specific database engine, ORM, or normalization strategy until the project docs confirm them.
-
----
 
 ## Required Project Inputs
 
@@ -30,11 +28,9 @@ It should **not** assume a specific database engine, ORM, or normalization strat
 
 If the repository lacks the database docs needed for the task, call that out and create or update the missing docs instead of inventing local rules in the skill.
 
----
+## When to Use
 
-## When To Use
-
-Use this skill when designing or reviewing one of these boundary types.
+Use this skill when designing or reviewing one of these boundary types:
 
 | Boundary type | Typical artifacts |
 | --- | --- |
@@ -43,8 +39,6 @@ Use this skill when designing or reviewing one of these boundary types.
 | Query Optimization | EXPLAIN plans, index selection, join reduction |
 | Data Modeling | Domain entities, aggregates, document embedding vs referencing |
 | Caching | Cache keys, TTL strategies, eviction policies |
-
----
 
 ## Procedure
 
@@ -88,7 +82,23 @@ Examples:
 - Query performance benchmarks
 - Migration dry-run tests
 
----
+## Quality Check
+
+Use this checklist when reviewing an existing schema or PR:
+
+- Does the schema follow the project's naming conventions (e.g., snake_case vs camelCase)?
+- Are foreign keys properly enforcing referential integrity?
+- Are appropriate constraints in place to prevent bad data at the database level?
+- Will the migration lock a critical table in production?
+- Is there a clear separation between the database schema and the application's domain model?
+
+## Anti-Pattern
+
+- Assuming an ORM is used when the project strictly uses raw SQL.
+- Suggesting a heavy relational model for a project that uses a document database.
+- Proposing migrations that lock large tables (e.g., adding a column with a default value in older Postgres versions) without a zero-downtime strategy.
+- Ignoring data types and using strings for dates, JSON, or booleans.
+- Forgetting to define a rollback strategy for a destructive migration.
 
 ## Output Contract
 
@@ -102,24 +112,9 @@ When using this skill, the output should include:
 6. verification strategy
 7. open questions regarding data volume or access patterns
 
----
+## Neutral Prompt Shape
+`@agent use db-schema-design on [Target Feature/Entity] focusing on [Specific Requirement/Database Type].`
 
-## Quality Checks
-
-Use this checklist when reviewing an existing schema or PR:
-
-- Does the schema follow the project's naming conventions (e.g., snake_case vs camelCase)?
-- Are foreign keys properly enforcing referential integrity?
-- Are appropriate constraints in place to prevent bad data at the database level?
-- Will the migration lock a critical table in production?
-- Is there a clear separation between the database schema and the application's domain model?
-
----
-
-## Anti-Patterns
-
-- Assuming an ORM is used when the project strictly uses raw SQL.
-- Suggesting a heavy relational model for a project that uses a document database.
-- Proposing migrations that lock large tables (e.g., adding a column with a default value in older Postgres versions) without a zero-downtime strategy.
-- Ignoring data types and using strings for dates, JSON, or booleans.
-- Forgetting to define a rollback strategy for a destructive migration.
+## Example Prompt
+- "Design the schema migration for the new order tracking feature."
+- "Optimize the indexing for this query based on read-heavy patterns."

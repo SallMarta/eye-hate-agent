@@ -1,18 +1,14 @@
 ---
-name: refactor-specialist
+name: "refactor"
 description: "Project-aware expert-role for code refactoring. Reads project docs first, enforces TDD, and restructures code to reduce cyclomatic complexity and improve maintainability without altering external behavior."
 argument-hint: "Describe the function, file, or module to refactor"
 ---
 
-# Refactoring Specialist — Project-Aware
+# Refactor
 
-Produces a **project-aware, expert-level refactoring plan and execution** by reading the repository's project docs first, then applying strict structural improvements.
+Produces a project-aware, expert-level refactoring plan and execution by reading the repository's project docs first, then applying strict structural improvements.
 
-This skill is reusable across any programming language. It focuses on reducing technical debt, splitting monolithic structures, and improving testability.
-
-It should **not** assume a specific framework or design pattern (like DDD or Clean Architecture) until the project docs confirm them.
-
----
+This skill is reusable across any programming language. It focuses on reducing technical debt, splitting monolithic structures, and improving testability. It should not assume a specific framework or design pattern until the project docs confirm them.
 
 ## Required Project Inputs
 
@@ -24,9 +20,7 @@ It should **not** assume a specific framework or design pattern (like DDD or Cle
 
 If the repository lacks the testing docs needed for safe refactoring, call that out and create or update the missing docs instead of refactoring blindly.
 
----
-
-## When To Use
+## When to Use
 
 Use this skill when tasked with improving existing code without changing its feature set.
 
@@ -36,8 +30,6 @@ Use this skill when tasked with improving existing code without changing its fea
 | Class / Module | Applying SOLID principles, injecting dependencies, splitting god classes. |
 | File / Directory | Reorganizing imports, breaking large files into logical cohesive units. |
 | Naming & Style | Standardizing variable names, updating to project idioms. |
-
----
 
 ## Procedure
 
@@ -72,7 +64,22 @@ Design the new structure:
 ### Step 6 — Preserve Documentation
 Ensure all existing comments and docstrings are preserved unless the new structure explicitly invalidates them. In that case, update them accurately.
 
----
+## Quality Check
+
+Use this checklist when reviewing refactored code:
+
+- Has the external API or behavior of the function/module changed? (It shouldn't).
+- Is the new code easier to unit test?
+- Were dependency rules from `architecture.md` respected?
+- Were original comments preserved or updated?
+- Did the refactoring introduce any new dependencies?
+
+## Anti-Pattern
+
+- Refactoring code without baseline tests.
+- Over-engineering (e.g., introducing a complex Factory pattern for a simple two-branch conditional).
+- Changing feature behavior or fixing bugs silently during a refactor.
+- Silently deleting developer comments or context notes.
 
 ## Output Contract
 
@@ -84,23 +91,10 @@ When using this skill, the output should include:
 4. the step-by-step refactoring changes applied
 5. verification that all external behavior remains identical
 
----
+## Neutral Prompt Shape
+`@agent use refactor on [Target Function/File] focusing on [Specific Architecture/Simplicity Goal].`
 
-## Quality Checks
-
-Use this checklist when reviewing refactored code:
-
-- Has the external API or behavior of the function/module changed? (It shouldn't).
-- Is the new code easier to unit test?
-- Were dependency rules from `architecture.md` respected?
-- Were original comments preserved or updated?
-- Did the refactoring introduce any new dependencies?
-
----
-
-## Anti-Patterns
-
-- Refactoring code without baseline tests.
-- Over-engineering (e.g., introducing a complex Factory pattern for a simple two-branch conditional).
-- Changing feature behavior or fixing bugs silently during a refactor (keep them as separate tasks).
-- Silently deleting developer comments or context notes.
+## Example Prompt
+- "Refactor this god class into smaller cohesive services."
+- "Reduce the cyclomatic complexity of this function."
+- "Reorganize the imports and structure of this legacy file."

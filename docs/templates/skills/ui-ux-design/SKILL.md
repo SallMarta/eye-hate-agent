@@ -1,18 +1,16 @@
 ---
-name: ui-ux-implementation
+name: "ui-ux-design"
 description: "Project-aware expert-role for frontend UI/UX design and implementation. Reads project docs first, enforces design systems, responsive bounds, accessibility, and visual testing constraints."
 argument-hint: "Describe the component, page, or interaction to build or review"
 ---
 
-# UI/UX Implementation — Project-Aware
+# ui-ux-design
 
 Produces a **project-aware, expert-level frontend implementation** by reading the repository's project docs first, then applying a rigorous component-driven methodology.
 
 This skill is reusable across any frontend framework (React, Vue, Svelte, plain HTML/CSS) or styling solution (Tailwind, CSS Modules, Styled Components).
 
 It should **not** assume a specific component library (like Material UI) or styling engine until the project docs confirm them.
-
----
 
 ## Required Project Inputs
 
@@ -25,11 +23,9 @@ It should **not** assume a specific component library (like Material UI) or styl
 
 If the repository lacks the UI docs needed for styling or layout, call that out and create or update the missing docs instead of inventing arbitrary colors or padding values.
 
----
+## When to Use
 
-## When To Use
-
-Use this skill when building or reviewing one of these boundary types.
+Use this skill when building or reviewing one of these boundary types:
 
 | Boundary type | Typical artifacts |
 | --- | --- |
@@ -37,8 +33,6 @@ Use this skill when building or reviewing one of these boundary types.
 | Layout / Page | Grid structures, responsive containers, navigation shells. |
 | Interaction / Animation | Modals, dropdowns, transitions, hover states. |
 | State-Connected Component | Forms, data tables, fetching wrappers. |
-
----
 
 ## Procedure
 
@@ -76,23 +70,7 @@ Examples:
 - Component tests (e.g., React Testing Library) asserting ARIA roles.
 - Storybook stories for visual isolation.
 
----
-
-## Output Contract
-
-When using this skill, the output should include:
-
-1. the project docs consulted (specifically the design system tokens)
-2. the component API (props/inputs)
-3. the implementation code (separated by state vs presentation if applicable)
-4. the edge cases handled (loading, empty, error, overflow)
-5. accessibility and responsive verification steps
-
----
-
-## Quality Checks
-
-Use this checklist when reviewing an existing UI component:
+## Quality Check
 
 - Does it use hardcoded hex colors or arbitrary pixel values instead of the design system tokens?
 - Is it accessible via keyboard only?
@@ -100,11 +78,25 @@ Use this checklist when reviewing an existing UI component:
 - Are loading and error states handled gracefully?
 - Is state managed at the correct architectural layer?
 
----
+## Anti-Pattern
 
-## Anti-Patterns
-
-- Inventing new colors, fonts, or padding values that aren't in `ui-ux.md`.
+- Inventing new colors, fonts, padding, and any other relevant values that aren't in `ui-ux.md`.
 - Writing `<div onClick={...}>` instead of semantic interactive elements.
 - Ignoring loading/error states in asynchronous components.
 - Coupling global state management (like Redux or Zustand) directly into low-level UI components.
+
+## Output Contract
+
+When using this skill, the output should include:
+1. the project docs consulted (specifically the design system tokens)
+2. the component API (props/inputs)
+3. the implementation code (separated by state vs presentation if applicable)
+4. the edge cases handled (loading, empty, error, overflow)
+5. accessibility and responsive verification steps
+
+## Neutral Prompt Shape
+`@agent use ui-ux-design on [Target Theme/Tokens] focusing on [Specific Branding/Accessibility Goal].`
+
+## Example Prompt
+- "Implement this presentational card component using the project design tokens."
+- "Review this stateful component for accessibility and responsive layout issues."

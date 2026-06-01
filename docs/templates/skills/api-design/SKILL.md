@@ -4,7 +4,7 @@ description: "Project-aware expert-role contract design for APIs, interfaces, re
 argument-hint: "Describe the boundary, interface, endpoint, message contract, or service behavior to design or review"
 ---
 
-# Interface & API Contract Design — Project-Aware
+# API Design
 
 Produces a **project-aware, expert-level contract design or design review** by reading the repository's project docs first, then applying a reusable method to the current boundary type.
 
@@ -19,13 +19,10 @@ This skill is intentionally reusable across:
 
 It should **not** assume one language, framework, transport, or architecture style until the project docs confirm them.
 
----
-
 ## Required Project Inputs
 
 | Document | Why it matters |
 | --- | --- |
-
 | `docs/project-docs/foundation/architecture.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
 | `docs/project-docs/foundation/prd.md` | Clarifies scope, constraints, stakeholders, and non-goals |
 | `docs/project-docs/technical/testing.md` | Defines how the contract should be validated |
@@ -33,8 +30,6 @@ It should **not** assume one language, framework, transport, or architecture sty
 | Existing code or contracts in the repo | Show local naming, layering, serialization, validation, and error conventions |
 
 If the repository lacks the contract-defining docs needed for the task, call that out and create or update the missing docs instead of inventing local rules in the skill.
-
----
 
 ## When To Use
 
@@ -48,8 +43,6 @@ Use this skill when designing or reviewing one of these boundary types.
 | Adapter or integration boundary | client interface, DTOs, transport mapping, failure translation |
 | Event or message contract | payload schema, producer/consumer expectations, ordering, retry, dead-letter rules |
 | Module boundary | public interface, dependency direction, allowed imports, extension points |
-
----
 
 ## Procedure
 
@@ -141,8 +134,6 @@ Examples:
 
 The output should fit the repository style and include enough detail to implement safely without locking the repo into one stack-specific pattern that the docs do not support.
 
----
-
 ## Output Contract
 
 When using this skill, the output should include:
@@ -154,8 +145,6 @@ When using this skill, the output should include:
 5. ownership and dependency implications
 6. verification strategy
 7. open questions that still require product or architecture decisions
-
----
 
 ## Quality Checks
 
@@ -169,8 +158,6 @@ Use this checklist when reviewing an existing contract:
 - Does the contract create hidden coupling or leak implementation details?
 - Is there a clear verification strategy in `testing.md`?
 
----
-
 ## Anti-Patterns
 
 - Embedding one stack's rules into the skill instead of reading project docs
@@ -180,19 +167,21 @@ Use this checklist when reviewing an existing contract:
 - Ignoring versioning, compatibility, or migration concerns for externally visible contracts
 - Over-designing the contract far beyond the current scope in `prd.md`
 
----
+## Output Contract
 
-## Natural Prompt Shapes
+When using this skill, the output should include:
+1. the boundary type
+2. the project docs consulted
+3. the proposed contract shape
+4. validation and error rules
+5. ownership and dependency implications
+6. verification strategy
+7. open questions that still require product or architecture decisions
 
-- "Design the contract for this API or service boundary."
-- "Check whether this endpoint or DTO shape is designed correctly."
-- "Define the interface, error contract, and validation rules for this boundary."
-- "Review whether this event or repository contract matches the architecture."
+## Neutral Prompt Shape
+`@agent use api-design on [Target Entity/Feature] focusing on [Specific Constraints/Version].`
 
----
-
-## Example Requests
-
+## Example Prompt
 - "Design the repository contract for this feature"
 - "Review this controller and DTO boundary"
 - "Design an event payload for this workflow"

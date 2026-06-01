@@ -1,18 +1,16 @@
 ---
-name: observability-setup
+name: "observability"
 description: "Project-aware expert-role for system observability and SRE engineering. Reads project docs first, enforces structured logging, tracing context injection, PII masking rules, and actionable metric generation."
 argument-hint: "Describe the component, service, or workflow to instrument with observability"
 ---
 
-# Observability Setup — Project-Aware
+# Observability
 
 Produces a **project-aware, expert-level observability implementation** by reading the repository's project docs first, then applying Site Reliability Engineering (SRE) standards for logging, metrics, and tracing.
 
 This skill is reusable across logging frameworks (Winston, Logback, Zap), tracing standards (OpenTelemetry), and telemetry backends (Prometheus, Datadog, ELK).
 
 It should **not** assume a specific logging library or metric format until the project docs confirm them.
-
----
 
 ## Required Project Inputs
 
@@ -24,9 +22,7 @@ It should **not** assume a specific logging library or metric format until the p
 
 If the repository lacks the observability docs needed to understand the current stack, call that out and create or update the missing docs instead of inventing arbitrary logging formats.
 
----
-
-## When To Use
+## When to Use
 
 Use this skill when tasked with improving system visibility or instrumenting code.
 
@@ -36,8 +32,6 @@ Use this skill when tasked with improving system visibility or instrumenting cod
 | Distributed Tracing | Spans, span contexts, OpenTelemetry configuration. |
 | Application Metrics | Counters, gauges, histograms (e.g., request latency, error rates). |
 | Alerting & Dashboards | Prometheus rules, Datadog monitors, Grafana dashboard JSON. |
-
----
 
 ## Procedure
 
@@ -69,7 +63,22 @@ When logging exceptions:
 - Do not swallow errors (e.g., `catch (e) { log(e.message) }` loses the stack trace).
 - Ensure the log distinguishes between client errors (validation) and server errors (crashes).
 
----
+## Quality Check
+
+Use this checklist when reviewing observability code:
+
+- Are logs structured (JSON) rather than plain text strings?
+- Is context (like Request ID) present in every log entry for a transaction?
+- Are sensitive fields (tokens, passwords, PII) explicitly redacted?
+- Are metrics using standardized naming conventions (e.g., snake_case for Prometheus)?
+- Are errors logged with stack traces and sufficient context to debug without guessing?
+
+## Anti-Pattern
+
+- `console.log()` or equivalent generic print statements in production code.
+- Logging the entire raw HTTP Request or Response object.
+- Silently swallowing exceptions without logging them.
+- Emitting high-cardinality data (like User IDs) as metric labels/tags instead of log fields.
 
 ## Output Contract
 
@@ -81,23 +90,10 @@ When using this skill, the output should include:
 4. the PII masking and security constraints verified
 5. how the new telemetry can be validated (e.g., local mock server, stdout check)
 
----
+## Neutral Prompt Shape
+`@agent use observability on [Target Service/Component] focusing on [Specific Metrics/Logs].`
 
-## Quality Checks
-
-Use this checklist when reviewing observability code:
-
-- Are logs structured (JSON) rather than plain text strings?
-- Is context (like Request ID) present in every log entry for a transaction?
-- Are sensitive fields (tokens, passwords, PII) explicitly redacted?
-- Are metrics using standardized naming conventions (e.g., snake_case for Prometheus)?
-- Are errors logged with stack traces and sufficient context to debug without guessing?
-
----
-
-## Anti-Patterns
-
-- `console.log()` or equivalent generic print statements in production code.
-- Logging the entire raw HTTP Request or Response object.
-- Silently swallowing exceptions without logging them.
-- Emitting high-cardinality data (like User IDs) as metric labels/tags instead of log fields.
+## Example Prompt
+- "Instrument this service with structured logging and trace context."
+- "Review this controller to ensure PII is masked before logging."
+- "Design Prometheus metrics for this asynchronous background job."

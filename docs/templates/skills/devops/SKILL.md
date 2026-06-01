@@ -1,18 +1,16 @@
 ---
-name: ci-cd-authoring
+name: "devops-ci-cd"
 description: "Project-aware expert-role for CI/CD pipeline design and implementation. Reads project docs first, enforces build caching, security gates, test execution, and deployment safety."
 argument-hint: "Describe the workflow, pipeline, or deployment stage to build or review"
 ---
 
-# CI/CD Authoring — Project-Aware
+# DevOps CI/CD
 
 Produces a **project-aware, expert-level CI/CD pipeline implementation** by reading the repository's project docs first, then applying robust deployment engineering practices.
 
 This skill is reusable across CI providers (GitHub Actions, GitLab CI, Jenkins) and deployment targets (AWS, GCP, Vercel, Kubernetes).
 
 It should **not** assume a specific CI provider or deployment strategy until the project docs confirm them.
-
----
 
 ## Required Project Inputs
 
@@ -24,9 +22,7 @@ It should **not** assume a specific CI provider or deployment strategy until the
 
 If the repository lacks the CI/CD docs needed for deployment, call that out and create or update the missing docs instead of blindly writing deployment scripts.
 
----
-
-## When To Use
+## When to Use
 
 Use this skill when building or reviewing one of these boundary types.
 
@@ -36,8 +32,6 @@ Use this skill when building or reviewing one of these boundary types.
 | Continuous Deployment (CD) | Terraform/Pulumi execution, environment promotion, artifact publishing. |
 | Security & Compliance | Dependabot configuration, secret scanning, static analysis gates. |
 | Pipeline Optimization | Caching strategies, matrix builds, job parallelization. |
-
----
 
 ## Procedure
 
@@ -68,7 +62,23 @@ Ensure the pipeline:
 - Has reasonable timeout limits to prevent hung jobs.
 - Cleans up temporary artifacts after execution.
 
----
+## Quality Check
+
+
+Use this checklist when reviewing an existing CI/CD configuration:
+
+- Are dependencies and build outputs being cached?
+- Are secrets injected securely via environment variables?
+- Does a failing test or linter correctly fail the entire job?
+- Is the deployment step locked down to specific branches or environments?
+- Are timeouts explicitly defined to prevent runaway costs?
+
+## Anti-Pattern
+
+- Hardcoding API keys or passwords directly in the YAML file.
+- Writing a pipeline that deploys to production from any branch.
+- Skipping tests to make the pipeline run faster.
+- Downloading dependencies without verifying lockfiles.
 
 ## Output Contract
 
@@ -80,23 +90,10 @@ When using this skill, the output should include:
 4. the security and testing gates enforced
 5. the final pipeline YAML or script
 
----
+## Neutral Prompt Shape
+`@agent use devops-ci-cd on [Target Pipeline/Workflow] focusing on [Specific Optimizations/Security Gates].`
 
-## Quality Checks
-
-Use this checklist when reviewing an existing CI/CD configuration:
-
-- Are dependencies and build outputs being cached?
-- Are secrets injected securely via environment variables?
-- Does a failing test or linter correctly fail the entire job?
-- Is the deployment step locked down to specific branches or environments?
-- Are timeouts explicitly defined to prevent runaway costs?
-
----
-
-## Anti-Patterns
-
-- Hardcoding API keys or passwords directly in the YAML file.
-- Writing a pipeline that deploys to production from any branch.
-- Skipping tests to make the pipeline run faster.
-- Downloading dependencies without verifying lockfiles.
+## Example Prompt
+- "Create a GitHub Actions workflow that implements the CI caching strategy."
+- "Review this Jenkinsfile for security issues and hardcoded secrets."
+- "Design a deployment pipeline that supports blue-green rollout."
