@@ -1,6 +1,6 @@
 {
   "name": "@sallmarta/eye-hate-agent",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Template-and-engine toolkit for AI-agent-assisted project workflows.",
   "directories": {
     "doc": "docs"
@@ -16,13 +16,17 @@
   },
   "keywords": [
     "ai-agent",
-    "agent-workflow",
-    "cli",
+    "ai-assistant",
+    "coding-agent",
     "claude",
     "copilot",
-    "project-docs",
+    "gemini",
+    "sdd",
+    "spec-driven",
+    "spec-driven-development",
     "prompt-engineering",
-    "template"
+    "context-engineering ",
+    "meta-prompting"
   ],
   "author": "SallMarta",
   "license": "MIT",

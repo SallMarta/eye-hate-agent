@@ -40,7 +40,7 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks (see `phases.md` for epics).
 
 ## 7. Current State
-EHA has reached `1.0.4` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, and uses NPM Provenance via OIDC for deployment.
+EHA has reached `1.0.5` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, and uses NPM Provenance via OIDC for deployment, then added new specific keyword for npm.
 
 ## 8. Recent Accomplishments
 - Replaced Gemini with Antigravity natively.
@@ -54,8 +54,9 @@ EHA has reached `1.0.4` stability. The codebase has fully migrated to a robust n
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.4
-- Registry Size: 3 templates files (Single Master Registry `index.md`, Standalone setup `getting-started.md`, Guidelines registry `technical-guidelines/index.md`; generates 19 total files per agent including the README)
+- NPM Version: 1.0.5
+- Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`; generates 19 total files per agent including the README).
+- New specific keyword for npm.
 
 ## 11. Roadmap
 | Workstream | Status | Notes |

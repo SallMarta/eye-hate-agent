@@ -2,6 +2,11 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.5] - 2026-06-01
+
+### Added
+- **Add Specific Keywords:** Adding new specific keywords on npm.
+
 ## [1.0.4] - 2026-06-01
 
 ### Added
