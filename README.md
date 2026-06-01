@@ -1,18 +1,25 @@
 # Eye Hate Agent (EHA)
 
-A CLI engine that generates a shared set of rules, skills, and documentation workflows for AI agents (Claude, GitHub Copilot) directly into your repository.
+A CLI engine that generates a shared set of rules, skills, and documentation workflows for AI agents directly into your repository. It enforces Spec-Driven Development (SDD) by standardizing how AI agents receive their instructions
 
 ---
 
-## Quick Start
+## Get Started
 
 ### 1. Initialize EHA in your project
-Run the wizard in your project root to generate the required agent instructions:
+#### Run in your project repository:
 
 ```bash
 npx @sallmarta/eye-hate-agent
 ```
-*(Or install globally: `npm i -g @sallmarta/eye-hate-agent` and run `eha`)*
+#### Or install globally: 
+
+```bash
+npm i -g @sallmarta/eye-hate-agent
+```
+```bash
+eha
+```
 
 ### 2. Trigger your agent
 Once generated, the files are immediately ready to use in your IDE. Trigger the workflows using your agent's native slash commands, file mentions, or prompt attachments (e.g., typing `/eha-bootstrap` or attaching the bootstrap file in chat).
