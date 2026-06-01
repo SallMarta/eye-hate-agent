@@ -2,9 +2,16 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
-## [1.0.4] - 2026-05-30
+## [1.0.4] - 2026-06-01
+
+### Added
+- **Flexible Custom Headings:** Clarified in the master templates registry Section 7 ("Universal Stable Headings") and Section 9 ("Domain-Specific Headings Catalog") that agents and developers are not limited to catalog baselines and are fully authorized to append custom domain-specific headings to accurately reflect codebase realities.
 
 ### Changed
+- **Taxonomy Modernization ("technical" → "development"):** Renamed EHA's third taxonomy layer from `technical/` to `development/` across EHA's engine compact rules, template registries, specialist skills, workflow prompts, and EHA's own internal self-maintenance documentation.
+- **Physical Taxonomy Rename:** Physically moved `docs/project-docs/technical/` directory to `docs/project-docs/development/` and updated EHA's test suite and CLI hooks.
+- **Single Registry Template Consolidation:** Consolidated EHA's templates directory under `docs/templates/project-docs-template/` into a single master catalog registry (`index.md`) plus guidelines index, deleting all 20 redundant boilerplate files (including `getting-started.md`) and resolving all template duplication.
+- **Mega Specialist Skill & Type Merges:** Merged high-overlap doc templates (`observability.md` + `error-handling.md` → `observability-error-handling.md`, `security.md` + `compliance.md` → `security-compliance.md`, and `feature-inventory.md` → `phases.md`) to streamline context consumption and avoid redundant documentation.
 - **Adaptive Taxonomy:** Rewrote `00-project-docs-bootstrap.md` to stop blindly generating 20+ files. The prompt now scans repo complexity and asks the user to choose a Taxonomy Tier (Lite, Standard, Enterprise) before generating the tailored file set.
 - **Agent Rules (Lite Mode):** Updated `agent-rules.md` (Rule 3.2) to formally support a "Lite Mode". Users can now bypass the heavy 7-step SDD intake process for trivial micro-tasks by explicitly triggering it.
 - **Skill "Strong Layer" Upgrade:** Completely rewrote the 5 recently added highly-specialized skills (`db-schema-design`, `ui-ux-design`, `refactor`, `devops-ci-cd`, `observability`) from basic stubs into robust frameworks. They now enforce strict required inputs, structured procedures, anti-patterns, and rigorous output contracts (matching the `api-design` standard).
@@ -121,7 +128,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 ### Changed
 
 - **Parity Fix — `guidelines/` → `technical-guidelines/`**: Standardized all references across the contract, README, maintenance doc, template `technical-guidelines/index.md`, `code-audit` skill, and `system-tester` skill to use `technical-guidelines/` as the canonical subdirectory name. Eliminates the most pervasive naming inconsistency in the repository.
-- **Parity Fix — flat paths → 4-layer paths**: Updated all stale flat-path references (`project.md`, `architecture.md`, `testing.md`, `status.md`) to use 4-layer taxonomy paths (`foundation/prd.md`, `foundation/architecture.md`, `technical/testing.md`, `foundation/status.md`) across the contract (Naming And Surface Rules, Request Routing Examples, Registry Policy, Guideline Policy, Adoption Checklists), README (required docs list, recommended docs), and all seven skills.
+- **Parity Fix — flat paths → 4-layer paths**: Updated all stale flat-path references (`project.md`, `architecture.md`, `testing.md`, `status.md`) to use 4-layer taxonomy paths (`foundation/prd.md`, `foundation/architecture.md`, `development/testing.md`, `foundation/status.md`) across the contract (Naming And Surface Rules, Request Routing Examples, Registry Policy, Guideline Policy, Adoption Checklists), README (required docs list, recommended docs), and all seven skills.
 - **Parity Fix — drop `quick-reference.md`**: Removed all ghost references to `quick-reference.md` from the contract (Naming And Surface Rules, Adoption Checklists), and from the Required Project Inputs tables of all seven skills (`parity-audit`, `code-audit`, `system-analysis`, `api-design`, `project-elevation`, `system-tester`).
 - **Parity Fix — `project.md` → `prd.md`**: Updated all remaining references to the absorbed `project.md` to `prd.md` or `foundation/prd.md` across skills and the contract.
 - **Parity Fix — maintenance doc headings**: Added numbered prefixes to all section headings in `docs/eyehateagent-maintenance.md` to match the Stable Headings defined in the contract.
@@ -141,10 +148,10 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 
 ### Changed
 
-- **Massive Template Overhaul**: Restructured `docs/vibes/project-docs-template` into a strict 4-layer taxonomy (`foundation`, `operations`, `technical`, `technical-guidelines`).
+- **Massive Template Overhaul**: Restructured `docs/vibes/project-docs-template` into a strict 4-layer taxonomy (`foundation`, `operations`, `development`, `technical-guidelines`).
 - **Mega PRD Integration**: Absorbed `project.md` and `business-process.md` into `foundation/prd.md` to prevent context fragmentation.
-- **Testing Consolidation**: Absorbed `test-plan.md` and `test-case.md` into `technical/testing.md` to streamline the verification policy.
-- **Data Dictionary**: Formalized a Data Dictionary section inside `technical/database.md`.
+- **Testing Consolidation**: Absorbed `test-plan.md` and `test-case.md` into `development/testing.md` to streamline the verification policy.
+- **Data Dictionary**: Formalized a Data Dictionary section inside `development/database.md`.
 - **Backlog Unified**: Designated `foundation/phases.md` as the unified agile sprint tracker, officially replacing `sprints.md`.
 - **Contract Sync**: Completely rewrote `eyehateagent-contract.md` and `README.md` to align the "Required Document Set", "Stable Headings", and "Ownership Rules" with the new 4-layer architecture.
 - **Reusable Prompts Sync**: Rewrote the Output Contracts and target paths across all executable AI workflows (`00-project-docs-bootstrap.md`, `01-sdd-execute.md`, `02-sdd-discuss.md`, `00-project-docs-parity.md`, `00-project-docs-refresh.md`) to strictly enforce the new 4-layer taxonomy and eliminate hardcoded legacy folders.

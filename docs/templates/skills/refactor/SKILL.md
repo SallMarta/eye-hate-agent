@@ -15,7 +15,7 @@ This skill is reusable across any programming language. It focuses on reducing t
 | Document | Why it matters |
 | --- | --- |
 | `docs/project-docs/foundation/architecture.md` | Defines the acceptable patterns, boundaries, and coupling rules for the project. |
-| `docs/project-docs/technical/testing.md` | Defines the required testing frameworks and test coverage expectations. |
+| `docs/project-docs/development/testing.md` | Defines the required testing frameworks and test coverage expectations. |
 | `docs/project-docs/technical-guidelines/index.md` | Provides language-specific linting, style, or idiom rules. |
 
 If the repository lacks the testing docs needed for safe refactoring, call that out and create or update the missing docs instead of refactoring blindly.

@@ -18,7 +18,7 @@ Read the relevant docs before proposing or writing tests.
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/technical/testing.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
+| `docs/project-docs/development/testing.md` | Primary source for verification policy, commands, quality gates, and fallback rules |
 | `docs/project-docs/foundation/architecture.md` | Explains runtime boundaries, architecture pattern, integrations, storage, and enforcement rules |
 | `docs/project-docs/foundation/status.md` | Reveals current implementation state, risks, and which workstream the change belongs to |
 | Relevant feature docs under `docs/project-docs/` or `docs/project-docs/technical-guidelines/` | Provide domain-specific behavior, API contracts, or user-flow expectations |

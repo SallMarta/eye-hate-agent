@@ -1,74 +1,91 @@
 # Eye Hate Agent (EHA)
 
-A CLI engine that generates a shared set of rules, skills, and documentation workflows for AI agents directly into your repository. It enforces Spec-Driven Development (SDD) by standardizing how AI agents receive their instructions
+A simple **Spec-Driven Development (SDD)**. Unified set of rules, specialist skills, and dynamic project documentation workflows, standardizing how AI coding agents receive instructions to make collaborative development completely predictable and highly efficient.
 
 ---
 
 ## Get Started
 
 ### 1. Initialize EHA in your project
-#### Run in your project repository:
-
+Run directly in **your project root**:
 ```bash
-npx @sallmarta/eye-hate-agent
+$ npx @sallmarta/eye-hate-agent
 ```
-#### Or install globally: 
-
+*Or install **globally** and run it:*
 ```bash
-npm i -g @sallmarta/eye-hate-agent
-```
-```bash
-eha
+$ npm i -g @sallmarta/eye-hate-agent
+$ eha
 ```
 
 ### 2. Trigger your agent
-Once generated, the files are immediately ready to use in your IDE. Trigger the workflows using your agent's native slash commands, file mentions, or prompt attachments (e.g., typing `/eha-bootstrap` or attaching the bootstrap file in chat).
+Once projected, EHA files are immediately active in your IDE. Trigger the workflows using your agent's native slash commands, file mentions, or prompt attachments (read more on [EHA Commands](#eha-commands)).
 
-### 3. Commit the generated files
-The generated files (`.claude/`, `.github/`, or `.agents/`) act as your project's AI contract. Commit them to version control so your whole team shares the same agent behaviors and documentation standards.
-
----
-
-## CLI Commands
-
-```bash
-eha [init]          # Wizard: detect project root, choose agent, generate files
-eha init [agent]    # Set up EHA directly (e.g., claude, copilot, etc.)
-eha doctor          # Verify generated files and EHA status
-eha remove          # Remove all EHA-generated files and config
-```
+### 3. Commit the contract
+The projected files (`.claude/`, `.github/`, or `.agents/`) act as your project's AI contract.
 
 ---
 
-## What Gets Generated
+## EHA Commands
 
-Running `eha` detects your chosen agent and outputs fully self-contained files into its native configuration directory (e.g., `.claude/`, `.github/`, or `.agents/`). Every file is pre-injected with EHA's compact rules (4-layer taxonomy, ownership map, and Spec-Driven Development rules).
+Once initialized, EHA projects a series of interactive workflows directly into your agent's configuration directory (e.g., `.agents/` or `.github/`). You can trigger these workflows inside your IDE chat using slash commands, file mentions, or prompt attachments:
 
-Regardless of the target agent, the output always includes:
-- **Workflows**: Ready-to-use commands for project bootstrapping, doc refreshing, parity checks, and discussions.
-- **Skills**: Expert capabilities like `code-audit`, `api-design`, `system-tester`, and `security-audit`.
-- **Rules**: A central instruction file enforcing the EHA project contract.
+| Slash Trigger | Primary Purpose |
+| :--- | :--- |
+| **`/eha-bootstrap`** | Initializes the repository's SDD document set, generating a tailored 4-layer taxonomy (Lite, Standard, Enterprise). |
+| **`/eha-refresh`** | Re-aligns and updates the existing documentation set when project scope, stack, or directory layouts shift. |
+| **`/eha-parity`** | Audits the repository to check for document drift, stale headings, structural errors, and ownership mismatches. |
+| **`/sdd-discuss`** | Initiates collaborative scoping and brainstorming sessions to align intent and draft specs before writing code. |
+| **`/sdd-execute`** | Spec-Driven Development execution—translates agreed specifications into robust, verified, and tested code. |
+
+---
+
+## EHA CLI Command
+
+The EHA CLI provides a lightweight, frictionless setup and maintenance toolbelt:
+
+| Command | Primary Purpose |
+| :--- | :--- |
+| `eha init` (or `npx...`) | Automatically scans your repo root, lets you choose your target AI agent, and projects standard rules/skills. |
+| `eha init <agent>` | Directly initiates the EHA project setup for a specific agent (e.g. `copilot`, `claude`, `antigravity`)  |
+| `eha doctor` | Performs a health check verifying that all projected rules, stubs, and workflows are present and intact. |
+| `eha remove` | Safely deletes EHA's configuration directories, manifest registries, and generated contract files from your repository. |
 
 ---
 
 ## Updating
 
-When a new version of EHA is released, simply run `eha` in your repository again. The engine will detect the version mismatch and automatically prompt you to regenerate the files with the latest improvements.
+When a new version of EHA is released, simply run: 
+```bash
+$ eha
+```
+in your repository. The engine will detect the version mismatch automatically, prompt you to regenerate the files **(if needed)**, and update them to the latest standards seamlessly.
 
 ---
 
-## Uninstallation & Cleanup
+## Uninstallation
 
 To completely remove EHA from your project and device:
 
 ### 1. Remove project files
-Run the following command in your project root to clean up all generated AI context files and project metadata (`.eha/`):
+Run the following command in your project root to clean up all projected AI files:
 ```bash
-eha remove
+$ eha remove
 ```
 
-### 2. Uninstall the CLI (Total Removal)
+### 2. Uninstall the CLI globally
 To completely remove the CLI from your device, run:
 ```bash
-npm uninstall -g @sallmarta/eye-hate-agent
+$ npm uninstall -g @sallmarta/eye-hate-agent
 ```
+
+---
+
+## EHA Philosophy
+
+Eye Hate Agent is built upon a core set of operational beliefs designed to optimize the synergy between human developers and AI coding agents:
+
+1. **Readability First (Dual-Audience Design)**: Every registry, template, and workspace document generated by EHA strictly adheres to standard markdown structures, numbered stable headings, and clean tables. This ensures maximum readability for humans while granting AI agents 100% syntactic parsing clarity (completely eliminating context loss).
+2. **Flexible, Non-Deterministic Context**: EHA documents define clear constraints, design parameters, and business logic (specific) but avoid locking implementation down into rigid boilerplate (generic and non-deterministic). This allows both developers and agents to exercise active engineering judgment and choose the best implementation pathways.
+3. **Zero Agent Hallucination**: By anchoring AI agents to EHA's Single Master Registry catalog (`index.md`) and a strict 4-layer folder structure, EHA eliminates path hallucination, stale references, and prompt redundancy. Agents always know exactly where to read and write.
+4. **Brainstorming & Discussion are Sacred**: Specifications are never written in isolation. EHA integrates a dedicated discuss loop (`02-sdd-discuss.md`), establishing collaborative brainstorming as the mandatory first step to align human intent with agent understanding before any code is generated.
+5. **Native Agile & Scrum Alignment**: EHA is built for real-world software delivery. With structured sprint and epic trackers (`foundation/phases.md`, `foundation/status.md`), EHA fits seamlessly into standard corporate Agile/Scrum lifecycles, enabling agents to act as high-velocity scrum contributors.

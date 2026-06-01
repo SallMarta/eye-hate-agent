@@ -12,7 +12,7 @@ Act as a Senior Engineer / Agile Product Manager to help the user brainstorm and
    - API shapes and payload structures.
    - UI/UX constraints or responsive layouts.
    - Data model changes (new tables, columns, relations).
-3. **Draft the Spec:** Once the user answers your questions and you reach an agreement, output a drafted, markdown-formatted snippet that is ready to be injected into the specific target documents (e.g., `foundation/prd.md`, `foundation/architecture.md`, `technical/api-contract.md`).
+3. **Draft the Spec:** Once the user answers your questions and you reach an agreement, output a drafted, markdown-formatted snippet that is ready to be injected into the specific target documents (e.g., `foundation/prd.md`, `foundation/architecture.md`, `development/api-contract.md`).
 4. **Final Approval:** Ask the user: "Should I execute the SDD workflow (`01-sdd-execute.md`) with these specifications?"
 
 ## Output Contract

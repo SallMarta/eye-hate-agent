@@ -31,4 +31,4 @@ Translate a newly updated project specification into tested, working code by fol
 - The user's prompt requesting the execution of a feature.
 - `docs/project-docs/foundation/prd.md`
 - `docs/project-docs/foundation/architecture.md`
-- `docs/project-docs/technical/testing.md`
+- `docs/project-docs/development/testing.md`

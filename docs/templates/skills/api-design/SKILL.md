@@ -25,7 +25,7 @@ It should **not** assume one language, framework, transport, or architecture sty
 | --- | --- |
 | `docs/project-docs/foundation/architecture.md` | Defines stack, architecture boundaries, dependency rules, and integration patterns |
 | `docs/project-docs/foundation/prd.md` | Clarifies scope, constraints, stakeholders, and non-goals |
-| `docs/project-docs/technical/testing.md` | Defines how the contract should be validated |
+| `docs/project-docs/development/testing.md` | Defines how the contract should be validated |
 | Relevant feature docs, API docs, or guidelines | Provide domain-specific rules, request/response shapes, workflows, and edge cases |
 | Existing code or contracts in the repo | Show local naming, layering, serialization, validation, and error conventions |
 

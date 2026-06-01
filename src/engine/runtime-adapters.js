@@ -14,12 +14,12 @@ const EHA_COMPACT_RULES = `## EHA Project Doc Rules
 **4-Layer Taxonomy.** All project docs live under \`docs/project-docs/\`:
 - \`foundation/\` — prd, architecture, workflow, status, phases, changelog, feature-inventory
 - \`operations/\` — ci-cd, production-runbook, governance, compliance, observability, security
-- \`technical/\` — testing, api-contract, database, ui-ux, error-handling, internationalization
+- \`development/\` — testing, api-contract, database, ui-ux, error-handling, internationalization
 - \`technical-guidelines/\` — domain-specific cross-cutting rules (API, database, logging, etc.)
 
 **Legacy/Reference Docs:** Treat folders named \`archive/\`, \`docs-legacy/\`, or \`reference/\` as secondary migration input only, never as authoritative active truth.
 
-**Mandatory core docs:** \`index.md\`, \`getting-started.md\`, \`foundation/prd.md\`, \`foundation/architecture.md\`, \`foundation/workflow.md\`, \`foundation/status.md\`, \`foundation/phases.md\`, \`operations/ci-cd.md\`, \`operations/production-runbook.md\`, \`technical/testing.md\`, \`technical/api-contract.md\`, \`technical/database.md\`, \`technical/ui-ux.md\`.
+**Mandatory core docs:** \`index.md\`, \`getting-started.md\`, \`foundation/prd.md\`, \`foundation/architecture.md\`, \`foundation/workflow.md\`, \`foundation/status.md\`, \`foundation/phases.md\`, \`operations/ci-cd.md\`, \`operations/production-runbook.md\`, \`development/testing.md\`, \`development/api-contract.md\`, \`development/database.md\`, \`development/ui-ux.md\`.
 
 **Authority order:** project docs → codebase → agent judgment. When docs conflict, the owning doc wins. When code and docs conflict and authority is unclear, surface the conflict and ask the user — do not guess.
 
@@ -29,7 +29,7 @@ const EHA_COMPACT_RULES = `## EHA Project Doc Rules
 - Vision, personas, requirements → \`foundation/prd.md\`
 - Stack and architecture → \`foundation/architecture.md\`
 - Dev loop and PR process → \`foundation/workflow.md\`
-- Verification commands and quality gates → \`technical/testing.md\`
+- Verification commands and quality gates → \`development/testing.md\`
 - Execution plan and progress → \`foundation/status.md\`
 - Sprint tracking and backlogs → \`foundation/phases.md\`
 - Optional doc inventory → \`index.md\`

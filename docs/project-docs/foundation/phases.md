@@ -54,13 +54,17 @@ gantt
 
 ## 9. Sprint Tracker
 ### 9.1. Current Sprint (Date Range)
-May 2026
+June 2026
 
-### 9.2. Active Tasks
-- Migrating local `.agents/rules/` to avoid frontmatter duplication.
-- Establishing `project-docs` parity with `project-docs-template`.
+### 9.2. Completed Tasks
+- Migrating local `.agents/rules/` to avoid frontmatter duplication (Completed).
+- Establishing EHA internal `project-docs` parity with modern Single Registry `project-docs-template` structure (Completed).
+- Renaming the 4-layer taxonomy's third layer from `technical/` to `development/` globally (Completed).
 
-### 9.3. Blockers
+### 9.3. Active Tasks
+- Refine IDE adapters and collect adoption feedback.
+
+### 9.4. Blockers
 None.
 
 ## 10. Success Metrics

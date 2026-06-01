@@ -21,10 +21,10 @@ It should **not** assume a specific database engine, ORM, or normalization strat
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/technical/database.md` | Defines the actual database engines, ORMs, migration tools, naming conventions, and constraints. |
+| `docs/project-docs/development/database.md` | Defines the actual database engines, ORMs, migration tools, naming conventions, and constraints. |
 | `docs/project-docs/foundation/architecture.md` | Defines where data logic lives (e.g., repository layer) and integration boundaries. |
 | `docs/project-docs/foundation/prd.md` | Clarifies the feature scale, expected data volume, and access patterns. |
-| `docs/project-docs/technical/testing.md` | Defines how data layer code and migrations should be validated. |
+| `docs/project-docs/development/testing.md` | Defines how data layer code and migrations should be validated. |
 
 If the repository lacks the database docs needed for the task, call that out and create or update the missing docs instead of inventing local rules in the skill.
 

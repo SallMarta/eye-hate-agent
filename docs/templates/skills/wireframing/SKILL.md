@@ -14,7 +14,7 @@ This skill bridges the gap between the Product Requirements Document (PRD) and t
 | Document | Why it matters |
 | --- | --- |
 | `docs/project-docs/foundation/prd.md` | Defines the user personas, core workflows, and required data points for the interface. |
-| `docs/project-docs/technical/ui-ux.md` | Provides the baseline component vocabulary (e.g., standard layouts, navigation patterns) to reuse. |
+| `docs/project-docs/development/ui-ux.md` | Provides the baseline component vocabulary (e.g., standard layouts, navigation patterns) to reuse. |
 | `docs/project-docs/foundation/architecture.md` | Clarifies constraints on client-side vs server-side rendering and data availability. |
 
 If the repository lacks a PRD for the feature being wireframed, call that out and define the user goals before attempting to draw layouts.

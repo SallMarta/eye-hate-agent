@@ -64,7 +64,7 @@ Handled natively via conversational context or GitHub Issues.
 Changes are shipped safely without breaking downstream agent file generation.
 
 ## 12. Related Documents
-- [Testing](../technical/testing.md) - Instructions for the dummy directory test loop.
+- [Testing](../development/testing.md) - Instructions for the dummy directory test loop.
 
 ## 13. Open Questions
 None.

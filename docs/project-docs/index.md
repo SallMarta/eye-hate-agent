@@ -47,7 +47,7 @@ The sole maintainer owns all documentation in this repository.
 - `getting-started.md`
 - `foundation/prd.md`
 - `foundation/architecture.md`
-- `technical/testing.md`
+- `development/testing.md`
 - `foundation/workflow.md`
 - `foundation/status.md`
 - `operations/ci-cd.md`

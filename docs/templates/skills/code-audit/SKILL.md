@@ -10,7 +10,7 @@ Provides an **expert, project-aware broad verification entry point** for request
 
 This skill is **routing-first**. Its primary job is to identify the dominant verification question and route to the single best specialist skill rather than duplicating every verification procedure itself.
 
-This skill is intentionally **not tied to any single stack or framework**. When executable checks are needed, it should select the correct framework, commands, and conventions from the project's `technical/testing.md`, `foundation/architecture.md`, and local repository patterns.
+This skill is intentionally **not tied to any single stack or framework**. When executable checks are needed, it should select the correct framework, commands, and conventions from the project's `development/testing.md`, `foundation/architecture.md`, and local repository patterns.
 
 ## Required Project Inputs
 
@@ -18,7 +18,7 @@ This skill is intentionally **not tied to any single stack or framework**. When 
 | --- | --- |
 | EHA Rules | Defines routing, ownership, precedence, and the active skill model |
 | `docs/project-docs/foundation/architecture.md` | Defines boundaries, dependencies, stack choices, and anti-violation rules |
-| `docs/project-docs/technical/testing.md` | Defines available validation and evidence strength |
+| `docs/project-docs/development/testing.md` | Defines available validation and evidence strength |
 | `docs/project-docs/foundation/prd.md` | Clarifies scope, non-goals, and project stage |
 | `docs/project-docs/foundation/status.md` | Defines maturity, roadmap, active workstreams, and readiness context |
 | Relevant guideline docs under `docs/project-docs/technical-guidelines/` | Define technical standards such as API, logging, database, error-handling, code style, or design patterns |

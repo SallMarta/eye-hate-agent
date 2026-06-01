@@ -40,24 +40,27 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks (see `phases.md` for epics).
 
 ## 7. Current State
-EHA has reached `1.0.3` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`) and uses NPM Provenance via OIDC for deployment.
+EHA has reached `1.0.4` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, and uses NPM Provenance via OIDC for deployment.
 
 ## 8. Recent Accomplishments
 - Replaced Gemini with Antigravity natively.
-- Massive refactoring of `docs/templates/`.
+- Streamlined templates directory under a Single Master Registry catalog index (`index.md`) and guidelines catalog index, completely removing redundant boilerplate files.
+- Globally renamed EHA 4-layer taxonomy's third layer from `technical/` to `development/` across engine rules, templates, specialist skills, workflow prompts, tests, and EHA's internal docs.
+- Consolidated high-overlap specialist skills and documents (observability/error-handling, security/compliance, phases/feature-inventory) under Tier 3.
+- Clarified that humans and AI agents are fully authorized to append custom domain-specific headings during documentation generation tasks to accurately capture codebase realities.
 - Automated GitHub Actions publishing pipeline.
 
 ## 9. Upcoming Focus
-Ensuring complete parity of EHA's own internal SDD documentation against the newly defined templates.
+Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.3
-- Registry Size: 18 content templates (5 workflows, 12 skills, 1 global ruleset; generates 19 total files per agent including the README)
+- NPM Version: 1.0.4
+- Registry Size: 3 templates files (Single Master Registry `index.md`, Standalone setup `getting-started.md`, Guidelines registry `technical-guidelines/index.md`; generates 19 total files per agent including the README)
 
 ## 11. Roadmap
 | Workstream | Status | Notes |
 | --- | --- | --- |
-| Template Parity | Active | Aligning EHA internal docs to template |
+| Template Parity | Completed | Aligned EHA internal docs to new Single Registry and modern taxonomy |
 | Agent Support | Live | Claude, Copilot, Antigravity |
 
 ## 12. Epics

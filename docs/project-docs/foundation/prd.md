@@ -97,7 +97,7 @@ flowchart TD
 
 ## 17. Related Documents
 - [Architecture](architecture.md) - Details the pipeline and adapter pattern.
-- [Testing](../technical/testing.md) - E2E verification policy.
+- [Testing](../development/testing.md) - E2E verification policy.
 
 ## 18. Open Questions
 None.

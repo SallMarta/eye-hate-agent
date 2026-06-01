@@ -17,7 +17,7 @@ This skill is the reusable complement to the parity reusable prompt. Use it when
 | EHA Rules | Ownership map and canonical doc taxonomy |
 | `docs/project-docs/foundation/prd.md` | Active project identity and scope |
 | `docs/project-docs/foundation/architecture.md` | Active stack and architecture truth |
-| `docs/project-docs/technical/testing.md` | Active verification truth |
+| `docs/project-docs/development/testing.md` | Active verification truth |
 | `docs/project-docs/foundation/status.md` | Active roadmap and current-state truth |
 | Platform instruction surfaces | Automatic behavior layer |
 | Skills and reusable prompts | Reusable procedure and generation layers |

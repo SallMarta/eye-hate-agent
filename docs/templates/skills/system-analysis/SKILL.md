@@ -17,7 +17,7 @@ This skill is reusable across product, backend, frontend, infrastructure, monore
 | `docs/project-docs/foundation/prd.md` | Clarifies goals, scope, stakeholders, and success metrics |
 | `docs/project-docs/foundation/architecture.md` | Defines stack, boundaries, integration model, constraints, and runtime assumptions |
 | `docs/project-docs/foundation/status.md` | Reveals maturity, roadmap, active workstreams, and known blockers |
-| `docs/project-docs/technical/testing.md` | Shows what validation exists and how strong the available evidence can be |
+| `docs/project-docs/development/testing.md` | Shows what validation exists and how strong the available evidence can be |
 | Relevant feature, workflow, API, or guideline docs | Supply domain-specific truth for the topic being analyzed |
 | Relevant code, logs, tests, or runtime evidence | Support findings with direct evidence rather than guesswork |
 

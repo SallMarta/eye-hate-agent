@@ -16,10 +16,10 @@ It should **not** assume a specific component library (like Material UI) or styl
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/technical/ui-ux.md` | Defines the design system, color palette, typography, accessibility (a11y) targets, and responsive breakpoints. |
+| `docs/project-docs/development/ui-ux.md` | Defines the design system, color palette, typography, accessibility (a11y) targets, and responsive breakpoints. |
 | `docs/project-docs/foundation/prd.md` | Clarifies the target audience and expected user flows. |
 | `docs/project-docs/foundation/architecture.md` | Defines where state management lives versus pure presentation components. |
-| `docs/project-docs/technical/testing.md` | Defines how the UI should be validated (e.g., unit tests, visual regression, e2e). |
+| `docs/project-docs/development/testing.md` | Defines how the UI should be validated (e.g., unit tests, visual regression, e2e). |
 
 If the repository lacks the UI docs needed for styling or layout, call that out and create or update the missing docs instead of inventing arbitrary colors or padding values.
 

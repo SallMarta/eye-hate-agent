@@ -77,7 +77,7 @@ EHA is a vanilla JavaScript CLI program. It requires no compilation, minificatio
 - Every release contains a verified, public NPM provenance badge.
 
 ## 13. Related Documents
-- [Testing](../technical/testing.md) - Deeper local testing guides.
+- [Testing](../development/testing.md) - Deeper local testing guides.
 - [Maintaining](../../maintaining.md) - Standard operational procedures for new versions.
 
 ## 14. Open Questions

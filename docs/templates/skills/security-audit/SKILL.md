@@ -14,10 +14,9 @@ This skill is reusable across application logic, API boundaries, infrastructure 
 
 | Document | Why it matters |
 | --- | --- |
-| `docs/project-docs/operations/security.md` | Defines the actual threat model, acceptable risk, required security gates, and dependency scanning policies. |
-| `docs/project-docs/operations/compliance.md` | Defines PII masking, data retention, and regulatory requirements (if applicable). |
+| `docs/project-docs/operations/security-compliance.md` | Defines the actual threat model, acceptable risk, security gates, PII masking, data retention, and regulatory requirements. |
 | `docs/project-docs/foundation/architecture.md` | Defines trust boundaries, network zones, and where authentication/authorization is enforced. |
-| `docs/project-docs/technical/api-contract.md` | Clarifies the expected payload shapes and validation rules to prevent injection attacks. |
+| `docs/project-docs/development/api-contract.md` | Clarifies the expected payload shapes and validation rules to prevent injection attacks. |
 
 If the repository lacks the security docs needed for a proper audit, call that out and establish baseline security assumptions before reviewing code.
 
@@ -67,7 +66,7 @@ Use `architecture.md` to inspect:
 - identify where trust is explicitly verified (e.g., API gateways, auth middlewares).
 
 ### Step 4 — Audit Authentication and Session State
-Evaluate auth mechanisms against `security.md`:
+Evaluate auth mechanisms against `security-compliance.md`:
 - Are tokens securely stored (e.g., HttpOnly cookies instead of LocalStorage)?
 - Are session timeouts and revocation mechanisms implemented?
 - Is authorization checked on every privileged action, not just at the UI level?
@@ -85,7 +84,7 @@ Also look for:
 Ensure: No hardcoded secrets, passwords, or API keys exist in the codebase. Sensitive data is hashed using strong algorithms (e.g., Argon2, bcrypt) with salts. Data in transit is strictly TLS-enforced.
 
 ### Step 6 — Verify Compliance and PII Handling
-Consult `compliance.md`: Ensure PII is not leaked into application logs, error messages, or third-party analytics tools. Verify data retention constraints are implemented.
+Consult `security-compliance.md`: Ensure PII is not leaked into application logs, error messages, or third-party analytics tools. Verify data retention constraints are implemented.
 
 ### Step 7 — Prioritize findings
 

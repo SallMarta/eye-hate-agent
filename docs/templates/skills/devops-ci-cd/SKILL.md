@@ -17,7 +17,7 @@ It should **not** assume a specific CI provider or deployment strategy until the
 | Document | Why it matters |
 | --- | --- |
 | `docs/project-docs/operations/ci-cd.md` | Defines the required CI provider, branch protection rules, required jobs, and deployment environments. |
-| `docs/project-docs/technical/testing.md` | Defines which test suites must run and their coverage thresholds. |
+| `docs/project-docs/development/testing.md` | Defines which test suites must run and their coverage thresholds. |
 | `docs/project-docs/operations/security.md` | Defines required security scanning tools (SAST, DAST, dependency checks). |
 
 If the repository lacks the CI/CD docs needed for deployment, call that out and create or update the missing docs instead of blindly writing deployment scripts.

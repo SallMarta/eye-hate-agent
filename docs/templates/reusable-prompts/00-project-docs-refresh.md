@@ -43,19 +43,21 @@ Update **only the docs that own the changed information** while keeping the docu
 
 ## Ownership Examples
 
-- stack or dependency changes → `foundation/architecture.md`, `technical/testing.md`
-- feature scope changes → `foundation/prd.md`, `foundation/feature-inventory.md`, `foundation/status.md`
+- stack or dependency changes → `foundation/architecture.md`, `development/testing.md`
+- feature scope changes → `foundation/prd.md`, `foundation/status.md`
 - detailed requirements or acceptance changes → `foundation/prd.md`, `foundation/status.md`
-- workflow or roadmap changes → `foundation/status.md`, `foundation/phases/index.md`, workflow docs if present
-- validation / CI changes → `technical/testing.md`, `getting-started.md`
-- production environment, rollout, rollback, or smoke-check changes → `operations/production-runbook.md`, `foundation/architecture.md`, `technical/testing.md`
+- workflow or roadmap changes → `foundation/status.md`, `foundation/phases.md`, workflow docs if present
+- validation / CI changes → `development/testing.md`, `getting-started.md`
+- production environment, rollout, rollback, or smoke-check changes → `operations/production-runbook.md`, `foundation/architecture.md`, `development/testing.md`
 - API or integration changes → relevant API / integration docs plus `foundation/architecture.md`
+- security or compliance changes → `operations/security-compliance.md`
+- observability, logging, or error-handling changes → `operations/observability-error-handling.md`
 - optional or conditional doc inventory changes → `docs/project-docs/index.md` plus the affected optional owner docs
 - cross-cutting technical conventions or implementation rules → relevant `technical-guidelines/*.md`, `technical-guidelines/index.md`, and any summarizing core docs that reference them
 - documentation-system migration from legacy docs → active owner docs under `docs/project-docs/` first, with `docs-legacy/`, `docs-old/`, or other clearly named archive/reference folders used only as source material
-- semantic legacy-name normalization → map legacy names by content, for example `epic` or `roadmap` material to `foundation/phases/` and `protocol` or `standard` material to `technical-guidelines/` when their governed concern matches those owners
+- semantic legacy-name normalization → map legacy names by content, for example `epic` or `roadmap` material to `foundation/phases.md` and `protocol` or `standard` material to `technical-guidelines/` when their governed concern matches those owners
 - legacy technical-guidance promotion → `docs/project-docs/technical-guidelines/*.md`, `technical-guidelines/index.md`, and any summarizing core docs that now depend on those active guidelines
-- legacy phased-planning promotion → `docs/project-docs/foundation/phases/index.md`, the relevant phase or epic docs, `foundation/status.md`, and `docs/project-docs/index.md`
+- legacy phased-planning promotion → `docs/project-docs/foundation/phases.md`, `foundation/status.md`, and `docs/project-docs/index.md`
 
 ## Output Contract
 

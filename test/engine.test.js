@@ -239,6 +239,19 @@ test('skill and workflow registries are in bidirectional sync with template dire
   }
 });
 
+test('project docs templates directory is lightweight and contains only registries and standalone templates (Decision 7)', () => {
+  const { getPackageRoot } = require('../src/engine/state');
+  const root = getPackageRoot();
+  const templateDir = path.join(root, 'docs', 'templates', 'project-docs-template');
+
+  const contents = fs.readdirSync(templateDir);
+  assert.deepEqual(contents.sort(), ['index.md', 'technical-guidelines'].sort());
+
+  const guidelinesDir = path.join(templateDir, 'technical-guidelines');
+  const guidelinesContents = fs.readdirSync(guidelinesDir);
+  assert.deepEqual(guidelinesContents.sort(), ['index.md'].sort());
+});
+
 // ─── H2: CLI Exit Code & Integration Tests ─────────────────────────────────────
 
 test('CLI exit code 1 on unsupported agent (H2)', () => {

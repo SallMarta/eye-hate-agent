@@ -59,7 +59,7 @@ EHA is armed with a native Node.js test runner suite. Validate all engine featur
 ```bash
 npm test
 ```
-See `technical/testing.md` for specific test strategies and verification matrices.
+See `development/testing.md` for specific test strategies and verification matrices.
 
 ## 11. Troubleshooting
 - **Error: "Could not find a project root"**
@@ -71,7 +71,7 @@ See `technical/testing.md` for specific test strategies and verification matrice
 ## 13. Related Documents
 - [Index](index.md) - The active document catalog.
 - [Architecture](foundation/architecture.md) - Deeper layout details.
-- [Testing](technical/testing.md) - Detailed E2E loop procedures.
+- [Testing](development/testing.md) - Detailed E2E loop procedures.
 - [CI/CD Configuration](operations/ci-cd.md) - Deployment automation pipeline.
 
 ## 14. Open Questions
