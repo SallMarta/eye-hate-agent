@@ -98,7 +98,7 @@ Every mismatch should be classified as one of:
 
 When evaluating legacy material, classify it by the durable concern it governs rather than by its legacy name or path. Treat names such as `epic`, `milestone`, `roadmap`, `protocol`, `procedure`, `policy`, or `standard` as hints only.
 
-Report likely mappings when content points to an active owner even if naming differs, such as phased-planning content that should map to `foundation/phases.md` or technical-rule content that should map to `technical-guidelines/`.
+Report likely mappings when content points to an active owner even if naming differs, such as phased-planning content that should map to `foundation/phases/` or technical-rule content that should map to `technical-guidelines/`.
 
 ### Step 4 — Apply structural drift rules
 

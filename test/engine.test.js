@@ -44,7 +44,7 @@ test('initProject generates Claude command files', () => {
   const result = initProject({ rootDir, agentId: 'claude' });
 
   assert.equal(result.agentId, 'claude');
-  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  const expectedCount = listWorkflows().length + listSkills().length + 1;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
@@ -97,7 +97,7 @@ test('initProject generates Antigravity command files', () => {
   const result = initProject({ rootDir, agentId: 'antigravity' });
 
   assert.equal(result.agentId, 'antigravity');
-  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  const expectedCount = listWorkflows().length + listSkills().length + 1;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.agents', 'skills', 'eha-bootstrap', 'SKILL.md');
@@ -128,7 +128,7 @@ test('initProject overwrites existing files on reinit', () => {
   initProject({ rootDir, agentId: 'claude' });
   const result = initProject({ rootDir, agentId: 'claude' });
   assert.equal(result.agentId, 'claude');
-  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  const expectedCount = listWorkflows().length + listSkills().length + 1;
   assert.equal(result.fileCount, expectedCount);
 });
 

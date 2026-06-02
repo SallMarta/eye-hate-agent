@@ -2,6 +2,18 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.8] - 2026-06-02
+
+### Changed
+- **Lite Mode (Rule 3.2):** Rewrote to Option D — agents now contextually recognize trivial micro-tasks without requiring a magic prefix. Still supports "Lite task:" prefix for explicit triggering. Removed phantom `/lite` slash command reference.
+- **Phases Redesign:** Replaced single `foundation/phases.md` (Tier 3) with `foundation/phases/` folder structure containing `index.md` (phase registry) and individual phase files. Greenfield projects use `phase-1.md` naming; brownfield uses `phase-P1.md`. Phases are now conditionally offered based on active development signals, not tied to a tier.
+- **Changelog Conditional:** Modified `foundation/changelog.md` to be offered conditionally during bootstrapping and refreshing, decoupled from Tier 3 requirements.
+- **Bootstrap Greenfield Detection:** Added Step 0.5 — detects empty/near-empty repos and suggests running `/eha-discuss` first before bootstrapping docs.
+
+### Removed
+- **Claude README** (`.claude/commands/eha/README.md`) — unnecessary, replaced by `/eha-help`.
+- **Antigravity README** (`.agents/commands/eha/README.md`) — unnecessary, `.agents/commands/` folder no longer generated.
+
 ## [1.0.7] - 2026-06-02
 
 ### Added

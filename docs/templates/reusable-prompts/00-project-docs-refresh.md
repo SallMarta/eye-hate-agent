@@ -17,6 +17,8 @@ Before refreshing, classify the repository's documentation state:
 | **Non-SDD Docs** | `docs/` exists with unstructured markdown (no stable headings, no taxonomy) | Conversion refresh: treat as legacy input, create SDD docs from content + codebase |
 | **Mixed** | `docs/project-docs/` exists AND legacy/reference folders also exist | Hybrid refresh: update active SDD docs + migrate unmapped legacy content + codebase |
 
+*Note: For Active SDD and Mixed states, also check for the existence of `foundation/phases/` directory and `foundation/changelog.md` to determine if they need active refreshment.*
+
 For **Legacy Only** and **Non-SDD Docs** states, auto-detect the Taxonomy Tier:
 - Examine the breadth and depth of the existing documentation + codebase complexity.
 - If content covers only core concerns (identity, architecture, status) → Tier 1 (Lite).
@@ -42,10 +44,10 @@ Proceed to the applicable action path.
 9. If the change affects an optional regular doc or its metadata, update `docs/project-docs/index.md` when present.
 10. If the change affects domain-specific technical guidance, update the owning guideline and `technical-guidelines/index.md` when present.
 11. When legacy or reference docs are being mapped into the active owner-doc set, classify them by the durable concern they govern rather than by the legacy folder or filename; legacy names are hints only.
-12. Normalize non-standard legacy labels by meaning when they map cleanly to an active owner. For example, `epic`, `milestone`, or `roadmap` material may map to `docs/project-docs/foundation/phases.md`, while `protocol`, `procedure`, `policy`, or `standard` material may map to `docs/project-docs/technical-guidelines/` when the content is domain-specific technical guidance.
+12. Normalize non-standard legacy labels by meaning when they map cleanly to an active owner. For example, `epic`, `milestone`, or `roadmap` material may map to `docs/project-docs/foundation/phases/`, while `protocol`, `procedure`, `policy`, or `standard` material may map to `docs/project-docs/technical-guidelines/` when the content is domain-specific technical guidance.
 13. When legacy or reference docs show that a justified optional doc should become active under `docs/project-docs/`, promote it into the active owner-doc set instead of leaving it stranded in reference-only folders.
 14. When legacy or reference docs contain domain-specific technical guidance that is still valid, create or update the relevant files under `docs/project-docs/technical-guidelines/` and create `technical-guidelines/index.md` when any guideline becomes active.
-15. When legacy or reference docs contain explicit phased planning, epic tracking, or execution-map detail that should stay active, create or update `docs/project-docs/foundation/phases.md` and register the active optional doc in `docs/project-docs/index.md`.
+15. When legacy or reference docs contain explicit phased planning, epic tracking, or execution-map detail that should stay active, create or update `docs/project-docs/foundation/phases/` and register the active optional doc directory in `docs/project-docs/index.md`.
 16. If a legacy artifact could plausibly map to more than one active owner, or if preserving the legacy label may be intentional, ask the user for direction instead of guessing.
 17. Preserve valuable legacy sections (e.g., 'Decision Rationale') that do not exist in the starter templates. Decide whether this information belongs as a new custom section in an existing document or warrants a new separate file entirely. Ask the user if the best approach is ambiguous. Do not discard domain-specific knowledge just because it lacks a standard template heading.
 18. When asking for that direction, prefer a concise question that states the inferred owner and the fallback choices. Example: `I found legacy "protocol" docs that look like technical guidance. Should I 1. skip them, 2. migrate them into active guideline docs, or 3. preserve "protocol" as a project-specific doc type?`
@@ -64,6 +66,16 @@ Proceed to the applicable action path.
     - i18n config, locale files → development/internationalization
     - README, inline comments, decision rationale → foundation/prd, architecture
 23. Mark all codebase-inferred facts as `Inferred from codebase` until the user confirms them.
+24. **Active Development & Phases Detection.** When refreshing a project that does not yet have `foundation/phases/`, check for active development signals (recent commits, sprint branches, open milestones, TODO density). If signals are found, prompt the user:
+    "This project appears to be in active development but has no phase-based planning docs.
+    Would you like to set up development phases to track your sprints and milestones?
+    If yes, describe the current and upcoming phases (or I can infer from your codebase)."
+    If the user agrees, create `foundation/phases/index.md` and individual phase files using brownfield naming (`phase-P{N}[-description].md`, e.g., `phase-P1-refactor.md`).
+25. **Phases Update Workflow.** When `foundation/phases/` already exists, treat it as a living operational document:
+    - Update sprint tracker in the active phase file when sprint-related changes are detected.
+    - Mark completed phases by updating their status.
+    - If the user requests a new phase, create the next numbered phase file and update the index.
+    - Cross-reference `foundation/status.md` epics/roadmap with phase progress.
 
 ### Review Sequence
 
@@ -87,7 +99,7 @@ For each mapping below, also inspect the corresponding codebase artifacts (sourc
 - stack or dependency changes → `foundation/architecture.md`, `development/testing.md`
 - feature scope changes → `foundation/prd.md`, `foundation/status.md`
 - detailed requirements or acceptance changes → `foundation/prd.md`, `foundation/status.md`
-- workflow or roadmap changes → `foundation/status.md`, `foundation/phases.md`, workflow docs if present
+- workflow or roadmap changes → `foundation/status.md`, `foundation/phases/` index/phase files, workflow docs if present
 - validation / CI changes → `development/testing.md`, `getting-started.md`
 - production environment, rollout, rollback, or smoke-check changes → `operations/production-runbook.md`, `foundation/architecture.md`, `development/testing.md`
 - API or integration changes → relevant API / integration docs plus `foundation/architecture.md`
@@ -96,9 +108,9 @@ For each mapping below, also inspect the corresponding codebase artifacts (sourc
 - optional or conditional doc inventory changes → `docs/project-docs/index.md` plus the affected optional owner docs
 - cross-cutting technical conventions or implementation rules → relevant `technical-guidelines/*.md`, `technical-guidelines/index.md`, and any summarizing core docs that reference them
 - documentation-system migration from legacy docs → active owner docs under `docs/project-docs/` first, with `docs-legacy/`, `docs-old/`, or other clearly named archive/reference folders used only as source material
-- semantic legacy-name normalization → map legacy names by content, for example `epic` or `roadmap` material to `foundation/phases.md` and `protocol` or `standard` material to `technical-guidelines/` when their governed concern matches those owners
+- semantic legacy-name normalization → map legacy names by content, for example `epic` or `roadmap` material to `foundation/phases/` and `protocol` or `standard` material to `technical-guidelines/` when their governed concern matches those owners
 - legacy technical-guidance promotion → `docs/project-docs/technical-guidelines/*.md`, `technical-guidelines/index.md`, and any summarizing core docs that now depend on those active guidelines
-- legacy phased-planning promotion → `docs/project-docs/foundation/phases.md`, `foundation/status.md`, and `docs/project-docs/index.md`
+- legacy phased-planning promotion → `docs/project-docs/foundation/phases/`, `foundation/status.md`, and `docs/project-docs/index.md`
 
 ## Output Contract
 

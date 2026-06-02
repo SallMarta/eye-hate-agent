@@ -56,8 +56,6 @@ The sole maintainer owns all documentation in this repository.
 | File | Purpose | Status | Owner | Creation trigger |
 | --- | --- | --- | --- | --- |
 | `changelog.md` | Release or milestone change history | active | Maintainer | Maintained for NPM releases |
-| `feature-inventory.md` | Detailed feature catalog | active | Maintainer | Used to track registry capabilities |
-| `phases.md` | Multi-phase planning or epic registry | active | Maintainer | Used to roadmap future agents or workflows |
 | `technical-guidelines/index.md` | Technical guidelines index | active | Maintainer | Used to registry code rules |
 
 Use status values such as `active`, `conditional`, `deprecated`, or `archived`. Add a new row in the `## 10. Optional And Conditional Docs` table above for each additional optional regular doc type that the repo activates.

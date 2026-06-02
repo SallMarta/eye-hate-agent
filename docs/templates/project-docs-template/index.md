@@ -57,8 +57,8 @@ Every project document must include these numbered headings in this exact order.
 | `foundation/architecture.md` | foundation | 1 | System architecture, tech stack, data flow, system flows, ADRs. |
 | `foundation/status.md` | foundation | 1 | High-level status, recent wins, roadmap. |
 | `foundation/workflow.md` | foundation | 1 | Branching, local development loop, PRs, code reviews. |
-| `foundation/phases.md` | foundation | 3 | Overall timelines, features, sub-functions, sprints. (Merged phases + feature inventory) |
-| `foundation/changelog.md` | foundation | 3 | Historical releases log. |
+| `foundation/phases/` | foundation | Conditional | Phase-based project planning. Generated when the project has active development phases (greenfield or brownfield). Contains `index.md` (phase registry) and individual phase files. |
+| `foundation/changelog.md` | foundation | Conditional | Historical releases log. Generated when a project reaches a formal release milestone or requires historical change tracking. |
 | `development/testing.md` | development | 2 | QA policy, matrices, environments, gates, naming standards. |
 | `development/api-contract.md` | development | 2 | API authentication, endpoints, payloads, webhooks, rate limits. |
 | `development/database.md` | development | 2 | Schema, entity models, indexes, migrations, data dictionary. |
@@ -117,13 +117,23 @@ This catalog defines the baseline required domain-specific headings for each doc
 - PR & Code Review
 - Issue Tracking
 
-### `foundation/phases.md`
+### `foundation/phases/index.md`
+- Project Type (Greenfield / Brownfield)
 - Overall Timeline
+- Phase Registry (table of all phases with status, links to individual files)
+- How to Add New Phases
+
+### `foundation/phases/phase-{N}[-description].md` (Greenfield naming)
+### `foundation/phases/phase-P{N}[-description].md` (Brownfield naming)
+- Phase Goal
+- Timeline (Start → End)
 - Feature Summary & Core Functions
-- Sub-Functions
-- Deprecated Features
-- Phase Registry
+- Sub-Functions / Tasks
 - Sprint Tracker
+- Acceptance Criteria
+- Dependencies & Blockers
+- Status (Not Started / In Progress / Complete)
+- Deprecated Features
 
 ### `foundation/changelog.md`
 - [Unreleased] (Added/Changed/Deprecated/Removed/Fixed/Security entries)

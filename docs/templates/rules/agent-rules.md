@@ -32,7 +32,11 @@ Structure incoming requests before acting to reduce rework and catch ambiguity e
   5. Treat a user-provided list as full scope unless the user changes it.
   6. Confirm if the plan could materially change scope, output, or direction.
   7. Then proceed.
-- **3.2** **Lite Mode (Micro-Tasks):** Skip the 7-step intake checklist and SDD requirements ONLY if the user explicitly triggers Lite Mode (e.g., using a `/lite` slash command, or prefixing their request with "Lite task:") AND the task is a trivial, isolated edit (e.g., typo fix, single UI tweak). For Lite Mode, bypass PRD validation and execute immediately to save time.
+- **3.2** **Lite Mode (Micro-Tasks):** Skip the 7-step intake checklist and SDD requirements when the task is a trivial, isolated edit (e.g., typo fix, single UI tweak, comment addition). Lite Mode is triggered by:
+  1. The user prefixing their request with "Lite task:" (e.g., "Lite task: fix the typo in README").
+  2. The agent contextually recognizing an obviously trivial micro-task from the request itself (e.g., "fix that typo", "change the button color to blue").
+  In Lite Mode, bypass PRD validation and the 7-step checklist. Execute immediately.
+  Do NOT apply Lite Mode to tasks that are architectural, multi-file, or scope-changing — even if the user phrases them casually.
 
 ## 4. Docs, Verification, and Completion
 

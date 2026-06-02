@@ -1,6 +1,6 @@
 {
   "name": "@sallmarta/eye-hate-agent",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Template-and-engine toolkit for AI-agent-assisted project workflows.",
   "directories": {
     "doc": "docs"

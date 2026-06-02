@@ -37,10 +37,10 @@ High-level repository health and status.
 Serve as a quick dashboard to see the state of EHA.
 
 ## 6. Non Goals
-Does not track granular tasks (see `phases.md` for epics).
+Does not track granular tasks.
 
 ## 7. Current State
-EHA has reached `1.0.7` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu.
+EHA has reached `1.0.8` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu.
 
 ## 8. Recent Accomplishments
 - Replaced Gemini with Antigravity natively, relocating rules to dedicated `.agents/rules/` directory.
@@ -54,12 +54,17 @@ EHA has reached `1.0.7` stability. The codebase has fully migrated to a robust n
 - Implemented targeted uninstallation supporting `eha remove [agent]`, preserving other agents' files.
 - Added a numbered selection menu with a stabilized default option and a new "All Agents" initialization command.
 - Refined success logs to print non-deterministic, friendly instruction headers and documented local development testing options (npm link, direct Node execution, local file dependencies) in `maintaining.md`.
+- Rewrote Lite Mode (Rule 3.2) to support contextual auto-recognition of micro-tasks without requiring a magic prefix.
+- Removed redundant README files for Claude and Antigravity, eliminating the unused `.agents/commands/` directory.
+- Redesigned development phases to use a conditional `foundation/phases/` folder structure (index and individual files) dynamically offered based on active development signals during bootstrap and refresh.
+- Added step 0.5 greenfield detection in bootstrap to prompt empty repos to start with discussion first.
+- Added support for descriptive phase filename suffixes (`phase-{N}[-description].md` / `phase-P{N}[-description].md`).
 
 ## 9. Upcoming Focus
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.7
+- NPM Version: 1.0.8
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
 - Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).
@@ -71,7 +76,7 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 | Agent Support | Live | Claude, Copilot, Antigravity |
 
 ## 12. Epics
-See `phases.md`.
+None.
 
 ## 13. Risks / Blockers
 None.
@@ -80,7 +85,7 @@ None.
 Accurate reflection of the repository state.
 
 ## 15. Related Documents
-- [Phases](phases.md) - Deep dive into upcoming epics.
+- [Changelog](changelog.md) - History of completed phases.
 
 ## 16. Open Questions
 None.

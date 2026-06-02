@@ -21,7 +21,7 @@ Trigger these commands inside your chat window to coordinate development:
 
 | Trigger Command | Purpose | When to Use |
 | :--- | :--- | :--- |
-| `/eha-bootstrap` | Initializes a brand-new documentation set | Run only in **empty repositories** with zero docs. |
+| `/eha-bootstrap` | Initializes a brand-new documentation set | Run in repos with **no existing docs**. For truly empty repos, it will guide you to `/eha-discuss` first. |
 | `/eha-refresh` | Synchronizes and migrates project documentation | Run in **active projects** to sync code with docs. |
 | `/sdd-discuss` | Brainstorm specifications and API contracts | Run **before coding** to align specs. |
 | `/sdd-execute` | Spec-driven code generation via TDD | Run **during implementation** to write tests/code. |
