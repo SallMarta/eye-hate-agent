@@ -7,13 +7,14 @@ A simple **Spec-Driven Development (SDD)**. Unified set of rules, specialist ski
 ## Get Started
 
 ### 1. Initialize EHA in your project
-Run directly in **your project root**:
+Run directly in **your project/repo root**:
 ```bash
 $ npx @sallmarta/eye-hate-agent
 ```
 *Or install **globally** and run it:*
 ```bash
 $ npm i -g @sallmarta/eye-hate-agent
+$ cd your-project
 $ eha
 ```
 
@@ -43,15 +44,47 @@ Once initialized, EHA projects a series of interactive workflows directly into y
 
 ---
 
+## Greenfield vs. Brownfield Workflows
+
+EHA adapts its behavior automatically based on your repository's state:
+
+### Greenfield Projects
+**Start with Discussion:** run
+```bash
+/sdd-discuss
+```
+to brainstorm the tech stack and project specifications, then run 
+```bash
+/eha-bootstrap
+```
+once the discussion is mature.
+
+**Bootstrap Redirect:** If you run `/eha-bootstrap` in a brand-new empty repository, the agent will automatically redirect you to `/sdd-discuss` first.
+
+### Brownfield Projects
+**No Project Docs Yet:** Run 
+```bash
+/eha-bootstrap
+```
+to scan your codebase complexity and generate an appropriate Taxonomy Tier (Lite, Standard, or Enterprise).
+
+**Already Has Project Docs:** Run 
+```bash
+/eha-refresh
+```
+to sync docs with code, migrate legacy folders, and resolve codebase-vs-doc drift with user guidance.
+
+---
+
 ## EHA CLI Command
 
 The EHA CLI provides a lightweight, frictionless setup and maintenance toolbelt:
 
 | Command | Primary Purpose |
 | :--- | :--- |
-| `eha init` (or `npx...`) | Automatically scans your repo root, lets you choose your target AI agent, and projects standard rules/skills. |
-| `eha init <agent>` | Directly initiates the EHA project setup for a specific agent (e.g. `copilot`, `claude`, `antigravity`)  |
-| `eha doctor` | Performs a health check verifying that all projected rules, stubs, and workflows are present and intact. |
+| `eha init` | Lets you choose your target AI agent, and projects standard rules/skills. |
+| `eha init <agent>` | Directly initiates the EHA project setup for a specific agent (e.g. `copilot`, `claude`, `antigravity`).  |
+| `eha doctor` | Performs a health check verifying that all generated files are present and intact. |
 | `eha remove [agent]` | Safely deletes EHA's generated contract files for the specified agent (or all agents if omitted), along with configuration files. |
 
 ---
@@ -84,20 +117,6 @@ $ npm uninstall -g @sallmarta/eye-hate-agent
 
 ---
 
----
-
-## Greenfield vs. Brownfield Workflows
-
-EHA adapts its behavior automatically based on your repository's state:
-
-### Greenfield Projects (New Codebase)
-* **Start with Discussion:** Run `/sdd-discuss` first to brainstorm the tech stack and project specifications, then run `/eha-bootstrap` once the discussion is mature.
-* **Bootstrap Redirect:** If you run `/eha-bootstrap` in a brand-new empty repository, the agent will automatically redirect you to `/sdd-discuss` first.
-
-### Brownfield Projects (Existing Codebase)
-* **No Docs Yet:** Run `/eha-bootstrap` to scan your codebase complexity and generate an appropriate Taxonomy Tier (Lite, Standard, or Enterprise).
-* **Already Has Docs:** Run `/eha-refresh` to sync docs with code, migrate legacy folders, and resolve codebase-vs-doc drift with user guidance.
-
 ## EHA Philosophy
 
 Eye Hate Agent is built upon a core set of operational beliefs designed to optimize the synergy between human developers and AI coding agents:
@@ -107,3 +126,10 @@ Eye Hate Agent is built upon a core set of operational beliefs designed to optim
 3. **Zero Agent Hallucination**: By anchoring AI agents to EHA's Single Master Registry catalog (`index.md`) and a strict 4-layer folder structure, EHA eliminates path hallucination, stale references, and prompt redundancy. Agents always know exactly where to read and write.
 4. **Brainstorming & Discussion are Sacred**: Specifications are never written in isolation. EHA integrates a dedicated discuss loop (`02-sdd-discuss.md`), establishing collaborative brainstorming as the mandatory first step to align human intent with agent understanding before any code is generated.
 5. **Native Agile & Scrum Alignment**: EHA is built for real-world software delivery. With structured sprint and epic trackers (`foundation/phases/`, `foundation/status.md`), EHA fits seamlessly into standard corporate Agile/Scrum lifecycles, enabling agents to act as high-velocity scrum contributors.
+
+----------
+$$
+SuLyAdeE
+$$
+----------
+
