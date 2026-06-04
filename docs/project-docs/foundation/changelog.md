@@ -2,6 +2,12 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.9] - 2026-06-04
+
+### Changed
+- **Phases Detection Hardened:** Upgraded Rule 24 to mandatory language with 4 concrete signal checks (recent commits, sprint/feature branches, planning artifacts, TODO density), specific git commands, and refined thresholds (14-day recency, TODO ≥ 5, file-system milestones). Inserted Phases Detection Gate as step 4 in the Review Sequence (positioned after codebase scan, before doc reading). Added safety nets in Final Pass and Output Contract for both refresh and bootstrap templates. Bootstrap Step 2.5 brownfield section now uses identical mandatory signal checks.
+- **Phases Detection Visibility:** Changed "skip silently" behavior to always report signal evaluation results in output, even when all four signals are negative. Agent decisions about phases are now always visible to the user.
+
 ## [1.0.8] - 2026-06-02
 
 ### Changed

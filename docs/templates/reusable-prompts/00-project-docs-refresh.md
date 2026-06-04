@@ -66,11 +66,21 @@ Proceed to the applicable action path.
     - i18n config, locale files → development/internationalization
     - README, inline comments, decision rationale → foundation/prd, architecture
 23. Mark all codebase-inferred facts as `Inferred from codebase` until the user confirms them.
-24. **Active Development & Phases Detection.** When refreshing a project that does not yet have `foundation/phases/`, check for active development signals (recent commits, sprint branches, open milestones, TODO density). If signals are found, prompt the user:
-    "This project appears to be in active development but has no phase-based planning docs.
-    Would you like to set up development phases to track your sprints and milestones?
+24. **Active Development & Phases Detection (MANDATORY).** When refreshing a project that does not yet have `foundation/phases/`, you **MUST** check all four active development signals before proceeding to doc refresh. Do NOT skip this step. The signals are:
+
+    1. **Recent commits** — run `git log --oneline -20` or equivalent; if there are commits within the last 14 days, OR 10+ commits within the last 30 days, this signal is positive.
+    2. **Sprint/feature branches** — run `git branch -a` and look for naming patterns like `sprint/`, `phase/`, `release/`, `feature/`, `feat/`, `dev/`.
+    3. **Planning artifacts** — check for `TODO.md`, `ROADMAP.md`, `.github/ISSUE_TEMPLATE/`, issue tracker references in recent commits (e.g., `#123`, `fixes #`, `closes #`), or project board configs.
+    4. **TODO density** — grep the codebase for `TODO`, `FIXME`, `HACK` comments; if count ≥ 5, this signal is positive.
+
+    If **any one** signal is positive, you **MUST** prompt the user:
+    "This project shows active development signals ([list which signals were positive and what was found]).
+    Would you like to set up `foundation/phases/` to track your development cycles?
     If yes, describe the current and upcoming phases (or I can infer from your codebase)."
+
     If the user agrees, create `foundation/phases/index.md` and individual phase files using brownfield naming (`phase-P{N}[-description].md`, e.g., `phase-P1-refactor.md`).
+    If the user declines, skip phases creation entirely — but still report the detection outcome in the Output Contract.
+    If all four signals are negative, skip the phases prompt but note in your output that all four active development signals were negative and no phases were offered.
 25. **Phases Update Workflow.** When `foundation/phases/` already exists, treat it as a living operational document:
     - Update sprint tracker in the active phase file when sprint-related changes are detected.
     - Mark completed phases by updating their status.
@@ -82,15 +92,16 @@ Proceed to the applicable action path.
 1. Run Step 0 (Doc State Detection).
 2. Read the change summary (if provided) or the user's intent.
 3. **Scan the codebase** — inspect source code, configs, tests, CI/CD pipelines, and package manifests for current truth. This step is NOT optional.
-4. Read the owning project docs (if Active SDD or Mixed state).
-5. Read `docs/project-docs/index.md` and `docs/project-docs/technical-guidelines/index.md` when present.
-6. Read legacy/reference folders when present.
-7. Read relevant guideline docs when the change touches technical rules.
-8. Identify impacted dependent docs.
-9. Cross-reference codebase findings against doc/legacy claims — resolve conflicts by prompting the user (see rule 21).
-10. Refresh/create the owning docs first (using combined codebase + docs evidence).
-11. Refresh summary or index docs second.
-12. Run a consistency pass.
+4. **Phases Detection Gate** — If `foundation/phases/` does not exist, execute Rule 24 (Active Development & Phases Detection) now. Run all four signal checks using the codebase data from step 3. If any signal is positive, prompt the user about setting up phases before continuing. If `foundation/phases/` already exists, proceed to step 5.
+5. Read the owning project docs (if Active SDD or Mixed state).
+6. Read `docs/project-docs/index.md` and `docs/project-docs/technical-guidelines/index.md` when present.
+7. Read legacy/reference folders when present.
+8. Read relevant guideline docs when the change touches technical rules.
+9. Identify impacted dependent docs.
+10. Cross-reference codebase findings against doc/legacy claims — resolve conflicts by prompting the user (see rule 21).
+11. Refresh/create the owning docs first (using combined codebase + docs evidence).
+12. Refresh summary or index docs second.
+13. Run a consistency pass.
 
 ## Ownership Examples
 
@@ -122,6 +133,7 @@ Your result should state:
 4. any remaining consistency risks or open questions
 5. which codebase-vs-doc conflicts were resolved and how (per user direction)
 6. the auto-detected tier (for Legacy Only / Non-SDD states), if applicable
+7. whether active development signals were detected, which signals were positive/negative, and whether the user was prompted about `foundation/phases/` setup (include the user's response: accepted, declined, or not yet answered)
 
 ## Final Pass
 
@@ -132,6 +144,7 @@ Before finishing, check that:
 3. no stale summary remains in `foundation/status.md`, `docs/project-docs/index.md`, `technical-guidelines/index.md`, or other index docs
 4. codebase-inferred facts are clearly marked and do not silently override user-confirmed truths
 5. the auto-detected tier (for Legacy Only / Non-SDD states) is stated in the output so the user can override it if needed
+6. if `foundation/phases/` did not exist at the start of this refresh and any active development signal was positive, confirm that the user was prompted about setting up phases — if this prompt was skipped, **stop and prompt the user now before finishing**
 
 ## Inputs
 

@@ -98,21 +98,24 @@ Additionally, ask the user:
 If yes, generate a boilerplate `foundation/changelog.md` with an initial unreleased section.
 
 ### For Brownfield Projects (with existing code):
-Analyze the codebase for active development signals:
-- Recent commits, open branches, TODO comments.
-- Sprint-style branch names (`sprint-*`, `release-*`, `feat/*`).
-- Issue tracker references in commits or code.
-- CI/CD pipeline activity.
+You **MUST** check all four active development signals. Do NOT skip this step:
 
-If active development signals are found, ask the user:
-"This project appears to be in active development. Would you like to set up phase-based planning to track your development cycles?
+1. **Recent commits** — run `git log --oneline -20` or equivalent; if there are commits within the last 14 days, OR 10+ commits within the last 30 days, this signal is positive.
+2. **Sprint/feature branches** — run `git branch -a` and look for naming patterns like `sprint/`, `phase/`, `release/`, `feature/`, `feat/`, `dev/`.
+3. **Planning artifacts** — check for `TODO.md`, `ROADMAP.md`, `.github/ISSUE_TEMPLATE/`, issue tracker references in recent commits (e.g., `#123`, `fixes #`, `closes #`), or project board configs.
+4. **TODO density** — grep the codebase for `TODO`, `FIXME`, `HACK` comments; if count ≥ 5, this signal is positive.
+
+If **any one** signal is positive, you **MUST** ask the user:
+"This project shows active development signals ([list which signals were positive and what was found]).
+Would you like to set up `foundation/phases/` to track your development cycles?
 If yes, describe the current and upcoming phases (or I can infer from your codebase)."
 
 If the user provides phases:
 - Create `foundation/phases/index.md` with the phase registry.
 - Create individual phase files using brownfield naming: `phase-P{N}[-description].md` (e.g., `phase-P1-refactor.md`, `phase-P2-auth.md`).
 
-If the user declines or no active development signals: Skip phases entirely.
+If the user declines: Skip phases entirely.
+If all four signals are negative: Skip the phases prompt but note in your output that all four active development signals were negative and no phases were offered.
 
 Additionally, check for release signals (e.g., git tags, version updates in `package.json`, release branches). If found, ask the user:
 "Would you like to set up a changelog (`foundation/changelog.md`) to track historical releases?"
@@ -124,6 +127,7 @@ Before finishing, check that:
 2. `foundation/architecture.md` and `development/testing.md` do not conflict.
 3. The generated documents strictly match the approved Taxonomy Tier, conditional choices, and structural definitions cataloged in the master registry.
 4. If phases were generated, verify `foundation/phases/index.md` correctly registry-links to all individual phase files (`phase-*.md`), and each phase file has complete stable headings.
+5. For brownfield projects: if any active development signal was positive during Step 2.5, confirm that the user was prompted about setting up phases. If this prompt was skipped, **stop and prompt the user now before finishing**.
 
 ## Inputs
 Use the project brief, codebase, and constraints provided below to begin your analysis.

@@ -1,6 +1,6 @@
 # Status
 
-Last update: 2026-06-02
+Last update: 2026-06-04
 
 Status: Live
 
@@ -40,7 +40,7 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks.
 
 ## 7. Current State
-EHA has reached `1.0.8` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu.
+EHA has reached `1.0.9` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu.
 
 ## 8. Recent Accomplishments
 - Replaced Gemini with Antigravity natively, relocating rules to dedicated `.agents/rules/` directory.
@@ -59,12 +59,14 @@ EHA has reached `1.0.8` stability. The codebase has fully migrated to a robust n
 - Redesigned development phases to use a conditional `foundation/phases/` folder structure (index and individual files) dynamically offered based on active development signals during bootstrap and refresh.
 - Added step 0.5 greenfield detection in bootstrap to prompt empty repos to start with discussion first.
 - Added support for descriptive phase filename suffixes (`phase-{N}[-description].md` / `phase-P{N}[-description].md`).
+- Hardened phases detection with mandatory Rule 24 language, 4 concrete signal checks with specific commands/thresholds, a Phases Detection Gate in the Review Sequence, and safety nets in Final Pass and Output Contract for both refresh and bootstrap templates.
+- Changed phases detection from silent-skip to always-visible reporting, ensuring agent decisions about phases are transparent to the user.
 
 ## 9. Upcoming Focus
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.8
+- NPM Version: 1.0.9
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
 - Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).
