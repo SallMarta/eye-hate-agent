@@ -1,7 +1,7 @@
 {
   "name": "@sallmarta/eye-hate-agent",
-  "version": "1.0.9",
-  "description": "Template-and-engine toolkit for AI-agent-assisted project workflows.",
+  "version": "1.0.10",
+  "description": "A simple Spec-Driven Development (SDD) for AI-agent-assisted project workflows.",
   "directories": {
     "doc": "docs"
   },
@@ -12,7 +12,8 @@
     "README.md"
   ],
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "postinstall": "node -e \"try{var c=require('chalk');console.log('\\n'+c.green('✓ EHA installed!')+' Run '+c.cyan('eha')+' to set up.\\n')}catch(e){console.log('\\nEHA installed! Run eha to set up.\\n')}\""
   },
   "keywords": [
     "ai-agent",

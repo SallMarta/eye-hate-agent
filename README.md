@@ -82,10 +82,10 @@ The EHA CLI provides a lightweight, frictionless setup and maintenance toolbelt:
 
 | Command | Primary Purpose |
 | :--- | :--- |
-| `eha init` | Lets you choose your target AI agent, and projects standard rules/skills. |
-| `eha init <agent>` | Directly initiates the EHA project setup for a specific agent (e.g. `copilot`, `claude`, `antigravity`).  |
+| `eha` | **Unified wizard**: banner → agent selection → scope selection (project/device) → install. |
 | `eha doctor` | Performs a health check verifying that all generated files are present and intact. |
-| `eha remove [agent]` | Safely deletes EHA's generated contract files for the specified agent (or all agents if omitted), along with configuration files. |
+| `eha remove [agent]` | Safely deletes EHA's generated project-level contract files for the specified agent (or all agents if omitted), along with configuration files. |
+| `eha uninstall` | Safely deletes EHA's generated device-level contract files from your machine. |
 
 ---
 
@@ -95,22 +95,27 @@ When a new version of EHA is released, simply run:
 ```bash
 $ eha
 ```
-in your repository. The engine will detect the version mismatch automatically, prompt you to regenerate the files **(if needed)**, and update them to the latest standards seamlessly.
+in your repository or from anywhere on your machine. The engine will detect the version mismatch automatically, prompt you to update the files, and update them to the latest standards seamlessly.
 
 ---
 
 ## Uninstallation
 
-To completely remove EHA from your project and device:
+To completely remove EHA:
 
-### 1. Remove project files
-To clean up projected AI files, run the following command in your project root. You can optionally specify a target agent (e.g. `claude`, `copilot`, `antigravity`) to remove only that agent's files while preserving other active installations:
+### 1. Remove project-level (Local) files
+To clean up locally run the following command in your project root. Possible to specify a target agent (e.g. `claude`):
 ```bash
 $ eha remove [agent]
 ```
 
-### 2. Uninstall the CLI globally
-To completely remove the CLI from your device, run:
+### 2. Remove device-level (Global) files
+To clean up globally from your machine, run:
+```bash
+$ eha uninstall
+```
+
+### 3. Remove the CLI Completely
 ```bash
 $ npm uninstall -g @sallmarta/eye-hate-agent
 ```

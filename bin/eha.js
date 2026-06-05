@@ -7,56 +7,23 @@ const chalk = require('chalk');
 const readline = require('node:readline/promises');
 const {
   SUPPORTED_AGENT_IDS,
+  deviceManifestExists,
   doctor,
   findRepoRoot,
   initProject,
+  installDevice,
   listSupportedRuntimes,
   listWorkflows,
   readConfig,
+  readDeviceManifest,
   readProjectManifest,
   removeProject,
+  uninstallDevice,
 } = require('../src/engine');
 
 const pkg = require('../package.json');
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
-async function promptAgentChoice(currentAgent) {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-  try {
-    const runtimes = listSupportedRuntimes();
-    const defaultIndex = 1;
-
-    console.log('');
-    console.log('Which agent?');
-    for (let i = 0; i < runtimes.length; i++) {
-      console.log(`  ${i + 1}. ${runtimes[i].name}`);
-    }
-    console.log(`  ${runtimes.length + 1}. All Agents`);
-
-    const maxChoice = runtimes.length + 1;
-    const answer = await rl.question(
-      `Choose [1-${maxChoice}] (default: ${defaultIndex}): `,
-    );
-    const trimmed = answer.trim();
-
-    if (!trimmed) return runtimes[defaultIndex - 1].id;
-
-    const num = parseInt(trimmed, 10);
-    if (num >= 1 && num <= runtimes.length) return runtimes[num - 1].id;
-    if (num === maxChoice) return 'all';
-
-    const normalized = trimmed.toLowerCase();
-    if (normalized === 'all') return 'all';
-
-    const match = runtimes.find(r => r.id === normalized);
-    if (match) return match.id;
-
-    return trimmed.toLowerCase();
-  } finally {
-    rl.close();
-  }
-}
 
 async function promptConfirm(message, defaultYes = false) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -138,116 +105,281 @@ function printDoctorSummary(result) {
   console.log('');
 }
 
-// ─── Wizard (shared by bare invocation and `eha init`) ────────────────────────
+function printBanner() {
+  const ehaRed = chalk.hex('#A61E14').bold;
+  console.log('');
+  console.log(ehaRed('  ███████╗██╗  ██╗ █████╗ '));
+  console.log(ehaRed('  ██╔════╝██║  ██║██╔══██╗'));
+  console.log(ehaRed('  █████╗  ███████║███████║'));
+  console.log(ehaRed('  ██╔══╝  ██╔══██║██╔══██║'));
+  console.log(ehaRed('  ███████╗██║  ██║██║  ██║'));
+  console.log(ehaRed('  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝'));
+  console.log(chalk.gray(`  v${pkg.version}`));
+  console.log('');
+}
 
-async function runInitWizard(agentIdArg) {
-  const rootDir = resolveRootDir();
-  const config = readConfig(rootDir);
-  const manifest = readProjectManifest(rootDir);
+async function checkForUpdates() {
+  try {
+    const https = require('node:https');
+    const data = await new Promise((resolve, reject) => {
+      const req = https.get(
+        'https://registry.npmjs.org/@sallmarta/eye-hate-agent/latest',
+        { timeout: 3000 },
+        (res) => {
+          let body = '';
+          res.on('data', (chunk) => (body += chunk));
+          res.on('end', () => resolve(JSON.parse(body)));
+        },
+      );
+      req.on('error', reject);
+      req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
+    });
 
-  let agentId = agentIdArg ? String(agentIdArg).trim().toLowerCase() : null;
-  const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+    const latest = data.version;
+    if (latest && latest !== pkg.version) {
+      console.log(
+        chalk.yellow(`  Update available: ${pkg.version} → ${latest}`) +
+        chalk.gray(` — run npm i -g @sallmarta/eye-hate-agent`)
+      );
+      console.log('');
+    }
+  } catch {
+    // Silently ignore — no network, no problem
+  }
+}
 
-  if (!agentId) {
-    if (isInteractive) {
-      agentId = await promptAgentChoice(config.agent);
+function parseAgentInput(input, runtimes) {
+  const trimmed = (input || '').trim();
+  if (!trimmed) return [runtimes[0].id];
+  if (trimmed === '0' || trimmed.toLowerCase() === 'all') return SUPPORTED_AGENT_IDS.slice();
+
+  const parts = trimmed.split(',').map(p => p.trim()).filter(Boolean);
+  const ids = new Set();
+
+  for (const part of parts) {
+    const num = parseInt(part, 10);
+    if (num === 0) return SUPPORTED_AGENT_IDS.slice();
+    if (num >= 1 && num <= runtimes.length) {
+      ids.add(runtimes[num - 1].id);
     } else {
-      agentId = config.agent || SUPPORTED_AGENT_IDS[0];
+      const normalized = part.toLowerCase();
+      if (normalized === 'all') return SUPPORTED_AGENT_IDS.slice();
+      const match = runtimes.find(r => r.id === normalized);
+      if (match) ids.add(match.id);
+      else ids.add(normalized);
     }
   }
 
-  const normalized = String(agentId).trim().toLowerCase();
+  return ids.size > 0 ? [...ids] : [runtimes[0].id];
+}
 
-  if (normalized === 'all') {
-    const installedAgents = config.agents || (config.agent ? [config.agent] : []);
-    if (isInteractive && installedAgents.length > 0) {
-      const listStr = installedAgents.map(a => chalk.cyan(a)).join(', ');
-      const confirm = await promptConfirm(
-        `EHA is set up for: ${listStr}. Overwrite / setup all agents?`,
+async function promptAgentChoice() {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  try {
+    const runtimes = listSupportedRuntimes();
+
+    console.log('');
+    console.log('Which agent(s)?');
+    for (let i = 0; i < runtimes.length; i++) {
+      console.log(`  ${i + 1}. ${runtimes[i].name}`);
+    }
+    console.log(`  0. All Agents`);
+
+    const answer = await rl.question(
+      `Choose agent(s) — comma-separate for multiple (e.g. 1,3): `,
+    );
+    return parseAgentInput(answer, runtimes);
+  } finally {
+    rl.close();
+  }
+}
+
+async function promptScope() {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  try {
+    console.log('');
+    console.log('Where should EHA be installed?');
+    console.log(`  1. This project ${chalk.gray('(files in .claude/, .github/, .agents/)')}`);
+    console.log(`  2. Your device — all projects ${chalk.gray('(files in ~/.claude/, ~/.copilot/, ~/.gemini/)')}`);
+
+    const answer = await rl.question(`Choose [1-2]: `);
+    const trimmed = answer.trim();
+
+    if (trimmed === '2' || trimmed.toLowerCase() === 'device' || trimmed.toLowerCase() === 'global') {
+      return 'device';
+    }
+
+    return 'project';
+  } finally {
+    rl.close();
+  }
+}
+
+async function runDeviceInstall(agentIds) {
+  const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+
+  if (isInteractive && deviceManifestExists()) {
+    const manifest = readDeviceManifest();
+    const installedAgentIds = (manifest.agents || []).map(a => a.id);
+    if (installedAgentIds.length > 0) {
+      const listStr = installedAgentIds.map(a => chalk.cyan(a)).join(', ');
+      const ver = manifest.packageVersion || 'unknown';
+      const confirmed = await promptConfirm(
+        `EHA is already installed on your device (${listStr}, v${ver}). Update / overwrite?`,
         true,
       );
-      if (!confirm) {
+      if (!confirmed) {
         console.log('Skipped.');
         return;
       }
     }
-
-    console.log(chalk.blue('\nInitializing EHA for all agents...'));
-    let fileCount = 0;
-    for (const id of SUPPORTED_AGENT_IDS) {
-      const result = initProject({ rootDir, agentId: id });
-      fileCount += result.fileCount;
-    }
-
-    console.log('');
-    console.log(chalk.green('✓ EHA is ready for all agents.'));
-    console.log(`  Agents : ${SUPPORTED_AGENT_IDS.map(a => chalk.cyan(a)).join(', ')}`);
-    console.log(`  Files  : ${fileCount} file(s) generated`);
-    console.log('');
-    console.log('Open Agents in this project and run ' + chalk.cyan('/eha-help') + ' to get started or run ' + chalk.cyan('eha doctor') + ' to see all files.');
-    console.log('');
-    return;
   }
 
-  if (!SUPPORTED_AGENT_IDS.includes(normalized)) {
-    const runtimes = listSupportedRuntimes();
-    const list = runtimes.map((r, i) => `${i + 1}. ${r.name}`).join(', ');
+  console.log('');
+  console.log(chalk.blue('Installing EHA to your device...'));
+  console.log('');
+
+  const result = installDevice({ agentIds });
+
+  const agentNames = { claude: 'Claude', copilot: 'GitHub Copilot', antigravity: 'Antigravity' };
+
+  for (const agentId of result.agentIds) {
+    const agentResult = result.results[agentId];
+    console.log(`  ${chalk.cyan(agentNames[agentId] || agentId)}:`);
+    for (const file of agentResult.files) {
+      const suffix = file.isSentinel ? ` (EHA rules block ${file.action})` : '';
+      console.log(`    ${chalk.green('✓')} ${file.displayPath}${chalk.gray(suffix)}`);
+    }
+    console.log('');
+  }
+
+  console.log(chalk.green('✓ EHA installed to your device!'));
+  console.log(`  Open your agent in any project and run ${chalk.cyan('/eha-help')} to get started.`);
+  console.log('');
+}
+
+async function runProjectInstall(agentIds) {
+  const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+
+  let rootDir;
+  try {
+    rootDir = findRepoRoot(process.cwd());
+  } catch {
     console.error(
-      chalk.red(`Unsupported agent: ${agentIdArg || agentId}.`) +
-      ` Choose one of: ${list}, or ${runtimes.length + 1}. All Agents.`,
+      chalk.red('No project root found.') +
+      ' Run ' + chalk.cyan('npm init -y') + ' or ' + chalk.cyan('git init') + ' first.',
     );
     process.exit(1);
   }
-  agentId = normalized;
 
-  const installedAgents = config.agents || (config.agent ? [config.agent] : []);
-  const isAlreadyInstalled = installedAgents.includes(agentId);
+  const config = readConfig(rootDir);
+  const installedAgents = config.agents || [];
 
-  if (isInteractive) {
-    if (isAlreadyInstalled) {
-      const currentVer = manifest.packageVersion || 'unknown';
-      let msg = '';
-      if (currentVer !== pkg.version) {
-        msg = `EHA is already set up for ${chalk.cyan(agentId)} (v${currentVer}). Regenerate with v${pkg.version}?`;
-      } else {
-        msg = `EHA is already set up for ${chalk.cyan(agentId)}. Regenerate/overwrite?`;
-      }
-      const confirm = await promptConfirm(msg, true);
-      if (!confirm) {
-        console.log('Skipped.');
-        return;
-      }
-    } else if (installedAgents.length > 0) {
-      const listStr = installedAgents.map(a => chalk.cyan(a)).join(', ');
-      const confirm = await promptConfirm(
-        `EHA is set up for: ${listStr}. Add ${chalk.cyan(agentId)}?`,
-        true,
-      );
-      if (!confirm) {
-        console.log('Skipped.');
-        return;
-      }
+  if (isInteractive && installedAgents.length > 0) {
+    const listStr = installedAgents.map(a => chalk.cyan(a)).join(', ');
+    const confirmed = await promptConfirm(
+      `EHA is set up for: ${listStr}. Overwrite / add selected agents?`,
+      true,
+    );
+    if (!confirmed) {
+      console.log('Skipped.');
+      return;
     }
   }
 
-  const result = initProject({ rootDir, agentId });
-  printInitSummary(result);
+  console.log('');
+  console.log(chalk.blue('Installing EHA to this project...'));
+
+  let totalFiles = 0;
+  const allFiles = [];
+  for (const id of agentIds) {
+    const result = initProject({ rootDir, agentId: id });
+    totalFiles += result.fileCount;
+    allFiles.push(...result.files);
+  }
+
+  console.log('');
+  console.log(chalk.green(`✓ EHA is ready.`));
+  console.log(`  Agent${agentIds.length > 1 ? 's' : ''} : ${agentIds.map(a => chalk.cyan(a)).join(', ')}`);
+  console.log(`  Files  : ${totalFiles} file(s) generated`);
+  for (const f of allFiles) {
+    console.log(`    ${chalk.gray(f)}`);
+  }
+  console.log('');
+  console.log(`Open your agent in this project and run ${chalk.cyan('/eha-help')} to get started.`);
+  console.log('');
 }
 
 // ─── CLI definition ────────────────────────────────────────────────────────────
 
 program.name('eha').description('Eye Hate Agent (EHA) — AI workflow toolkit').version(pkg.version);
 
-// Bare `eha` / `eyehateagent` with no subcommand runs the init wizard.
 program.action(async () => {
-  await runInitWizard(null);
+  const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+
+  if (!isInteractive) {
+    program.outputHelp();
+    return;
+  }
+
+  printBanner();
+  await checkForUpdates();
+
+  const agentIds = await promptAgentChoice();
+
+  for (const id of agentIds) {
+    if (!SUPPORTED_AGENT_IDS.includes(id)) {
+      console.error(
+        chalk.red(`Unsupported agent: ${id}.`) +
+        ` Choose from: ${SUPPORTED_AGENT_IDS.join(', ')}`
+      );
+      process.exit(1);
+    }
+  }
+
+  const scope = await promptScope();
+
+  if (scope === 'device') {
+    await runDeviceInstall(agentIds);
+  } else {
+    await runProjectInstall(agentIds);
+  }
 });
 
 program
-  .command('init [agent]')
-  .description(`Set up EHA in this project. Agent: ${SUPPORTED_AGENT_IDS.join(' | ')}`)
+  .command('init [agent]', { hidden: true })
+  .description('(hidden) Project-level install — alias for the unified wizard with scope=project')
   .action(async (agentArg) => {
-    await runInitWizard(agentArg || null);
+    const rootDir = resolveRootDir();
+    const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+
+    let agentIds;
+    if (agentArg) {
+      const normalized = String(agentArg).trim().toLowerCase();
+      agentIds = normalized === 'all' ? SUPPORTED_AGENT_IDS.slice() : [normalized];
+    } else if (isInteractive) {
+      printBanner();
+      agentIds = await promptAgentChoice();
+    } else {
+      agentIds = [SUPPORTED_AGENT_IDS[0]];
+    }
+
+    let totalFiles = 0;
+    const allFiles = [];
+    for (const id of agentIds) {
+      const result = initProject({ rootDir, agentId: id });
+      totalFiles += result.fileCount;
+      allFiles.push(...result.files);
+    }
+
+    console.log('');
+    console.log(chalk.green(`✓ EHA is ready.`));
+    console.log(`  Agent${agentIds.length > 1 ? 's' : ''} : ${agentIds.map(a => chalk.cyan(a)).join(', ')}`);
+    console.log(`  Files  : ${totalFiles} file(s) generated`);
+    for (const f of allFiles) {
+      console.log(`    ${chalk.gray(f)}`);
+    }
+    console.log('');
   });
 
 program
@@ -312,6 +444,37 @@ program
   });
 
 program
+  .command('uninstall')
+  .description('Remove EHA device-level files from your machine')
+  .action(async () => {
+    const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+
+    if (isInteractive) {
+      const confirmed = await promptConfirm(
+        'Remove all device-level EHA files from your machine?',
+      );
+      if (!confirmed) {
+        console.log('Aborted.');
+        return;
+      }
+    }
+
+    const result = uninstallDevice();
+
+    if (result.removedFiles.length === 0) {
+      console.log(chalk.yellow('No device-level EHA installation found.'));
+      return;
+    }
+
+    console.log('');
+    console.log(chalk.green('✓ EHA device-level files removed:'));
+    for (const f of result.removedFiles) {
+      console.log(`  ${chalk.gray(f)}`);
+    }
+    console.log('');
+  });
+
+program
   .command('doctor')
   .description('Show EHA status: config, agent, and generated files')
   .action(() => {
@@ -319,7 +482,13 @@ program
     printDoctorSummary(doctor({ rootDir }));
   });
 
-program.parseAsync(process.argv).catch((error) => {
-  console.error(chalk.red(error.message));
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  program.parseAsync(process.argv).catch((error) => {
+    console.error(chalk.red(error.message));
+    process.exitCode = 1;
+  });
+}
+
+module.exports = {
+  parseAgentInput,
+};

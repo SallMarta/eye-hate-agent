@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const os = require('node:os');
 const { version: EHA_PACKAGE_VERSION } = require('../../package.json');
 
 const { listWorkflows } = require('./workflow-registry');
@@ -16,6 +17,11 @@ const {
   writeConfig,
   writeJson,
   writeText,
+  getDeviceManifestPath,
+  readDeviceManifest,
+  writeDeviceManifest,
+  upsertSentinelBlock,
+  removeSentinelBlock,
 } = require('./state');
 
 function resolveAgentId(agentId) {
@@ -235,10 +241,165 @@ function readProjectManifest(rootDir) {
   return readManifest(manifestPath);
 }
 
+/**
+ * Install EHA files to the user's device (global/user-level directories).
+ *
+ * @param {Object} options
+ * @param {string[]} options.agentIds - Array of agent IDs to install
+ * @param {string} [options.homeDir] - Override home dir (for testing)
+ * @returns {Object} Result with per-agent file lists and summary
+ */
+function installDevice({ agentIds, homeDir }) {
+  const home = homeDir || os.homedir();
+  const workflows = listWorkflows();
+  const skills = listSkills();
+  const results = {};
+
+  for (const agentId of agentIds) {
+    const normalizedId = resolveAgentId(agentId);
+    const adapter = getRuntimeAdapter(normalizedId);
+
+    if (typeof adapter.generateDeviceFiles !== 'function') {
+      throw new Error(`Agent '${normalizedId}' does not support device-level installation.`);
+    }
+
+    const files = adapter.generateDeviceFiles(home, workflows, skills);
+    const written = [];
+
+    for (const file of files) {
+      if (file.isSentinel) {
+        const action = upsertSentinelBlock(file.absolutePath, file.content);
+        written.push({
+          absolutePath: file.absolutePath,
+          displayPath: file.absolutePath.replace(home, '~'),
+          action,
+          isSentinel: true,
+        });
+      } else {
+        ensureDir(path.dirname(file.absolutePath));
+        writeText(file.absolutePath, file.content);
+        written.push({
+          absolutePath: file.absolutePath,
+          displayPath: file.absolutePath.replace(home, '~'),
+          action: 'written',
+          isSentinel: false,
+        });
+      }
+    }
+
+    results[normalizedId] = {
+      agentId: normalizedId,
+      files: written,
+      fileCount: written.length,
+    };
+  }
+
+  // Write/update device manifest
+  const existingManifest = readDeviceManifest(home);
+  const existingAgents = existingManifest.agents || [];
+
+  const updatedAgents = [...existingAgents];
+  for (const agentId of agentIds) {
+    const normalizedId = resolveAgentId(agentId);
+    const idx = updatedAgents.findIndex(a => a.id === normalizedId);
+    const entry = {
+      id: normalizedId,
+      files: results[normalizedId].files.map(f => f.absolutePath),
+      updatedAt: new Date().toISOString(),
+      packageVersion: EHA_PACKAGE_VERSION,
+    };
+    if (idx !== -1) updatedAgents[idx] = entry;
+    else updatedAgents.push(entry);
+  }
+
+  const allFiles = new Set();
+  for (const agent of updatedAgents) {
+    for (const f of agent.files || []) allFiles.add(f);
+  }
+
+  writeDeviceManifest({
+    manifestVersion: 1,
+    agents: updatedAgents,
+    files: [...allFiles],
+    installedAt: existingManifest.installedAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    packageVersion: EHA_PACKAGE_VERSION,
+  }, home);
+
+  return {
+    homeDir: home,
+    agentIds: agentIds.map(a => resolveAgentId(a)),
+    results,
+    totalFiles: Object.values(results).reduce((sum, r) => sum + r.fileCount, 0),
+  };
+}
+
+/**
+ * Remove EHA device-level files.
+ * If agentId is provided, removes only that agent's files.
+ * If agentId is null, removes all device-level EHA files.
+ */
+function uninstallDevice({ agentId = null, homeDir } = {}) {
+  const home = homeDir || os.homedir();
+  const manifest = readDeviceManifest(home);
+  const removedFiles = [];
+
+  if (!manifest.agents || manifest.agents.length === 0) {
+    return { homeDir: home, removedFiles, message: 'No device-level EHA installation found.' };
+  }
+
+  const agentsToRemove = agentId
+    ? manifest.agents.filter(a => a.id === resolveAgentId(agentId))
+    : manifest.agents;
+
+  for (const agent of agentsToRemove) {
+    for (const filePath of agent.files || []) {
+      const basename = path.basename(filePath);
+      // Sentinel files: GEMINI.md is current; CLAUDE.md is legacy (pre-1.0.10 installs)
+      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md') {
+        const removed = removeSentinelBlock(filePath, home);
+        if (removed) removedFiles.push(filePath.replace(home, '~'));
+      } else {
+        removeFileIfExists(filePath);
+        removeEmptyParents(path.dirname(filePath), home);
+        removedFiles.push(filePath.replace(home, '~'));
+      }
+    }
+  }
+
+  if (agentId) {
+    const remainingAgents = manifest.agents.filter(a => a.id !== resolveAgentId(agentId));
+    if (remainingAgents.length === 0) {
+      removeFileIfExists(getDeviceManifestPath(home));
+      removeEmptyParents(path.dirname(getDeviceManifestPath(home)), home);
+    } else {
+      const allFiles = new Set();
+      for (const a of remainingAgents) {
+        for (const f of a.files || []) allFiles.add(f);
+      }
+      writeDeviceManifest({
+        manifestVersion: 1,
+        agents: remainingAgents,
+        files: [...allFiles],
+        installedAt: manifest.installedAt,
+        updatedAt: new Date().toISOString(),
+        packageVersion: EHA_PACKAGE_VERSION,
+      }, home);
+    }
+  } else {
+    removeFileIfExists(getDeviceManifestPath(home));
+    removeEmptyParents(path.dirname(getDeviceManifestPath(home)), home);
+  }
+
+  return { homeDir: home, removedFiles };
+}
+
 module.exports = {
   SUPPORTED_AGENT_IDS,
   doctor,
   initProject,
+  installDevice,
   readProjectManifest,
   removeProject,
+  uninstallDevice,
 };

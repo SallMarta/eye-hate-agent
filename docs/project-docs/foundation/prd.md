@@ -55,27 +55,29 @@ Saves hours of prompt engineering per repository by centralizing agent instructi
 ```mermaid
 journey
     title Generating AI Rules
-    section EHA Init
-      Run eha init: 5: Maintainer
+    section EHA Setup
+      Run eha: 5: Maintainer
       Select Agent: 5: Maintainer
-      Generate rules to .agents/: 5: System
+      Select Scope (project/device): 5: Maintainer
+      Generate files: 5: System
 ```
 
 ## 11. Feature Workflows
 ```mermaid
 flowchart TD
-    A[eha init] --> B{Agent Selected?}
-    B -- Yes --> C[Run Adapter]
-    B -- No --> D[Prompt Selection]
-    C --> E[Generate SKILL.md]
-    C --> F[Generate rules block]
+    A[eha] --> B[Select Agent]
+    B --> C{Scope?}
+    C -- Project --> D[Generate local files]
+    C -- Device --> E[Generate global files]
+    D --> F[Write workflows, skills, rules]
+    E --> F
 ```
 
 ## 12. Functional Requirements
 - CLI must support `init`, `remove`, `doctor`, and auto-update prompts based on manifest staleness.
 - Engine must dynamically load templates from `docs/templates/skills/` recursively.
 - Engine must run specific formatting adapters (e.g., Antigravity, Claude, Copilot) when writing the output.
-- Must generate `.agents/skills/[skill-name]/SKILL.md` (or equivalent target folder) structure.
+- Must generate `.agents/workflows/[workflow-name]/SKILL.md` for workflows and `.agents/skills/[skill-name]/SKILL.md` for skills (or equivalent target folder) structure.
 
 ## 13. Non-Functional Requirements
 - Must execute quickly and dependably.
@@ -83,7 +85,7 @@ flowchart TD
 - Must operate entirely statelessly relying on the bundled templates and `.eha/manifest.json`.
 
 ## 14. Acceptance Criteria
-- Running `eha init antigravity` creates exactly 18 template files in `.agents/`.
+- Running `eha` for Antigravity (project scope) creates the correct number of workflow, skill, and rules files in `.agents/workflows/`, `.agents/skills/`, and `.agents/rules/`.
 - Running `eha remove` cleanly uninstalls everything tracked by the manifest.
 - Version mismatch triggers the auto-update prompt on next invocation.
 

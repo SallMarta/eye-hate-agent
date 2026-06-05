@@ -2,6 +2,18 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.10] - 2026-06-05
+
+### Added
+- **Unified Setup Wizard:** Refactored the bare `eha` command into a single, interactive setup wizard (Banner → Agent Selection → Scope Selection → Install). Removed separate public `eha init` and `eha install` setup commands.
+- **Device-Level Scope Installation:** Added user-level global configuration scope. Files can now be installed either project-locally (in `.claude/`, `.github/`, or `.agents/`) or device-globally (in `~/.claude/`, `~/.copilot/`, or `~/.gemini/`).
+- **Sentinel Marker Management:** Introduced sentinel boundaries (`<!-- EHA:START -->` and `<!-- EHA:END -->`) for Antigravity device rules (`GEMINI.md`) to safely append, update, and remove EHA contents from shared configuration files without disturbing other user rules. Claude uses a dedicated modular rules file (`~/.claude/rules/eha-agent-rules.md`).
+- **Uninstall Command:** Added `eha uninstall` to remove EHA device-level configurations.
+
+### Changed
+- **Hidden Init Command:** Converted the existing `eha init` command to hidden visibility for backward compatibility in scripts and non-interactive workflows.
+- **Post-Install Message:** Simplified npm package post-installation text to "Run eha to set up."
+
 ## [1.0.9] - 2026-06-04
 
 ### Changed

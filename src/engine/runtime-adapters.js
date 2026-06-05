@@ -200,6 +200,57 @@ When a user asks to run an EHA workflow, use the matching prompt file below.
 ${workflowTable}`;
 }
 
+function buildDeviceRulesContent(agentId, workflows) {
+  const rulesContent = loadRuleContent(agentId);
+
+  let routingSection = '';
+  if (agentId === 'claude') {
+    const routes = workflows
+      .map(w => `- \`${w.commandName}\` → \`~/.claude/commands/eha/eha-${w.commandName}.md\``)
+      .join('\n');
+    routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching command file:\n\n${routes}`;
+  } else if (agentId === 'antigravity') {
+    const routes = workflows
+      .map(w => `- \`${w.commandName}\` → \`~/.gemini/config/global_workflows/eha-${w.commandName}.md\``)
+      .join('\n');
+    routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching workflow file:\n\n${routes}`;
+  }
+
+  return `${rulesContent}${routingSection}`;
+}
+
+function buildCopilotDeviceSkillFile(skill) {
+  return `---
+name: "eha-${skill.commandName}"
+description: "EHA skill — ${skill.commandName}"
+---
+
+${EHA_COMPACT_RULES}
+
+---
+
+${loadSkillContent(skill)}`;
+}
+
+function buildCopilotDeviceInstructionsFile(workflows) {
+  const workflowTable = workflows
+    .map(w => `- \`${w.commandName}\` → \`~/.copilot/prompts/eha-${w.commandName}.prompt.md\``)
+    .join('\n');
+
+  return `---
+description: "EHA workflow routing and agent rules for GitHub Copilot"
+applyTo: "**"
+---
+
+${loadRuleContent('copilot')}
+
+# EHA Workflow Routing
+
+When a user asks to run an EHA workflow, use the matching prompt file:
+
+${workflowTable}`;
+}
+
 const RUNTIME_ADAPTERS = {
   claude: {
     id: 'claude',
@@ -227,6 +278,36 @@ const RUNTIME_ADAPTERS = {
       
       return files;
     },
+    generateDeviceFiles(homeDir, workflows, skills) {
+      const files = [];
+
+      // Commands → ~/.claude/commands/eha/
+      for (const workflow of workflows) {
+        files.push({
+          absolutePath: path.join(homeDir, '.claude', 'commands', 'eha', `eha-${workflow.commandName}.md`),
+          content: buildClaudeCommandFile(workflow),
+          isSentinel: false,
+        });
+      }
+
+      // Skills → ~/.claude/skills/eha-<name>/SKILL.md
+      for (const skill of skills) {
+        files.push({
+          absolutePath: path.join(homeDir, '.claude', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
+          content: buildClaudeSkillFile(skill),
+          isSentinel: false,
+        });
+      }
+
+      // Rules → ~/.claude/rules/eha-agent-rules.md (own file, not sentinel)
+      files.push({
+        absolutePath: path.join(homeDir, '.claude', 'rules', 'eha-agent-rules.md'),
+        content: buildDeviceRulesContent('claude', workflows),
+        isSentinel: false,
+      });
+
+      return files;
+    },
   },
   copilot: {
     id: 'copilot',
@@ -247,7 +328,7 @@ const RUNTIME_ADAPTERS = {
       
       for (const skill of skills) {
         files.push({
-          relativePath: path.join('.github', 'prompts', 'skills', `eha-${skill.commandName}.prompt.md`),
+          relativePath: path.join('.github', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
           content: buildCopilotSkillFile(skill),
         });
       }
@@ -259,16 +340,46 @@ const RUNTIME_ADAPTERS = {
       
       return files;
     },
+    generateDeviceFiles(homeDir, workflows, skills) {
+      const files = [];
+
+      // Prompts → ~/.copilot/prompts/eha-<name>.prompt.md
+      for (const workflow of workflows) {
+        files.push({
+          absolutePath: path.join(homeDir, '.copilot', 'prompts', `eha-${workflow.commandName}.prompt.md`),
+          content: buildCopilotPromptFile(workflow),
+          isSentinel: false,
+        });
+      }
+
+      // Skills → ~/.copilot/skills/eha-<name>/SKILL.md
+      for (const skill of skills) {
+        files.push({
+          absolutePath: path.join(homeDir, '.copilot', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
+          content: buildCopilotDeviceSkillFile(skill),
+          isSentinel: false,
+        });
+      }
+
+      // Instructions → ~/.copilot/instructions/eha.instructions.md (own file, NOT sentinel)
+      files.push({
+        absolutePath: path.join(homeDir, '.copilot', 'instructions', 'eha.instructions.md'),
+        content: buildCopilotDeviceInstructionsFile(workflows),
+        isSentinel: false,
+      });
+
+      return files;
+    },
   },
   antigravity: {
     id: 'antigravity',
     name: 'Antigravity',
-    description: 'Generates Antigravity-compatible skills in .agents/skills/ and rules in .agents/rules/',
+    description: 'Generates Antigravity-compatible workflows in .agents/workflows/, skills in .agents/skills/, and rules in .agents/rules/',
     generateFiles(rootDir, workflows, skills) {
       const files = [];
       for (const workflow of workflows) {
         files.push({
-          relativePath: path.join('.agents', 'skills', `eha-${workflow.commandName}`, 'SKILL.md'),
+          relativePath: path.join('.agents', 'workflows', `eha-${workflow.commandName}`, 'SKILL.md'),
           content: buildAntigravityCommandFile(workflow),
         });
       }
@@ -284,6 +395,34 @@ const RUNTIME_ADAPTERS = {
         content: buildAntigravityRuleFile(),
       });
       
+      return files;
+    },
+    generateDeviceFiles(homeDir, workflows, skills) {
+      const files = [];
+
+      // Workflows → ~/.gemini/config/global_workflows/eha-<name>.md
+      for (const workflow of workflows) {
+        files.push({
+          absolutePath: path.join(homeDir, '.gemini', 'config', 'global_workflows', `eha-${workflow.commandName}.md`),
+          content: buildAntigravityCommandFile(workflow),
+          isSentinel: false,
+        });
+      }
+      for (const skill of skills) {
+        files.push({
+          absolutePath: path.join(homeDir, '.gemini', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
+          content: buildAntigravitySkillFile(skill),
+          isSentinel: false,
+        });
+      }
+
+      // Rules → ~/.gemini/GEMINI.md (sentinel block)
+      files.push({
+        absolutePath: path.join(homeDir, '.gemini', 'GEMINI.md'),
+        content: buildDeviceRulesContent('antigravity', workflows),
+        isSentinel: true,
+      });
+
       return files;
     },
   },
