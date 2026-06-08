@@ -40,9 +40,11 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks.
 
 ## 7. Current State
-EHA has reached `1.0.11` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
+EHA has reached `1.0.12` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
 
 ## 8. Recent Accomplishments
+- Refined Antigravity local workflow path generation to target flat `.md` files instead of nested `SKILL.md` objects.
+- Expanded PRD references to comprehensively document output paths for all three supported agents (Antigravity, Copilot, Claude).
 - Corrected device-level paths for Antigravity (`~/.gemini/config/skills/`) and Copilot (`~/.copilot/skills/` and `~/.copilot/instructions/eha-agent-rules.instructions.md`).
 - Implemented a unified interactive CLI wizard running from bare `eha`, replacing separate setup commands.
 - Added support for device-level (global/user) configuration scopes (`~/.claude/`, `~/.copilot/`, `~/.gemini/`).
@@ -71,7 +73,7 @@ EHA has reached `1.0.11` stability. The codebase has fully migrated to a robust 
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.11
+- NPM Version: 1.0.12
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
 - Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).

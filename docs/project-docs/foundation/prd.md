@@ -33,7 +33,7 @@ This is the central requirement document. Changes to EHA's CLI workflow or agent
 - [18. Open Questions](#18-open-questions)
 
 ## 4. Scope
-Defines requirements for the EHA engine, CLI arguments, and the `.agents/` template generation output.
+Defines requirements for the EHA engine, CLI arguments, and the template generation output (`.agents/`, `.claude/`, `.github/`).
 
 ## 5. Goals
 Establish a universal repository structure that any AI agent can seamlessly hook into, ensuring agents adhere strictly to documented schemas rather than hallucinating paths.
@@ -46,7 +46,7 @@ Make AI agents perfectly predictable and strictly aligned with the repository ma
 
 ## 8. Target Personas
 - **Solo Maintainer:** Generating templates quickly for new projects or managing the meta-tool itself.
-- **AI Agent:** Reading `.agents/` (or other platform-specific instruction surfaces) files to understand what it is allowed to do.
+- **AI Agent:** Reading platform-specific instruction surfaces (e.g., `.agents/`, `.claude/`, `.github/`) to understand what it is allowed to do.
 
 ## 9. Core Business Value
 Saves hours of prompt engineering per repository by centralizing agent instructions. Ensures 100% adherence to Spec-Driven Development (SDD).
@@ -77,7 +77,7 @@ flowchart TD
 - CLI must support `init`, `remove`, `doctor`, and auto-update prompts based on manifest staleness.
 - Engine must dynamically load templates from `docs/templates/skills/` recursively.
 - Engine must run specific formatting adapters (e.g., Antigravity, Claude, Copilot) when writing the output.
-- Must generate `.agents/workflows/[workflow-name]/SKILL.md` for workflows and `.agents/skills/[skill-name]/SKILL.md` for skills (or equivalent target folder) structure.
+- Must generate workflows and skills into their respective target structures depending on the agent: `.agents/workflows/[name].md` & `.agents/skills/[name]/SKILL.md` (Antigravity), `.claude/commands/eha/[name].md` & `.claude/skills/[name]/SKILL.md` (Claude), and `.github/prompts/[name].prompt.md` & `.github/skills/[name]/SKILL.md` (Copilot).
 
 ## 13. Non-Functional Requirements
 - Must execute quickly and dependably.
@@ -85,7 +85,7 @@ flowchart TD
 - Must operate entirely statelessly relying on the bundled templates and `.eha/manifest.json`.
 
 ## 14. Acceptance Criteria
-- Running `eha` for Antigravity (project scope) creates the correct number of workflow, skill, and rules files in `.agents/workflows/`, `.agents/skills/`, and `.agents/rules/`.
+- Running `eha` for any agent (project scope) creates the correct number of workflow, skill, and rules files in their respective directories (e.g., `.agents/`, `.claude/`, `.github/`).
 - Running `eha remove` cleanly uninstalls everything tracked by the manifest.
 - Version mismatch triggers the auto-update prompt on next invocation.
 
@@ -95,7 +95,7 @@ flowchart TD
 
 ## 16. Success Metrics
 - 0% bug rate on `eha init` file generation across supported IDEs.
-- Generated instructions are flawlessly parsed and respected by Antigravity and Copilot.
+- Generated instructions are flawlessly parsed and respected by Antigravity, Copilot, and Claude.
 
 ## 17. Related Documents
 - [Architecture](architecture.md) - Details the pipeline and adapter pattern.

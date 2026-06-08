@@ -379,7 +379,7 @@ const RUNTIME_ADAPTERS = {
       const files = [];
       for (const workflow of workflows) {
         files.push({
-          relativePath: path.join('.agents', 'workflows', `eha-${workflow.commandName}`, 'SKILL.md'),
+          relativePath: path.join('.agents', 'workflows', `eha-${workflow.commandName}.md`),
           content: buildAntigravityCommandFile(workflow),
         });
       }

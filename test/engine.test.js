@@ -109,8 +109,8 @@ test('initProject generates Antigravity command files', () => {
   const expectedCount = listWorkflows().length + listSkills().length + 1;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
-  const bootstrapPath = path.join(rootDir, '.agents', 'workflows', 'eha-bootstrap', 'SKILL.md');
-  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap SKILL.md must exist in .agents/workflows/');
+  const bootstrapPath = path.join(rootDir, '.agents', 'workflows', 'eha-bootstrap.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist in .agents/workflows/');
 
   const content = fs.readFileSync(bootstrapPath, 'utf8');
   assert.match(content, /description:/, 'Missing YAML frontmatter');

@@ -2,6 +2,12 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.12] - 2026-06-08
+
+### Changed
+- **Antigravity Workflows:** Modified the Antigravity local workflow generation adapter to output flat files (`.agents/workflows/eha-<name>.md`) instead of nested `SKILL.md` structures.
+- **Documentation:** Updated the PRD to explicitly document and cover requirement parity for all agent targets (`.agents/`, `.claude/`, `.github/`).
+
 ## [1.0.11] - 2026-06-08
 
 ### Changed
