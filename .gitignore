@@ -1,8 +1,19 @@
-.vscode
+# OS / Editor
 .DS_Store
-/node_modules
-/memories/session/
-.eha
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Package / Build
 *.tgz
-maintaining.md
+
+# EHA Internal State & Ignore List
+.eha/
 memories/session/
+MAINTAINER-README.md
+
+# Agent Generated Directories
+.agents/
+.claude/
+.github/

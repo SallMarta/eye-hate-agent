@@ -72,7 +72,7 @@ AI Agents can navigate EHA's codebase and modify it reliably without causing rec
 
 ## 13. Related Documents
 - [README.md](../../README.md) - End-user consumption guide.
-- [maintaining.md](../../maintaining.md) - Legacy pointers and release operations.
+- [MAINTAINER-README.md](../../MAINTAINER-README.md) - Legacy pointers and release operations.
 
 ## 14. Open Questions
 None.

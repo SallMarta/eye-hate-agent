@@ -2,6 +2,11 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.13] - 2026-06-08
+
+### Added
+- **Interactive Auto-Updater:** Restored the seamless update experience by adding an interactive prompt (`Would you like to auto-update EHA now? [Y/n]`) when a new version is detected. The CLI now automatically executes the global `npm i -g @sallmarta/eye-hate-agent` command for the user if accepted, bypassing the need for manual copy-pasting.
+
 ## [1.0.12] - 2026-06-08
 
 ### Changed
@@ -50,7 +55,7 @@ All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/p
 ### Added
 - **"All Agents" Multi-Project Option:** Added option `4. All Agents` (selectable via `4` or `all` parameter) to `eha init`, allowing rules, templates, and specialist skill stubs to be generated for all supported agents (Claude, Copilot, and Antigravity) in a single command.
 - **Interactive Help Command (`/eha-help`):** Created a new workflow prompt (`00-eha-help.md`) projected as `/eha-help` in Claude, `#eha-help.prompt.md` in Copilot, and `eha-help` skill in Antigravity. This acts as an always-on interactive guide, detailing the 4-layer taxonomy, workflows, and skills.
-- **Maintainer CLI Testing Guide:** Added a comprehensive manual developer testing framework in `maintaining.md` documenting global symlinking (`npm link`), direct absolute binary execution (`node bin/eha.js`), and local path installations.
+- **Maintainer CLI Testing Guide:** Added a comprehensive manual developer testing framework in `MAINTAINER-README.md` documenting global symlinking (`npm link`), direct absolute binary execution (`node bin/eha.js`), and local path installations.
 
 ### Changed
 - **CLI Prompt Selection Stabilized:** Locked the interactive choice's default agent number to always be `1` (Claude) to ensure a perfectly stable, non-shifting menu experience across different configurations.

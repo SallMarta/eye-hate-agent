@@ -78,7 +78,7 @@ EHA is a vanilla JavaScript CLI program. It requires no compilation, minificatio
 
 ## 13. Related Documents
 - [Testing](../development/testing.md) - Deeper local testing guides.
-- [Maintaining](../../maintaining.md) - Standard operational procedures for new versions.
+- [Maintaining](../../MAINTAINER-README.md) - Standard operational procedures for new versions.
 
 ## 14. Open Questions
 None.

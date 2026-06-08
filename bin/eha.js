@@ -137,11 +137,27 @@ async function checkForUpdates() {
 
     const latest = data.version;
     if (latest && latest !== pkg.version) {
-      console.log(
-        chalk.yellow(`  Update available: ${pkg.version} → ${latest}`) +
-        chalk.gray(` — run npm i -g @sallmarta/eye-hate-agent`)
-      );
-      console.log('');
+      console.log(chalk.yellow(`  Update available: ${pkg.version} → ${latest}`));
+      
+      const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+      if (isInteractive) {
+        const confirmed = await promptConfirm('  Would you like to auto-update EHA now?', true);
+        if (confirmed) {
+          console.log(chalk.blue('  Updating EHA globally...'));
+          try {
+            require('node:child_process').execSync('npm i -g @sallmarta/eye-hate-agent', { stdio: 'inherit' });
+            console.log(chalk.green('  ✓ Update successful! Please run the command again.'));
+            process.exit(0);
+          } catch (err) {
+            console.log(chalk.red('  Update failed. Please run manually: npm i -g @sallmarta/eye-hate-agent'));
+          }
+        } else {
+          console.log('');
+        }
+      } else {
+        console.log(chalk.gray(`  — run npm i -g @sallmarta/eye-hate-agent`));
+        console.log('');
+      }
     }
   } catch {
     // Silently ignore — no network, no problem
