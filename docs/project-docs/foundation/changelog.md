@@ -2,6 +2,13 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.11] - 2026-06-08
+
+### Changed
+- **Antigravity Skills Path:** Corrected the global installation path for Antigravity skills from `~/.gemini/skills/` to `~/.gemini/config/skills/` to match device configuration expectations.
+- **Copilot Workflows as Skills:** Re-routed Copilot's global workflow/prompt installation to generate as skills in `~/.copilot/skills/` instead of `~/.copilot/prompts/` to ensure full device accessibility across environments.
+- **Copilot Instructions:** Renamed the global instructions file from `eha.instructions.md` to `eha-agent-rules.instructions.md`.
+
 ## [1.0.10] - 2026-06-05
 
 ### Added

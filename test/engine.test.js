@@ -492,7 +492,7 @@ test('installDevice writes Copilot files to correct device paths', () => {
   const result = installDevice({ agentIds: ['copilot'], homeDir: fakeHome });
 
   // Verify prompts
-  const promptPath = path.join(fakeHome, '.copilot', 'prompts', 'eha-bootstrap.prompt.md');
+  const promptPath = path.join(fakeHome, '.copilot', 'skills', 'eha-bootstrap', 'SKILL.md');
   assert.ok(fs.existsSync(promptPath), 'Copilot prompt file must exist');
 
   // Verify skills (SKILL.md format)
@@ -500,7 +500,7 @@ test('installDevice writes Copilot files to correct device paths', () => {
   assert.ok(fs.existsSync(skillPath), 'Copilot skill SKILL.md must exist');
 
   // Verify instructions (own file, not sentinel)
-  const instrPath = path.join(fakeHome, '.copilot', 'instructions', 'eha.instructions.md');
+  const instrPath = path.join(fakeHome, '.copilot', 'instructions', 'eha-agent-rules.instructions.md');
   assert.ok(fs.existsSync(instrPath), 'Copilot instructions file must exist');
 });
 
@@ -509,7 +509,7 @@ test('installDevice writes Antigravity files to correct device paths', () => {
   const result = installDevice({ agentIds: ['antigravity'], homeDir: fakeHome });
 
   // Verify skills
-  const skillPath = path.join(fakeHome, '.gemini', 'skills', 'eha-system-analysis', 'SKILL.md');
+  const skillPath = path.join(fakeHome, '.gemini', 'config', 'skills', 'eha-system-analysis', 'SKILL.md');
   assert.ok(fs.existsSync(skillPath), 'Antigravity skill file must exist');
 
   // Verify workflows
@@ -566,7 +566,7 @@ test('uninstallDevice removes specific agent only', () => {
   // Claude files gone
   assert.ok(!fs.existsSync(path.join(fakeHome, '.claude', 'commands', 'eha')));
   // Copilot files still exist
-  assert.ok(fs.existsSync(path.join(fakeHome, '.copilot', 'prompts', 'eha-bootstrap.prompt.md')));
+  assert.ok(fs.existsSync(path.join(fakeHome, '.copilot', 'skills', 'eha-bootstrap', 'SKILL.md')));
   // Manifest still exists (other agents remain)
   assert.ok(fs.existsSync(path.join(fakeHome, '.eha', 'manifest.json')));
 });

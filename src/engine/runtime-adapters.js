@@ -234,7 +234,7 @@ ${loadSkillContent(skill)}`;
 
 function buildCopilotDeviceInstructionsFile(workflows) {
   const workflowTable = workflows
-    .map(w => `- \`${w.commandName}\` → \`~/.copilot/prompts/eha-${w.commandName}.prompt.md\``)
+    .map(w => `- \`${w.commandName}\` → \`~/.copilot/skills/eha-${w.commandName}/SKILL.md\``)
     .join('\n');
 
   return `---
@@ -343,10 +343,10 @@ const RUNTIME_ADAPTERS = {
     generateDeviceFiles(homeDir, workflows, skills) {
       const files = [];
 
-      // Prompts → ~/.copilot/prompts/eha-<name>.prompt.md
+      // Prompts → ~/.copilot/skills/eha-<name>/SKILL.md
       for (const workflow of workflows) {
         files.push({
-          absolutePath: path.join(homeDir, '.copilot', 'prompts', `eha-${workflow.commandName}.prompt.md`),
+          absolutePath: path.join(homeDir, '.copilot', 'skills', `eha-${workflow.commandName}`, 'SKILL.md'),
           content: buildCopilotPromptFile(workflow),
           isSentinel: false,
         });
@@ -361,9 +361,9 @@ const RUNTIME_ADAPTERS = {
         });
       }
 
-      // Instructions → ~/.copilot/instructions/eha.instructions.md (own file, NOT sentinel)
+      // Instructions → ~/.copilot/instructions/eha-agent-rules.instructions.md (own file, NOT sentinel)
       files.push({
-        absolutePath: path.join(homeDir, '.copilot', 'instructions', 'eha.instructions.md'),
+        absolutePath: path.join(homeDir, '.copilot', 'instructions', 'eha-agent-rules.instructions.md'),
         content: buildCopilotDeviceInstructionsFile(workflows),
         isSentinel: false,
       });
@@ -410,7 +410,7 @@ const RUNTIME_ADAPTERS = {
       }
       for (const skill of skills) {
         files.push({
-          absolutePath: path.join(homeDir, '.gemini', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
+          absolutePath: path.join(homeDir, '.gemini', 'config', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
           content: buildAntigravitySkillFile(skill),
           isSentinel: false,
         });
