@@ -24,7 +24,7 @@ const {
 const {
   upsertSentinelBlock,
   removeSentinelBlock,
-} = require('../src/engine/state');
+} = require('../src/engine/state/sentinel');
 
 function createSandbox() {
   const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'eha-engine-'));
@@ -197,7 +197,7 @@ test('SUPPORTED_AGENT_IDS contains claude, copilot, antigravity', () => {
 // ─── G5 & H4: Registry Mappings & Synchronization ──────────────────────────────
 
 test('registries point to valid existing files on disk (G5)', () => {
-  const { getBundledAssetPath } = require('../src/engine/state');
+  const { getBundledAssetPath } = require('../src/engine/state/paths');
 
   for (const skill of listSkills()) {
     const fullPath = getBundledAssetPath(skill.repoRelativePath);
@@ -214,7 +214,7 @@ test('registries point to valid existing files on disk (G5)', () => {
 });
 
 test('skill and workflow registries are in bidirectional sync with template directories (H4)', () => {
-  const { getPackageRoot } = require('../src/engine/state');
+  const { getPackageRoot } = require('../src/engine/state/paths');
   const root = getPackageRoot();
 
   // 1. Skill sync
@@ -249,7 +249,7 @@ test('skill and workflow registries are in bidirectional sync with template dire
 });
 
 test('project docs templates directory is lightweight and contains only registries and standalone templates (Decision 7)', () => {
-  const { getPackageRoot } = require('../src/engine/state');
+  const { getPackageRoot } = require('../src/engine/state/paths');
   const root = getPackageRoot();
   const templateDir = path.join(root, 'docs', 'templates', 'project-docs-template');
 

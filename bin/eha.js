@@ -23,6 +23,12 @@ const {
 
 const pkg = require('../package.json');
 
+const AGENT_DISPLAY_NAMES = {
+  claude: 'Claude',
+  copilot: 'GitHub Copilot',
+  antigravity: 'Antigravity',
+};
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 async function promptConfirm(message, defaultYes = false) {
@@ -64,12 +70,7 @@ function printInitSummary(result) {
   }
   console.log('');
 
-  const agentNames = {
-    claude: 'Claude',
-    copilot: 'GitHub Copilot',
-    antigravity: 'Antigravity',
-  };
-  const name = agentNames[result.agentId] || result.agentId;
+  const name = AGENT_DISPLAY_NAMES[result.agentId] || result.agentId;
   console.log(`Open ${name} in this project and run ${chalk.cyan('/eha-help')} to get started!`);
   console.log('');
 }
@@ -257,11 +258,9 @@ async function runDeviceInstall(agentIds) {
 
   const result = installDevice({ agentIds });
 
-  const agentNames = { claude: 'Claude', copilot: 'GitHub Copilot', antigravity: 'Antigravity' };
-
   for (const agentId of result.agentIds) {
     const agentResult = result.results[agentId];
-    console.log(`  ${chalk.cyan(agentNames[agentId] || agentId)}:`);
+    console.log(`  ${chalk.cyan(AGENT_DISPLAY_NAMES[agentId] || agentId)}:`);
     for (const file of agentResult.files) {
       const suffix = file.isSentinel ? ` (EHA rules block ${file.action})` : '';
       console.log(`    ${chalk.green('✓')} ${file.displayPath}${chalk.gray(suffix)}`);
