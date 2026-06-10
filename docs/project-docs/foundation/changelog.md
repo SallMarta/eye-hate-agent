@@ -2,6 +2,11 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.15] - 2026-06-10
+
+### Changed
+- **Claude:** Fix skills path.
+
 ## [1.0.14] - 2026-06-09
 
 ### Added

@@ -39,7 +39,7 @@ ${loadRuleContent('copilot')}`;
 
 function buildCopilotInstructionsFile(workflows) {
   const workflowTable = workflows
-    .map((w) => `- \`${w.commandName}\` → \`.github/prompts/eha-${w.commandName}.prompt.md\``)
+    .map((w) => `- \`${w.commandName}\` → \`.github/skills/eha-${w.commandName}/SKILL.md\``)
     .join('\n');
 
   return `---
@@ -94,7 +94,7 @@ module.exports = {
     const files = [];
     for (const workflow of workflows) {
       files.push({
-        relativePath: path.join('.github', 'prompts', `eha-${workflow.commandName}.prompt.md`),
+        relativePath: path.join('.github', 'skills', `eha-${workflow.commandName}`, 'SKILL.md'),
         content: buildCopilotPromptFile(workflow),
       });
     }

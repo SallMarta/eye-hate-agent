@@ -40,7 +40,7 @@ Serve as a quick dashboard to see the state of EHA.
 Does not track granular tasks.
 
 ## 7. Current State
-EHA has reached `1.0.13` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
+EHA has reached `1.0.15` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
 
 ## 8. Recent Accomplishments
 - Implemented **Gemini CLI** support via `.gemini/` adapter and sentinel boundaries for `GEMINI.md`.

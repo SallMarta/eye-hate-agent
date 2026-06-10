@@ -65,8 +65,8 @@ test('initProject generates Claude command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-system-analysis.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-system-analysis', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis/SKILL.md must exist');
   
   const rulesPath = path.join(rootDir, '.claude', 'rules', 'eha-agent-rules.md');
   assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist');
@@ -82,10 +82,10 @@ test('initProject generates Copilot prompt files', () => {
   const expectedCount = listWorkflows().length + listSkills().length + 2;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
-  const promptPath = path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md');
-  assert.ok(fs.existsSync(promptPath), 'eha-bootstrap.prompt.md must exist');
+  const bootstrapPath = path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap/SKILL.md must exist');
 
-  const content = fs.readFileSync(promptPath, 'utf8');
+  const content = fs.readFileSync(bootstrapPath, 'utf8');
   assert.match(content, /mode: agent/, 'Missing Copilot mode frontmatter');
   assert.match(content, /4-Layer Taxonomy/, 'Missing compact EHA rules block');
 
@@ -347,7 +347,7 @@ test('initProject accumulates multiple agents in config and manifest', () => {
   assert.equal(config.agent, 'antigravity');
 
   const claudeBootstrap = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
-  const copilotBootstrap = path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md');
+  const copilotBootstrap = path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md');
   const antigravBootstrap = path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
   assert.ok(fs.existsSync(claudeBootstrap), 'Claude files should still exist');
   assert.ok(fs.existsSync(copilotBootstrap), 'Copilot files should still exist');
@@ -374,7 +374,7 @@ test('removeProject supporting Option B targeted removal', () => {
   const result = removeProject({ rootDir, agentId: 'claude' });
 
   assert.ok(!fs.existsSync(path.join(rootDir, '.claude')), '.claude should be removed');
-  assert.ok(fs.existsSync(path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md')), 'Copilot files should still exist');
+  assert.ok(fs.existsSync(path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md')), 'Copilot files should still exist');
 
   const config = readConfig(rootDir);
   assert.deepEqual(config.agents, ['copilot']);
@@ -395,7 +395,7 @@ test('CLI supports init all to initialize all agents at once', () => {
   assert.match(output, /✓ EHA is ready/i);
 
   assert.ok(fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md')));
-  assert.ok(fs.existsSync(path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md')));
+  assert.ok(fs.existsSync(path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md')));
   assert.ok(fs.existsSync(path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md')));
   assert.ok(fs.existsSync(path.join(rootDir, '.gemini', 'commands', 'eha-bootstrap.toml')));
 

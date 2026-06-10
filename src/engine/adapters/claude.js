@@ -48,7 +48,7 @@ module.exports = {
     }
     for (const skill of skills) {
       files.push({
-        relativePath: path.join('.claude', 'skills', `eha-${skill.commandName}.md`),
+        relativePath: path.join('.claude', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
         content: buildClaudeSkillFile(skill),
       });
     }
