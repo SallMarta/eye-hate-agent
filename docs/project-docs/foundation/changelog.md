@@ -2,6 +2,11 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.14] - 2026-06-09
+
+### Added
+- **Gemini CLI Support:** Added a new adapter to generate EHA capabilities for the Gemini CLI. Commands/workflows are generated as native `.toml` files (`.gemini/commands/`), skills are placed in `.gemini/skills/`, and agent rules are safely appended to `GEMINI.md` at both the project and device levels using sentinel markers.
+
 ## [1.0.13] - 2026-06-08
 
 ### Added

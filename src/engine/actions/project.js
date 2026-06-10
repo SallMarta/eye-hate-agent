@@ -67,10 +67,15 @@ function initProject({ rootDir, agentId }) {
   const skills = listSkills();
   const files = adapter.generateFiles(rootDir, workflows, skills);
 
+  const { upsertSentinelBlock } = require('../state/sentinel');
   for (const file of files) {
     const absolutePath = path.join(rootDir, file.relativePath);
-    ensureDir(path.dirname(absolutePath));
-    writeText(absolutePath, file.content);
+    if (file.isSentinel) {
+      upsertSentinelBlock(absolutePath, file.content);
+    } else {
+      ensureDir(path.dirname(absolutePath));
+      writeText(absolutePath, file.content);
+    }
   }
 
   const enginePaths = getEnginePaths(rootDir);
@@ -141,9 +146,15 @@ function removeProject({ rootDir, agentId = null }) {
 
     for (const relativePath of filesToRemove) {
       const absolutePath = path.join(rootDir, relativePath);
-      removeFileIfExists(absolutePath);
-      removeEmptyParents(path.dirname(absolutePath), rootDir);
-      removedFiles.push(relativePath);
+      const basename = path.basename(absolutePath);
+      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md') {
+        removeSentinelBlock(absolutePath, rootDir);
+        removedFiles.push(relativePath);
+      } else {
+        removeFileIfExists(absolutePath);
+        removeEmptyParents(path.dirname(absolutePath), rootDir);
+        removedFiles.push(relativePath);
+      }
     }
 
     const remainingAgents = otherAgents;

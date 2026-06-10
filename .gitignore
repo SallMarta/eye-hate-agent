@@ -17,3 +17,7 @@ MAINTAINER-README.md
 .agents/
 .claude/
 .github/
+.gemini/
+GEMINI.md
+CLAUDE.md
+AGENTS.md

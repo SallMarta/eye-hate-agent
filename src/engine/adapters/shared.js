@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { getBundledAssetPath } = require('../state/paths');
 
-const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity'];
+const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity', 'gemini'];
 
 const EHA_COMPACT_RULES = `## EHA Project Doc Rules
 
@@ -85,6 +85,11 @@ function buildDeviceRulesContent(agentId, workflows) {
       .map(w => `- \`${w.commandName}\` → \`~/.gemini/config/global_workflows/eha-${w.commandName}.md\``)
       .join('\n');
     routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching workflow file:\n\n${routes}`;
+  } else if (agentId === 'gemini') {
+    const routes = workflows
+      .map(w => `- \`${w.commandName}\` → \`~/.gemini/commands/eha-${w.commandName}.toml\``)
+      .join('\n');
+    routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching command file:\n\n${routes}`;
   }
 
   return `${rulesContent}${routingSection}`;

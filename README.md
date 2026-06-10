@@ -22,7 +22,7 @@ $ eha
 Once projected, EHA files are immediately active in your IDE. Trigger the workflows using your agent's native slash commands, file mentions, or prompt attachments (read more on [EHA Commands](#eha-commands)).
 
 ### 3. Commit the contract
-The projected files (`.claude/`, `.github/`, or `.agents/`) act as your project's AI contract.
+The projected files such as `.claude/` act as your project's AI contract.
 
 ---
 

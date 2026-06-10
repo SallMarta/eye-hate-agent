@@ -127,6 +127,34 @@ test('initProject generates Antigravity command files', () => {
   assert.equal(readConfig(rootDir).agent, 'antigravity');
 });
 
+test('initProject generates Gemini command files', () => {
+  const rootDir = createSandbox();
+  const result = initProject({ rootDir, agentId: 'gemini' });
+
+  assert.equal(result.agentId, 'gemini');
+  const expectedCount = listWorkflows().length + listSkills().length + 1;
+  assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
+
+  const bootstrapPath = path.join(rootDir, '.gemini', 'commands', 'eha-bootstrap.toml');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.toml must exist in .gemini/commands/');
+
+  const content = fs.readFileSync(bootstrapPath, 'utf8');
+  assert.match(content, /description = "/, 'Missing TOML description');
+  assert.match(content, /4-Layer Taxonomy/, 'Missing compact EHA rules block');
+  assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
+  assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
+
+  const analysisSkillPath = path.join(rootDir, '.gemini', 'skills', 'eha-system-analysis', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis SKILL.md must exist');
+  
+  const rulesPath = path.join(rootDir, 'GEMINI.md');
+  assert.ok(fs.existsSync(rulesPath), 'GEMINI.md must exist in rootDir/');
+  const rulesContent = fs.readFileSync(rulesPath, 'utf8');
+  assert.match(rulesContent, /EHA:START/);
+
+  assert.equal(readConfig(rootDir).agent, 'gemini');
+});
+
 test('initProject throws for unsupported agent', () => {
   const rootDir = createSandbox();
   assert.throws(() => initProject({ rootDir, agentId: 'unknown-agent' }), /Unsupported agent/i);
@@ -188,10 +216,11 @@ test('doctor reports uninitialized state correctly', () => {
 
 // ─── SUPPORTED_AGENT_IDS ──────────────────────────────────────────────────────
 
-test('SUPPORTED_AGENT_IDS contains claude, copilot, antigravity', () => {
+test('SUPPORTED_AGENT_IDS contains claude, copilot, antigravity, gemini', () => {
   assert.ok(SUPPORTED_AGENT_IDS.includes('claude'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('copilot'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('antigravity'));
+  assert.ok(SUPPORTED_AGENT_IDS.includes('gemini'));
 });
 
 // ─── G5 & H4: Registry Mappings & Synchronization ──────────────────────────────
@@ -368,9 +397,10 @@ test('CLI supports init all to initialize all agents at once', () => {
   assert.ok(fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md')));
   assert.ok(fs.existsSync(path.join(rootDir, '.github', 'prompts', 'eha-bootstrap.prompt.md')));
   assert.ok(fs.existsSync(path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md')));
+  assert.ok(fs.existsSync(path.join(rootDir, '.gemini', 'commands', 'eha-bootstrap.toml')));
 
   const config = readConfig(rootDir);
-  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot']);
+  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot', 'gemini'].sort());
 });
 
 // ─── Sentinel Marker Utilities ───────────────────────────────────────────
@@ -522,13 +552,32 @@ test('installDevice writes Antigravity files to correct device paths', () => {
   assert.match(geminiMd, /EHA:END/);
 });
 
-test('installDevice writes all three agents', () => {
+test('installDevice writes Gemini files to correct device paths', () => {
+  const fakeHome = createFakeHome();
+  const result = installDevice({ agentIds: ['gemini'], homeDir: fakeHome });
+
+  // Verify skills
+  const skillPath = path.join(fakeHome, '.gemini', 'skills', 'eha-system-analysis', 'SKILL.md');
+  assert.ok(fs.existsSync(skillPath), 'Gemini skill file must exist');
+
+  // Verify workflows
+  const workflowPath = path.join(fakeHome, '.gemini', 'commands', 'eha-bootstrap.toml');
+  assert.ok(fs.existsSync(workflowPath), 'Gemini command file must exist');
+
+  // Verify GEMINI.md has sentinel block
+  const geminiMd = fs.readFileSync(path.join(fakeHome, '.gemini', 'GEMINI.md'), 'utf8');
+  assert.match(geminiMd, /EHA:START/);
+  assert.match(geminiMd, /EHA:END/);
+});
+
+test('installDevice writes all supported agents', () => {
   const fakeHome = createFakeHome();
   const result = installDevice({ agentIds: SUPPORTED_AGENT_IDS, homeDir: fakeHome });
-  assert.equal(result.agentIds.length, 3);
+  assert.equal(result.agentIds.length, 4);
   assert.ok(result.results.claude);
   assert.ok(result.results.copilot);
   assert.ok(result.results.antigravity);
+  assert.ok(result.results.gemini);
 });
 
 test('installDevice is idempotent — re-running updates sentinel blocks', () => {

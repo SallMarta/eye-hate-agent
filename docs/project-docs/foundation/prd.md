@@ -33,7 +33,7 @@ This is the central requirement document. Changes to EHA's CLI workflow or agent
 - [18. Open Questions](#18-open-questions)
 
 ## 4. Scope
-Defines requirements for the EHA engine, CLI arguments, and the template generation output (`.agents/`, `.claude/`, `.github/`).
+Defines requirements for the EHA engine, CLI arguments, and the template generation output (`.agents/`, `.claude/`, `.github/`, `.gemini/`).
 
 ## 5. Goals
 Establish a universal repository structure that any AI agent can seamlessly hook into, ensuring agents adhere strictly to documented schemas rather than hallucinating paths.
@@ -95,7 +95,7 @@ flowchart TD
 
 ## 16. Success Metrics
 - 0% bug rate on `eha init` file generation across supported IDEs.
-- Generated instructions are flawlessly parsed and respected by Antigravity, Copilot, and Claude.
+- Generated instructions are flawlessly parsed and respected by Antigravity, Copilot, Claude, and Gemini CLI.
 
 ## 17. Related Documents
 - [Architecture](architecture.md) - Details the pipeline and adapter pattern.

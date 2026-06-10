@@ -68,7 +68,7 @@ Automated tests are located in the `test/` directory (e.g., `test/engine.test.js
 If the CLI prompt fails, manually review `src/engine/runtime-adapters.js` to ensure the adapter string processing didn't drop characters.
 
 ## 13. Success Metrics
-- 0 generation failures for supported IDEs (Copilot, Antigravity, Claude).
+- 0 generation failures for supported IDEs/CLI (Copilot, Antigravity, Claude, Gemini CLI).
 
 ## 14. Related Documents
 - [Workflow](../foundation/workflow.md) - Day-to-day development loop.

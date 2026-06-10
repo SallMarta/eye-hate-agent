@@ -43,9 +43,10 @@ Does not track granular tasks.
 EHA has reached `1.0.13` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
 
 ## 8. Recent Accomplishments
+- Implemented **Gemini CLI** support via `.gemini/` adapter and sentinel boundaries for `GEMINI.md`.
 - Restored the interactive auto-updater so users can upgrade EHA globally directly from the CLI prompt without manually running `npm install`.
 - Refined Antigravity local workflow path generation to target flat `.md` files instead of nested `SKILL.md` objects.
-- Expanded PRD references to comprehensively document output paths for all three supported agents (Antigravity, Copilot, Claude).
+- Expanded PRD references to comprehensively document output paths for all supported agents (Antigravity, Copilot, Claude, Gemini CLI).
 - Corrected device-level paths for Antigravity (`~/.gemini/config/skills/`) and Copilot (`~/.copilot/skills/` and `~/.copilot/instructions/eha-agent-rules.instructions.md`).
 - Implemented a unified interactive CLI wizard running from bare `eha`, replacing separate setup commands.
 - Added support for device-level (global/user) configuration scopes (`~/.claude/`, `~/.copilot/`, `~/.gemini/`).

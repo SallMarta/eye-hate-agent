@@ -27,6 +27,7 @@ const AGENT_DISPLAY_NAMES = {
   claude: 'Claude',
   copilot: 'GitHub Copilot',
   antigravity: 'Antigravity',
+  gemini: 'Gemini CLI',
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -139,12 +140,12 @@ async function checkForUpdates() {
     const latest = data.version;
     if (latest && latest !== pkg.version) {
       console.log(chalk.yellow(`  Update available: ${pkg.version} → ${latest}`));
-      
+
       const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
       if (isInteractive) {
-        const confirmed = await promptConfirm('  Would you like to auto-update EHA now?', true);
+        const confirmed = await promptConfirm('  Would you like to update EHA now?', true);
         if (confirmed) {
-          console.log(chalk.blue('  Updating EHA globally...'));
+          console.log(chalk.blue('  Updating EHA...'));
           try {
             require('node:child_process').execSync('npm i -g @sallmarta/eye-hate-agent', { stdio: 'inherit' });
             console.log(chalk.green('  ✓ Update successful! Please run the command again.'));
@@ -211,16 +212,31 @@ async function promptAgentChoice() {
   }
 }
 
-async function promptScope() {
+const AGENT_DIRS = {
+  claude: { project: '.claude/', device: '~/.claude/' },
+  copilot: { project: '.github/', device: '~/.copilot/' },
+  antigravity: { project: '.agents/', device: '~/.gemini/' },
+  gemini: { project: '.gemini/', device: '~/.gemini/' },
+};
+
+async function promptScope(agentIds) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   try {
+    const projectDirs = [...new Set(agentIds.map(id => `your-project/${AGENT_DIRS[id]?.project}`).filter(Boolean))].join(', ');
+    const deviceDirs = [...new Set(agentIds.map(id => AGENT_DIRS[id]?.device).filter(Boolean))].join(', ');
+
     console.log('');
     console.log('Where should EHA be installed?');
-    console.log(`  1. This project ${chalk.gray('(files in .claude/, .github/, .agents/)')}`);
-    console.log(`  2. Your device — all projects ${chalk.gray('(files in ~/.claude/, ~/.copilot/, ~/.gemini/)')}`);
+    console.log(`  1. This project ${chalk.gray(`(${projectDirs})`)}`);
+    console.log(`  2. Your device — all projects ${chalk.gray(`(${deviceDirs})`)}`);
+    console.log(`  0. Back to agent(s) selection`);
 
-    const answer = await rl.question(`Choose [1-2]: `);
+    const answer = await rl.question(`Choose [1-2, 0]: `);
     const trimmed = answer.trim();
+
+    if (trimmed === '0' || trimmed.toLowerCase() === 'back') {
+      return 'back';
+    }
 
     if (trimmed === '2' || trimmed.toLowerCase() === 'device' || trimmed.toLowerCase() === 'global') {
       return 'device';
@@ -340,19 +356,27 @@ program.action(async () => {
   printBanner();
   await checkForUpdates();
 
-  const agentIds = await promptAgentChoice();
+  let agentIds;
+  let scope;
 
-  for (const id of agentIds) {
-    if (!SUPPORTED_AGENT_IDS.includes(id)) {
-      console.error(
-        chalk.red(`Unsupported agent: ${id}.`) +
-        ` Choose from: ${SUPPORTED_AGENT_IDS.join(', ')}`
-      );
-      process.exit(1);
+  while (true) {
+    agentIds = await promptAgentChoice();
+
+    for (const id of agentIds) {
+      if (!SUPPORTED_AGENT_IDS.includes(id)) {
+        console.error(
+          chalk.red(`Unsupported agent: ${id}.`) +
+          ` Choose from: ${SUPPORTED_AGENT_IDS.join(', ')}`
+        );
+        process.exit(1);
+      }
+    }
+
+    scope = await promptScope(agentIds);
+    if (scope !== 'back') {
+      break;
     }
   }
-
-  const scope = await promptScope();
 
   if (scope === 'device') {
     await runDeviceInstall(agentIds);
