@@ -46,7 +46,12 @@ Ensure every task ends with verified output, synchronized documentation, and cle
 - **4.2** Default live response shape when no stronger format applies: Summary -> What I'll Do -> Result or Next Action -> Validation or Limitation -> Optional Follow-Up.
 - **4.3** Stronger formats win: user formatting requests > mode-specific files > skill or prompt `Output Contract`.
 - **4.4** **Knowledge & Memory Preservation:** Preserve unique information when writing to memory. If valuable legacy or codebase knowledge does not fit standard headings, decide: new section, new file, or ask the user if the best location is ambiguous.
-- **4.5** **Documentation Sync:** After code or rule changes, sync affected docs under `docs/project-docs/` to ensure they remain the canonical source of truth.
+- **4.5** **Post-Task Documentation Sync:** Before completing a task that modified template files, command definitions, rule files, or engine source code, run a targeted sync check:
+  1. Identify the mechanism, behavior, or definition that changed.
+  2. Check whether any files under `docs/project-docs/` reference or describe it.
+  3. If references are stale → propose sync edits before finishing.
+  4. If the change is purely additive → consider whether changelog or status should record it.
+  5. If no project docs reference the changed mechanism → state "4.5 sync: clear" in the completion summary.
 - **4.6** **Follow-Up Suggestions:** After completing a task, you may suggest 1–3 high-value, optional next actions. Never apply them silently. Phrasing: *"Task complete. Noticed X could be improved - want me to handle that too? or I can explain it if you want to review first."*
 
 ## 5. Contract Essentials

@@ -11,7 +11,7 @@ Update **only the docs that own the changed information** while keeping the docu
 Before refreshing, classify the repository's documentation state:
 
 | State | Condition | Action Path |
-|:---|:---|:---|
+| :--- | :--- | :--- |
 | **Active SDD** | `docs/project-docs/` exists with SDD-format files (stable headings, 4-layer taxonomy) | Standard refresh: update owning docs, sync dependents |
 | **Legacy Only** | `docs-legacy/`, `docs-old/`, `archive/`, or `reference/` exist, but no `docs/project-docs/` | Migration refresh: create SDD docs from legacy content + codebase |
 | **Non-SDD Docs** | `docs/` exists with unstructured markdown (no stable headings, no taxonomy) | Conversion refresh: treat as legacy input, create SDD docs from content + codebase |
@@ -20,10 +20,11 @@ Before refreshing, classify the repository's documentation state:
 *Note: For Active SDD and Mixed states, also check for the existence of `foundation/phases/` directory and `foundation/changelog.md` to determine if they need active refreshment.*
 
 For **Legacy Only** and **Non-SDD Docs** states, auto-detect the Taxonomy Tier:
+
 - Examine the breadth and depth of the existing documentation + codebase complexity.
 - If content covers only core concerns (identity, architecture, status) → Tier 1 (Lite).
 - If content includes testing, API, database, or CI/CD concerns → Tier 2 (Standard).
-- If content includes governance, security, compliance, observability, i18n → Tier 3 (Enterprise).
+- If content includes governance, security, compliance, observability, i18n, or structured cross-cutting technical conventions (e.g., API rules, error catalogs, logging standards, design-pattern catalogs) → Tier 3 (Enterprise).
 - When uncertain, choose the lower tier and note what would trigger upgrade.
 - State the auto-detected tier in your output so the user can override it if needed.
 

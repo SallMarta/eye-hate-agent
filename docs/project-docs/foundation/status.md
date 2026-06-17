@@ -1,18 +1,21 @@
 # Status
 
-Last update: 2026-06-08
+Last update: 2026-06-15
 
 Status: Live
 
 ---
 
 ## 1. Description
+
 This dashboard provides a high-level overview of the current maturity and health of the EHA repository. (Note: This dashboard is updated automatically by the EHA agent).
 
 ## 2. Important
+
 Ensure this document is updated when major refactoring or releases occur.
 
 ## 3. Table of Contents
+
 - [1. Description](#1-description)
 - [2. Important](#2-important)
 - [3. Table of Contents](#3-table-of-contents)
@@ -31,18 +34,24 @@ Ensure this document is updated when major refactoring or releases occur.
 - [16. Open Questions](#16-open-questions)
 
 ## 4. Scope
+
 High-level repository health and status.
 
 ## 5. Goals
+
 Serve as a quick dashboard to see the state of EHA.
 
 ## 6. Non Goals
+
 Does not track granular tasks.
 
 ## 7. Current State
-EHA has reached `1.0.15` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
+
+EHA has reached `1.0.16` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
 
 ## 8. Recent Accomplishments
+
+- Closed the `technical-guidelines/` taxonomy gap: bootstrap now generates the Tier 3 registry and runs a codebase-scanning interview to produce real guidelines (never stubs); refresh and sdd-execute now recognize and surface cross-cutting conventions.
 - Implemented **Gemini CLI** support via `.gemini/` adapter and sentinel boundaries for `GEMINI.md`.
 - Restored the interactive auto-updater so users can upgrade EHA globally directly from the CLI prompt without manually running `npm install`.
 - Refined Antigravity local workflow path generation to target flat `.md` files instead of nested `SKILL.md` objects.
@@ -72,31 +81,39 @@ EHA has reached `1.0.15` stability. The codebase has fully migrated to a robust 
 - Changed phases detection from silent-skip to always-visible reporting, ensuring agent decisions about phases are transparent to the user.
 
 ## 9. Upcoming Focus
+
 Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
-- NPM Version: 1.0.13
+
+- NPM Version: 1.0.16
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
 - Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).
 
 ## 11. Roadmap
+
 | Workstream | Status | Notes |
 | --- | --- | --- |
 | Template Parity | Completed | Aligned EHA internal docs to new Single Registry and modern taxonomy |
 | Agent Support | Live | Claude, Copilot, Antigravity |
 
 ## 12. Epics
+
 None.
 
 ## 13. Risks / Blockers
+
 None.
 
 ## 14. Success Metrics
+
 Accurate reflection of the repository state.
 
 ## 15. Related Documents
+
 - [Changelog](changelog.md) - History of completed phases.
 
 ## 16. Open Questions
+
 None.

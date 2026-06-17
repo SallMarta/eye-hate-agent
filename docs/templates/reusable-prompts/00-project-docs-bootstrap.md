@@ -1,6 +1,6 @@
 # Project Docs Bootstrap Reusable Prompt
 
-Generate the **initial project documentation set** for a repository. 
+Generate the **initial project documentation set** for a repository.
 You must dynamically adjust your behavior based on the current state of the repository.
 
 ## Step 0: Pre-Flight Check
@@ -15,6 +15,7 @@ Before analyzing complexity, scan the repository for existing documentation:
 STOP. Do not proceed with bootstrap. Inform the user:
 
 "I found existing documentation in this repository:
+
 - [list what was found]
 
 Bootstrap is for repos with no documentation. For repos with existing docs (even legacy or non-SDD format), use the **Refresh** workflow instead — it can migrate, update, and create SDD docs from your existing content combined with codebase analysis.
@@ -36,6 +37,7 @@ STOP. Inform the user:
 
 Bootstrap works best when there's code to analyze for complexity detection.
 For a brand-new project, I recommend running `/eha-discuss` first to:
+
 - Define your project vision, tech stack, and architecture
 - Plan your development phases
 - Draft initial specs
@@ -49,11 +51,12 @@ Alternatively, if you already know your project's scope, tell me about it and I'
 **Brownfield with code (normal case):** Proceed to Step 1.
 
 ## Step 1: Complexity Detection (The Adaptive Taxonomy)
-Analyze the workspace to determine its complexity by inspecting the codebase. 
+
+Analyze the workspace to determine its complexity by inspecting the codebase.
 
 Based on the repository's complexity, you MUST recommend one of the following **Taxonomy Tiers**:
 
-1. **Tier 1: Lite Profile** 
+1. **Tier 1: Lite Profile**
    - *Target:* Small scripts, micro-libraries, single-component repos.
    - *Files Generated:* `index.md`, `getting-started.md`, `foundation/prd.md`, `foundation/architecture.md`, `foundation/status.md`.
 2. **Tier 2: Standard Profile**
@@ -61,16 +64,18 @@ Based on the repository's complexity, you MUST recommend one of the following **
    - *Files Generated:* Everything in Tier 1 PLUS `development/testing.md`, `development/database.md`, `development/ui-ux.md`, `development/api-contract.md`, `operations/ci-cd.md`.
 3. **Tier 3: Enterprise Profile**
    - *Target:* Large-scale platforms, regulated systems, monorepos.
-   - *Files Generated:* Everything in Tier 2 PLUS `operations/governance.md`, `operations/security-compliance.md` (merged), `operations/observability-error-handling.md` (merged), `operations/production-runbook.md`, `development/internationalization.md`.
+   - *Files Generated:* Everything in Tier 2 PLUS `operations/governance.md`, `operations/security-compliance.md` (merged), `operations/observability-error-handling.md` (merged), `operations/production-runbook.md`, `development/internationalization.md`, `technical-guidelines/index.md` (empty registry — individual guidelines generated on-demand only when durable cross-cutting rules are identified).
 
 *Note: `foundation/phases/` (phases folder) and `foundation/changelog.md` (changelog) are offered independently via Step 2.5, not tied to any tier.*
 
 **STOP AND ASK:** Present your analysis of the repo's complexity and ask the user: *"Which Taxonomy Tier should I generate?"* Do not proceed until the user approves a tier.
 
 ## Step 2: Document Generation
+
 Once the user approves a tier, strictly follow the 4-layer file structure (`foundation/`, `operations/`, `development/`, `technical-guidelines/`).
 
 ### Required Behavior
+
 1. **Dynamic Generation from Registry:** You MUST read the master registry file `docs/templates/project-docs-template/index.md` to obtain the universal stable headings schema and the unique domain-specific headings for each document type within the approved tier. Generate each document dynamically using this structural mapping.
 2. Create project-specific truth in `docs/project-docs/`, not in the reusable prompt output itself.
 3. Do not invent details. Mark uncertain facts as `TBD` or `Assumption`.
@@ -78,15 +83,18 @@ Once the user approves a tier, strictly follow the 4-layer file structure (`foun
 5. **DO NOT generate files outside the approved tier unless explicitly chosen during the Step 2.5 conditional interview.**
 
 ## Step 2.5: Active Development, Phases, & Changelog Interview
+
 After generating the tier-selected documents, assess whether the project needs phase-based planning or changelog tracking:
 
-### For Greenfield Projects:
+### For Greenfield Projects
+
 The project is obviously in active development. Ask the user:
 "This is a new project. Would you like to set up development phases?
 If yes, describe the phases you envision from start to launch.
 Example: Phase 1: Research, Phase 2: API Development, Phase 3: UI/UX, Phase 4: Launch."
 
 If the user provides phases:
+
 - Create `foundation/phases/index.md` with the phase registry.
 - Create individual phase files using greenfield naming: `phase-{N}[-description].md` (e.g., `phase-1-research.md`, `phase-2-api.md`).
 - Populate each with the user's described scope and `TBD` for details not yet known.
@@ -97,7 +105,8 @@ Additionally, ask the user:
 "Would you like to set up a changelog (`foundation/changelog.md`) to track historical releases?"
 If yes, generate a boilerplate `foundation/changelog.md` with an initial unreleased section.
 
-### For Brownfield Projects (with existing code):
+### For Brownfield Projects (with existing code)
+
 You **MUST** check all four active development signals. Do NOT skip this step:
 
 1. **Recent commits** — run `git log --oneline -20` or equivalent; if there are commits within the last 14 days, OR 10+ commits within the last 30 days, this signal is positive.
@@ -111,6 +120,7 @@ Would you like to set up `foundation/phases/` to track your development cycles?
 If yes, describe the current and upcoming phases (or I can infer from your codebase)."
 
 If the user provides phases:
+
 - Create `foundation/phases/index.md` with the phase registry.
 - Create individual phase files using brownfield naming: `phase-P{N}[-description].md` (e.g., `phase-P1-refactor.md`, `phase-P2-auth.md`).
 
@@ -121,13 +131,30 @@ Additionally, check for release signals (e.g., git tags, version updates in `pac
 "Would you like to set up a changelog (`foundation/changelog.md`) to track historical releases?"
 If yes, generate `foundation/changelog.md` populated with current version information.
 
+### Technical Guidelines Interview (All Tiers)
+
+After the phases and changelog prompts, scan the codebase for cross-cutting implementation patterns that may warrant formal technical guidelines:
+
+1. Inspect source code, configs, and tests for recurring conventions such as: API response shapes, error handling patterns, logging conventions, naming schemes, database access patterns, authentication/authorization patterns, or other domain-specific coding rules.
+2. If recurring patterns are found, ask the user:
+   "I've identified the following cross-cutting patterns in your codebase:
+   - [list each pattern with a brief description, e.g., "All API responses follow a standard envelope shape { status, data, errors }"]
+   Would you like me to generate `technical-guidelines/` documents for any of these?"
+   - If the user selects patterns → generate specific guideline files (using the Guideline Stable Headings schema from `docs/templates/project-docs-template/technical-guidelines/index.md`) and register them in `technical-guidelines/index.md`. Each guideline must contain actual rules inferred from the codebase — never generate placeholder stubs.
+   - If the user declines → skip. For Tier 3, the empty `technical-guidelines/index.md` registry is still generated as part of the tier's file set.
+3. If no recurring patterns are found → skip the prompt entirely. For Tier 3, the empty `technical-guidelines/index.md` registry is still generated.
+
 ## Final Pass
+
 Before finishing, check that:
+
 1. No files are generated in the root of `project-docs/` except `index.md` and `getting-started.md`. Everything else must be in its respective subfolder.
 2. `foundation/architecture.md` and `development/testing.md` do not conflict.
 3. The generated documents strictly match the approved Taxonomy Tier, conditional choices, and structural definitions cataloged in the master registry.
 4. If phases were generated, verify `foundation/phases/index.md` correctly registry-links to all individual phase files (`phase-*.md`), and each phase file has complete stable headings.
 5. For brownfield projects: if any active development signal was positive during Step 2.5, confirm that the user was prompted about setting up phases. If this prompt was skipped, **stop and prompt the user now before finishing**.
+6. If `technical-guidelines/` files were generated, verify they contain actual cross-cutting rules inferred from the codebase (not placeholder stubs). Verify `technical-guidelines/index.md` accurately registers all generated guideline files.
 
 ## Inputs
+
 Use the project brief, codebase, and constraints provided below to begin your analysis.

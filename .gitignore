@@ -10,6 +10,7 @@ node_modules/
 
 # EHA Internal State & Ignore List
 .eha/
+docs/test-report
 memories/session/
 MAINTAINER-README.md
 
