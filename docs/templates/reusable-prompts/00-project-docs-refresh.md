@@ -66,6 +66,7 @@ Proceed to the applicable action path.
     - Auth/RBAC implementations → operations/security-compliance
     - i18n config, locale files → development/internationalization
     - README, inline comments, decision rationale → foundation/prd, architecture
+    - Recurring cross-cutting implementation conventions (response envelope, query-builder usage, ID-stripping, caching, error catalog, naming/auth patterns) → `docs/project-docs/technical-guidelines/*.md` via the Technical Guidelines Discovery & Interview step; register in `technical-guidelines/index.md`.
 23. Mark all codebase-inferred facts as `Inferred from codebase` until the user confirms them.
 24. **Active Development & Phases Detection (MANDATORY).** When refreshing a project that does not yet have `foundation/phases/`, you **MUST** check all four active development signals before proceeding to doc refresh. Do NOT skip this step. The signals are:
 
@@ -98,11 +99,18 @@ Proceed to the applicable action path.
 6. Read `docs/project-docs/index.md` and `docs/project-docs/technical-guidelines/index.md` when present.
 7. Read legacy/reference folders when present.
 8. Read relevant guideline docs when the change touches technical rules.
-9. Identify impacted dependent docs.
-10. Cross-reference codebase findings against doc/legacy claims — resolve conflicts by prompting the user (see rule 21).
-11. Refresh/create the owning docs first (using combined codebase + docs evidence).
-12. Refresh summary or index docs second.
-13. Run a consistency pass.
+9. **Technical Guidelines Discovery & Interview.** Building on the codebase scan, identify **durable cross-cutting implementation conventions** that are (a) NOT already documented under `docs/project-docs/technical-guidelines/`, and (b) referenced across **multiple features or domains** (not owned by a single standard doc). Examples: API response envelope shape, error-handling/error-constant discipline, logging conventions, naming schemes, dynamic query-builder usage, in-memory cache patterns, public/private response transformation, authentication/identity conventions. For each candidate note: the convention, why it is durable + cross-cutting, and a codebase evidence citation (`file:line`). Then present the candidates to the user and ask which (if any) to formalize:
+
+   - **User approves one or more** → generate `technical-guidelines/<convention>.md` for each using the **Guideline Stable Headings** baseline (`## 1. Summary`, `## 2. Scope`, `## 3. Rules`, `## 4. Preferred Patterns`, `## 5. Anti-Patterns`, `## 6. Related Docs`, `## 7. Open Questions`), with **real rules inferred from the codebase — never placeholder stubs**; consult `docs/templates/project-docs-template/technical-guidelines/index.md` for extended domain-specific headings **if present**. Register each new file in `technical-guidelines/index.md` and link it from `docs/project-docs/index.md`.
+   - **User declines** → skip creation; still record the surfaced candidates in the Output Contract.
+   - **No candidates found** → skip silently (do not prompt).
+
+   This mirrors `eha-bootstrap`'s "Technical Guidelines Interview" so behavior is consistent across both commands.
+10. Identify impacted dependent docs.
+11. Cross-reference codebase findings against doc/legacy claims — resolve conflicts by prompting the user (see rule 21).
+12. Refresh/create the owning docs first (using combined codebase + docs evidence).
+13. Refresh summary or index docs second.
+14. Run a consistency pass.
 
 ## Ownership Examples
 
@@ -119,6 +127,7 @@ For each mapping below, also inspect the corresponding codebase artifacts (sourc
 - observability, logging, or error-handling changes → `operations/observability-error-handling.md`
 - optional or conditional doc inventory changes → `docs/project-docs/index.md` plus the affected optional owner docs
 - cross-cutting technical conventions or implementation rules → relevant `technical-guidelines/*.md`, `technical-guidelines/index.md`, and any summarizing core docs that reference them
+- codebase-derived cross-cutting conventions (not only legacy-derived ones) surfaced during refresh → `docs/project-docs/technical-guidelines/*.md` via the Technical Guidelines Discovery & Interview step, registered in `technical-guidelines/index.md`
 - documentation-system migration from legacy docs → active owner docs under `docs/project-docs/` first, with `docs-legacy/`, `docs-old/`, or other clearly named archive/reference folders used only as source material
 - semantic legacy-name normalization → map legacy names by content, for example `epic` or `roadmap` material to `foundation/phases/` and `protocol` or `standard` material to `technical-guidelines/` when their governed concern matches those owners
 - legacy technical-guidance promotion → `docs/project-docs/technical-guidelines/*.md`, `technical-guidelines/index.md`, and any summarizing core docs that now depend on those active guidelines
@@ -135,6 +144,7 @@ Your result should state:
 5. which codebase-vs-doc conflicts were resolved and how (per user direction)
 6. the auto-detected tier (for Legacy Only / Non-SDD states), if applicable
 7. whether active development signals were detected, which signals were positive/negative, and whether the user was prompted about `foundation/phases/` setup (include the user's response: accepted, declined, or not yet answered)
+8. **Technical Guidelines Discovery outcome:** any durable cross-cutting conventions surfaced (each with evidence), which the user approved for guideline creation, and which guideline files were created/registered (or "none surfaced / user declined").
 
 ## Final Pass
 
@@ -146,6 +156,7 @@ Before finishing, check that:
 4. codebase-inferred facts are clearly marked and do not silently override user-confirmed truths
 5. the auto-detected tier (for Legacy Only / Non-SDD states) is stated in the output so the user can override it if needed
 6. if `foundation/phases/` did not exist at the start of this refresh and any active development signal was positive, confirm that the user was prompted about setting up phases — if this prompt was skipped, **stop and prompt the user now before finishing**
+7. if the Technical Guidelines Discovery & Interview surfaced candidates, confirm the user was prompted and the outcome (created / declined / none) is reported in the Output Contract.
 
 ## Inputs
 

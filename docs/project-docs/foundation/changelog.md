@@ -2,6 +2,12 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.17] - 2026-06-18
+
+### Added
+
+- **Technical Guidelines Discovery & Interview (Refresh):** The refresh template gains a recurring "Technical Guidelines Discovery & Interview" step (Review Sequence step 9), modeled on `eha-bootstrap`'s interview. It scans the codebase for durable, cross-cutting implementation conventions that are not already documented under `technical-guidelines/`, presents each candidate with a `file:line` evidence citation, and — only on explicit user approval — generates real (never-placeholder) `technical-guidelines/*.md` files against an inline Guideline Stable Headings baseline, registering them in `technical-guidelines/index.md` and linking them from `docs/project-docs/index.md`. Closes the gap where refresh could only migrate guidelines from legacy/reference docs and had no codebase→guideline route: the codebase-mining rules (Rule 22) and Ownership Examples now route recurring cross-cutting conventions to `technical-guidelines/`, the Output Contract reports the discovery outcome, and a Final Pass check guards it. As a side effect, `eha-sdd-execute`'s "decide via a Refresh or Bootstrap workflow" handoff for guideline candidates is now a live path.
+
 ## [1.0.16] - 2026-06-15
 
 ### Added
