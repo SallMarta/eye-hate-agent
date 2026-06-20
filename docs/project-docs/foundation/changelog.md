@@ -2,6 +2,12 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.0.18] - 2026-06-19
+
+### Fixed
+
+- **Registry Inlining:** Projected prompt files (`eha-bootstrap`, `eha-refresh`) no longer reference `docs/templates/project-docs-template/index.md` as an external file path. Registry content is now embedded directly into the projected files at build time using `{{REGISTRY:...}}` token expansion in `loadPromptContent()`, wrapped in `<!-- === EHA REGISTRY ... === -->` boundary markers. This fixes the issue where agents in user repos would fail to find the template file and ask the user for guidance.
+
 ## [1.0.17] - 2026-06-18
 
 ### Added

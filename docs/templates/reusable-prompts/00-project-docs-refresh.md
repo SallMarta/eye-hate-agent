@@ -28,7 +28,9 @@ For **Legacy Only** and **Non-SDD Docs** states, auto-detect the Taxonomy Tier:
 - When uncertain, choose the lower tier and note what would trigger upgrade.
 - State the auto-detected tier in your output so the user can override it if needed.
 
-**Dynamic Generation from Registry:** You MUST read the master registry file `docs/templates/project-docs-template/index.md` to obtain the universal stable headings schema and the unique domain-specific headings for each document type within the detected or applicable tier. Generate each document dynamically using this structural mapping.
+**Dynamic Generation from Registry:** Use the master registry embedded below to obtain the universal stable headings schema and the unique domain-specific headings for each document type within the detected or applicable tier. Generate each document dynamically using this structural mapping.
+
+{{REGISTRY:project-docs-template/index.md}}
 
 Proceed to the applicable action path.
 
@@ -101,7 +103,9 @@ Proceed to the applicable action path.
 8. Read relevant guideline docs when the change touches technical rules.
 9. **Technical Guidelines Discovery & Interview.** Building on the codebase scan, identify **durable cross-cutting implementation conventions** that are (a) NOT already documented under `docs/project-docs/technical-guidelines/`, and (b) referenced across **multiple features or domains** (not owned by a single standard doc). Examples: API response envelope shape, error-handling/error-constant discipline, logging conventions, naming schemes, dynamic query-builder usage, in-memory cache patterns, public/private response transformation, authentication/identity conventions. For each candidate note: the convention, why it is durable + cross-cutting, and a codebase evidence citation (`file:line`). Then present the candidates to the user and ask which (if any) to formalize:
 
-   - **User approves one or more** → generate `technical-guidelines/<convention>.md` for each using the **Guideline Stable Headings** baseline (`## 1. Summary`, `## 2. Scope`, `## 3. Rules`, `## 4. Preferred Patterns`, `## 5. Anti-Patterns`, `## 6. Related Docs`, `## 7. Open Questions`), with **real rules inferred from the codebase — never placeholder stubs**; consult `docs/templates/project-docs-template/technical-guidelines/index.md` for extended domain-specific headings **if present**. Register each new file in `technical-guidelines/index.md` and link it from `docs/project-docs/index.md`.
+   - **User approves one or more** → generate `technical-guidelines/<convention>.md` for each using the **Guideline Stable Headings** baseline (`## 1. Summary`, `## 2. Scope`, `## 3. Rules`, `## 4. Preferred Patterns`, `## 5. Anti-Patterns`, `## 6. Related Docs`, `## 7. Open Questions`), with **real rules inferred from the codebase — never placeholder stubs**; consult the guidelines registry embedded below for extended domain-specific headings. Register each new file in `technical-guidelines/index.md` and link it from `docs/project-docs/index.md`.
+
+{{REGISTRY:project-docs-template/technical-guidelines/index.md}}
    - **User declines** → skip creation; still record the surfaced candidates in the Output Contract.
    - **No candidates found** → skip silently (do not prompt).
 

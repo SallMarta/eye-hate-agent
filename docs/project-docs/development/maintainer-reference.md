@@ -55,6 +55,8 @@ To add a new slash command, follow Recipe 1 below. The `eha-` prefix is added au
 
 Template anatomy: Do not include EHA core rules or overarching project contexts. Write only the specific instructions for the agent.
 
+> **Registry Token Expansion:** Prompt templates can use `{{REGISTRY:path/relative/to/project-docs-template}}` tokens to embed template registry content inline. The `loadPromptContent()` function in `shared.js` expands these tokens at projection time by reading the corresponding file from `docs/templates/project-docs-template/` and wrapping it in `<!-- === EHA ... === -->` boundary markers. This ensures projected prompt files are self-contained and don't reference files that only exist in the EHA source repo.
+
 **Step 2 — Register the Template:**
 - Skills: add entry to `SKILL_DEFINITIONS` in `src/engine/registry/skills.js`
 - Workflows: add entry to `WORKFLOW_DEFINITIONS` in `src/engine/registry/workflows.js`
@@ -374,6 +376,7 @@ If the CLI prompt fails, manually review the relevant adapter in `src/engine/ada
 | Modify agent rules | `docs/templates/rules/agent-rules.md` |
 | Modify compact rules | `src/engine/adapters/shared.js` (`EHA_COMPACT_RULES`) — **⚠️ global impact** |
 | Add a state module | `src/engine/state/<name>.js` (NEW), optionally `src/engine/index.js` |
+| Modify project docs template registry | `docs/templates/project-docs-template/index.md` or `technical-guidelines/index.md` — changes auto-propagate to all projected prompts on next `eha init` / `eha` run |
 
 ## 12. Related Documents
 

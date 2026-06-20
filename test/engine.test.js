@@ -290,6 +290,61 @@ test('project docs templates directory is lightweight and contains only registri
   assert.deepEqual(guidelinesContents.sort(), ['index.md'].sort());
 });
 
+test('projected prompt files have registry content inlined — no raw paths or unexpanded tokens remain', () => {
+  const rootDir = createSandbox();
+  try {
+    initProject({ rootDir, agentId: 'claude' });
+
+    const bootstrapPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
+    const refreshPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-refresh.md');
+
+    for (const filePath of [bootstrapPath, refreshPath]) {
+      const content = fs.readFileSync(filePath, 'utf8');
+      const label = path.basename(filePath);
+
+      // Must NOT contain raw file path references to the source template
+      assert.ok(
+        !content.includes('docs/templates/project-docs-template/index.md'),
+        `${label} must not reference docs/templates/project-docs-template/index.md`
+      );
+      assert.ok(
+        !content.includes('docs/templates/project-docs-template/technical-guidelines/index.md'),
+        `${label} must not reference docs/templates/project-docs-template/technical-guidelines/index.md`
+      );
+
+      // Must NOT contain unexpanded tokens
+      assert.ok(
+        !content.includes('{{REGISTRY:'),
+        `${label} must not contain unexpanded {{REGISTRY:}} tokens`
+      );
+
+      // Must contain the boundary markers (master registry)
+      assert.match(content, /<!-- === EHA MASTER REGISTRY START === -->/,
+        `${label} must contain master registry start marker`);
+      assert.match(content, /<!-- === EHA MASTER REGISTRY END === -->/,
+        `${label} must contain master registry end marker`);
+
+      // Must contain actual content from the master registry
+      assert.match(content, /Universal Stable Headings/,
+        `${label} must contain inlined master registry content`);
+      assert.match(content, /Domain-Specific Headings Catalog/,
+        `${label} must contain inlined domain headings catalog`);
+
+      // Must contain the boundary markers (guidelines registry)
+      assert.match(content, /<!-- === EHA GUIDELINES REGISTRY START === -->/,
+        `${label} must contain guidelines registry start marker`);
+      assert.match(content, /<!-- === EHA GUIDELINES REGISTRY END === -->/,
+        `${label} must contain guidelines registry end marker`);
+
+      // Must contain actual content from the guidelines registry
+      assert.match(content, /Guideline Stable Headings/,
+        `${label} must contain inlined guideline headings content`);
+    }
+  } finally {
+    fs.rmSync(rootDir, { recursive: true, force: true });
+  }
+});
+
 // ─── H2: CLI Exit Code & Integration Tests ─────────────────────────────────────
 
 test('CLI exit code 1 on unsupported agent (H2)', () => {

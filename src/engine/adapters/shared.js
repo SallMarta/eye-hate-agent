@@ -34,14 +34,47 @@ const EHA_COMPACT_RULES = `## EHA Project Doc Rules
 
 **Flexible Baselines Principle:** Omit docs the repo doesn't need. Mark unknowns as \`TBD\` or \`Assumption\`. Mark inferred facts as \`Inferred from codebase\` until the user confirms them.`;
 
+function loadRegistryContent(registryRelativePath) {
+  const fullPath = getBundledAssetPath(
+    path.join('docs', 'templates', registryRelativePath)
+  );
+  return fs.readFileSync(fullPath, 'utf8');
+}
+
+function expandRegistryTokens(content) {
+  return content.replace(
+    /\{\{REGISTRY:([\w/._-]+)\}\}/g,
+    (_match, registryPath) => {
+      const registryContent = loadRegistryContent(registryPath);
+
+      // Derive a human-readable label from the path
+      // e.g. "project-docs-template/index.md" → "MASTER REGISTRY"
+      //      "project-docs-template/technical-guidelines/index.md" → "GUIDELINES REGISTRY"
+      const isGuidelines = registryPath.includes('technical-guidelines');
+      const label = isGuidelines ? 'GUIDELINES REGISTRY' : 'MASTER REGISTRY';
+
+      return [
+        '',
+        `<!-- === EHA ${label} START === -->`,
+        '<!-- Auto-embedded by EHA engine. Do not edit manually. -->',
+        '',
+        registryContent.trimEnd(),
+        '',
+        `<!-- === EHA ${label} END === -->`,
+      ].join('\n');
+    }
+  );
+}
+
 function loadPromptContent(workflow) {
   const promptPath = getBundledAssetPath(workflow.repoRelativePath);
   const raw = fs.readFileSync(promptPath, 'utf8');
-  return raw
+  const filtered = raw
     .split('\n')
     .filter((line) => !line.includes('docs/eyehateagent-contract.md'))
     .join('\n')
     .replace(/^\n+/, '');
+  return expandRegistryTokens(filtered);
 }
 
 function loadSkillContent(skill) {

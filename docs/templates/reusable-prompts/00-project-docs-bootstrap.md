@@ -76,7 +76,9 @@ Once the user approves a tier, strictly follow the 4-layer file structure (`foun
 
 ### Required Behavior
 
-1. **Dynamic Generation from Registry:** You MUST read the master registry file `docs/templates/project-docs-template/index.md` to obtain the universal stable headings schema and the unique domain-specific headings for each document type within the approved tier. Generate each document dynamically using this structural mapping.
+1. **Dynamic Generation from Registry:** Use the master registry embedded below to obtain the universal stable headings schema and the unique domain-specific headings for each document type within the approved tier. Generate each document dynamically using this structural mapping.
+
+{{REGISTRY:project-docs-template/index.md}}
 2. Create project-specific truth in `docs/project-docs/`, not in the reusable prompt output itself.
 3. Do not invent details. Mark uncertain facts as `TBD` or `Assumption`.
 4. If reverse-engineering from code, explicitly state "Inferred from codebase" in the generated document until the user confirms it.
@@ -140,7 +142,9 @@ After the phases and changelog prompts, scan the codebase for cross-cutting impl
    "I've identified the following cross-cutting patterns in your codebase:
    - [list each pattern with a brief description, e.g., "All API responses follow a standard envelope shape { status, data, errors }"]
    Would you like me to generate `technical-guidelines/` documents for any of these?"
-   - If the user selects patterns → generate specific guideline files (using the Guideline Stable Headings schema from `docs/templates/project-docs-template/technical-guidelines/index.md`) and register them in `technical-guidelines/index.md`. Each guideline must contain actual rules inferred from the codebase — never generate placeholder stubs.
+   - If the user selects patterns → generate specific guideline files (using the Guideline Stable Headings baseline embedded below) and register them in `technical-guidelines/index.md`. Each guideline must contain actual rules inferred from the codebase — never generate placeholder stubs.
+
+{{REGISTRY:project-docs-template/technical-guidelines/index.md}}
    - If the user declines → skip. For Tier 3, the empty `technical-guidelines/index.md` registry is still generated as part of the tier's file set.
 3. If no recurring patterns are found → skip the prompt entirely. For Tier 3, the empty `technical-guidelines/index.md` registry is still generated.
 
