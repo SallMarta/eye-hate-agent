@@ -18,6 +18,7 @@ function normalizeConfig(config) {
     configVersion: 2,
     agent,
     agents: [...new Set(agents)],
+    subagentRouting: candidate.subagentRouting === true,
   };
 }
 

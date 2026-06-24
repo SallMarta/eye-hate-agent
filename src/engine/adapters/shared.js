@@ -1,6 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { getBundledAssetPath } = require('../state/paths');
+const { listSkills } = require('../registry/skills');
+const { listWorkflows } = require('../registry/workflows');
+const { listAgents } = require('../registry/agents');
 
 const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity', 'gemini'];
 
@@ -89,6 +92,52 @@ function loadSkillContent(skill) {
     .replace(/^\n+/, '');
 }
 
+function loadAgentContent(agent) {
+  const agentPath = getBundledAssetPath(agent.repoRelativePath);
+  const raw = fs.readFileSync(agentPath, 'utf8').replace(/^\n+/, '');
+  // Preserve frontmatter — unlike loadSkillContent(), agent files need their
+  // `name`, `description`, and `tools` fields to remain intact because the
+  // consuming platforms read them directly from YAML. Then expand the
+  // `{{WRAPS}}` token so the subagent inherits its wrapped skill/workflow body.
+  return expandWrapsToken(raw, agent);
+}
+
+// Resolve a `wraps:` id to the body of the skill (preferred) or workflow it
+// references. Skill bodies come back frontmatter-stripped via loadSkillContent;
+// workflow bodies come back fully registry-token-expanded via loadPromptContent.
+function resolveWrapsContent(id) {
+  const skill = listSkills().find((s) => s.id === id || s.commandName === id);
+  if (skill) {
+    return loadSkillContent(skill);
+  }
+  const workflow = listWorkflows().find((w) => w.id === id || w.commandName === id);
+  if (workflow) {
+    return loadPromptContent(workflow);
+  }
+  throw new Error(`Agent 'wraps:"${id}"' did not match any registered skill or workflow.`);
+}
+
+// Expand the `{{WRAPS}}` token in an agent body using the `wraps:` field in its
+// frontmatter. The id is declared once (frontmatter); the token marks where the
+// resolved content lands. A declaration without a token (or vice versa) is a
+// configuration error — fail loudly rather than silently shipping a thin agent.
+function expandWrapsToken(raw, agent) {
+  const match = raw.match(/^wraps:\s*["']?([\w-]+)["']?\s*$/m);
+  const wrapsId = match ? match[1] : null;
+  const hasToken = raw.includes('{{WRAPS}}');
+
+  if (!wrapsId && !hasToken) {
+    return raw; // agent wraps nothing — pass through unchanged
+  }
+  if (wrapsId && !hasToken) {
+    throw new Error(`Agent "${agent.id}" declares wraps:"${wrapsId}" but its body has no {{WRAPS}} token to receive it.`);
+  }
+  if (hasToken && !wrapsId) {
+    throw new Error(`Agent "${agent.id}" has a {{WRAPS}} token but no wraps: field in its frontmatter.`);
+  }
+  return raw.replace('{{WRAPS}}', resolveWrapsContent(wrapsId).trim());
+}
+
 function loadRuleContent(agentId) {
   const rulePath = getBundledAssetPath(path.join('docs', 'templates', 'rules', 'agent-rules.md'));
   let content = fs.readFileSync(rulePath, 'utf8').replace(/^\n+/, '');
@@ -104,7 +153,7 @@ function loadRuleContent(agentId) {
   return content;
 }
 
-function buildDeviceRulesContent(agentId, workflows) {
+function buildDeviceRulesContent(agentId, workflows, options = {}) {
   const rulesContent = loadRuleContent(agentId);
 
   let routingSection = '';
@@ -125,7 +174,38 @@ function buildDeviceRulesContent(agentId, workflows) {
     routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching command file:\n\n${routes}`;
   }
 
-  return `${rulesContent}${routingSection}`;
+  return `${rulesContent}${routingSection}${buildSubagentRoutingSection(options)}`;
+}
+
+// Build the "EHA Subagent Routing" section appended to a rules file when the
+// opt-in `subagentRouting` flag is set. Returns '' (no section) when disabled
+// or when no registered subagent declares a `trigger` hint. Drawn dynamically
+// from listAgents() so it stays in sync with the registry.
+function buildSubagentRoutingSection(options = {}) {
+  if (!options || !options.subagentRouting) return '';
+  const withTriggers = listAgents().filter((a) => a.trigger);
+  if (withTriggers.length === 0) return '';
+
+  const rows = withTriggers
+    .map((a) => `| ${a.trigger} | \`eha-${a.commandName}\` |`)
+    .join('\n');
+
+  return [
+    '',
+    '## EHA Subagent Routing',
+    '',
+    'When a request matches a pattern below, delegate to the named subagent instead of doing the work inline. State which subagent you delegated to and why, then act on the report it returns.',
+    '',
+    '| If the request is about… | Delegate to |',
+    '|---|---|',
+    rows,
+    '',
+    'Routing rules:',
+    '- Delegate once per bounded task — do not auto-chain subagents.',
+    "- Skip delegation for small or already-in-flow work; it is for focused, token-heavy, or read-only/isolated tasks.",
+    "- Respect each subagent's tool scope (three are read-only; only `eha-tester` writes). Do not work around a restricted scope.",
+    '- Platform support: Claude and Copilot spawn these directly. On Antigravity / Gemini CLI, follow the procedure inline until the platform adds subagent spawning.',
+  ].join('\n');
 }
 
 module.exports = {
@@ -133,6 +213,10 @@ module.exports = {
   EHA_COMPACT_RULES,
   loadPromptContent,
   loadSkillContent,
+  loadAgentContent,
+  resolveWrapsContent,
+  expandWrapsToken,
   loadRuleContent,
   buildDeviceRulesContent,
+  buildSubagentRoutingSection,
 };

@@ -4,6 +4,7 @@ const { version: EHA_PACKAGE_VERSION } = require('../../../package.json');
 
 const { listWorkflows } = require('../registry/workflows');
 const { listSkills } = require('../registry/skills');
+const { listAgents } = require('../registry/agents');
 const { getRuntimeAdapter } = require('../adapters');
 const { resolveAgentId } = require('./project');
 const {
@@ -16,10 +17,12 @@ const { getDeviceManifestPath, getEnginePaths } = require('../state/paths');
 const { readDeviceManifest, writeDeviceManifest } = require('../state/manifest');
 const { upsertSentinelBlock, removeSentinelBlock } = require('../state/sentinel');
 
-function installDevice({ agentIds, homeDir }) {
+function installDevice({ agentIds, homeDir, options = {} }) {
   const home = homeDir || os.homedir();
   const workflows = listWorkflows();
   const skills = listSkills();
+  const agents = listAgents();
+  const subagentRouting = options.subagentRouting ?? false;
   const results = {};
 
   for (const agentId of agentIds) {
@@ -30,7 +33,7 @@ function installDevice({ agentIds, homeDir }) {
       throw new Error(`Agent '${normalizedId}' does not support device-level installation.`);
     }
 
-    const files = adapter.generateDeviceFiles(home, workflows, skills);
+    const files = adapter.generateDeviceFiles(home, workflows, skills, agents, { subagentRouting });
     const written = [];
 
     for (const file of files) {

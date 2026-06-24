@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadRuleContent, buildDeviceRulesContent } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
 
 function buildClaudeCommandFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -26,19 +26,25 @@ ${EHA_COMPACT_RULES}
 ${loadSkillContent(skill)}`;
 }
 
-function buildClaudeRuleFile() {
+function buildClaudeAgentFile(agent) {
+  // Claude agents are written in canonical YAML; pass the template through
+  // unchanged (frontmatter with name/description/tools is consumed directly).
+  return loadAgentContent(agent);
+}
+
+function buildClaudeRuleFile(options = {}) {
   return `---
 description: "EHA agent rules"
 ---
 
-${loadRuleContent('claude')}`;
+${loadRuleContent('claude')}${buildSubagentRoutingSection(options)}`;
 }
 
 module.exports = {
   id: 'claude',
   name: 'Claude',
-  description: 'Generates .claude/commands/eha/ slash command files, .claude/skills/ and .claude/rules/',
-  generateFiles(rootDir, workflows, skills) {
+  description: 'Generates .claude/commands/eha/ slash command files, .claude/skills/, .claude/agents/, and .claude/rules/',
+  generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
     for (const workflow of workflows) {
       files.push({
@@ -52,15 +58,21 @@ module.exports = {
         content: buildClaudeSkillFile(skill),
       });
     }
-    
+    for (const agent of agents) {
+      files.push({
+        relativePath: path.join('.claude', 'agents', `eha-${agent.commandName}.md`),
+        content: buildClaudeAgentFile(agent),
+      });
+    }
+
     files.push({
       relativePath: path.join('.claude', 'rules', 'eha-agent-rules.md'),
-      content: buildClaudeRuleFile(),
+      content: buildClaudeRuleFile(options),
     });
-    
+
     return files;
   },
-  generateDeviceFiles(homeDir, workflows, skills) {
+  generateDeviceFiles(homeDir, workflows, skills, agents, options = {}) {
     const files = [];
 
     for (const workflow of workflows) {
@@ -79,9 +91,17 @@ module.exports = {
       });
     }
 
+    for (const agent of agents) {
+      files.push({
+        absolutePath: path.join(homeDir, '.claude', 'agents', `eha-${agent.commandName}.md`),
+        content: buildClaudeAgentFile(agent),
+        isSentinel: false,
+      });
+    }
+
     files.push({
       absolutePath: path.join(homeDir, '.claude', 'rules', 'eha-agent-rules.md'),
-      content: buildDeviceRulesContent('claude', workflows),
+      content: buildDeviceRulesContent('claude', workflows, options),
       isSentinel: false,
     });
 

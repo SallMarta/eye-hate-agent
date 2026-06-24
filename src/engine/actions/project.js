@@ -3,6 +3,7 @@ const { version: EHA_PACKAGE_VERSION } = require('../../../package.json');
 
 const { listWorkflows } = require('../registry/workflows');
 const { listSkills } = require('../registry/skills');
+const { listAgents } = require('../registry/agents');
 const { getRuntimeAdapter, SUPPORTED_AGENT_IDS } = require('../adapters');
 const {
   ensureDir,
@@ -60,12 +61,19 @@ function readManifest(manifestPath) {
   };
 }
 
-function initProject({ rootDir, agentId }) {
+function initProject({ rootDir, agentId, options = {} }) {
   const normalizedAgentId = resolveAgentId(agentId);
   const adapter = getRuntimeAdapter(normalizedAgentId);
   const workflows = listWorkflows();
   const skills = listSkills();
-  const files = adapter.generateFiles(rootDir, workflows, skills);
+  const agents = listAgents();
+
+  // Subagent auto-routing is opt-in. An explicit option wins; otherwise the
+  // prior config value is preserved across re-init; default is off.
+  const existingConfig = readConfig(rootDir);
+  const subagentRouting = options.subagentRouting ?? existingConfig.subagentRouting ?? false;
+
+  const files = adapter.generateFiles(rootDir, workflows, skills, agents, { subagentRouting });
 
   const { upsertSentinelBlock } = require('../state/sentinel');
   for (const file of files) {
@@ -109,9 +117,8 @@ function initProject({ rootDir, agentId }) {
   };
   writeJson(enginePaths.manifestPath, manifest);
 
-  const existingConfig = readConfig(rootDir);
   const allAgents = [...new Set([...(existingConfig.agents || []), normalizedAgentId])];
-  const config = writeConfig(rootDir, { agent: normalizedAgentId, agents: allAgents });
+  const config = writeConfig(rootDir, { agent: normalizedAgentId, agents: allAgents, subagentRouting });
 
   return {
     rootDir,

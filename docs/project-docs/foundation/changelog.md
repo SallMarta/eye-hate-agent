@@ -2,6 +2,24 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.1.0] - 2026-06-22
+
+### Added
+
+- **Subagents (fourth artifact type):** Introduced **agents** as a new artifact type alongside workflows, skills, and rules. Subagents are specialized, isolated AI agent instances (scoped tool access, dedicated context) defined by `AGENT.md` templates under `docs/templates/agents/`. Each subagent **wraps** an existing EHA skill as its instruction set rather than duplicating it — edit the skill and the subagent updates automatically. Ships four starter personas: `security` (wraps `security-audit`), `tester` (wraps `system-tester`), `parity` (wraps `parity-audit`), and `researcher` (wraps `system-analysis`).
+- **Agent registry & loader:** New `src/engine/registry/agents.js` (mirrors the `skills.js` pattern) and a new `loadAgentContent()` loader in `src/engine/adapters/shared.js`. Unlike `loadSkillContent()`, the agent loader preserves frontmatter because platforms consume `name`/`description`/`tools` directly from YAML. It also expands a `{{WRAPS}}` token in the body: `wraps:` is resolved at build time to the matching skill (`listSkills()`) or workflow (`listWorkflows()`) and its body is injected where the token appears, so the subagent genuinely inherits the skill's procedure rather than shipping a thin persona.
+- **Cross-platform generation:** All four adapters (Claude, Copilot, Antigravity, Gemini CLI) now emit agent definition files in both project and device scopes. Claude (`.claude/agents/eha-<name>.md`) and Copilot (`.github/agents/eha-<name>.agent.md`) actively consume subagent files today; Antigravity (`.agents/agents/`) and Gemini CLI (`.gemini/agents/`) files are pre-installed in sensible locations for future platform support. Adapters are pass-through — no `EHA_COMPACT_RULES` is injected into subagent files.
+- **Subagent auto-routing (opt-in):** Added a `--subagent-routing` install flag (wizard + `eha init`) and `subagentRouting` config key (default off). When enabled, a `## EHA Subagent Routing` section is appended to each platform's rules file, generated dynamically from a new `trigger` hint on each agent in `src/engine/registry/agents.js`. This tells the orchestrator to delegate matching requests to the relevant `eha-*` subagent instead of handling them inline (soft, model-judgment routing). Applies to both project and device scopes.
+
+### Changed
+
+- **Adapter signatures:** `generateFiles(rootDir, workflows, skills)` and `generateDeviceFiles(homeDir, workflows, skills)` now accept a fourth `agents` parameter across all four adapters, threaded through from `project.js` and `device.js`.
+- **File count formula:** Project init now generates `W + S + A + N` files (workflows + skills + agents + adapter extras), where `A = listAgents().length`.
+- **Manifest & uninstall:** Agent files are tracked in the install manifest (`isSentinel: false`) and are cleaned up automatically by `eha remove` and device uninstall with no sentinel-logic changes required.
+- **Documentation:** Added "Recipe 5: Add a New Subagent" to the maintainer reference; documented the agents artifact in the PRD (§12 functional requirements, §14 acceptance criteria) and architecture (ADR 3).
+- **Subagent capability (wraps injection):** Subagents now embed their wrapped skill/workflow procedure into the generated file at build time via the `{{WRAPS}}` token. The four `AGENT.md` bodies were restructured to carry subagent-specific framing (read-only constraints, scoping, output contract) while the skill supplies the deep procedure. A `wraps:` declaration without a matching token (or vice versa) now throws at generation time rather than silently producing an inert agent.
+- **Session handoff history (Rule 2.4):** Reversed the prior "single overwriting `session-handoff.md`" behavior. Each compaction now writes a **new, uniquely-named** `session-handoff-<YYYY-MM-DD-HHMM>.md` (date+time, local) so handoff history is preserved across multiple compactions per day; prior handoffs are never overwritten or deleted, with a prune-old-handoffs note added. The resume prompt must name the exact dated file.
+
 ## [1.0.18] - 2026-06-19
 
 ### Fixed

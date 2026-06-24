@@ -1,6 +1,6 @@
 # Status
 
-Last update: 2026-06-15
+Last update: 2026-06-22
 
 Status: Live
 
@@ -47,10 +47,11 @@ Does not track granular tasks.
 
 ## 7. Current State
 
-EHA has reached `1.0.17` stability. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
+EHA has reached `1.1.0` stability and introduced **subagents** as a fourth artifact type — isolated specialist agents that wrap existing skills/workflows rather than duplicating them, generated across all four platforms. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
 
 ## 8. Recent Accomplishments
 
+- Added **subagents** as a fourth artifact type: isolated specialist agents (`eha-security`, `eha-tester`, `eha-parity`, `eha-researcher`) that wrap existing skills, generated across Claude, Copilot, Antigravity, and Gemini CLI in both project and device scopes.
 - Closed the `technical-guidelines/` taxonomy gap: bootstrap now generates the Tier 3 registry and runs a codebase-scanning interview to produce real guidelines (never stubs); refresh now runs its own Technical Guidelines Discovery & Interview to surface **and create** guidelines from codebase conventions, and sdd-execute surfaces candidates for refresh/bootstrap to formalize.
 - Implemented **Gemini CLI** support via `.gemini/` adapter and sentinel boundaries for `GEMINI.md`.
 - Restored the interactive auto-updater so users can upgrade EHA globally directly from the CLI prompt without manually running `npm install`.
@@ -86,17 +87,18 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
 
-- NPM Version: 1.0.17
+- NPM Version: 1.1.0
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
 - Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).
+- Subagents: 4 (security, tester, parity, researcher).
 
 ## 11. Roadmap
 
 | Workstream | Status | Notes |
 | --- | --- | --- |
 | Template Parity | Completed | Aligned EHA internal docs to new Single Registry and modern taxonomy |
-| Agent Support | Live | Claude, Copilot, Antigravity |
+| Agent Support | Live | Claude, Copilot, Antigravity, Gemini CLI; subagents generated for all four |
 
 ## 12. Epics
 

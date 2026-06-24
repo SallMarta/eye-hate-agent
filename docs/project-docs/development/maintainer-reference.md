@@ -1,6 +1,6 @@
 # Maintainer Reference
 
-Last update: 2026-06-11
+Last update: 2026-06-22
 
 Status: Live
 
@@ -25,10 +25,11 @@ This file supplements the project-level rules (`.claude/rules/eha-repository-rul
 - [7. Recipe 2: Add a New AI Agent Target](#7-recipe-2-add-a-new-ai-agent-target)
 - [8. Recipe 3: Add a New CLI Command](#8-recipe-3-add-a-new-cli-command)
 - [9. Recipe 4: Modify Agent Rules](#9-recipe-4-modify-agent-rules)
-- [10. Testing & Verification](#10-testing--verification)
-- [11. Quick Reference: Files Touched per Operation](#11-quick-reference-files-touched-per-operation)
-- [12. Related Documents](#12-related-documents)
-- [13. Open Questions](#13-open-questions)
+- [10. Recipe 5: Add a New Subagent](#10-recipe-5-add-a-new-subagent)
+- [11. Testing & Verification](#11-testing--verification)
+- [12. Quick Reference: Files Touched per Operation](#12-quick-reference-files-touched-per-operation)
+- [13. Related Documents](#13-related-documents)
+- [14. Open Questions](#14-open-questions)
 
 ## 4. Scope
 
@@ -210,11 +211,14 @@ if (basename === 'CLAUDE.md' || basename === 'GEMINI.md' || basename === 'EXAMPL
 
 **Generated File Count Reference:**
 
+Where `A = listAgents().length`. Each adapter emits exactly one file per registered subagent.
+
 | Agent | Extra Files | Total Formula |
 |---|---|---|
-| Claude | 1 (rules) | `W + S + 1` |
-| Copilot | 2 (routing + rules) | `W + S + 2` |
-| Antigravity | 1 (rules) | `W + S + 1` |
+| Claude | 1 (rules) | `W + S + A + 1` |
+| Copilot | 2 (routing + rules) | `W + S + A + 2` |
+| Antigravity | 1 (rules) | `W + S + A + 1` |
+| Gemini | 1 (GEMINI.md) | `W + S + A + 1` |
 
 ## 8. Recipe 3: Add a New CLI Command
 
@@ -280,7 +284,79 @@ Two types of rules with different scopes:
 
 - **Type B — Compact Rules (`EHA_COMPACT_RULES` in `src/engine/adapters/shared.js`):** Condensed inline string injected into **every** generated workflow and skill file. **CAUTION:** editing this has cascading global impact. Only modify for fundamental taxonomy or SDD philosophy changes.
 
-## 10. Testing & Verification
+## 10. Recipe 5: Add a New Subagent
+
+**Step 1 — Write the Template:**
+Create `docs/templates/agents/<agent-name>/AGENT.md`.
+
+Template anatomy (AGENT.md):
+- YAML frontmatter: `name` (use the `eha-<name>` namespace — adapters are pass-through, so the source file carries the final rendered value), `description`, `tools` (canonical Claude-style whitelist such as `Read`, `Grep`, `Glob`, `Write`, `Bash`, `WebSearch`; adapters will translate platform-specific names later), and `wraps` (the existing skill/workflow ID this subagent delegates to).
+- Markdown body: persona, hard constraints, and expected output format. The body carries **subagent-specific framing** (e.g. read-only enforcement, scoping, output contract) — it does **not** duplicate the skill's procedure.
+- **`{{WRAPS}}` token (required when `wraps:` is set):** place this token where the wrapped skill/workflow procedure should land. At build time, `loadAgentContent()` resolves `wraps:` → finds the matching skill (via `listSkills()`) or workflow (via `listWorkflows()`) → injects its body in place of the token. This is how a subagent inherits the skill's depth without duplicating it (single source of truth: edit `SKILL.md` once). A `wraps:` declaration with no token — or a token with no `wraps:` — makes generation **throw** rather than silently ship a thin agent.
+- Do **not** include `EHA_COMPACT_RULES` — subagents inherit behavioral rules from the orchestrator's session, not from their own definition file.
+- Frontmatter is **preserved** end-to-end. The agent's own `name`/`description`/`tools`/`wraps` stay intact because the consuming platform reads them directly from YAML. The injected skill body is frontmatter-stripped (via `loadSkillContent()`), so no second `name:` field appears.
+
+```yaml
+---
+name: "eha-example-agent"
+description: "One-line specialist role description."
+tools: ["Read", "Grep", "Glob"]
+wraps: "system-analysis"
+---
+
+# Example Agent
+
+You are a delegated specialist performing a focused, read-only analysis.
+
+**Hard constraints:**
+- Read-only: never modify files.
+
+**Operating procedure — execute the wrapped `system-analysis` skill in full:**
+
+{{WRAPS}}
+
+**Output:** A structured summary, not a full transcript.
+```
+
+**Step 2 — Register the Template:**
+Add an entry to `AGENT_DEFINITIONS` in `src/engine/registry/agents.js`:
+
+```javascript
+const AGENT_DEFINITIONS = {
+  // ... existing agents ...
+  'example-agent': {
+    id: 'example-agent',
+    commandName: 'example-agent',
+    repoRelativePath: path.join('docs', 'templates', 'agents', 'example-agent', 'AGENT.md'),
+  },
+};
+```
+
+> **Bidirectional Sync:** Test H4 enforces that every agent directory under `docs/templates/agents/` has a registry entry and vice versa. Forgetting either side causes `npm test` to fail.
+
+**No further changes needed.** All four adapters iterate `listAgents()` in both `generateFiles()` and `generateDeviceFiles()` — new agent templates propagate to every supported platform automatically.
+
+**Platform output paths:**
+
+| Platform | Project-Level Path | Device-Level Path |
+| --- | --- | --- |
+| Claude | `.claude/agents/eha-<name>.md` | `~/.claude/agents/eha-<name>.md` |
+| Copilot | `.github/agents/eha-<name>.agent.md` | `~/.copilot/agents/eha-<name>.agent.md` |
+| Antigravity | `.agents/agents/eha-<name>.md` | `~/.gemini/config/agents/eha-<name>.md` |
+| Gemini CLI | `.gemini/agents/eha-<name>.md` | `~/.gemini/agents/eha-<name>.md` |
+
+> **Platform support note:** Claude and Copilot actively consume subagent files today. Antigravity and Gemini CLI do not yet support user-defined agent discovery — files are pre-installed in sensible locations so support is ready when those platforms add it.
+
+**Subagent auto-routing (opt-in):** By default subagents are invoked manually (`@eha-<name>`). To make the orchestrator *delegate by default*, enable auto-routing — a `## EHA Subagent Routing` section is appended to each platform's rules file, built dynamically from every agent's `trigger` hint.
+
+- Enable at install time with the `--subagent-routing` flag: `eha --subagent-routing` (wizard), `eha --subagent-routing init claude`, or `eha init claude --subagent-routing`. Device install honors it too.
+- The setting is persisted to `.eha/config.json` (`subagentRouting: true`) and survives re-init; pass it again (or edit config) to change.
+- To add/route a new subagent, give it a `trigger` string in `src/engine/registry/agents.js`. The routing table regenerates automatically on the next `eha init` — no rule-file editing.
+- Routing is **soft** (model-judgment): the orchestrator is told when to delegate, but it is not a hard trigger. Disable by re-running without the flag (or deleting the section).
+
+---
+
+## 11. Testing & Verification
 
 ### Core Principle
 
@@ -324,9 +400,10 @@ test('example', () => {
 ### File Count Assertions
 
 When testing `initProject()`, expected file count per agent:
-- Claude: `listWorkflows().length + listSkills().length + 1`
-- Copilot: `listWorkflows().length + listSkills().length + 2`
-- Antigravity: `listWorkflows().length + listSkills().length + 1`
+- Claude: `listWorkflows().length + listSkills().length + listAgents().length + 1`
+- Copilot: `listWorkflows().length + listSkills().length + listAgents().length + 2`
+- Antigravity: `listWorkflows().length + listSkills().length + listAgents().length + 1`
+- Gemini: `listWorkflows().length + listSkills().length + listAgents().length + 1`
 
 ### Local Testing Methods
 
@@ -365,26 +442,27 @@ If the CLI prompt fails, manually review the relevant adapter in `src/engine/ada
 - All `npm test` assertions pass.
 - Generated file count matches the formula `W + S + N` (workflows + skills + adapter extras).
 
-## 11. Quick Reference: Files Touched per Operation
+## 12. Quick Reference: Files Touched per Operation
 
 | Operation | Files Modified |
 |---|---|
 | Add a workflow | `docs/templates/reusable-prompts/<name>.md` (NEW), `src/engine/registry/workflows.js` |
 | Add a skill | `docs/templates/skills/<name>/SKILL.md` (NEW), `src/engine/registry/skills.js` |
-| Add a new agent | `src/engine/adapters/shared.js` (supported IDs), `src/engine/adapters/<name>.js` (NEW), `src/engine/adapters/index.js`, `src/engine/adapters/shared.js` (routing), `src/engine/actions/device.js` (sentinel cleanup), `bin/eha.js` (display names), `test/engine.test.js` |
+| Add a subagent | `docs/templates/agents/<name>/AGENT.md` (NEW), `src/engine/registry/agents.js` |
+| Add a new agent target | `src/engine/adapters/shared.js` (supported IDs), `src/engine/adapters/<name>.js` (NEW), `src/engine/adapters/index.js`, `src/engine/adapters/shared.js` (routing), `src/engine/actions/device.js` (sentinel cleanup), `bin/eha.js` (display names), `test/engine.test.js` |
 | Add a CLI command | `src/engine/actions/<name>.js` (NEW or modify), `src/engine/index.js`, `bin/eha.js`, `test/engine.test.js` |
 | Modify agent rules | `docs/templates/rules/agent-rules.md` |
 | Modify compact rules | `src/engine/adapters/shared.js` (`EHA_COMPACT_RULES`) — **⚠️ global impact** |
 | Add a state module | `src/engine/state/<name>.js` (NEW), optionally `src/engine/index.js` |
 | Modify project docs template registry | `docs/templates/project-docs-template/index.md` or `technical-guidelines/index.md` — changes auto-propagate to all projected prompts on next `eha init` / `eha` run |
 
-## 12. Related Documents
+## 13. Related Documents
 
 - [Testing & Verification](testing.md) - Testing strategy overview (this doc absorbs and supersedes its content)
 - [Workflow](../foundation/workflow.md) - Day-to-day development loop
 - [Project Rules](../../../.claude/rules/eha-repository-rules.md) - Always-on project-level constraints
 - [MAINTAINER-README.md](../../../MAINTAINER-README.md) - Human-facing maintainer guide
 
-## 13. Open Questions
+## 14. Open Questions
 
 None.

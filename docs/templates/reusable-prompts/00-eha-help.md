@@ -40,7 +40,16 @@ Invoke skills directly in your prompts (e.g. `use eha-api-design`):
 - `eha-observability` — Logs, metrics, trace instrumentation, and error handling
 - `eha-refactor` — Technical debt cleanup and optimization
 
-## 5. Quick Start Instructions
+## 5. Subagents (Isolated Delegation)
+Delegate focused work to isolated specialists with scoped tool access (Claude/Copilot). Each wraps a skill and inherits its full procedure at build time — one source of truth, no duplicated instructions:
+- `eha-security` — Read-only security analysis (wraps `security-audit`)
+- `eha-tester` — Generate & run tests in isolation (wraps `system-tester`)
+- `eha-parity` — Detect drift / parity issues, read-only (wraps `parity-audit`)
+- `eha-researcher` — Explore & summarize, read-only (wraps `system-analysis`)
+
+> Invoke manually with `@eha-<name>`. Want the orchestrator to **auto-delegate** matching requests? Re-run install with `--subagent-routing` (opt-in; off by default).
+
+## 6. Quick Start Instructions
 If starting a new feature:
 1. Run `/sdd-discuss` to brainstorm specs.
 2. Update project docs to reflect the spec.
@@ -49,7 +58,7 @@ If starting a new feature:
 
 ---
 
-## 6. Strict Output Contract (Token Economy)
+## 7. Strict Output Contract (Token Economy)
 When the user triggers this command, you **MUST** adhere to the following rules to conserve maximum tokens:
 1. **Ultra-Concision:** Respond immediately with extremely short, direct answers. Do not write introductory filler (no "Sure, let's look at...", "Here is...", or greetings).
 2. **Minimal Text:** Keep all explanations under 5 words per item. Rely strictly on the tables and bullet lists above.

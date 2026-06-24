@@ -1,5 +1,6 @@
 const { getWorkflow, listWorkflows } = require('./registry/workflows');
 const { listSkills } = require('./registry/skills');
+const { listAgents } = require('./registry/agents');
 const { findRepoRoot } = require('./state/paths');
 const { readConfig } = require('./state/config');
 const { deviceManifestExists, readDeviceManifest } = require('./state/manifest');
@@ -16,6 +17,7 @@ module.exports = {
   getWorkflow,
   initProject,
   installDevice,
+  listAgents,
   listSkills,
   listSupportedRuntimes,
   listWorkflows,

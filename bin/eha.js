@@ -248,7 +248,7 @@ async function promptScope(agentIds) {
   }
 }
 
-async function runDeviceInstall(agentIds) {
+async function runDeviceInstall(agentIds, options = {}) {
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
 
   if (isInteractive && deviceManifestExists()) {
@@ -272,7 +272,7 @@ async function runDeviceInstall(agentIds) {
   console.log(chalk.blue('Installing EHA to your device...'));
   console.log('');
 
-  const result = installDevice({ agentIds });
+  const result = installDevice({ agentIds, options });
 
   for (const agentId of result.agentIds) {
     const agentResult = result.results[agentId];
@@ -289,7 +289,7 @@ async function runDeviceInstall(agentIds) {
   console.log('');
 }
 
-async function runProjectInstall(agentIds) {
+async function runProjectInstall(agentIds, options = {}) {
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
 
   let rootDir;
@@ -324,7 +324,7 @@ async function runProjectInstall(agentIds) {
   let totalFiles = 0;
   const allFiles = [];
   for (const id of agentIds) {
-    const result = initProject({ rootDir, agentId: id });
+    const result = initProject({ rootDir, agentId: id, options });
     totalFiles += result.fileCount;
     allFiles.push(...result.files);
   }
@@ -344,6 +344,11 @@ async function runProjectInstall(agentIds) {
 // ─── CLI definition ────────────────────────────────────────────────────────────
 
 program.name('eha').description('Eye Hate Agent (EHA) — AI workflow toolkit').version(pkg.version);
+
+program.option(
+  '--subagent-routing',
+  'Enable subagent auto-routing — matching requests are delegated to eha-* subagents in the generated rules (opt-in).',
+);
 
 program.action(async () => {
   const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
@@ -379,18 +384,25 @@ program.action(async () => {
   }
 
   if (scope === 'device') {
-    await runDeviceInstall(agentIds);
+    await runDeviceInstall(agentIds, { subagentRouting: !!program.opts().subagentRouting });
   } else {
-    await runProjectInstall(agentIds);
+    await runProjectInstall(agentIds, { subagentRouting: !!program.opts().subagentRouting });
   }
 });
 
 program
   .command('init [agent]', { hidden: true })
+  .option('--subagent-routing', 'Enable subagent auto-routing in generated rules')
   .description('(hidden) Project-level install — alias for the unified wizard with scope=project')
-  .action(async (agentArg) => {
+  .action(async (agentArg, cmd) => {
     const rootDir = resolveRootDir();
     const isInteractive = process.stdin.isTTY && process.stdout.isTTY;
+    const options = {
+      subagentRouting: !!(
+        program.opts().subagentRouting ||
+        (cmd && typeof cmd.opts === 'function' && cmd.opts().subagentRouting)
+      ),
+    };
 
     let agentIds;
     if (agentArg) {
@@ -406,7 +418,7 @@ program
     let totalFiles = 0;
     const allFiles = [];
     for (const id of agentIds) {
-      const result = initProject({ rootDir, agentId: id });
+      const result = initProject({ rootDir, agentId: id, options });
       totalFiles += result.fileCount;
       allFiles.push(...result.files);
     }

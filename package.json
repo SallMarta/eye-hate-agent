@@ -1,6 +1,6 @@
 {
   "name": "@sallmarta/eye-hate-agent",
-  "version": "1.0.18",
+  "version": "1.1.0",
   "description": "A simple Spec-Driven Development (SDD) for AI-agent-assisted project workflows.",
   "directories": {
     "doc": "docs"

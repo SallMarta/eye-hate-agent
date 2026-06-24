@@ -49,7 +49,7 @@ Does not cover specific AI prompt tuning techniques.
 
 ## 8. Architecture Pattern
 EHA uses a **Pipeline and Adapter Pattern**:
-- **Registries:** Hardcoded maps of available skills and workflows (e.g., `src/engine/skill-registry.js`).
+- **Registries:** Hardcoded maps of available skills, workflows, and agents (e.g., `src/engine/registry/skills.js`, `workflows.js`, `agents.js`).
 - **Adapters:** Agent-specific formatters (Claude, Copilot, Antigravity, Gemini CLI) that mutate the raw template before saving it to the target platform instruction surface (e.g., `.agents/`).
 
 ## 9. System Flow
@@ -58,9 +58,9 @@ graph TD
     A[User runs eha init] --> B[CLI prompt]
     B --> C[Select Agent Adapter]
     C --> D[Read Registries]
-    D --> E[Iterate over docs/templates recursively]
+    D --> E[Load workflow, skill, and agent templates]
     E --> F[Inject Frontmatter / Agent Rules]
-    F --> G[Write to .agents/ or .claude/ or .github/]
+    F --> G[Write to .agents/ or .claude/ or .github/ or .gemini/]
     G --> H[Write Manifest for uninstallation]
 ```
 
@@ -89,6 +89,7 @@ sequenceDiagram
 ## 13. Architecture Decision Records (ADRs)
 - **ADR 1 (v1.0.0):** Shifted from monolithic markdown dumps to individual `SKILL.md` files in nested directories to support strict domain taxonomy.
 - **ADR 2 (v1.0.3):** Replaced Gemini with Antigravity natively and fully dropped support for the `.gemini/` path in favor of `.agents/`.
+- **ADR 3 (v1.1.0):** Added **agents** as a fourth artifact type alongside workflows, skills, and rules. Agent definition files (`AGENT.md`) define specialized, isolated subagents with scoped tool access. Unlike skills, they are passed through adapters with frontmatter preserved (no `EHA_COMPACT_RULES` injection) and wrap an existing skill/workflow as their instruction set rather than duplicating it. The wrap is resolved at build time: `loadAgentContent()` expands a `{{WRAPS}}` token in the body by loading the referenced skill/workflow body, so the generated subagent inherits the skill's full procedure (single source of truth — edit `SKILL.md` once). Antigravity and Gemini CLI receive files in anticipation of future platform support.
 
 ## 14. Success Metrics
 - Seamless integration of new agent adapters without refactoring the core logic loop.

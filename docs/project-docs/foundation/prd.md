@@ -69,7 +69,7 @@ flowchart TD
     B --> C{Scope?}
     C -- Project --> D[Generate local files]
     C -- Device --> E[Generate global files]
-    D --> F[Write workflows, skills, rules]
+    D --> F[Write workflows, skills, agents, rules]
     E --> F
 ```
 
@@ -78,6 +78,7 @@ flowchart TD
 - Engine must dynamically load templates from `docs/templates/skills/` recursively.
 - Engine must run specific formatting adapters (e.g., Antigravity, Claude, Copilot) when writing the output.
 - Must generate workflows and skills into their respective target structures depending on the agent: `.agents/workflows/[name].md` & `.agents/skills/[name]/SKILL.md` (Antigravity), `.claude/commands/eha/[name].md` & `.claude/skills/[name]/SKILL.md` (Claude), and `.github/prompts/[name].prompt.md` & `.github/skills/[name]/SKILL.md` (Copilot).
+- Must generate agent (subagent) definition files into their respective platform directories: `.claude/agents/eha-<name>.md` (Claude), `.github/agents/eha-<name>.agent.md` (Copilot), `.agents/agents/eha-<name>.md` (Antigravity), `.gemini/agents/eha-<name>.md` (Gemini CLI). Each subagent wraps an existing EHA skill or workflow as its instruction set rather than duplicating it.
 
 ## 13. Non-Functional Requirements
 - Must execute quickly and dependably.
@@ -85,7 +86,7 @@ flowchart TD
 - Must operate entirely statelessly relying on the bundled templates and `.eha/manifest.json`.
 
 ## 14. Acceptance Criteria
-- Running `eha` for any agent (project scope) creates the correct number of workflow, skill, and rules files in their respective directories (e.g., `.agents/`, `.claude/`, `.github/`).
+- Running `eha` for any agent (project scope) creates the correct number of workflow, skill, agent, and rules files in their respective directories (e.g., `.agents/`, `.claude/`, `.github/`).
 - Running `eha remove` cleanly uninstalls everything tracked by the manifest.
 - Version mismatch triggers the auto-update prompt on next invocation.
 

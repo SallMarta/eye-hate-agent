@@ -13,6 +13,7 @@ const {
   initProject,
   readConfig,
   removeProject,
+  listAgents,
   listSkills,
   listWorkflows,
   installDevice,
@@ -25,6 +26,11 @@ const {
   upsertSentinelBlock,
   removeSentinelBlock,
 } = require('../src/engine/state/sentinel');
+
+const {
+  loadAgentContent,
+  expandWrapsToken,
+} = require('../src/engine/adapters/shared');
 
 function createSandbox() {
   const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'eha-engine-'));
@@ -53,7 +59,7 @@ test('initProject generates Claude command files', () => {
   const result = initProject({ rootDir, agentId: 'claude' });
 
   assert.equal(result.agentId, 'claude');
-  const expectedCount = listWorkflows().length + listSkills().length + 1;
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 1;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.claude', 'commands', 'eha', 'eha-bootstrap.md');
@@ -79,7 +85,7 @@ test('initProject generates Copilot prompt files', () => {
   const result = initProject({ rootDir, agentId: 'copilot' });
 
   assert.equal(result.agentId, 'copilot');
-  const expectedCount = listWorkflows().length + listSkills().length + 2;
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 2;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md');
@@ -106,7 +112,7 @@ test('initProject generates Antigravity command files', () => {
   const result = initProject({ rootDir, agentId: 'antigravity' });
 
   assert.equal(result.agentId, 'antigravity');
-  const expectedCount = listWorkflows().length + listSkills().length + 1;
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 1;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.agents', 'workflows', 'eha-bootstrap.md');
@@ -132,7 +138,7 @@ test('initProject generates Gemini command files', () => {
   const result = initProject({ rootDir, agentId: 'gemini' });
 
   assert.equal(result.agentId, 'gemini');
-  const expectedCount = listWorkflows().length + listSkills().length + 1;
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 1;
   assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
 
   const bootstrapPath = path.join(rootDir, '.gemini', 'commands', 'eha-bootstrap.toml');
@@ -155,6 +161,153 @@ test('initProject generates Gemini command files', () => {
   assert.equal(readConfig(rootDir).agent, 'gemini');
 });
 
+test('initProject generates agent definition files for every supported platform', () => {
+  const agentNames = listAgents().map(a => a.commandName);
+
+  function projectAgentPath(rootDir, agentId, name) {
+    switch (agentId) {
+      case 'claude': return path.join(rootDir, '.claude', 'agents', `eha-${name}.md`);
+      case 'copilot': return path.join(rootDir, '.github', 'agents', `eha-${name}.agent.md`);
+      case 'antigravity': return path.join(rootDir, '.agents', 'agents', `eha-${name}.md`);
+      case 'gemini': return path.join(rootDir, '.gemini', 'agents', `eha-${name}.md`);
+      default: throw new Error(`unknown agent: ${agentId}`);
+    }
+  }
+
+  for (const agentId of SUPPORTED_AGENT_IDS) {
+    const rootDir = createSandbox();
+    initProject({ rootDir, agentId });
+
+    for (const name of agentNames) {
+      const agentPath = projectAgentPath(rootDir, agentId, name);
+      assert.ok(fs.existsSync(agentPath), `[${agentId}] agent file must exist: ${agentPath}`);
+    }
+
+    // The {{WRAPS}} token must be expanded in every generated agent file — a
+    // leaked token means the subagent ships without its wrapped skill's body.
+    for (const name of agentNames) {
+      const content = fs.readFileSync(projectAgentPath(rootDir, agentId, name), 'utf8');
+      assert.ok(!content.includes('{{WRAPS}}'), `[${agentId}] unexpanded {{WRAPS}} token in ${name}`);
+    }
+
+    // The wrapped skill body must actually be present (proves injection, not just token removal).
+    const secContent = fs.readFileSync(projectAgentPath(rootDir, agentId, 'security'), 'utf8');
+    assert.match(secContent, /OWASP/, `[${agentId}] security must embed the security-audit skill body`);
+
+    // Adapters are pass-through: frontmatter (name/tools/wraps) must survive intact
+    if (agentId === 'claude') {
+      const content = fs.readFileSync(projectAgentPath(rootDir, 'claude', 'security'), 'utf8');
+      assert.match(content, /name: "eha-security"/, 'Claude agent file must preserve name frontmatter');
+      assert.match(content, /tools:/, 'Claude agent file must preserve tools frontmatter');
+      assert.match(content, /wraps: "security-audit"/, 'Claude agent file must preserve wraps field');
+    }
+  }
+});
+
+test('subagents inherit their wrapped skill/workflow body via the {{WRAPS}} token', () => {
+  // Each agent's rendered content must contain a distinctive phrase drawn from
+  // its wrapped skill/workflow, proving the body was injected at build time.
+  const markers = {
+    'security': /OWASP/,                          // wraps security-audit
+    'tester': /verification-strategy-first/,      // wraps system-tester
+    'parity': /drift audit/,                      // wraps parity-audit
+    'researcher': /Architecture review/,          // wraps system-analysis
+  };
+
+  for (const agent of listAgents()) {
+    const rendered = loadAgentContent(agent);
+    assert.ok(!rendered.includes('{{WRAPS}}'), `${agent.id}: {{WRAPS}} token must be expanded`);
+    const marker = markers[agent.id];
+    assert.ok(marker, `${agent.id}: no marker defined for this test`);
+    assert.match(rendered, marker, `${agent.id}: wrapped body content missing (${marker})`);
+  }
+
+  // A wraps: declaration with no token (or vice versa) is a config error — fail loudly.
+  assert.throws(
+    () => expandWrapsToken('---\nwraps: "security-audit"\n---\nbody', { id: 'bogus' }),
+    /no \{\{WRAPS\}\} token/i,
+    'wraps without token must throw'
+  );
+  assert.throws(
+    () => expandWrapsToken('---\nname: "x"\n---\n{{WRAPS}}', { id: 'bogus' }),
+    /no wraps: field/i,
+    'token without wraps must throw'
+  );
+  // No wraps and no token → pass through unchanged.
+  assert.equal(expandWrapsToken('plain body', { id: 'bogus' }), 'plain body');
+});
+
+test('subagent auto-routing is opt-in: section appears only when enabled', () => {
+  const projectRulesPath = (rootDir, agentId) => {
+    switch (agentId) {
+      case 'claude': return path.join(rootDir, '.claude', 'rules', 'eha-agent-rules.md');
+      case 'copilot': return path.join(rootDir, '.github', 'instructions', 'eha-agent-rules.instructions.md');
+      case 'antigravity': return path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
+      case 'gemini': return path.join(rootDir, 'GEMINI.md');
+      default: throw new Error(`unknown agent: ${agentId}`);
+    }
+  };
+
+  // Default (off): no routing section on any platform.
+  for (const agentId of SUPPORTED_AGENT_IDS) {
+    const rootDir = createSandbox();
+    initProject({ rootDir, agentId });
+    const content = fs.readFileSync(projectRulesPath(rootDir, agentId), 'utf8');
+    assert.ok(!content.includes('EHA Subagent Routing'),
+      `[${agentId}] routing section must be absent by default`);
+  }
+
+  // Opt-in: every platform's project rules carry the section + every trigger row.
+  for (const agentId of SUPPORTED_AGENT_IDS) {
+    const rootDir = createSandbox();
+    initProject({ rootDir, agentId, options: { subagentRouting: true } });
+    const content = fs.readFileSync(projectRulesPath(rootDir, agentId), 'utf8');
+    assert.ok(content.includes('EHA Subagent Routing'),
+      `[${agentId}] routing section must be present when enabled`);
+    for (const agent of listAgents()) {
+      assert.ok(content.includes(`eha-${agent.commandName}`),
+        `[${agentId}] routing table must list eha-${agent.commandName}`);
+    }
+    // File count is unchanged — routing is appended inside the existing rules file.
+    const expectedCount = listWorkflows().length + listSkills().length + listAgents().length
+      + (agentId === 'copilot' ? 2 : 1);
+    const result = initProject({ rootDir, agentId, options: { subagentRouting: true } });
+    assert.equal(result.fileCount, expectedCount, `[${agentId}] routing must not add files`);
+  }
+});
+
+test('subagent auto-routing persists in config and survives re-init', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'claude', options: { subagentRouting: true } });
+  const cfg = readConfig(rootDir);
+  assert.equal(cfg.subagentRouting, true, 'config must record subagentRouting=true');
+
+  // Re-init without the option preserves the prior setting (no accidental disable).
+  initProject({ rootDir, agentId: 'claude' });
+  const rules = fs.readFileSync(path.join(rootDir, '.claude', 'rules', 'eha-agent-rules.md'), 'utf8');
+  assert.ok(rules.includes('EHA Subagent Routing'),
+    're-init without the flag must preserve a previously-enabled routing section');
+});
+
+test('device install honors the subagentRouting option', () => {
+  const home = createFakeHome();
+  try {
+    installDevice({ agentIds: ['claude'], homeDir: home, options: { subagentRouting: true } });
+    const rules = fs.readFileSync(path.join(home, '.claude', 'rules', 'eha-agent-rules.md'), 'utf8');
+    assert.ok(rules.includes('EHA Subagent Routing'),
+      'device rules must carry the routing section when the option is set');
+
+    const home2 = createFakeHome();
+    installDevice({ agentIds: ['claude'], homeDir: home2 });
+    const rules2 = fs.readFileSync(path.join(home2, '.claude', 'rules', 'eha-agent-rules.md'), 'utf8');
+    assert.ok(!rules2.includes('EHA Subagent Routing'),
+      'device rules must omit the routing section by default');
+    fs.rmSync(home2, { recursive: true, force: true });
+  } finally {
+    fs.rmSync(home, { recursive: true, force: true });
+  }
+});
+
 test('initProject throws for unsupported agent', () => {
   const rootDir = createSandbox();
   assert.throws(() => initProject({ rootDir, agentId: 'unknown-agent' }), /Unsupported agent/i);
@@ -165,7 +318,7 @@ test('initProject overwrites existing files on reinit', () => {
   initProject({ rootDir, agentId: 'claude' });
   const result = initProject({ rootDir, agentId: 'claude' });
   assert.equal(result.agentId, 'claude');
-  const expectedCount = listWorkflows().length + listSkills().length + 1;
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 1;
   assert.equal(result.fileCount, expectedCount);
 });
 
@@ -238,11 +391,16 @@ test('registries point to valid existing files on disk (G5)', () => {
     assert.ok(fs.existsSync(fullPath), `Workflow file does not exist: ${workflow.repoRelativePath}`);
   }
 
+  for (const agent of listAgents()) {
+    const fullPath = getBundledAssetPath(agent.repoRelativePath);
+    assert.ok(fs.existsSync(fullPath), `Agent file does not exist: ${agent.repoRelativePath}`);
+  }
+
   const rulesPath = getBundledAssetPath(path.join('docs', 'templates', 'rules', 'agent-rules.md'));
   assert.ok(fs.existsSync(rulesPath), `Global rules template does not exist: ${rulesPath}`);
 });
 
-test('skill and workflow registries are in bidirectional sync with template directories (H4)', () => {
+test('skill, workflow, and agent registries are in bidirectional sync with template directories (H4)', () => {
   const { getPackageRoot } = require('../src/engine/state/paths');
   const root = getPackageRoot();
 
@@ -274,6 +432,19 @@ test('skill and workflow registries are in bidirectional sync with template dire
   const registeredBasenames = registeredWorkflows.map(w => path.basename(w.repoRelativePath));
   for (const filename of diskPrompts) {
     assert.ok(registeredBasenames.includes(filename), `Prompt file on disk '${filename}' is not registered in workflow-registry.js`);
+  }
+
+  // 3. Agent sync
+  const agentsDir = path.join(root, 'docs', 'templates', 'agents');
+  const diskAgents = fs.readdirSync(agentsDir)
+    .filter(name => fs.statSync(path.join(agentsDir, name)).isDirectory());
+  const registeredAgents = listAgents().map(a => a.id);
+
+  for (const name of diskAgents) {
+    assert.ok(registeredAgents.includes(name), `Agent directory on disk '${name}' is not registered in agents.js`);
+  }
+  for (const id of registeredAgents) {
+    assert.ok(diskAgents.includes(id), `Registered agent ID '${id}' does not have a matching subdirectory under docs/templates/agents/`);
   }
 });
 
@@ -633,6 +804,28 @@ test('installDevice writes all supported agents', () => {
   assert.ok(result.results.copilot);
   assert.ok(result.results.antigravity);
   assert.ok(result.results.gemini);
+});
+
+test('installDevice writes agent files to correct device paths for every platform', () => {
+  const fakeHome = createFakeHome();
+  installDevice({ agentIds: SUPPORTED_AGENT_IDS, homeDir: fakeHome });
+
+  function deviceAgentPath(agentId, name) {
+    switch (agentId) {
+      case 'claude': return path.join(fakeHome, '.claude', 'agents', `eha-${name}.md`);
+      case 'copilot': return path.join(fakeHome, '.copilot', 'agents', `eha-${name}.agent.md`);
+      case 'antigravity': return path.join(fakeHome, '.gemini', 'config', 'agents', `eha-${name}.md`);
+      case 'gemini': return path.join(fakeHome, '.gemini', 'agents', `eha-${name}.md`);
+      default: throw new Error(`unknown agent: ${agentId}`);
+    }
+  }
+
+  for (const agentId of SUPPORTED_AGENT_IDS) {
+    for (const name of listAgents().map(a => a.commandName)) {
+      const agentPath = deviceAgentPath(agentId, name);
+      assert.ok(fs.existsSync(agentPath), `[${agentId}] device agent file must exist: ${agentPath}`);
+    }
+  }
 });
 
 test('installDevice is idempotent — re-running updates sentinel blocks', () => {

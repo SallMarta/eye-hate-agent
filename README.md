@@ -1,6 +1,6 @@
 # Eye Hate Agent (EHA)
 
-A simple **Spec-Driven Development (SDD)**. Unified set of rules, specialist skills, and dynamic project documentation workflows, standardizing how AI coding agents receive instructions to make collaborative development completely predictable and highly efficient.
+A simple **Spec-Driven Development (SDD)**. Unified set of rules, specialist skills, subagents, and dynamic project documentation workflows, standardizing how AI coding agents receive instructions to make collaborative development completely predictable and highly efficient.
 
 ---
 
@@ -41,6 +41,28 @@ Once initialized, EHA projects a series of interactive workflows directly into y
 > **Looking for parity audits?** Use the `parity-audit` skill directly:
 > `@agent use parity-audit on this repository`
 > This provides a full drift analysis without needing a dedicated command.
+
+---
+
+## Subagents (Isolated Delegation)
+
+EHA projects **specialist subagents** — isolated agent instances with scoped tool access that each *wrap* an existing skill as their instruction set (single source of truth: edit the skill once and the subagent updates automatically). Invoke them on demand inside your IDE chat:
+
+| Subagent | Role | Wraps |
+| :--- | :--- | :--- |
+| **`@eha-security`** | Read-only security & vulnerability analysis | `security-audit` |
+| **`@eha-tester`** | Generate & run tests in isolation | `system-tester` |
+| **`@eha-parity`** | Detect drift / parity issues (read-only) | `parity-audit` |
+| **`@eha-researcher`** | Explore & summarize an area (read-only) | `system-analysis` |
+
+Three of the four are read-only (they report; you decide what to change) — only `eha-tester` writes files.
+
+> **Auto-routing (opt-in).** By default subagents are summoned manually. Pass `--subagent-routing` at install time to have the orchestrator *delegate matching requests automatically* — a routing table is appended to your agent rules:
+> ```bash
+> $ eha --subagent-routing            # unified wizard
+> $ eha init claude --subagent-routing  # project install
+> ```
+> Off by default; persisted in `.eha/config.json`.
 
 ---
 
@@ -86,6 +108,8 @@ The EHA CLI provides a lightweight, frictionless setup and maintenance toolbelt:
 | `eha doctor` | Performs a health check verifying that all generated files are present and intact. |
 | `eha remove [agent]` | Safely deletes EHA's generated project-level contract files for the specified agent (or all agents if omitted), along with configuration files. |
 | `eha uninstall` | Safely deletes EHA's generated device-level contract files from your machine. |
+
+> **Tip:** Add `--subagent-routing` to any install to enable automatic delegation to the `eha-*` subagents (see [Subagents](#subagents-isolated-delegation)).
 
 ---
 

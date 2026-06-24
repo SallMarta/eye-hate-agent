@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadRuleContent } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildSubagentRoutingSection } = require('./shared');
 
 function buildCopilotPromptFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -28,13 +28,19 @@ ${EHA_COMPACT_RULES}
 ${loadSkillContent(skill)}`;
 }
 
-function buildCopilotRuleFile() {
+function buildCopilotAgentFile(agent) {
+  // Copilot reads .agent.md files with the same YAML structure as Claude.
+  // Pass the template through unchanged.
+  return loadAgentContent(agent);
+}
+
+function buildCopilotRuleFile(options = {}) {
   return `---
 description: "EHA agent rules"
 applyTo: "**"
 ---
 
-${loadRuleContent('copilot')}`;
+${loadRuleContent('copilot')}${buildSubagentRoutingSection(options)}`;
 }
 
 function buildCopilotInstructionsFile(workflows) {
@@ -67,7 +73,7 @@ ${EHA_COMPACT_RULES}
 ${loadSkillContent(skill)}`;
 }
 
-function buildCopilotDeviceInstructionsFile(workflows) {
+function buildCopilotDeviceInstructionsFile(workflows, options = {}) {
   const workflowTable = workflows
     .map(w => `- \`${w.commandName}\` → \`~/.copilot/skills/eha-${w.commandName}/SKILL.md\``)
     .join('\n');
@@ -83,14 +89,14 @@ ${loadRuleContent('copilot')}
 
 When a user asks to run an EHA workflow, use the matching prompt file:
 
-${workflowTable}`;
+${workflowTable}${buildSubagentRoutingSection(options)}`;
 }
 
 module.exports = {
   id: 'copilot',
   name: 'GitHub Copilot',
-  description: 'Generates .github/prompts/ reusable prompt files, skills, and always-on instruction rules',
-  generateFiles(rootDir, workflows, skills) {
+  description: 'Generates .github/prompts/ reusable prompt files, skills, agents, and always-on instruction rules',
+  generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
     for (const workflow of workflows) {
       files.push({
@@ -102,22 +108,29 @@ module.exports = {
       relativePath: path.join('.github', 'instructions', 'eha-workflows.instructions.md'),
       content: buildCopilotInstructionsFile(workflows),
     });
-    
+
     for (const skill of skills) {
       files.push({
         relativePath: path.join('.github', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
         content: buildCopilotSkillFile(skill),
       });
     }
-    
+
+    for (const agent of agents) {
+      files.push({
+        relativePath: path.join('.github', 'agents', `eha-${agent.commandName}.agent.md`),
+        content: buildCopilotAgentFile(agent),
+      });
+    }
+
     files.push({
       relativePath: path.join('.github', 'instructions', 'eha-agent-rules.instructions.md'),
-      content: buildCopilotRuleFile(),
+      content: buildCopilotRuleFile(options),
     });
-    
+
     return files;
   },
-  generateDeviceFiles(homeDir, workflows, skills) {
+  generateDeviceFiles(homeDir, workflows, skills, agents, options = {}) {
     const files = [];
 
     for (const workflow of workflows) {
@@ -136,9 +149,17 @@ module.exports = {
       });
     }
 
+    for (const agent of agents) {
+      files.push({
+        absolutePath: path.join(homeDir, '.copilot', 'agents', `eha-${agent.commandName}.agent.md`),
+        content: buildCopilotAgentFile(agent),
+        isSentinel: false,
+      });
+    }
+
     files.push({
       absolutePath: path.join(homeDir, '.copilot', 'instructions', 'eha-agent-rules.instructions.md'),
-      content: buildCopilotDeviceInstructionsFile(workflows),
+      content: buildCopilotDeviceInstructionsFile(workflows, options),
       isSentinel: false,
     });
 
