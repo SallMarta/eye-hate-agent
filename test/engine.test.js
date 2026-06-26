@@ -211,7 +211,7 @@ test('subagents inherit their wrapped skill/workflow body via the {{WRAPS}} toke
     'security': /OWASP/,                          // wraps security-audit
     'tester': /verification-strategy-first/,      // wraps system-tester
     'parity': /drift audit/,                      // wraps parity-audit
-    'researcher': /Architecture review/,          // wraps system-analysis
+    'analyst': /Architecture review/,             // wraps system-analysis
   };
 
   for (const agent of listAgents()) {

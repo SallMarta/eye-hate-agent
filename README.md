@@ -36,6 +36,7 @@ Once initialized, EHA projects a series of interactive workflows directly into y
 | **`/eha-refresh`** | The main workhorse for repos with **any existing documentation**. Updates active SDD docs, migrates legacy docs, converts non-SDD docs, and creates missing SDD files — all by cross-referencing the actual codebase alongside existing material. Auto-detects the appropriate Taxonomy Tier for migration scenarios. Prompts the user to resolve any drift between codebase and docs. |
 | **`/sdd-discuss`** | Collaborative brainstorming. Interviews you about edge cases, API shapes, data models, and constraints, then drafts spec snippets ready for injection into project docs. No code output. |
 | **`/sdd-execute`** | Spec-Driven code generation via strict TDD. Reads specs → generates tests → generates code → validates against architecture. Refuses to code features not in the spec. |
+| **`/eha-execute-phase`** | Execute a specific project phase (greenfield/brownfield) using SDD. Verifies readiness, enriches specifications interactively, presents a task menu, and drives test-driven implementation while tracking status. |
 | **`/eha-help`** | **EHA Help & Tutorial.** Interactive guide providing descriptions of EHA's 4-layer taxonomy, active workflows, and specialist skills. |
 
 > **Looking for parity audits?** Use the `parity-audit` skill directly:
@@ -53,7 +54,7 @@ EHA projects **specialist subagents** — isolated agent instances with scoped t
 | **`@eha-security`** | Read-only security & vulnerability analysis | `security-audit` |
 | **`@eha-tester`** | Generate & run tests in isolation | `system-tester` |
 | **`@eha-parity`** | Detect drift / parity issues (read-only) | `parity-audit` |
-| **`@eha-researcher`** | Explore & summarize an area (read-only) | `system-analysis` |
+| **`@eha-analyst`** | Explore & summarize an area (read-only) | `system-analysis` |
 
 Three of the four are read-only (they report; you decide what to change) — only `eha-tester` writes files.
 

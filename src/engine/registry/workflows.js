@@ -31,9 +31,18 @@ const WORKFLOW_DEFINITIONS = {
     description: 'Translate a project specification into tested, working code',
     repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '01-sdd-execute.md'),
   },
+  'execute-phase': {
+    id: 'execute-phase',
+    commandName: 'execute-phase',
+    description: 'Execute a specific project phase from docs/project-docs/foundation/phases/',
+    repoRelativePath: path.join('docs', 'templates', 'reusable-prompts', '03-execute-phase.md'),
+  },
 };
 
-const WORKFLOW_ALIASES = {};
+const WORKFLOW_ALIASES = {
+  'phase-execute': 'execute-phase',
+  'run-phase': 'execute-phase',
+};
 
 function normalizeWorkflowId(input) {
   if (!input) {

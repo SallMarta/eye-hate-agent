@@ -25,6 +25,7 @@ Trigger these commands inside your chat window to coordinate development:
 | `/eha-refresh` | Synchronizes and migrates project documentation | Run in **active projects** to sync code with docs. |
 | `/sdd-discuss` | Brainstorm specifications and API contracts | Run **before coding** to align specs. |
 | `/sdd-execute` | Spec-driven code generation via TDD | Run **during implementation** to write tests/code. |
+| `/eha-execute-phase` | Execute a project phase (greenfield/brownfield) using SDD | Run with a phase identifier (e.g. 1 or P1) to drive phase implementation. |
 
 ## 4. Specialist Skills
 Invoke skills directly in your prompts (e.g. `use eha-api-design`):
@@ -45,7 +46,7 @@ Delegate focused work to isolated specialists with scoped tool access (Claude/Co
 - `eha-security` — Read-only security analysis (wraps `security-audit`)
 - `eha-tester` — Generate & run tests in isolation (wraps `system-tester`)
 - `eha-parity` — Detect drift / parity issues, read-only (wraps `parity-audit`)
-- `eha-researcher` — Explore & summarize, read-only (wraps `system-analysis`)
+- `eha-analyst` — Explore & summarize, read-only (wraps `system-analysis`)
 
 > Invoke manually with `@eha-<name>`. Want the orchestrator to **auto-delegate** matching requests? Re-run install with `--subagent-routing` (opt-in; off by default).
 

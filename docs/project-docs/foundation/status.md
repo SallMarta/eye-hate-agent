@@ -51,7 +51,9 @@ EHA has reached `1.1.0` stability and introduced **subagents** as a fourth artif
 
 ## 8. Recent Accomplishments
 
-- Added **subagents** as a fourth artifact type: isolated specialist agents (`eha-security`, `eha-tester`, `eha-parity`, `eha-researcher`) that wrap existing skills, generated across Claude, Copilot, Antigravity, and Gemini CLI in both project and device scopes.
+- Implemented the `/eha-execute-phase` workflow to execute specific project phases from `docs/project-docs/foundation/phases/`. It features a phase readiness check gate, interactive discuss-style spec enrichment for thin phases, menu-based task selection, and automatic status updates written back to the phase sprint tracker. (v1.1.1)
+- Renamed the `researcher` subagent to `analyst` (`eha-analyst`) and updated registry definitions, tests, and documentation. (v1.1.1)
+- Added **subagents** as a fourth artifact type: isolated specialist agents (`eha-security`, `eha-tester`, `eha-parity`, `eha-analyst`) that wrap existing skills, generated across Claude, Copilot, Antigravity, and Gemini CLI in both project and device scopes.
 - Closed the `technical-guidelines/` taxonomy gap: bootstrap now generates the Tier 3 registry and runs a codebase-scanning interview to produce real guidelines (never stubs); refresh now runs its own Technical Guidelines Discovery & Interview to surface **and create** guidelines from codebase conventions, and sdd-execute surfaces candidates for refresh/bootstrap to formalize.
 - Implemented **Gemini CLI** support via `.gemini/` adapter and sentinel boundaries for `GEMINI.md`.
 - Restored the interactive auto-updater so users can upgrade EHA globally directly from the CLI prompt without manually running `npm install`.
@@ -87,11 +89,11 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
 
-- NPM Version: 1.1.0
+- NPM Version: 1.1.1
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
-- Workflow Commands: 4 (bootstrap, refresh, discuss, execute).
-- Reusable Prompts: 4 files (2 doc-lifecycle + 2 SDD-lifecycle).
-- Subagents: 4 (security, tester, parity, researcher).
+- Workflow Commands: 5 (bootstrap, refresh, discuss, sdd-execute, execute-phase).
+- Reusable Prompts: 6 files (1 help + 2 doc-lifecycle + 3 execution-lifecycle).
+- Subagents: 4 (security, tester, parity, analyst).
 
 ## 11. Roadmap
 

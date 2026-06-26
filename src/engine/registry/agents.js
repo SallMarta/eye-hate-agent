@@ -21,11 +21,11 @@ const AGENT_DEFINITIONS = {
     trigger: 'Doc drift / spec-vs-code mismatch / parity check',
     repoRelativePath: path.join('docs', 'templates', 'agents', 'parity', 'AGENT.md'),
   },
-  'researcher': {
-    id: 'researcher',
-    commandName: 'researcher',
+  'analyst': {
+    id: 'analyst',
+    commandName: 'analyst',
     trigger: 'Exploring, explaining, or summarizing an unfamiliar area',
-    repoRelativePath: path.join('docs', 'templates', 'agents', 'researcher', 'AGENT.md'),
+    repoRelativePath: path.join('docs', 'templates', 'agents', 'analyst', 'AGENT.md'),
   },
 };
 

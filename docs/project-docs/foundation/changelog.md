@@ -2,11 +2,28 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.1.1] - 2026-06-24
+
+### Added
+
+- **Phase execute workflow (`/eha-execute-phase`):** Introduced a new phase execution workflow to drive step-by-step implementation of individual project phases located in `docs/project-docs/foundation/phases/`. It includes:
+  - **Fuzzy File Resolution:** Fuzzy maps phase inputs (like `/eha-execute-phase 1`, `/eha-execute-phase-1`, `/eha-execute-phase P1`, `P2`, etc.) to actual greenfield (`phase-{N}[-description].md`) or brownfield (`phase-P{N}[-description].md`) phase files.
+  - **Readiness Gate:** Ensures the phase document is not "thin" or full of TBD items by verifying feature, task, and criteria thresholds.
+  - **Specs Enrichment Mode (Hybrid Option C):** If the phase file is not ready, guides the agent to brainstorm and interview the user (discuss-style), then presents the enriched specifications for approval before writing back to the phase file (present-then-write).
+  - **Task Menu Selection:** Presents a numbered menu of phase tasks in chat and prompts the user to select which task(s) to implement.
+  - **TDD Execution Backbone:** Drives code implementation of selected tasks using the standard SDD Execute loop (writing tests, implementation code, and validating against technical guidelines).
+  - **Sprint Status tracking:** Automatically updates the status of tasks in the phase file's `Sprint Tracker` (to `In Progress` and then `Complete`), overall phase status, registry table status in `foundation/phases/index.md`, roadmap in `status.md`, and changelog entries (all via present-then-write user approval).
+- **Aliases:** Added aliases `'phase-execute'` and `'run-phase'` in the workflow registry.
+
+### Changed
+
+- **Subagent Rename:** Renamed the `researcher` subagent to `analyst` (user-facing: `@eha-analyst`). This name better reflects its core function of structured analysis via the wrapped `system-analysis` skill and maintains consistency with other agent names (`tester`, `security`, `parity`) while avoiding terminology collisions. All registry definitions, template paths, help prompts, and test files have been updated.
+
 ## [1.1.0] - 2026-06-22
 
 ### Added
 
-- **Subagents (fourth artifact type):** Introduced **agents** as a new artifact type alongside workflows, skills, and rules. Subagents are specialized, isolated AI agent instances (scoped tool access, dedicated context) defined by `AGENT.md` templates under `docs/templates/agents/`. Each subagent **wraps** an existing EHA skill as its instruction set rather than duplicating it — edit the skill and the subagent updates automatically. Ships four starter personas: `security` (wraps `security-audit`), `tester` (wraps `system-tester`), `parity` (wraps `parity-audit`), and `researcher` (wraps `system-analysis`).
+- **Subagents (fourth artifact type):** Introduced **agents** as a new artifact type alongside workflows, skills, and rules. Subagents are specialized, isolated AI agent instances (scoped tool access, dedicated context) defined by `AGENT.md` templates under `docs/templates/agents/`. Each subagent **wraps** an existing EHA skill as its instruction set rather than duplicating it — edit the skill and the subagent updates automatically. Ships four starter personas: `security` (wraps `security-audit`), `tester` (wraps `system-tester`), `parity` (wraps `parity-audit`), and `researcher` (wraps `system-analysis`, later renamed to `analyst`).
 - **Agent registry & loader:** New `src/engine/registry/agents.js` (mirrors the `skills.js` pattern) and a new `loadAgentContent()` loader in `src/engine/adapters/shared.js`. Unlike `loadSkillContent()`, the agent loader preserves frontmatter because platforms consume `name`/`description`/`tools` directly from YAML. It also expands a `{{WRAPS}}` token in the body: `wraps:` is resolved at build time to the matching skill (`listSkills()`) or workflow (`listWorkflows()`) and its body is injected where the token appears, so the subagent genuinely inherits the skill's procedure rather than shipping a thin persona.
 - **Cross-platform generation:** All four adapters (Claude, Copilot, Antigravity, Gemini CLI) now emit agent definition files in both project and device scopes. Claude (`.claude/agents/eha-<name>.md`) and Copilot (`.github/agents/eha-<name>.agent.md`) actively consume subagent files today; Antigravity (`.agents/agents/`) and Gemini CLI (`.gemini/agents/`) files are pre-installed in sensible locations for future platform support. Adapters are pass-through — no `EHA_COMPACT_RULES` is injected into subagent files.
 - **Subagent auto-routing (opt-in):** Added a `--subagent-routing` install flag (wizard + `eha init`) and `subagentRouting` config key (default off). When enabled, a `## EHA Subagent Routing` section is appended to each platform's rules file, generated dynamically from a new `trigger` hint on each agent in `src/engine/registry/agents.js`. This tells the orchestrator to delegate matching requests to the relevant `eha-*` subagent instead of handling them inline (soft, model-judgment routing). Applies to both project and device scopes.
