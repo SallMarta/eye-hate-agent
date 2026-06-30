@@ -28,6 +28,7 @@ const AGENT_DISPLAY_NAMES = {
   copilot: 'GitHub Copilot',
   antigravity: 'Antigravity',
   gemini: 'Gemini CLI',
+  hermes: 'Hermes',
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -217,6 +218,7 @@ const AGENT_DIRS = {
   copilot: { project: '.github/', device: '~/.copilot/' },
   antigravity: { project: '.agents/', device: '~/.gemini/' },
   gemini: { project: '.gemini/', device: '~/.gemini/' },
+  hermes: { project: '.hermes/', device: '~/.hermes/' },
 };
 
 async function promptScope(agentIds) {

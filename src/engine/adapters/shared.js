@@ -5,7 +5,7 @@ const { listSkills } = require('../registry/skills');
 const { listWorkflows } = require('../registry/workflows');
 const { listAgents } = require('../registry/agents');
 
-const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity', 'gemini'];
+const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity', 'gemini', 'hermes'];
 
 const EHA_COMPACT_RULES = `## EHA Project Doc Rules
 
@@ -172,6 +172,11 @@ function buildDeviceRulesContent(agentId, workflows, options = {}) {
       .map(w => `- \`${w.commandName}\` → \`~/.gemini/commands/eha-${w.commandName}.toml\``)
       .join('\n');
     routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching command file:\n\n${routes}`;
+  } else if (agentId === 'hermes') {
+    const routes = workflows
+      .map(w => `- \`${w.commandName}\` → \`~/.hermes/skills/eha-${w.commandName}/SKILL.md\``)
+      .join('\n');
+    routingSection = `\n\n# EHA Workflow Routing\n\nWhen a user asks to run an EHA workflow, use the matching skill:\n\n${routes}`;
   }
 
   return `${rulesContent}${routingSection}${buildSubagentRoutingSection(options)}`;

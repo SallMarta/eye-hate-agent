@@ -2,6 +2,21 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.2.0] - 2026-06-30
+
+### Added
+
+- **Hermes Agent Target:** Added **Hermes** (by Nous Research) as the fifth supported AI agent target, joining Claude, Copilot, Antigravity, and Gemini CLI. A new `src/engine/adapters/hermes.js` adapter generates EHA capabilities in Hermes's native layout:
+  - **Workflows & Skills** map to auto-registered slash commands at `.hermes/skills/eha-<name>/SKILL.md` (project) and `~/.hermes/skills/eha-<name>/SKILL.md` (device). Hermes treats every skill as an invocable `/skill-name`, so workflows and skills share the same skills directory.
+  - **Subagents** are generated to `.hermes/agents/eha-<name>.md` (project) and `~/.hermes/skills/eha-<name>-agent/SKILL.md` (device).
+  - **Rules** are sentinel-injected into `HERMES.md` (project) and `~/.hermes/SOUL.md` (device), preserving any user content outside the EHA block. Skill files use agentskills.io-compatible YAML frontmatter (`name`, `description`).
+  - Workflow routing, sentinel cleanup (`HERMES.md` / `SOUL.md`), and the `hermes` CLI display name + directory mapping are wired in. Added a Hermes-specific cache-strategy bullet (Rule 2.3) covering progressive-disclosure skill loading and SOUL.md identity injection.
+
+### Changed
+
+- **Supported agent count:** `SUPPORTED_AGENT_IDS` now lists five agents; multi-agent tests, the "All Agents" install path, and device generation were updated accordingly.
+- **Documentation:** Synced the maintainer reference, MAINTAINER-README, PRD, architecture, and status docs to enumerate all five supported targets (and filled a pre-existing Gemini gap in MAINTAINER-README's tables alongside the modern `W + S + A + N` file-count formula).
+
 ## [1.1.1] - 2026-06-24
 
 ### Added

@@ -161,6 +161,34 @@ test('initProject generates Gemini command files', () => {
   assert.equal(readConfig(rootDir).agent, 'gemini');
 });
 
+test('initProject generates Hermes skill files', () => {
+  const rootDir = createSandbox();
+  const result = initProject({ rootDir, agentId: 'hermes' });
+
+  assert.equal(result.agentId, 'hermes');
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 1;
+  assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
+
+  const bootstrapPath = path.join(rootDir, '.hermes', 'skills', 'eha-bootstrap', 'SKILL.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap/SKILL.md must exist in .hermes/skills/');
+
+  const content = fs.readFileSync(bootstrapPath, 'utf8');
+  assert.match(content, /name: "eha-bootstrap"/, 'Missing Hermes YAML name frontmatter');
+  assert.match(content, /4-Layer Taxonomy/, 'Missing compact EHA rules block');
+  assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
+  assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
+
+  const analysisSkillPath = path.join(rootDir, '.hermes', 'skills', 'eha-system-analysis', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis/SKILL.md must exist');
+
+  const rulesPath = path.join(rootDir, 'HERMES.md');
+  assert.ok(fs.existsSync(rulesPath), 'HERMES.md must exist in rootDir/');
+  const rulesContent = fs.readFileSync(rulesPath, 'utf8');
+  assert.match(rulesContent, /EHA:START/);
+
+  assert.equal(readConfig(rootDir).agent, 'hermes');
+});
+
 test('initProject generates agent definition files for every supported platform', () => {
   const agentNames = listAgents().map(a => a.commandName);
 
@@ -170,6 +198,7 @@ test('initProject generates agent definition files for every supported platform'
       case 'copilot': return path.join(rootDir, '.github', 'agents', `eha-${name}.agent.md`);
       case 'antigravity': return path.join(rootDir, '.agents', 'agents', `eha-${name}.md`);
       case 'gemini': return path.join(rootDir, '.gemini', 'agents', `eha-${name}.md`);
+      case 'hermes': return path.join(rootDir, '.hermes', 'agents', `eha-${name}.md`);
       default: throw new Error(`unknown agent: ${agentId}`);
     }
   }
@@ -244,6 +273,7 @@ test('subagent auto-routing is opt-in: section appears only when enabled', () =>
       case 'copilot': return path.join(rootDir, '.github', 'instructions', 'eha-agent-rules.instructions.md');
       case 'antigravity': return path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
       case 'gemini': return path.join(rootDir, 'GEMINI.md');
+      case 'hermes': return path.join(rootDir, 'HERMES.md');
       default: throw new Error(`unknown agent: ${agentId}`);
     }
   };
@@ -369,11 +399,12 @@ test('doctor reports uninitialized state correctly', () => {
 
 // ─── SUPPORTED_AGENT_IDS ──────────────────────────────────────────────────────
 
-test('SUPPORTED_AGENT_IDS contains claude, copilot, antigravity, gemini', () => {
+test('SUPPORTED_AGENT_IDS contains claude, copilot, antigravity, gemini, hermes', () => {
   assert.ok(SUPPORTED_AGENT_IDS.includes('claude'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('copilot'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('antigravity'));
   assert.ok(SUPPORTED_AGENT_IDS.includes('gemini'));
+  assert.ok(SUPPORTED_AGENT_IDS.includes('hermes'));
 });
 
 // ─── G5 & H4: Registry Mappings & Synchronization ──────────────────────────────
@@ -624,9 +655,10 @@ test('CLI supports init all to initialize all agents at once', () => {
   assert.ok(fs.existsSync(path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md')));
   assert.ok(fs.existsSync(path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md')));
   assert.ok(fs.existsSync(path.join(rootDir, '.gemini', 'commands', 'eha-bootstrap.toml')));
+  assert.ok(fs.existsSync(path.join(rootDir, '.hermes', 'skills', 'eha-bootstrap', 'SKILL.md')));
 
   const config = readConfig(rootDir);
-  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot', 'gemini'].sort());
+  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot', 'gemini', 'hermes'].sort());
 });
 
 // ─── Sentinel Marker Utilities ───────────────────────────────────────────
@@ -796,14 +828,35 @@ test('installDevice writes Gemini files to correct device paths', () => {
   assert.match(geminiMd, /EHA:END/);
 });
 
+test('installDevice writes Hermes files to correct device paths', () => {
+  const fakeHome = createFakeHome();
+  const result = installDevice({ agentIds: ['hermes'], homeDir: fakeHome });
+
+  assert.ok(result.totalFiles > 0);
+  assert.ok(result.results.hermes);
+
+  // Verify skills exist in ~/.hermes/skills/
+  const bootstrapPath = path.join(fakeHome, '.hermes', 'skills', 'eha-bootstrap', 'SKILL.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'Hermes bootstrap skill must exist');
+
+  const skillPath = path.join(fakeHome, '.hermes', 'skills', 'eha-system-analysis', 'SKILL.md');
+  assert.ok(fs.existsSync(skillPath), 'Hermes system-analysis skill must exist');
+
+  // Verify ~/.hermes/SOUL.md has sentinel block
+  const soulMd = fs.readFileSync(path.join(fakeHome, '.hermes', 'SOUL.md'), 'utf8');
+  assert.match(soulMd, /EHA:START/);
+  assert.match(soulMd, /EHA:END/);
+});
+
 test('installDevice writes all supported agents', () => {
   const fakeHome = createFakeHome();
   const result = installDevice({ agentIds: SUPPORTED_AGENT_IDS, homeDir: fakeHome });
-  assert.equal(result.agentIds.length, 4);
+  assert.equal(result.agentIds.length, 5);
   assert.ok(result.results.claude);
   assert.ok(result.results.copilot);
   assert.ok(result.results.antigravity);
   assert.ok(result.results.gemini);
+  assert.ok(result.results.hermes);
 });
 
 test('installDevice writes agent files to correct device paths for every platform', () => {
@@ -816,6 +869,7 @@ test('installDevice writes agent files to correct device paths for every platfor
       case 'copilot': return path.join(fakeHome, '.copilot', 'agents', `eha-${name}.agent.md`);
       case 'antigravity': return path.join(fakeHome, '.gemini', 'config', 'agents', `eha-${name}.md`);
       case 'gemini': return path.join(fakeHome, '.gemini', 'agents', `eha-${name}.md`);
+      case 'hermes': return path.join(fakeHome, '.hermes', 'skills', `eha-${name}-agent`, 'SKILL.md');
       default: throw new Error(`unknown agent: ${agentId}`);
     }
   }

@@ -76,9 +76,9 @@ flowchart TD
 ## 12. Functional Requirements
 - CLI must support `init`, `remove`, `doctor`, and auto-update prompts based on manifest staleness.
 - Engine must dynamically load templates from `docs/templates/skills/` recursively.
-- Engine must run specific formatting adapters (e.g., Antigravity, Claude, Copilot) when writing the output.
-- Must generate workflows and skills into their respective target structures depending on the agent: `.agents/workflows/[name].md` & `.agents/skills/[name]/SKILL.md` (Antigravity), `.claude/commands/eha/[name].md` & `.claude/skills/[name]/SKILL.md` (Claude), and `.github/prompts/[name].prompt.md` & `.github/skills/[name]/SKILL.md` (Copilot).
-- Must generate agent (subagent) definition files into their respective platform directories: `.claude/agents/eha-<name>.md` (Claude), `.github/agents/eha-<name>.agent.md` (Copilot), `.agents/agents/eha-<name>.md` (Antigravity), `.gemini/agents/eha-<name>.md` (Gemini CLI). Each subagent wraps an existing EHA skill or workflow as its instruction set rather than duplicating it.
+- Engine must run specific formatting adapters (e.g., Claude, Copilot, Antigravity, Gemini CLI, Hermes) when writing the output.
+- Must generate workflows and skills into their respective target structures depending on the agent: `.agents/workflows/[name].md` & `.agents/skills/[name]/SKILL.md` (Antigravity), `.claude/commands/eha/[name].md` & `.claude/skills/[name]/SKILL.md` (Claude), `.github/prompts/[name].prompt.md` & `.github/skills/[name]/SKILL.md` (Copilot), `.gemini/commands/[name].toml` & `.gemini/skills/[name]/SKILL.md` (Gemini CLI), and `.hermes/skills/eha-[name]/SKILL.md` for both workflows and skills (Hermes).
+- Must generate agent (subagent) definition files into their respective platform directories: `.claude/agents/eha-<name>.md` (Claude), `.github/agents/eha-<name>.agent.md` (Copilot), `.agents/agents/eha-<name>.md` (Antigravity), `.gemini/agents/eha-<name>.md` (Gemini CLI), `.hermes/agents/eha-<name>.md` (Hermes). Each subagent wraps an existing EHA skill or workflow as its instruction set rather than duplicating it.
 
 ## 13. Non-Functional Requirements
 - Must execute quickly and dependably.
@@ -96,7 +96,7 @@ flowchart TD
 
 ## 16. Success Metrics
 - 0% bug rate on `eha init` file generation across supported IDEs.
-- Generated instructions are flawlessly parsed and respected by Antigravity, Copilot, Claude, and Gemini CLI.
+- Generated instructions are flawlessly parsed and respected by Antigravity, Copilot, Claude, Gemini CLI, and Hermes.
 
 ## 17. Related Documents
 - [Architecture](architecture.md) - Details the pipeline and adapter pattern.

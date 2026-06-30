@@ -50,7 +50,7 @@ Does not cover specific AI prompt tuning techniques.
 ## 8. Architecture Pattern
 EHA uses a **Pipeline and Adapter Pattern**:
 - **Registries:** Hardcoded maps of available skills, workflows, and agents (e.g., `src/engine/registry/skills.js`, `workflows.js`, `agents.js`).
-- **Adapters:** Agent-specific formatters (Claude, Copilot, Antigravity, Gemini CLI) that mutate the raw template before saving it to the target platform instruction surface (e.g., `.agents/`).
+- **Adapters:** Agent-specific formatters (Claude, Copilot, Antigravity, Gemini CLI, Hermes) that mutate the raw template before saving it to the target platform instruction surface (e.g., `.agents/`).
 
 ## 9. System Flow
 ```mermaid
@@ -60,7 +60,7 @@ graph TD
     C --> D[Read Registries]
     D --> E[Load workflow, skill, and agent templates]
     E --> F[Inject Frontmatter / Agent Rules]
-    F --> G[Write to .agents/ or .claude/ or .github/ or .gemini/]
+    F --> G[Write to .agents/ or .claude/ or .github/ or .gemini/ or .hermes/]
     G --> H[Write Manifest for uninstallation]
 ```
 

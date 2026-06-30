@@ -119,7 +119,7 @@ function uninstallDevice({ agentId = null, homeDir } = {}) {
   for (const agent of agentsToRemove) {
     for (const filePath of agent.files || []) {
       const basename = path.basename(filePath);
-      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md') {
+      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md' || basename === 'HERMES.md' || basename === 'SOUL.md') {
         const removed = removeSentinelBlock(filePath, home);
         if (removed) removedFiles.push(filePath.replace(home, '~'));
       } else {

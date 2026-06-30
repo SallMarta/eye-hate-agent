@@ -5,6 +5,7 @@ const RUNTIME_ADAPTERS = {
   copilot: require('./copilot'),
   antigravity: require('./antigravity'),
   gemini: require('./gemini'),
+  hermes: require('./hermes'),
 };
 
 function getRuntimeAdapter(agentId) {
