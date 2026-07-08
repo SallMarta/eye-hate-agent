@@ -189,6 +189,34 @@ test('initProject generates Hermes skill files', () => {
   assert.equal(readConfig(rootDir).agent, 'hermes');
 });
 
+test('initProject generates OpenCode command files', () => {
+  const rootDir = createSandbox();
+  const result = initProject({ rootDir, agentId: 'opencode' });
+
+  assert.equal(result.agentId, 'opencode');
+  const expectedCount = listWorkflows().length + listSkills().length + listAgents().length + 1;
+  assert.equal(result.fileCount, expectedCount, `Expected exactly ${expectedCount} generated files`);
+
+  const bootstrapPath = path.join(rootDir, '.opencode', 'commands', 'eha-bootstrap.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'eha-bootstrap.md must exist in .opencode/commands/');
+
+  const content = fs.readFileSync(bootstrapPath, 'utf8');
+  assert.match(content, /description: "EHA bootstrap —/, 'Missing YAML frontmatter description');
+  assert.match(content, /4-Layer Taxonomy/, 'Missing compact EHA rules block');
+  assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
+  assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
+
+  const analysisSkillPath = path.join(rootDir, '.opencode', 'commands', 'eha-system-analysis.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis.md must exist in commands/');
+
+  const rulesPath = path.join(rootDir, 'AGENTS.md');
+  assert.ok(fs.existsSync(rulesPath), 'AGENTS.md must exist in rootDir/');
+  const rulesContent = fs.readFileSync(rulesPath, 'utf8');
+  assert.match(rulesContent, /EHA:START/);
+
+  assert.equal(readConfig(rootDir).agent, 'opencode');
+});
+
 test('initProject generates agent definition files for every supported platform', () => {
   const agentNames = listAgents().map(a => a.commandName);
 
@@ -199,6 +227,7 @@ test('initProject generates agent definition files for every supported platform'
       case 'antigravity': return path.join(rootDir, '.agents', 'agents', `eha-${name}.md`);
       case 'gemini': return path.join(rootDir, '.gemini', 'agents', `eha-${name}.md`);
       case 'hermes': return path.join(rootDir, '.hermes', 'agents', `eha-${name}.md`);
+      case 'opencode': return path.join(rootDir, '.opencode', 'agents', `eha-${name}.md`);
       default: throw new Error(`unknown agent: ${agentId}`);
     }
   }
@@ -274,6 +303,7 @@ test('subagent auto-routing is opt-in: section appears only when enabled', () =>
       case 'antigravity': return path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
       case 'gemini': return path.join(rootDir, 'GEMINI.md');
       case 'hermes': return path.join(rootDir, 'HERMES.md');
+      case 'opencode': return path.join(rootDir, 'AGENTS.md');
       default: throw new Error(`unknown agent: ${agentId}`);
     }
   };
@@ -658,7 +688,7 @@ test('CLI supports init all to initialize all agents at once', () => {
   assert.ok(fs.existsSync(path.join(rootDir, '.hermes', 'skills', 'eha-bootstrap', 'SKILL.md')));
 
   const config = readConfig(rootDir);
-  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot', 'gemini', 'hermes'].sort());
+  assert.deepEqual(config.agents.sort(), ['antigravity', 'claude', 'copilot', 'gemini', 'hermes', 'opencode'].sort());
 });
 
 // ─── Sentinel Marker Utilities ───────────────────────────────────────────
@@ -848,15 +878,35 @@ test('installDevice writes Hermes files to correct device paths', () => {
   assert.match(soulMd, /EHA:END/);
 });
 
+test('installDevice writes OpenCode files to correct device paths', () => {
+  const fakeHome = createFakeHome();
+  const result = installDevice({ agentIds: ['opencode'], homeDir: fakeHome });
+
+  assert.ok(result.totalFiles > 0);
+  assert.ok(result.results.opencode);
+
+  // Verify skills exist in ~/.opencode/commands/
+  const bootstrapPath = path.join(fakeHome, '.opencode', 'commands', 'eha-bootstrap.md');
+  assert.ok(fs.existsSync(bootstrapPath), 'OpenCode bootstrap skill must exist');
+
+  const skillPath = path.join(fakeHome, '.opencode', 'commands', 'eha-system-analysis.md');
+  assert.ok(fs.existsSync(skillPath), 'OpenCode system-analysis skill must exist');
+
+  // Verify rules exist in ~/.opencode/rules/
+  const rulesPath = path.join(fakeHome, '.opencode', 'rules', 'eha-agent-rules.md');
+  assert.ok(fs.existsSync(rulesPath), 'OpenCode rules must exist');
+});
+
 test('installDevice writes all supported agents', () => {
   const fakeHome = createFakeHome();
   const result = installDevice({ agentIds: SUPPORTED_AGENT_IDS, homeDir: fakeHome });
-  assert.equal(result.agentIds.length, 5);
+  assert.equal(result.agentIds.length, 6);
   assert.ok(result.results.claude);
   assert.ok(result.results.copilot);
   assert.ok(result.results.antigravity);
   assert.ok(result.results.gemini);
   assert.ok(result.results.hermes);
+  assert.ok(result.results.opencode);
 });
 
 test('installDevice writes agent files to correct device paths for every platform', () => {
@@ -870,6 +920,7 @@ test('installDevice writes agent files to correct device paths for every platfor
       case 'antigravity': return path.join(fakeHome, '.gemini', 'config', 'agents', `eha-${name}.md`);
       case 'gemini': return path.join(fakeHome, '.gemini', 'agents', `eha-${name}.md`);
       case 'hermes': return path.join(fakeHome, '.hermes', 'skills', `eha-${name}-agent`, 'SKILL.md');
+      case 'opencode': return path.join(fakeHome, '.opencode', 'agents', `eha-${name}.md`);
       default: throw new Error(`unknown agent: ${agentId}`);
     }
   }

@@ -154,7 +154,7 @@ function removeProject({ rootDir, agentId = null }) {
     for (const relativePath of filesToRemove) {
       const absolutePath = path.join(rootDir, relativePath);
       const basename = path.basename(absolutePath);
-      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md') {
+      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md' || basename === 'HERMES.md' || basename === 'AGENTS.md') {
         removeSentinelBlock(absolutePath, rootDir);
         removedFiles.push(relativePath);
       } else {

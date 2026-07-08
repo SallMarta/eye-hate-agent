@@ -29,6 +29,7 @@ const AGENT_DISPLAY_NAMES = {
   antigravity: 'Antigravity',
   gemini: 'Gemini CLI',
   hermes: 'Hermes',
+  opencode: 'Open Code',
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -219,6 +220,7 @@ const AGENT_DIRS = {
   antigravity: { project: '.agents/', device: '~/.gemini/' },
   gemini: { project: '.gemini/', device: '~/.gemini/' },
   hermes: { project: '.hermes/', device: '~/.hermes/' },
+  opencode: { project: '.opencode/', device: '~/.opencode/' },
 };
 
 async function promptScope(agentIds) {

@@ -61,6 +61,11 @@ const SKILL_DEFINITIONS = {
     commandName: 'refactor',
     repoRelativePath: path.join('docs', 'templates', 'skills', 'refactor', 'SKILL.md'),
   },
+  'generate-api-contract': {
+    id: 'generate-api-contract',
+    commandName: 'generate-api-contract',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-api-contract', 'SKILL.md'),
+  },
 };
 
 function listSkills() {

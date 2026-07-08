@@ -2,6 +2,22 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.3.0] - 2026-07-07
+
+### Added
+
+- **OpenCode Agent Target:** Added **OpenCode** as the sixth supported AI agent target. A new `src/engine/adapters/opencode.js` adapter generates EHA capabilities in OpenCode's native layout:
+  - **Workflows & Skills** map to `.opencode/commands/eha-<name>.md` (project) and `~/.opencode/commands/eha-<name>.md` (device).
+  - **Subagents** map to `.opencode/agents/eha-<name>.md` (project) and `~/.opencode/agents/eha-<name>.md` (device).
+  - **Rules** are sentinel-injected into `AGENTS.md` (project) and written to `~/.opencode/rules/eha-agent-rules.md` (device).
+- **generate-api-contract Skill:** Added a new language-agnostic skill (`docs/templates/skills/generate-api-contract/SKILL.md`) that reads repository routing files and codebase logic to automatically generate structured API contract documentation for existing endpoints. It uses the `api-contract.md` formatting if available, or a sensible default, and traces endpoints from the route down to the payload shapes.
+
+### Changed
+
+- **Supported agent count:** `SUPPORTED_AGENT_IDS` now lists six agents.
+- **Documentation:** Synced the maintainer reference, MAINTAINER-README, PRD, architecture, and status docs to enumerate OpenCode alongside the other supported targets — slash command formats, output paths, the file-count formula (`W + S + A + 1`), routing tables, and current-state metrics/roadmap.
+- **Device Cleanup:** Added `AGENTS.md` and `HERMES.md` to sentinel cleanup checks in `src/engine/actions/device.js` and `src/engine/actions/project.js` to ensure clean uninstalls.
+
 ## [1.2.0] - 2026-06-30
 
 ### Added

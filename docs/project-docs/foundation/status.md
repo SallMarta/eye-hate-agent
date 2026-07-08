@@ -47,10 +47,11 @@ Does not track granular tasks.
 
 ## 7. Current State
 
-EHA has reached `1.2.0` stability with **Hermes** (by Nous Research) added as the fifth supported agent target, joining Claude, Copilot, Antigravity, and Gemini CLI. It introduced **subagents** as a fourth artifact type — isolated specialist agents that wrap existing skills/workflows rather than duplicating them, generated across all five platforms. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
+EHA has reached `1.3.0` stability with **OpenCode** added as the sixth supported agent target, joining Claude, Copilot, Antigravity, Gemini CLI, and Hermes. The preceding `1.2.0` release introduced **Hermes** (by Nous Research) as the fifth target and **subagents** as a fourth artifact type — isolated specialist agents that wrap existing skills/workflows rather than duplicating them, now generated across all six platforms. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
 
 ## 8. Recent Accomplishments
 
+- Added **OpenCode** as the sixth supported agent target. Workflows and skills map to `.opencode/commands/eha-<name>.md` slash commands, subagents land in `.opencode/agents/`, and rules are sentinel-injected into `AGENTS.md` (project) and written to `~/.opencode/rules/eha-agent-rules.md` (device). Also added the language-agnostic **`generate-api-contract`** skill for documenting existing API endpoints, and extended sentinel cleanup to cover `AGENTS.md` (and the previously missing `HERMES.md`) on uninstall. (v1.3.0)
 - Added **Hermes** (by Nous Research) as the fifth supported agent target. Workflows and skills map to auto-registered `~/.hermes/skills/eha-<name>/SKILL.md` slash commands, subagents land in `.hermes/agents/`, and rules are sentinel-injected into `HERMES.md` (project) and `~/.hermes/SOUL.md` (device). (v1.2.0)
 - Implemented the `/eha-execute-phase` workflow to execute specific project phases from `docs/project-docs/foundation/phases/`. It features a phase readiness check gate, interactive discuss-style spec enrichment for thin phases, menu-based task selection, and automatic status updates written back to the phase sprint tracker. (v1.1.1)
 - Renamed the `researcher` subagent to `analyst` (`eha-analyst`) and updated registry definitions, tests, and documentation. (v1.1.1)
@@ -90,8 +91,8 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
 
-- NPM Version: 1.2.0
-- Supported Agents: 5 (Claude, Copilot, Antigravity, Gemini CLI, Hermes).
+- NPM Version: 1.3.0
+- Supported Agents: 6 (Claude, Copilot, Antigravity, Gemini CLI, Hermes, OpenCode).
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 5 (bootstrap, refresh, discuss, sdd-execute, execute-phase).
 - Reusable Prompts: 6 files (1 help + 2 doc-lifecycle + 3 execution-lifecycle).
@@ -102,7 +103,7 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 | Workstream | Status | Notes |
 | --- | --- | --- |
 | Template Parity | Completed | Aligned EHA internal docs to new Single Registry and modern taxonomy |
-| Agent Support | Live | Claude, Copilot, Antigravity, Gemini CLI, Hermes; subagents generated for all five |
+| Agent Support | Live | Claude, Copilot, Antigravity, Gemini CLI, Hermes, OpenCode; subagents generated for all six |
 
 ## 12. Epics
 

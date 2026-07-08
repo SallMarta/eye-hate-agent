@@ -46,6 +46,7 @@ In EHA, "slash commands" and "workflows" are the same thing. Workflows are the p
 | Antigravity | `/eha-<commandName>` | `.agents/workflows/eha-<name>.md` |
 | Gemini CLI | `/eha-<commandName>` | `.gemini/commands/eha-<name>.toml` |
 | Hermes | `/eha-<commandName>` (auto-registered skill) | `.hermes/skills/eha-<name>/SKILL.md` |
+| Open Code | `/eha-<commandName>` | `.opencode/commands/eha-<name>.md` |
 
 To add a new slash command, follow Recipe 1 below. The `eha-` prefix is added automatically by each adapter.
 
@@ -221,6 +222,7 @@ Where `A = listAgents().length`. Each adapter emits exactly one file per registe
 | Antigravity | 1 (rules) | `W + S + A + 1` |
 | Gemini | 1 (GEMINI.md) | `W + S + A + 1` |
 | Hermes | 1 (HERMES.md) | `W + S + A + 1` |
+| OpenCode | 1 (rules) | `W + S + A + 1` |
 
 ## 8. Recipe 3: Add a New CLI Command
 
@@ -347,8 +349,9 @@ const AGENT_DEFINITIONS = {
 | Antigravity | `.agents/agents/eha-<name>.md` | `~/.gemini/config/agents/eha-<name>.md` |
 | Gemini CLI | `.gemini/agents/eha-<name>.md` | `~/.gemini/agents/eha-<name>.md` |
 | Hermes | `.hermes/agents/eha-<name>.md` | `~/.hermes/skills/eha-<name>-agent/SKILL.md` |
+| Open Code | `.opencode/agents/eha-<name>.md` | `~/.opencode/agents/eha-<name>.md` |
 
-> **Platform support note:** Claude and Copilot actively consume subagent files today. Antigravity, Gemini CLI, and Hermes do not yet support user-defined agent discovery — files are pre-installed in sensible locations so support is ready when those platforms add it.
+> **Platform support note:** Claude and Copilot actively consume subagent files today. Antigravity, Gemini CLI, Hermes, and OpenCode do not yet support user-defined agent discovery — files are pre-installed in sensible locations so support is ready when those platforms add it.
 
 **Subagent auto-routing (opt-in):** By default subagents are invoked manually (`@eha-<name>`). To make the orchestrator *delegate by default*, enable auto-routing — a `## EHA Subagent Routing` section is appended to each platform's rules file, built dynamically from every agent's `trigger` hint.
 
@@ -442,7 +445,7 @@ If the CLI prompt fails, manually review the relevant adapter in `src/engine/ada
 
 ### Success Metrics
 
-- 0 generation failures for supported agents (Claude, Copilot, Antigravity, Gemini CLI, Hermes).
+- 0 generation failures for supported agents (Claude, Copilot, Antigravity, Gemini CLI, Hermes, OpenCode).
 - All `npm test` assertions pass.
 - Generated file count matches the formula `W + S + N` (workflows + skills + adapter extras).
 
