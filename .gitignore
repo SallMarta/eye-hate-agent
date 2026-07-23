@@ -12,10 +12,8 @@ node_modules/
 .eha/
 docs/test-report
 memories/session/
-MAINTAINER-README.md
 
 # Agent Generated Directories
-.agents/
 .claude/
 .github/
 .gemini/
