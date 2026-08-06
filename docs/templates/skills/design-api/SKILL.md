@@ -1,5 +1,5 @@
 ---
-name: api-design
+name: design-api
 description: "Project-aware expert-role contract design for APIs, interfaces, repositories, services, message schemas, and module boundaries. Reads project docs first, then produces or reviews a contract consistent with the current repository."
 argument-hint: "Describe the boundary, interface, endpoint, message contract, or service behavior to design or review"
 ---
@@ -179,7 +179,7 @@ When using this skill, the output should include:
 7. open questions that still require product or architecture decisions
 
 ## Neutral Prompt Shape
-`@agent use api-design on [Target Entity/Feature] focusing on [Specific Constraints/Version].`
+`@agent use design-api on [Target Entity/Feature] focusing on [Specific Constraints/Version].`
 
 ## Example Prompt
 - "Design the repository contract for this feature"

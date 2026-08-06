@@ -1,5 +1,5 @@
 ---
-name: "parity-audit"
+name: "audit-parity"
 description: "Expert-role parity check across project docs, platform instruction surfaces, skills, reusable prompts, workflows, quick-reference material, and implementation evidence when authority depends on the current codebase. Use when checking whether the template system still agrees with itself or when preparing cleanup after major changes."
 argument-hint: "Describe the scope to audit: full repository, docs only, reusable prompt system, platform instruction surfaces and skills, or a specific workstream"
 ---
@@ -167,7 +167,7 @@ End with:
 2. acceptable historical artifacts that should not be treated as blockers
 
 ## Neutral Prompt Shape
-`@agent use parity-audit on [Target Scope/Repo] focusing on [Specific Conflicts/Docs].`
+`@agent use audit-parity on [Target Scope/Repo] focusing on [Specific Conflicts/Docs].`
 
 ## Example Prompt
 - "Audit the repository for contradictions after the latest template changes"

@@ -28,25 +28,25 @@ Trigger these commands inside your chat window to coordinate development:
 | `/eha-execute-phase` | Execute a project phase (greenfield/brownfield) using SDD | Run with a phase identifier (e.g. 1 or P1) to drive phase implementation. |
 
 ## 4. Specialist Skills
-Invoke skills directly in your prompts (e.g. `use eha-api-design`):
-- `eha-system-analysis` — Inspect architecture and codebase logic
-- `eha-api-design` — Plan or refactor REST/GraphQL/gRPC APIs
-- `eha-db-schema-design` — Design schemas and migrations
-- `eha-ui-ux-design` / `eha-wireframing` — UI/UX wireframes and styling systems
-- `eha-code-audit` — Multi-layered verification and codebase scanning
-- `eha-parity-audit` — Automated drift analysis
-- `eha-security-audit` — Dependency scanning and threat modeling
-- `eha-system-tester` — Rigorous testing plans and case design
-- `eha-devops-ci-cd` — Build pipeline configurations
-- `eha-observability` — Logs, metrics, trace instrumentation, and error handling
+Invoke skills directly in your prompts (e.g. `use eha-design-api`):
+- `eha-analyze-system` — Inspect architecture and codebase logic
+- `eha-design-api` — Plan or refactor REST/GraphQL/gRPC APIs
+- `eha-design-db-schema` — Design schemas and migrations
+- `eha-design-ui-ux` / `eha-design-wireframe` — UI/UX wireframes and styling systems
+- `eha-audit-code` — Multi-layered verification and codebase scanning
+- `eha-audit-parity` — Automated drift analysis
+- `eha-audit-security` — Dependency scanning and threat modeling
+- `eha-test-system` — Rigorous testing plans and case design
+- `eha-build-ci-cd` — Build pipeline configurations
+- `eha-build-observability` — Logs, metrics, trace instrumentation, and error handling
 - `eha-refactor` — Technical debt cleanup and optimization
 
 ## 5. Subagents (Isolated Delegation)
 Delegate focused work to isolated specialists with scoped tool access (Claude/Copilot). Each wraps a skill and inherits its full procedure at build time — one source of truth, no duplicated instructions:
-- `eha-security` — Read-only security analysis (wraps `security-audit`)
-- `eha-tester` — Generate & run tests in isolation (wraps `system-tester`)
-- `eha-parity` — Detect drift / parity issues, read-only (wraps `parity-audit`)
-- `eha-analyst` — Explore & summarize, read-only (wraps `system-analysis`)
+- `eha-security` — Read-only security analysis (wraps `audit-security`)
+- `eha-tester` — Generate & run tests in isolation (wraps `test-system`)
+- `eha-parity` — Detect drift / parity issues, read-only (wraps `audit-parity`)
+- `eha-analyst` — Explore & summarize, read-only (wraps `analyze-system`)
 
 > Invoke manually with `@eha-<name>`. Want the orchestrator to **auto-delegate** matching requests? Re-run install with `--subagent-routing` (opt-in; off by default).
 

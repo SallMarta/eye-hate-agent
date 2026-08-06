@@ -1,9 +1,9 @@
 ---
-name: "wireframing"
+name: "design-wireframe"
 description: "Project-aware expert-role for wireframing and prototyping. Reads project docs first, then translates requirements into structural UI flows, low-fidelity layouts, and component hierarchies without getting bogged down in visual design details."
 ---
 
-# wireframing
+# Design Wireframe
 
 Produces a project-aware, expert-level wireframe or prototype structure by reading the repository's project docs first, then applying a user-centric structural design methodology.
 
@@ -80,7 +80,7 @@ When using this skill, the output should include:
 5. identified edge cases (empty, loading, error states)
 
 ## Neutral Prompt Shape
-`@agent use wireframing on [Target Feature/Page] focusing on [Specific User Journey].`
+`@agent use design-wireframe on [Target Feature/Page] focusing on [Specific User Journey].`
 
 ## Example Prompt
 - "Create a structural wireframe for the new user dashboard."

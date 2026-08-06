@@ -1,5 +1,5 @@
 ---
-name: "system-analysis"
+name: "analyze-system"
 description: "Project-aware expert-role analysis for architecture, debugging, trade-offs, risk, performance, requirements, and design questions. Reads project docs first, then applies expert structured reasoning to the current repository context."
 argument-hint: "Describe the problem, decision, artifact, or system to analyze"
 ---
@@ -142,7 +142,7 @@ When using this skill, the output should include:
 6. confidence and evidence limitations when relevant
 
 ## Neutral Prompt Shape
-`@agent use system-analysis on [Target Directory/Component] focusing on [Specific Goal/Flow].`
+`@agent use analyze-system on [Target Directory/Component] focusing on [Specific Goal/Flow].`
 
 ## Example Prompt
 - "Analyze this decision and tell me whether it still makes sense."

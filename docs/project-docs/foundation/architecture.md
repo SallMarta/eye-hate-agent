@@ -71,7 +71,7 @@ sequenceDiagram
     participant Registry
     participant FS
     CLI->>Registry: Get Skill List
-    Registry-->>CLI: Paths (e.g. skills/architecture/api-design)
+    Registry-->>CLI: Paths (e.g. skills/architecture/design-api)
     CLI->>FS: Read template
     FS-->>CLI: Raw Markdown
     CLI->>CLI: Adapter formats markdown (strips placeholders, injects rules)

@@ -1,5 +1,5 @@
 ---
-name: "security-audit"
+name: "audit-security"
 description: "Project-aware expert-role for security and vulnerability auditing. Reads project docs first, enforces strict boundary controls, OWASP Top 10 mitigation, authentication, and data privacy rules across the codebase."
 argument-hint: "Point to the code, file, module, or change to audit"
 ---
@@ -137,7 +137,7 @@ When using this skill, the output should include:
 5. specific, actionable remediation steps for each finding
 
 ## Neutral Prompt Shape
-`@agent use security-audit on [Target Component/API] focusing on [Specific Threat/Vulnerability].`
+`@agent use audit-security on [Target Component/API] focusing on [Specific Threat/Vulnerability].`
 
 ## Example Prompt
 - "Audit this new authentication controller for session management flaws."

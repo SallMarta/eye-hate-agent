@@ -1,10 +1,10 @@
 ---
-name: "ui-ux-design"
+name: "design-ui-ux"
 description: "Project-aware expert-role for frontend UI/UX design and implementation. Reads project docs first, enforces design systems, responsive bounds, accessibility, and visual testing constraints."
 argument-hint: "Describe the component, page, or interaction to build or review"
 ---
 
-# ui-ux-design
+# Design UI/UX
 
 Produces a **project-aware, expert-level frontend implementation** by reading the repository's project docs first, then applying a rigorous component-driven methodology.
 
@@ -95,7 +95,7 @@ When using this skill, the output should include:
 5. accessibility and responsive verification steps
 
 ## Neutral Prompt Shape
-`@agent use ui-ux-design on [Target Theme/Tokens] focusing on [Specific Branding/Accessibility Goal].`
+`@agent use design-ui-ux on [Target Theme/Tokens] focusing on [Specific Branding/Accessibility Goal].`
 
 ## Example Prompt
 - "Implement this presentational card component using the project design tokens."

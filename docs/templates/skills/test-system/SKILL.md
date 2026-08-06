@@ -1,10 +1,10 @@
 ---
-name: "system-tester"
+name: "test-system"
 description: "Project-aware expert-role verification strategy and test authoring that reads project docs to choose the right frameworks, commands, layers, and templates. Use when deciding test scope, validating regressions, choosing verification strategy, and writing or reviewing tests across any stack."
 argument-hint: "Describe the behavior, bug, feature, boundary, or artifact to test"
 ---
 
-# system-tester
+# Test System
 
 Produces an **expert, project-aware verification strategy and test implementation plan** by reading the repository's documentation contract first, then selecting the correct test types, commands, and conventions for the current stack.
 
@@ -35,8 +35,8 @@ If one of the required docs is missing and the task depends on it, surface that 
 | Migration or persistence change | "Write a test plan for this migration change" |
 | Documentation-only repo change | "How should I validate a reusable prompt or platform instruction surface update?" |
 
-Use `code-audit` instead when the main question is whether the implementation is correct. 
-Use `system-analysis` instead when the task is explaining a failure or comparing technical options.
+Use `audit-code` instead when the main question is whether the implementation is correct.
+Use `analyze-system` instead when the task is explaining a failure or comparing technical options.
 
 ## Procedure
 
@@ -175,7 +175,7 @@ When using this skill, the output should include:
 7. any residual risks or uncovered paths
 
 ## Neutral Prompt Shape
-`@agent use system-tester on [Target Component/Feature] focusing on [Specific Test Boundaries].`
+`@agent use test-system on [Target Component/Feature] focusing on [Specific Test Boundaries].`
 
 ## Example Prompt
 - "Choose the right verification for this repository-layer change"

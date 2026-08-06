@@ -1,5 +1,5 @@
 ---
-name: "devops-ci-cd"
+name: "build-ci-cd"
 description: "Project-aware expert-role for CI/CD pipeline design and implementation. Reads project docs first, enforces build caching, security gates, test execution, and deployment safety."
 argument-hint: "Describe the workflow, pipeline, or deployment stage to build or review"
 ---
@@ -91,7 +91,7 @@ When using this skill, the output should include:
 5. the final pipeline YAML or script
 
 ## Neutral Prompt Shape
-`@agent use devops-ci-cd on [Target Pipeline/Workflow] focusing on [Specific Optimizations/Security Gates].`
+`@agent use build-ci-cd on [Target Pipeline/Workflow] focusing on [Specific Optimizations/Security Gates].`
 
 ## Example Prompt
 - "Create a GitHub Actions workflow that implements the CI caching strategy."

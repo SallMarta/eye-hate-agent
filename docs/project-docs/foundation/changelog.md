@@ -2,6 +2,39 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.4.0] - 2026-08-06
+
+### Changed (breaking)
+
+- **Skill naming convention — verb-first (`<verb>-<object>`):** Renamed all 13 skills to follow a consistent verb-first naming convention. Every skill name now starts with its primary action verb (`design-*`, `generate-*`, `analyze-*`, `audit-*`, `test-*`, `build-*`). This is a breaking change for all downstream consumers — re-running `eha init` regenerates the slash commands under their new names.
+
+  | Old Name | New Name | Verb |
+  |---|---|---|
+  | `ui-ux-design` | `design-ui-ux` | design |
+  | `wireframing` | `design-wireframe` | design |
+  | `api-design` | `design-api` | design |
+  | `db-schema-design` | `design-db-schema` | design |
+  | `fsd-generator` | `generate-fsd` | generate |
+  | `generate-api-contract` | `generate-api-contract` | generate (unchanged) |
+  | `design-analysis` | `analyze-design` | analyze |
+  | `system-analysis` | `analyze-system` | analyze |
+  | `code-audit` | `audit-code` | audit |
+  | `parity-audit` | `audit-parity` | audit |
+  | `security-audit` | `audit-security` | audit |
+  | `system-tester` | `test-system` | test |
+  | `observability` | `build-observability` | build |
+  | `devops-ci-cd` | `build-ci-cd` | build |
+  | `refactor` | `refactor` | build (unchanged) |
+
+- **Subagent wraps updated:** The four subagent definitions (`analyst`, `security`, `parity`, `tester`) and their `wraps:` fields now reference the renamed skill IDs.
+- **Help workflow updated:** The `/eha-help` workflow (`00-eha-help.md`) now lists all skills and subagents under their new names.
+- **Test coverage:** All 56 automated tests pass against the renamed registry, including bidirectional H4 sync.
+
+### Added
+
+- **`analyze-design` skill:** Analyzes UI designs (Figma screenshots, design mockups, wireframes, etc.) and produces structured business process analysis documents.
+- **`generate-fsd` skill:** Generates structured Functional Specification Documents (FSD) from PRDs, BPMN XML, codebases, user stories, or interview notes, with truth-verification enforcement.
+
 ## [1.3.0] - 2026-07-07
 
 ### Added

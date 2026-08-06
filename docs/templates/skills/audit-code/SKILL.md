@@ -1,5 +1,5 @@
 ---
-name: "code-audit"
+name: "audit-code"
 description: "Project-aware expert-role broad verification that reads project docs first, classifies the verification target, and routes to the best specialist skill for executable or non-executable checks across code, contracts, docs, architecture, quality, security, reliability, and project health."
 argument-hint: "Describe what should be verified against the contract, project docs, guidelines, code, APIs, architecture, or repository state"
 ---
@@ -38,11 +38,11 @@ If required project docs are missing, surface that gap explicitly and limit conf
 
 Use a specialist skill directly when the dominant question is already obvious:
 
-- `system-tester` for executable verification strategy, stack-aware test selection, and test-writing decisions
-- `code-audit` for code correctness, bug, risk, security, and boundary review
-- `parity-audit` for repository drift across docs, platform instruction surfaces, skills, prompts, and summaries
-- `system-analysis` for root-cause reasoning, trade-off evaluation, and requirement or decision analysis
-- `api-design` for API, schema, interface, or boundary contract design and review
+- `test-system` for executable verification strategy, stack-aware test selection, and test-writing decisions
+- `audit-code` for code correctness, bug, risk, security, and boundary review
+- `audit-parity` for repository drift across docs, platform instruction surfaces, skills, prompts, and summaries
+- `analyze-system` for root-cause reasoning, trade-off evaluation, and requirement or decision analysis
+- `design-api` for API, schema, interface, or boundary contract design and review
 
 ## Procedure
 
@@ -78,11 +78,11 @@ Prefer the single strongest verification path unless the user explicitly asks fo
 
 | Dominant verification question | Route to |
 | --- | --- |
-| How should this be verified, tested, or regression-checked in the current stack? | `system-tester` |
-| Is this code correct, safe, consistent, and free of obvious bugs or boundary violations? | `code-audit` |
-| Does this API or interface contract match the docs, code, and boundary rules? | `api-design` |
-| Do the docs, platform instruction surfaces, skills, prompts, and repository artifacts still agree? | `parity-audit` |
-| Do the requirements, trade-offs, design decisions, or explanations hold up? | `system-analysis` |
+| How should this be verified, tested, or regression-checked in the current stack? | `test-system` |
+| Is this code correct, safe, consistent, and free of obvious bugs or boundary violations? | `audit-code` |
+| Does this API or interface contract match the docs, code, and boundary rules? | `design-api` |
+| Do the docs, platform instruction surfaces, skills, prompts, and repository artifacts still agree? | `audit-parity` |
+| Do the requirements, trade-offs, design decisions, or explanations hold up? | `analyze-system` |
 
 Example prompt shapes by verification category:
 
@@ -146,7 +146,7 @@ When using this skill, the output should include:
 8. whether user direction is required before deciding between conflicting docs and implementation
 
 ## Neutral Prompt Shape
-`@agent use code-audit on [Target File/Change] focusing on [Specific Risks/Boundaries].`
+`@agent use audit-code on [Target File/Change] focusing on [Specific Risks/Boundaries].`
 
 ## Example Prompt
 - "Audit this service for boundary violations"

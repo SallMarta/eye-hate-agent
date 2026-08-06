@@ -305,7 +305,7 @@ Template anatomy (AGENT.md):
 name: "eha-example-agent"
 description: "One-line specialist role description."
 tools: ["Read", "Grep", "Glob"]
-wraps: "system-analysis"
+wraps: "analyze-system"
 ---
 
 # Example Agent
@@ -315,7 +315,7 @@ You are a delegated specialist performing a focused, read-only analysis.
 **Hard constraints:**
 - Read-only: never modify files.
 
-**Operating procedure — execute the wrapped `system-analysis` skill in full:**
+**Operating procedure — execute the wrapped `analyze-system` skill in full:**
 
 {{WRAPS}}
 

@@ -1,6 +1,6 @@
 # Status
 
-Last update: 2026-06-30
+Last update: 2026-08-06
 
 Status: Live
 
@@ -47,10 +47,11 @@ Does not track granular tasks.
 
 ## 7. Current State
 
-EHA has reached `1.3.0` stability with **OpenCode** added as the sixth supported agent target, joining Claude, Copilot, Antigravity, Gemini CLI, and Hermes. The preceding `1.2.0` release introduced **Hermes** (by Nous Research) as the fifth target and **subagents** as a fourth artifact type — isolated specialist agents that wrap existing skills/workflows rather than duplicating them, now generated across all six platforms. The codebase has fully migrated to a robust nested domain taxonomy (`docs/templates/skills/`), has been streamlined under a Single Master Registry structure, uses NPM Provenance via OIDC for deployment, consolidates doc-lifecycle workflows from 5 commands to 4, and fully supports multi-agent setups, targeted single-agent removals (Option B), and a streamlined "All Agents" CLI installation menu. It now features a unified interactive CLI installation wizard, support for device-level configuration scopes, sentinel markers in shared configuration rules, and targeted global uninstallation.
+EHA has reached `1.4.0` with a **verb-first skill naming convention** applied to all 15 skills. All skill names now follow `<verb>-<object>`: `design-api`, `audit-code`, `analyze-system`, `generate-fsd`, `test-system`, `build-ci-cd`, etc. Two new skills added — `analyze-design` (design → business analysis) and `generate-fsd` (source doc → FSD).
 
 ## 8. Recent Accomplishments
 
+- Applied **verb-first naming convention** to all 15 skills (breaking change): every skill name now follows `<verb>-<object>` (`design-api`, `audit-code`, `analyze-system`, `generate-fsd`, `test-system`, `build-ci-cd`, etc.). Two new skills added: `analyze-design` (design → business analysis), `generate-fsd` (source doc → FSD). Renamed subagent `wraps:` references, the `/eha-help` workflow, and all 56 test assertions accordingly. (v1.4.0)
 - Added **OpenCode** as the sixth supported agent target. Workflows and skills map to `.opencode/commands/eha-<name>.md` slash commands, subagents land in `.opencode/agents/`, and rules are sentinel-injected into `AGENTS.md` (project) and written to `~/.opencode/rules/eha-agent-rules.md` (device). Also added the language-agnostic **`generate-api-contract`** skill for documenting existing API endpoints, and extended sentinel cleanup to cover `AGENTS.md` (and the previously missing `HERMES.md`) on uninstall. (v1.3.0)
 - Added **Hermes** (by Nous Research) as the fifth supported agent target. Workflows and skills map to auto-registered `~/.hermes/skills/eha-<name>/SKILL.md` slash commands, subagents land in `.hermes/agents/`, and rules are sentinel-injected into `HERMES.md` (project) and `~/.hermes/SOUL.md` (device). (v1.2.0)
 - Implemented the `/eha-execute-phase` workflow to execute specific project phases from `docs/project-docs/foundation/phases/`. It features a phase readiness check gate, interactive discuss-style spec enrichment for thin phases, menu-based task selection, and automatic status updates written back to the phase sprint tracker. (v1.1.1)
@@ -91,8 +92,9 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
 
-- NPM Version: 1.3.0
+- NPM Version: 1.4.0
 - Supported Agents: 6 (Claude, Copilot, Antigravity, Gemini CLI, Hermes, OpenCode).
+- Skills: 15 (design-api, design-db-schema, design-ui-ux, design-wireframe, analyze-design, analyze-system, audit-code, audit-parity, audit-security, generate-api-contract, generate-fsd, test-system, build-ci-cd, build-observability, refactor).
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 5 (bootstrap, refresh, discuss, sdd-execute, execute-phase).
 - Reusable Prompts: 6 files (1 help + 2 doc-lifecycle + 3 execution-lifecycle).

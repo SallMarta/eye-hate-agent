@@ -1,60 +1,60 @@
 const path = require('node:path');
 
 const SKILL_DEFINITIONS = {
-  'system-analysis': {
-    id: 'system-analysis',
-    commandName: 'system-analysis',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'system-analysis', 'SKILL.md'),
+  'analyze-system': {
+    id: 'analyze-system',
+    commandName: 'analyze-system',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'analyze-system', 'SKILL.md'),
   },
-  'api-design': {
-    id: 'api-design',
-    commandName: 'api-design',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'api-design', 'SKILL.md'),
+  'design-api': {
+    id: 'design-api',
+    commandName: 'design-api',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'design-api', 'SKILL.md'),
   },
-  'db-schema-design': {
-    id: 'db-schema-design',
-    commandName: 'db-schema-design',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'db-schema-design', 'SKILL.md'),
+  'design-db-schema': {
+    id: 'design-db-schema',
+    commandName: 'design-db-schema',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'design-db-schema', 'SKILL.md'),
   },
-  'ui-ux-design': {
-    id: 'ui-ux-design',
-    commandName: 'ui-ux-design',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'ui-ux-design', 'SKILL.md'),
+  'design-ui-ux': {
+    id: 'design-ui-ux',
+    commandName: 'design-ui-ux',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'design-ui-ux', 'SKILL.md'),
   },
-  'wireframing': {
-    id: 'wireframing',
-    commandName: 'wireframing',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'wireframing', 'SKILL.md'),
+  'design-wireframe': {
+    id: 'design-wireframe',
+    commandName: 'design-wireframe',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'design-wireframe', 'SKILL.md'),
   },
-  'code-audit': {
-    id: 'code-audit',
-    commandName: 'code-audit',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'code-audit', 'SKILL.md'),
+  'audit-code': {
+    id: 'audit-code',
+    commandName: 'audit-code',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'audit-code', 'SKILL.md'),
   },
-  'parity-audit': {
-    id: 'parity-audit',
-    commandName: 'parity-audit',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'parity-audit', 'SKILL.md'),
+  'audit-parity': {
+    id: 'audit-parity',
+    commandName: 'audit-parity',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'audit-parity', 'SKILL.md'),
   },
-  'security-audit': {
-    id: 'security-audit',
-    commandName: 'security-audit',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'security-audit', 'SKILL.md'),
+  'audit-security': {
+    id: 'audit-security',
+    commandName: 'audit-security',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'audit-security', 'SKILL.md'),
   },
-  'system-tester': {
-    id: 'system-tester',
-    commandName: 'system-tester',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'system-tester', 'SKILL.md'),
+  'test-system': {
+    id: 'test-system',
+    commandName: 'test-system',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'test-system', 'SKILL.md'),
   },
-  'devops-ci-cd': {
-    id: 'devops-ci-cd',
-    commandName: 'devops-ci-cd',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'devops-ci-cd', 'SKILL.md'),
+  'build-ci-cd': {
+    id: 'build-ci-cd',
+    commandName: 'build-ci-cd',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'build-ci-cd', 'SKILL.md'),
   },
-  'observability': {
-    id: 'observability',
-    commandName: 'observability',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'observability', 'SKILL.md'),
+  'build-observability': {
+    id: 'build-observability',
+    commandName: 'build-observability',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'build-observability', 'SKILL.md'),
   },
   'refactor': {
     id: 'refactor',
@@ -65,6 +65,16 @@ const SKILL_DEFINITIONS = {
     id: 'generate-api-contract',
     commandName: 'generate-api-contract',
     repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-api-contract', 'SKILL.md'),
+  },
+  'analyze-design': {
+    id: 'analyze-design',
+    commandName: 'analyze-design',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'analyze-design', 'SKILL.md'),
+  },
+  'generate-fsd': {
+    id: 'generate-fsd',
+    commandName: 'generate-fsd',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-fsd', 'SKILL.md'),
   },
 };
 

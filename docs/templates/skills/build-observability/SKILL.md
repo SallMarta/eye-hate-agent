@@ -1,5 +1,5 @@
 ---
-name: "observability"
+name: "build-observability"
 description: "Project-aware expert-role for system observability and SRE engineering. Reads project docs first, enforces structured logging, tracing context injection, PII masking rules, and actionable metric generation."
 argument-hint: "Describe the component, service, or workflow to instrument with observability"
 ---
@@ -91,7 +91,7 @@ When using this skill, the output should include:
 5. how the new telemetry can be validated (e.g., local mock server, stdout check)
 
 ## Neutral Prompt Shape
-`@agent use observability on [Target Service/Component] focusing on [Specific Metrics/Logs].`
+`@agent use build-observability on [Target Service/Component] focusing on [Specific Metrics/Logs].`
 
 ## Example Prompt
 - "Instrument this service with structured logging and trace context."

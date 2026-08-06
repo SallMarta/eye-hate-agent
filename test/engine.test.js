@@ -71,8 +71,8 @@ test('initProject generates Claude command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-system-analysis', 'SKILL.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis/SKILL.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.claude', 'skills', 'eha-analyze-system', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analyze-system/SKILL.md must exist');
   
   const rulesPath = path.join(rootDir, '.claude', 'rules', 'eha-agent-rules.md');
   assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist');
@@ -98,8 +98,8 @@ test('initProject generates Copilot prompt files', () => {
   const instructionsPath = path.join(rootDir, '.github', 'instructions', 'eha-workflows.instructions.md');
   assert.ok(fs.existsSync(instructionsPath), 'Instructions routing file must exist');
 
-  const analysisSkillPath = path.join(rootDir, '.github', 'skills', 'eha-system-analysis', 'SKILL.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis SKILL.md must exist in .github/skills/');
+  const analysisSkillPath = path.join(rootDir, '.github', 'skills', 'eha-analyze-system', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analyze-system SKILL.md must exist in .github/skills/');
 
   const rulesPath = path.join(rootDir, '.github', 'instructions', 'eha-agent-rules.instructions.md');
   assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.instructions.md must exist');
@@ -124,8 +124,8 @@ test('initProject generates Antigravity command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.agents', 'skills', 'eha-system-analysis', 'SKILL.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis SKILL.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.agents', 'skills', 'eha-analyze-system', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analyze-system SKILL.md must exist');
   
   const rulesPath = path.join(rootDir, '.agents', 'rules', 'eha-agent-rules.md');
   assert.ok(fs.existsSync(rulesPath), 'eha-agent-rules.md must exist in .agents/rules/');
@@ -150,8 +150,8 @@ test('initProject generates Gemini command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.gemini', 'skills', 'eha-system-analysis', 'SKILL.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis SKILL.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.gemini', 'skills', 'eha-analyze-system', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analyze-system SKILL.md must exist');
   
   const rulesPath = path.join(rootDir, 'GEMINI.md');
   assert.ok(fs.existsSync(rulesPath), 'GEMINI.md must exist in rootDir/');
@@ -178,8 +178,8 @@ test('initProject generates Hermes skill files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.hermes', 'skills', 'eha-system-analysis', 'SKILL.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis/SKILL.md must exist');
+  const analysisSkillPath = path.join(rootDir, '.hermes', 'skills', 'eha-analyze-system', 'SKILL.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analyze-system/SKILL.md must exist');
 
   const rulesPath = path.join(rootDir, 'HERMES.md');
   assert.ok(fs.existsSync(rulesPath), 'HERMES.md must exist in rootDir/');
@@ -206,8 +206,8 @@ test('initProject generates OpenCode command files', () => {
   assert.match(content, /Project Docs Bootstrap/, 'Missing bootstrap prompt content');
   assert.ok(!content.includes('eyehateagent-contract.md'), 'Contract reference should not appear');
 
-  const analysisSkillPath = path.join(rootDir, '.opencode', 'commands', 'eha-system-analysis.md');
-  assert.ok(fs.existsSync(analysisSkillPath), 'eha-system-analysis.md must exist in commands/');
+  const analysisSkillPath = path.join(rootDir, '.opencode', 'commands', 'eha-analyze-system.md');
+  assert.ok(fs.existsSync(analysisSkillPath), 'eha-analyze-system.md must exist in commands/');
 
   const rulesPath = path.join(rootDir, 'AGENTS.md');
   assert.ok(fs.existsSync(rulesPath), 'AGENTS.md must exist in rootDir/');
@@ -250,14 +250,14 @@ test('initProject generates agent definition files for every supported platform'
 
     // The wrapped skill body must actually be present (proves injection, not just token removal).
     const secContent = fs.readFileSync(projectAgentPath(rootDir, agentId, 'security'), 'utf8');
-    assert.match(secContent, /OWASP/, `[${agentId}] security must embed the security-audit skill body`);
+    assert.match(secContent, /OWASP/, `[${agentId}] security must embed the audit-security skill body`);
 
     // Adapters are pass-through: frontmatter (name/tools/wraps) must survive intact
     if (agentId === 'claude') {
       const content = fs.readFileSync(projectAgentPath(rootDir, 'claude', 'security'), 'utf8');
       assert.match(content, /name: "eha-security"/, 'Claude agent file must preserve name frontmatter');
       assert.match(content, /tools:/, 'Claude agent file must preserve tools frontmatter');
-      assert.match(content, /wraps: "security-audit"/, 'Claude agent file must preserve wraps field');
+      assert.match(content, /wraps: "audit-security"/, 'Claude agent file must preserve wraps field');
     }
   }
 });
@@ -266,10 +266,10 @@ test('subagents inherit their wrapped skill/workflow body via the {{WRAPS}} toke
   // Each agent's rendered content must contain a distinctive phrase drawn from
   // its wrapped skill/workflow, proving the body was injected at build time.
   const markers = {
-    'security': /OWASP/,                          // wraps security-audit
-    'tester': /verification-strategy-first/,      // wraps system-tester
-    'parity': /drift audit/,                      // wraps parity-audit
-    'analyst': /Architecture review/,             // wraps system-analysis
+    'security': /OWASP/,                          // wraps audit-security
+    'tester': /verification-strategy-first/,      // wraps test-system
+    'parity': /drift audit/,                      // wraps audit-parity
+    'analyst': /Architecture review/,             // wraps analyze-system
   };
 
   for (const agent of listAgents()) {
@@ -282,7 +282,7 @@ test('subagents inherit their wrapped skill/workflow body via the {{WRAPS}} toke
 
   // A wraps: declaration with no token (or vice versa) is a config error — fail loudly.
   assert.throws(
-    () => expandWrapsToken('---\nwraps: "security-audit"\n---\nbody', { id: 'bogus' }),
+    () => expandWrapsToken('---\nwraps: "audit-security"\n---\nbody', { id: 'bogus' }),
     /no \{\{WRAPS\}\} token/i,
     'wraps without token must throw'
   );
@@ -791,7 +791,7 @@ test('installDevice writes Claude files to correct device paths', () => {
   assert.ok(fs.existsSync(cmdPath), 'Claude command file must exist');
 
   // Verify skills exist in subdirectory format
-  const skillPath = path.join(fakeHome, '.claude', 'skills', 'eha-system-analysis', 'SKILL.md');
+  const skillPath = path.join(fakeHome, '.claude', 'skills', 'eha-analyze-system', 'SKILL.md');
   assert.ok(fs.existsSync(skillPath), 'Claude skill SKILL.md must exist');
 
   // Verify rules exist in modular file ~/.claude/rules/eha-agent-rules.md
@@ -814,7 +814,7 @@ test('installDevice writes Copilot files to correct device paths', () => {
   assert.ok(fs.existsSync(promptPath), 'Copilot prompt file must exist');
 
   // Verify skills (SKILL.md format)
-  const skillPath = path.join(fakeHome, '.copilot', 'skills', 'eha-system-analysis', 'SKILL.md');
+  const skillPath = path.join(fakeHome, '.copilot', 'skills', 'eha-analyze-system', 'SKILL.md');
   assert.ok(fs.existsSync(skillPath), 'Copilot skill SKILL.md must exist');
 
   // Verify instructions (own file, not sentinel)
@@ -827,7 +827,7 @@ test('installDevice writes Antigravity files to correct device paths', () => {
   const result = installDevice({ agentIds: ['antigravity'], homeDir: fakeHome });
 
   // Verify skills
-  const skillPath = path.join(fakeHome, '.gemini', 'config', 'skills', 'eha-system-analysis', 'SKILL.md');
+  const skillPath = path.join(fakeHome, '.gemini', 'config', 'skills', 'eha-analyze-system', 'SKILL.md');
   assert.ok(fs.existsSync(skillPath), 'Antigravity skill file must exist');
 
   // Verify workflows
@@ -845,7 +845,7 @@ test('installDevice writes Gemini files to correct device paths', () => {
   const result = installDevice({ agentIds: ['gemini'], homeDir: fakeHome });
 
   // Verify skills
-  const skillPath = path.join(fakeHome, '.gemini', 'skills', 'eha-system-analysis', 'SKILL.md');
+  const skillPath = path.join(fakeHome, '.gemini', 'skills', 'eha-analyze-system', 'SKILL.md');
   assert.ok(fs.existsSync(skillPath), 'Gemini skill file must exist');
 
   // Verify workflows
@@ -869,8 +869,8 @@ test('installDevice writes Hermes files to correct device paths', () => {
   const bootstrapPath = path.join(fakeHome, '.hermes', 'skills', 'eha-bootstrap', 'SKILL.md');
   assert.ok(fs.existsSync(bootstrapPath), 'Hermes bootstrap skill must exist');
 
-  const skillPath = path.join(fakeHome, '.hermes', 'skills', 'eha-system-analysis', 'SKILL.md');
-  assert.ok(fs.existsSync(skillPath), 'Hermes system-analysis skill must exist');
+  const skillPath = path.join(fakeHome, '.hermes', 'skills', 'eha-analyze-system', 'SKILL.md');
+  assert.ok(fs.existsSync(skillPath), 'Hermes analyze-system skill must exist');
 
   // Verify ~/.hermes/SOUL.md has sentinel block
   const soulMd = fs.readFileSync(path.join(fakeHome, '.hermes', 'SOUL.md'), 'utf8');
@@ -889,8 +889,8 @@ test('installDevice writes OpenCode files to correct device paths', () => {
   const bootstrapPath = path.join(fakeHome, '.opencode', 'commands', 'eha-bootstrap.md');
   assert.ok(fs.existsSync(bootstrapPath), 'OpenCode bootstrap skill must exist');
 
-  const skillPath = path.join(fakeHome, '.opencode', 'commands', 'eha-system-analysis.md');
-  assert.ok(fs.existsSync(skillPath), 'OpenCode system-analysis skill must exist');
+  const skillPath = path.join(fakeHome, '.opencode', 'commands', 'eha-analyze-system.md');
+  assert.ok(fs.existsSync(skillPath), 'OpenCode analyze-system skill must exist');
 
   // Verify rules exist in ~/.opencode/rules/
   const rulesPath = path.join(fakeHome, '.opencode', 'rules', 'eha-agent-rules.md');

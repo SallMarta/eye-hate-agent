@@ -39,8 +39,8 @@ Once initialized, EHA projects a series of interactive workflows directly into y
 | **`/eha-execute-phase`** | Execute a specific project phase (greenfield/brownfield) using SDD. Verifies readiness, enriches specifications interactively, presents a task menu, and drives test-driven implementation while tracking status. |
 | **`/eha-help`** | **EHA Help & Tutorial.** Interactive guide providing descriptions of EHA's 4-layer taxonomy, active workflows, and specialist skills. |
 
-> **Looking for parity audits?** Use the `parity-audit` skill directly:
-> `@agent use parity-audit on this repository`
+> **Looking for parity audits?** Use the `audit-parity` skill directly:
+> `@agent use audit-parity on this repository`
 > This provides a full drift analysis without needing a dedicated command.
 
 ---
@@ -51,10 +51,10 @@ EHA projects **specialist subagents** — isolated agent instances with scoped t
 
 | Subagent | Role | Wraps |
 | :--- | :--- | :--- |
-| **`@eha-security`** | Read-only security & vulnerability analysis | `security-audit` |
-| **`@eha-tester`** | Generate & run tests in isolation | `system-tester` |
-| **`@eha-parity`** | Detect drift / parity issues (read-only) | `parity-audit` |
-| **`@eha-analyst`** | Explore & summarize an area (read-only) | `system-analysis` |
+| **`@eha-security`** | Read-only security & vulnerability analysis | `audit-security` |
+| **`@eha-tester`** | Generate & run tests in isolation | `test-system` |
+| **`@eha-parity`** | Detect drift / parity issues (read-only) | `audit-parity` |
+| **`@eha-analyst`** | Explore & summarize an area (read-only) | `analyze-system` |
 
 Three of the four are read-only (they report; you decide what to change) — only `eha-tester` writes files.
 

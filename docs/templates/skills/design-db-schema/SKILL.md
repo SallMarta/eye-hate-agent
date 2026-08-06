@@ -1,5 +1,5 @@
 ---
-name: "db-schema-design"
+name: "design-db-schema"
 description: "Project-aware expert-role database schema and modeling design. Reads project docs first, then produces a schema design, migration plan, or query optimization strategy consistent with the current repository constraints."
 argument-hint: "Describe the domain entities, tables, relationships, or queries to design or review"
 ---
@@ -113,7 +113,7 @@ When using this skill, the output should include:
 7. open questions regarding data volume or access patterns
 
 ## Neutral Prompt Shape
-`@agent use db-schema-design on [Target Feature/Entity] focusing on [Specific Requirement/Database Type].`
+`@agent use design-db-schema on [Target Feature/Entity] focusing on [Specific Requirement/Database Type].`
 
 ## Example Prompt
 - "Design the schema migration for the new order tracking feature."
