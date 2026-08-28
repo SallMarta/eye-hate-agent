@@ -1,7 +1,7 @@
 ---
 name: "generate-fsd"
 mode: agent
-description: "EHA skill — generate-fsd"
+description: "Functional Specification Documents (FSD) from PRDs, BPMN XML, code, user stories, or interview notes, with mandatory truth verification before writing. Use when a feature-level spec is needed from any source artifact."
 ---
 
 # FSD Generator

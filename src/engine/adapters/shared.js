@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { getBundledAssetPath } = require('../state/paths');
+const { removeFileIfExists, removeEmptyParents } = require('../state/fs');
 const { listSkills } = require('../registry/skills');
 const { listWorkflows } = require('../registry/workflows');
 const { listAgents } = require('../registry/agents');
@@ -90,6 +91,16 @@ function loadSkillContent(skill) {
     .filter((line) => !line.includes('docs/eyehateagent-contract.md'))
     .join('\n')
     .replace(/^\n+/, '');
+}
+
+// Parse the skill's own frontmatter `description:` — the single source of truth
+// for the one-line summary adapters emit in generated skill files. Falls back
+// to the command name if the template omits it, so generation never breaks.
+function loadSkillDescription(skill) {
+  const promptPath = getBundledAssetPath(skill.repoRelativePath);
+  const raw = fs.readFileSync(promptPath, 'utf8');
+  const match = raw.match(/^description:\s*"?([^"\n]+)"?\s*$/m);
+  return match ? match[1].trim() : skill.commandName;
 }
 
 function loadAgentContent(agent) {
@@ -218,11 +229,71 @@ function buildSubagentRoutingSection(options = {}) {
   ].join('\n');
 }
 
+// Root-level files that may carry user-authored content alongside the EHA
+// sentinel block. On remove these get their block stripped (preserving user
+// content) instead of being deleted outright.
+const SENTINEL_FILENAMES = ['CLAUDE.md', 'GEMINI.md', 'HERMES.md', 'SOUL.md', 'AGENTS.md'];
+
+function isSentinelFilename(filePath) {
+  return SENTINEL_FILENAMES.includes(path.basename(filePath));
+}
+
+// Sweep a single namespace directory for EHA-owned entries and remove them.
+// Two entry shapes are EHA-owned:
+//   - files whose name starts with `eha-` (commands, agents, rules, instructions)
+//   - directories whose name starts with `eha-` containing a SKILL.md (skills)
+// For skill directories only the SKILL.md is removed; any user-dropped files
+// inside (e.g. notes, scripts) survive, and the directory is pruned only if
+// left empty. After removal, empty ancestor directories up to (excluding)
+// `stopPath` are pruned via removeEmptyParents.
+function sweepNamespaceDir(dirPath, stopPath) {
+  const removed = [];
+  if (!fs.existsSync(dirPath) || !fs.statSync(dirPath).isDirectory()) return removed;
+
+  for (const entry of fs.readdirSync(dirPath)) {
+    const entryPath = path.join(dirPath, entry);
+    if (!entry.startsWith('eha-')) continue;
+
+    const stat = fs.statSync(entryPath);
+    if (stat.isDirectory()) {
+      const skillFile = path.join(entryPath, 'SKILL.md');
+      if (fs.existsSync(skillFile)) {
+        removeFileIfExists(skillFile);
+        removed.push(skillFile);
+      }
+      // Non-SKILL.md contents (if any) are left in place; the directory is
+      // only removed when the sweep leaves it empty.
+      removeEmptyParents(entryPath, stopPath);
+    } else {
+      removeFileIfExists(entryPath);
+      removed.push(entryPath);
+    }
+  }
+  removeEmptyParents(dirPath, stopPath);
+  return removed;
+}
+
+// Sweep every namespace root an adapter declares. `roots` are absolute or
+// rootDir-relative paths the adapter exclusively owns for EHA output; each is
+// swept for `eha-` prefixed entries. `stopPath` bounds empty-dir pruning.
+function sweepNamespaceRoots(roots, stopPath) {
+  const removed = [];
+  for (const root of roots) {
+    removed.push(...sweepNamespaceDir(path.resolve(stopPath, root), stopPath));
+  }
+  return removed;
+}
+
 module.exports = {
   SUPPORTED_AGENT_IDS,
   EHA_COMPACT_RULES,
+  SENTINEL_FILENAMES,
+  isSentinelFilename,
+  sweepNamespaceDir,
+  sweepNamespaceRoots,
   loadPromptContent,
   loadSkillContent,
+  loadSkillDescription,
   loadAgentContent,
   resolveWrapsContent,
   expandWrapsToken,

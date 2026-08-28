@@ -5,6 +5,7 @@ const { listWorkflows } = require('../registry/workflows');
 const { listSkills } = require('../registry/skills');
 const { listAgents } = require('../registry/agents');
 const { getRuntimeAdapter, SUPPORTED_AGENT_IDS } = require('../adapters');
+const { isSentinelFilename, sweepNamespaceRoots } = require('../adapters/shared');
 const {
   ensureDir,
   readJsonIfExists,
@@ -15,6 +16,7 @@ const {
 } = require('../state/fs');
 const { getEnginePaths } = require('../state/paths');
 const { readConfig, writeConfig } = require('../state/config');
+const { upsertSentinelBlock, removeSentinelBlock } = require('../state/sentinel');
 
 function resolveAgentId(agentId) {
   const normalized = String(agentId || '').trim().toLowerCase();
@@ -75,7 +77,6 @@ function initProject({ rootDir, agentId, options = {} }) {
 
   const files = adapter.generateFiles(rootDir, workflows, skills, agents, { subagentRouting });
 
-  const { upsertSentinelBlock } = require('../state/sentinel');
   for (const file of files) {
     const absolutePath = path.join(rootDir, file.relativePath);
     if (file.isSentinel) {
@@ -133,6 +134,45 @@ function removeProject({ rootDir, agentId = null }) {
   const enginePaths = getEnginePaths(rootDir);
   const manifest = readManifest(enginePaths.manifestPath);
   const removedFiles = [];
+  const reportedFiles = new Set();
+
+  // Track a removed path for reporting exactly once, whether it came from the
+  // manifest or was discovered by the namespace sweep.
+  function reportRemoved(relativePath) {
+    const normalized = path.normalize(relativePath);
+    if (reportedFiles.has(normalized)) return;
+    reportedFiles.add(normalized);
+    removedFiles.push(relativePath);
+  }
+
+  // Remove one manifest-listed file. Sentinel-named files at the project root
+  // may carry user-authored content, so only the EHA block is stripped; all
+  // other files are deleted outright.
+  function removeTrackedFile(relativePath) {
+    const absolutePath = path.join(rootDir, relativePath);
+    if (isSentinelFilename(absolutePath)) {
+      removeSentinelBlock(absolutePath, rootDir);
+    } else {
+      removeFileIfExists(absolutePath);
+      removeEmptyParents(path.dirname(absolutePath), rootDir);
+    }
+    reportRemoved(relativePath);
+  }
+
+  // Sweep the adapter's namespace roots to catch orphaned files that older EHA
+  // versions left behind after skill/workflow renames (the manifest no longer
+  // lists them, so tracked-file removal alone would miss them). Paths other
+  // agents still reference are skipped by the caller-provided keep set.
+  function sweepAgentNamespaces(agentIdToSweep, keepFiles) {
+    const adapter = getRuntimeAdapter(agentIdToSweep);
+    const roots = adapter.projectSweepRoots || [];
+    const removedAbsolute = sweepNamespaceRoots(roots, rootDir);
+    for (const absolutePath of removedAbsolute) {
+      const relativePath = path.relative(rootDir, absolutePath);
+      if (keepFiles && keepFiles.has(path.normalize(relativePath))) continue;
+      reportRemoved(relativePath);
+    }
+  }
 
   if (agentId) {
     const normalizedAgentId = resolveAgentId(agentId);
@@ -145,24 +185,17 @@ function removeProject({ rootDir, agentId = null }) {
     const otherFiles = new Set();
     for (const other of otherAgents) {
       for (const f of other.files || []) {
-        otherFiles.add(f);
+        otherFiles.add(path.normalize(f));
       }
     }
 
-    const filesToRemove = (agentEntry.files || []).filter((f) => !otherFiles.has(f));
+    const filesToRemove = (agentEntry.files || []).filter((f) => !otherFiles.has(path.normalize(f)));
 
     for (const relativePath of filesToRemove) {
-      const absolutePath = path.join(rootDir, relativePath);
-      const basename = path.basename(absolutePath);
-      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md' || basename === 'HERMES.md' || basename === 'AGENTS.md') {
-        removeSentinelBlock(absolutePath, rootDir);
-        removedFiles.push(relativePath);
-      } else {
-        removeFileIfExists(absolutePath);
-        removeEmptyParents(path.dirname(absolutePath), rootDir);
-        removedFiles.push(relativePath);
-      }
+      removeTrackedFile(relativePath);
     }
+
+    sweepAgentNamespaces(normalizedAgentId, otherFiles);
 
     const remainingAgents = otherAgents;
     if (remainingAgents.length === 0) {
@@ -209,10 +242,25 @@ function removeProject({ rootDir, agentId = null }) {
     }
 
     for (const relativePath of allFiles) {
-      const absolutePath = path.join(rootDir, relativePath);
-      removeFileIfExists(absolutePath);
-      removeEmptyParents(path.dirname(absolutePath), rootDir);
-      removedFiles.push(relativePath);
+      removeTrackedFile(relativePath);
+    }
+
+    // Sweep the namespace roots of every agent this project ever had
+    // installed, not just the ones the manifest still lists. The config may
+    // know about agents the manifest lost (and vice versa in v1 fallback), so
+    // the union covers both sources.
+    const config = readConfig(rootDir);
+    const sweepAgentIds = new Set([
+      ...(manifest.agents || []).map((a) => a.id),
+      ...(config.agents || []),
+    ]);
+    if (sweepAgentIds.size === 0 && manifest.agent) {
+      sweepAgentIds.add(manifest.agent);
+    }
+
+    for (const sweepAgentId of sweepAgentIds) {
+      if (!SUPPORTED_AGENT_IDS.includes(sweepAgentId)) continue;
+      sweepAgentNamespaces(sweepAgentId, null);
     }
 
     removeFileIfExists(enginePaths.manifestPath);

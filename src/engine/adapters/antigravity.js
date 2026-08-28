@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
 
 function buildAntigravityCommandFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -18,7 +18,7 @@ ${promptContent}`;
 function buildAntigravitySkillFile(skill) {
   return `---
 name: "eha-${skill.commandName}"
-description: "EHA skill — ${skill.commandName}"
+description: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"
 ---
 
 ${EHA_COMPACT_RULES}
@@ -47,6 +47,20 @@ module.exports = {
   id: 'antigravity',
   name: 'Antigravity',
   description: 'Generates Antigravity-compatible workflows in .agents/workflows/, skills in .agents/skills/, agents in .agents/agents/, and rules in .agents/rules/',
+  projectSweepRoots: [
+    path.join('.agents', 'workflows'),
+    path.join('.agents', 'skills'),
+    path.join('.agents', 'agents'),
+    path.join('.agents', 'rules'),
+  ],
+  // Device scope: ~/.gemini is SHARED with gemini. Antigravity owns only the
+  // config subdirectories; sweeping them never touches gemini's own
+  // commands/skills/agents at ~/.gemini/.
+  deviceSweepRoots: [
+    path.join('.gemini', 'config', 'global_workflows'),
+    path.join('.gemini', 'config', 'skills'),
+    path.join('.gemini', 'config', 'agents'),
+  ],
   generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
     for (const workflow of workflows) {

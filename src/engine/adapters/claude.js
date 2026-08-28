@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
 
 function buildClaudeCommandFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -16,7 +16,7 @@ ${promptContent}`;
 
 function buildClaudeSkillFile(skill) {
   return `---
-description: "EHA skill — ${skill.commandName}"
+description: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"
 ---
 
 ${EHA_COMPACT_RULES}
@@ -44,6 +44,21 @@ module.exports = {
   id: 'claude',
   name: 'Claude',
   description: 'Generates .claude/commands/eha/ slash command files, .claude/skills/, .claude/agents/, and .claude/rules/',
+  // Namespace roots this adapter owns for EHA output (project scope, relative
+  // to the project root). Used by the remove sweep to catch orphaned files
+  // left behind by renamed skills/workflows from older EHA versions.
+  projectSweepRoots: [
+    path.join('.claude', 'commands', 'eha'),
+    path.join('.claude', 'skills'),
+    path.join('.claude', 'agents'),
+    path.join('.claude', 'rules'),
+  ],
+  deviceSweepRoots: [
+    path.join('.claude', 'commands', 'eha'),
+    path.join('.claude', 'skills'),
+    path.join('.claude', 'agents'),
+    path.join('.claude', 'rules'),
+  ],
   generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
     for (const workflow of workflows) {

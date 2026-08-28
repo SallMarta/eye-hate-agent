@@ -59,12 +59,15 @@ Instead, EHA uses **Sentinel Blocks** managed by `src/engine/state/sentinel.js`.
 
 ### Recipe 1: How to Add a New Skill or Workflow
 
-To add a new capability (e.g., `example-skill`), you must create the template and register it in memory.
+To add a new capability (e.g., `generate-example`), you must name it per the Naming Standard, create the template, and register it in memory.
+
+**Step 0: Name It (Naming Standard)**
+Skills follow `<verb>-<object>` (kebab-case). The verb must come from the **closed taxonomy of seven**: `design`, `build`, `generate`, `analyze`, `audit`, `test`, `refactor` (bare, grandfathered). Quick discriminators: `design` creates new / `generate` documents existing; `build` outputs code / `generate` outputs a doc; `analyze` yields understanding / `audit` yields a verdict. The object is the narrowest accurate scope, singular, with **no language/framework names ever** (that's `build-logging`, never `build-go-logging`) and no gerunds or agent nouns (`wireframing`, `fsd-generator`). Frontmatter `description:` must be one real line — "<what it produces> from/for <input>. Use when <trigger>." — it propagates to generated files. A naming-convention test enforces the verb taxonomy and language denylist; full rules and the verb table live in the Maintainer Reference (Recipe 1, Step 0). Grep the skills **and** agents registries for collisions before registering.
 
 **Step 1: Write the Template**
-Create a new markdown file. For a skill, create `docs/templates/skills/example-skill/SKILL.md`. For a workflow, create `docs/templates/reusable-prompts/03-example-workflow.md`.
+Create a new markdown file. For a skill, create `docs/templates/skills/generate-example/SKILL.md`. For a workflow, create `docs/templates/reusable-prompts/03-example-workflow.md`.
 
-*Template Anatomy:* Do not include EHA core rules or overarching project contexts. Write only the specific instructions for the agent.
+*Template Anatomy:* Do not include EHA core rules or overarching project contexts. Write the standard EHA frontmatter (`name`, `description`) plus only the specific instructions for the agent.
 ```markdown
 ## Example Skill Instructions
 
@@ -79,10 +82,10 @@ Open `src/engine/registry/skills.js` (or `workflows.js`). Locate the `SKILL_DEFI
 ```javascript
 const SKILL_DEFINITIONS = {
   // ... existing skills ...
-  'example-skill': {
-    id: 'example-skill',
-    commandName: 'example-skill',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'example-skill', 'SKILL.md'),
+  'generate-example': {
+    id: 'generate-example',
+    commandName: 'generate-example',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-example', 'SKILL.md'),
   },
 };
 ```
@@ -123,7 +126,7 @@ Create a new file: `src/engine/adapters/example-agent.js`. You must implement fu
 
 ```javascript
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadRuleContent, buildDeviceRulesContent } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildDeviceRulesContent } = require('./shared');
 
 function buildExampleAgentCommandFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -132,7 +135,13 @@ function buildExampleAgentCommandFile(workflow) {
 
 function buildExampleAgentSkillFile(skill) {
   const skillContent = loadSkillContent(skill);
-  return `---\ndescription: "EHA skill — ${skill.commandName}"\n---\n\n${EHA_COMPACT_RULES}\n\n---\n\n${skillContent}`;
+  return `---\ndescription: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"\n---\n\n${EHA_COMPACT_RULES}\n\n---\n\n${skillContent}`;
+}
+
+function buildExampleAgentAgentFile(agent) {
+  // Subagent definitions are pass-through: frontmatter (name/description/
+  // tools/wraps) is consumed directly by the platform — no wrapping needed.
+  return loadAgentContent(agent);
 }
 
 function buildExampleAgentRuleFile() {
@@ -144,9 +153,15 @@ module.exports = {
   id: 'example-agent',
   name: 'Example Agent',
   description: 'Generates .example-agent/rules/ files',
-  generateFiles(rootDir, workflows, skills) {
+  projectSweepRoots: [
+    path.join('.example-agent', 'skills'),
+  ],
+  deviceSweepRoots: [
+    path.join('.example-agent', 'skills'),
+  ],
+  generateFiles(rootDir, workflows, skills, agents) {
     const files = [];
-    
+
     // Generate Workflows
     for (const workflow of workflows) {
       files.push({
@@ -154,7 +169,7 @@ module.exports = {
         content: buildExampleAgentCommandFile(workflow),
       });
     }
-    
+
     // Generate Skills
     for (const skill of skills) {
       files.push({
@@ -163,15 +178,23 @@ module.exports = {
       });
     }
 
+    // Generate Agents (subagents)
+    for (const agent of agents) {
+      files.push({
+        relativePath: path.join('.example-agent', 'agents', `eha-${agent.commandName}.md`),
+        content: buildExampleAgentAgentFile(agent),
+      });
+    }
+
     // Generate Rules
     files.push({
       relativePath: path.join('.example-agent', 'rules', 'eha-agent-rules.md'),
       content: buildExampleAgentRuleFile(),
     });
-    
+
     return files;
   },
-  generateDeviceFiles(homeDir, workflows, skills) {
+  generateDeviceFiles(homeDir, workflows, skills, agents) {
     const files = [];
 
     for (const workflow of workflows) {
@@ -184,8 +207,16 @@ module.exports = {
 
     for (const skill of skills) {
       files.push({
-        absolutePath: path.join(homeDir, '.example-agent', 'rules', `eha-${skill.commandName}.md`),
+        absolutePath: path.join(homeDir, '.example-agent', 'skills', `eha-${skill.commandName}`, 'SKILL.md'),
         content: buildExampleAgentSkillFile(skill),
+        isSentinel: false,
+      });
+    }
+
+    for (const agent of agents) {
+      files.push({
+        absolutePath: path.join(homeDir, '.example-agent', 'agents', `eha-${agent.commandName}.md`),
+        content: buildExampleAgentAgentFile(agent),
         isSentinel: false,
       });
     }
@@ -349,13 +380,13 @@ EHA supports two installation scopes:
 - Writes files relative to the current project root (e.g., `.claude/`, `.github/`, `.agents/`)
 - Tracked by `.eha/manifest.json` (project manifest) and `.eha/config.json`
 - Orchestrated by `src/engine/actions/project.js` → `initProject()`
-- Adapters use `generateFiles(rootDir, workflows, skills)` → returns `{ relativePath, content }[]`
+- Adapters use `generateFiles(rootDir, workflows, skills, agents)` → returns `{ relativePath, content }[]`
 
 **Device-Level (`eha` → scope "device"):**
 - Writes files to the user's home directory (e.g., `~/.claude/`, `~/.copilot/`, `~/.gemini/`)
 - Tracked by `~/.eha/manifest.json` (device manifest)
 - Orchestrated by `src/engine/actions/device.js` → `installDevice()`
-- Adapters use `generateDeviceFiles(homeDir, workflows, skills)` → returns `{ absolutePath, content, isSentinel }[]`
+- Adapters use `generateDeviceFiles(homeDir, workflows, skills, agents)` → returns `{ absolutePath, content, isSentinel }[]`
 - Files marked `isSentinel: true` use sentinel block injection instead of full file writes
 
 The device flow supports multi-agent installation in a single call (pass `agentIds: ['claude', 'copilot']`).

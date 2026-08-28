@@ -38,7 +38,11 @@ Invoke skills directly in your prompts (e.g. `use eha-design-api`):
 - `eha-audit-security` — Dependency scanning and threat modeling
 - `eha-test-system` — Rigorous testing plans and case design
 - `eha-build-ci-cd` — Build pipeline configurations
-- `eha-build-observability` — Logs, metrics, trace instrumentation, and error handling
+- `eha-build-logging` — Application logging (pipe-delimited format, PII masking) — logs only, not metrics/tracing
+- `eha-generate-api-contract` — Document existing API endpoints from code
+- `eha-generate-fsd` — Generate Functional Specification Documents from PRDs, BPMN, code, or user stories
+- `eha-generate-task-tracker` — Evidence-driven task tracker tables from git history and project docs
+- `eha-analyze-design` — Business process analysis from UI designs/screenshots
 - `eha-refactor` — Technical debt cleanup and optimization
 
 ## 5. Subagents (Isolated Delegation)

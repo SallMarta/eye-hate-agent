@@ -2,6 +2,39 @@
 
 All notable changes to Eye Hate Agent are documented here. Keep in mind, `docs/project-docs/changelog.md` has to be updated whenever important things change in this repository.
 
+## [1.5.0] - 2026-08-27
+
+### Fixed
+
+- **Orphaned files after skill/workflow renames (`eha remove` / `eha uninstall`):** Remove previously deleted only manifest-listed paths. When a newer EHA version renamed a template (e.g. `build-observability` → `build-logging` in v1.4.1) and the user re-ran `eha init`, the manifest entry was replaced with the new file list — the old file stayed on disk but became invisible to remove, leaving both the old and new skill installed. Remove now additionally **sweeps each adapter's namespace roots** (project scope via `projectSweepRoots`, device scope via `deviceSweepRoots`) for `eha-`-prefixed entries, healing orphans from any past or future rename — even when the manifest no longer lists them or is missing entirely. Guardrails: only EHA-owned subdirectories are swept (never `.github/` or `~/.gemini/` wholesale); inside `eha-*` skill directories only `SKILL.md` is removed, so user-dropped files survive and empty dirs are pruned; paths still referenced by agents that remain installed are skipped; in the shared `~/.gemini/` device namespace, gemini and antigravity sweeps are confined to their disjoint subtrees so one never removes the other's files.
+- **Sentinel files deleted on full project remove (data loss):** `eha remove` with no agent argument unconditionally deleted every manifest path — including sentinel-managed root files (`GEMINI.md`, `HERMES.md`, `AGENTS.md`) that may contain user-authored content outside the `<!-- EHA:START/END -->` block. Full remove now strips only the EHA block and preserves the rest of the file (deleting the file only if the block was its sole content), matching the per-agent branch and `eha uninstall` behavior.
+- **`ReferenceError` on targeted remove of gemini/hermes/opencode (project scope):** `removeProject`'s per-agent branch called `removeSentinelBlock` without importing it (the only require was function-scoped inside `initProject`), so `eha remove gemini` (or hermes/opencode) crashed. The sentinel utilities are now imported once at module level.
+
+### Changed
+
+- **Shared device sentinel protection:** `~/.gemini/GEMINI.md` is written by both gemini and antigravity. A targeted `uninstallDevice({ agentId: 'gemini' })` previously stripped the EHA block while antigravity remained installed, deleting antigravity's rules. Sentinel files still referenced by a remaining agent's manifest entry are now left intact.
+- **Sentinel filename registry centralized:** The hardcoded basename checks duplicated across `removeProject` and `uninstallDevice` now live in one place (`SENTINEL_FILENAMES` + `isSentinelFilename()` in `src/engine/adapters/shared.js`). New agent targets no longer need to edit removal code for sentinel files — just add the filename to the constant.
+
+## [1.4.1] - 2026-08-27
+
+> Never released standalone — shipped within the 1.5.0 release.
+
+### Added
+
+- **Skill Naming Standard (closed verb taxonomy):** All skill names now follow `<verb>-<object>` where the verb comes from a closed taxonomy of seven: `design`, `build`, `generate`, `analyze`, `audit`, `test`, `refactor` (bare, grandfathered). The standard covers object rules (narrowest accurate scope, singular, **no language/framework names** — skills are language-agnostic by contract), namespace boundaries (skills = verb-first actions, subagents = bare-noun personas, workflows = verbs), a collision-check procedure, and a description minimum for frontmatter. Documented as **Recipe 1 Step 0** in the Maintainer Reference and mirrored in MAINTAINER-README. Adding an 8th verb is now an explicit taxonomy decision.
+- **Naming enforcement test (N1):** New test in `test/engine.test.js` fails `npm test` on any skill violating the verb taxonomy, kebab-case shape, or the language/framework denylist (30+ tokens). The taxonomy is enforced by CI, not convention.
+- **Real skill descriptions downstream:** Adapters previously emitted a stub (`"EHA skill — <name>"`) in every generated skill file. A new `loadSkillDescription()` in `shared.js` now parses each skill's own frontmatter `description:` — the single source of truth — and all six adapters propagate it. Five skills that shipped placeholder descriptions (`build-logging`, `generate-task-tracker`, `generate-api-contract`, `analyze-design`, `generate-fsd`) were backfilled with real one-liners in the standard's "<what it produces> from/for <input>. Use when <trigger>." shape. Downstream projects now see accurate skill summaries in their generated files.
+
+### Changed
+
+- **`build-observability` → `build-logging` (skill replacement):** The old name implied the full SRE trio (logs + metrics + traces); the skill's actual body is strictly application logging (pipe-delimited format, PII masking) with metrics/tracing/alerting explicitly out of scope. Renamed to match scope, with a rename note retained in the template. Downstream projects that invoked `/eha-build-observability` should re-run `eha init` and use `/eha-build-logging`.
+- **`build-logging` made language-agnostic:** The original template normatively prescribed Go (target declaration, Go-only library list, `defer` + named return as *the* failure-log mechanism, `go build/vet/test` as validation, Go/PHP-only code examples). All language-specific normative content was removed: the target is now "any service codebase" with the language/library confirmed from the project's docs and code — never assumed; the failure-log mechanism is a language-neutral *one-exit failure log* principle (use whatever single-exit idiom the target language provides); the only remaining "example" is the language-neutral log line shape itself (`|TAG|VERB|key=val`); and validation defers to the project's own commands per `development/testing.md`. Also added a mandatory **Read the Code First** section: the skill must trace the target function's actual process flow end-to-end before writing any log line, so every TAG, verb, and context value describes something the code really does — no speculative logs. The skill's core (pipe format, verb taxonomy, depth rule, layered PII masking) is unchanged.
+
+### Added
+
+- **`generate-task-tracker` skill:** Evidence-driven task tracker table generation. Reads git state first (pushed commits → local commits → staged changes → working tree) and optionally enriches from project tracking docs (changelog, status, phases). Every row must trace to a commit, diff, or doc line — never invented. Works on any git repo, with or without project docs.
+- **Help workflow backfill:** The `/eha-help` skill list now includes `analyze-design`, `generate-api-contract`, and `generate-fsd`, which were added in v1.4.0 but never listed.
+
 ## [1.4.0] - 2026-08-06
 
 ### Changed (breaking)

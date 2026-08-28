@@ -509,6 +509,56 @@ test('skill, workflow, and agent registries are in bidirectional sync with templ
   }
 });
 
+// ─── Skill Naming Convention (closed verb taxonomy + language denylist) ────────
+
+test('skill names follow the naming standard: closed verb taxonomy, kebab-case, no language/framework names (N1)', () => {
+  // The seven verbs of the closed taxonomy (Maintainer Reference, Recipe 1, Step 0).
+  // Adding an 8th verb is a taxonomy decision — update this list and the verb
+  // table in the Maintainer Reference together, with a changelog entry.
+  const ALLOWED_VERBS = ['design', 'build', 'generate', 'analyze', 'audit', 'test', 'refactor'];
+  // Single-word skills that predate the standard and are grandfathered bare.
+  const GRANDFATHERED_BARE = ['refactor'];
+  // Skills are language-agnostic by contract — a language/framework/tool token
+  // in the name would narrow that contract and mislead users of other stacks.
+  const LANGUAGE_DENYLIST = [
+    'go', 'golang', 'php', 'laravel', 'lumen', 'symfony', 'python', 'django', 'flask',
+    'node', 'nodejs', 'typescript', 'javascript', 'react', 'vue', 'svelte', 'angular',
+    'java', 'spring', 'kotlin', 'swift', 'rust', 'csharp', 'dotnet', 'ruby', 'rails',
+    'elixir', 'phoenix', 'zig', 'cpp', 'c',
+  ];
+
+  for (const skill of listSkills()) {
+    const { id } = skill;
+
+    // 1. Grandfathered bare names skip the verb check but still hit the denylist.
+    if (GRANDFATHERED_BARE.includes(id)) continue;
+
+    // 2. Closed verb taxonomy: first token must be one of the seven verbs.
+    const firstToken = id.split('-')[0];
+    assert.ok(
+      ALLOWED_VERBS.includes(firstToken),
+      `Skill '${id}': first token '${firstToken}' is not in the closed verb taxonomy ` +
+      `(${ALLOWED_VERBS.join(', ')}). Adding a new verb is a taxonomy decision — see Maintainer Reference Recipe 1 Step 0.`
+    );
+
+    // 3. Kebab-case, lowercase, at least verb + one object token.
+    assert.match(
+      id,
+      /^[a-z0-9]+(-[a-z0-9]+)+$/,
+      `Skill '${id}': must be kebab-case '<verb>-<object>' (lowercase, hyphen-separated, two or more tokens)`
+    );
+
+    // 4. Language/framework denylist on every token of the object.
+    for (const token of id.split('-').slice(1)) {
+      assert.ok(
+        !LANGUAGE_DENYLIST.includes(token),
+        `Skill '${id}': object token '${token}' names a language/framework — skills are language-agnostic by contract. ` +
+        `Drop the token (e.g. 'build-logging', not 'build-go-logging').`
+      );
+    }
+  }
+});
+
 test('project docs templates directory is lightweight and contains only registries and standalone templates (Decision 7)', () => {
   const { getPackageRoot } = require('../src/engine/state/paths');
   const root = getPackageRoot();
@@ -971,6 +1021,172 @@ test('uninstallDevice removes specific agent only', () => {
   assert.ok(fs.existsSync(path.join(fakeHome, '.copilot', 'skills', 'eha-bootstrap', 'SKILL.md')));
   // Manifest still exists (other agents remain)
   assert.ok(fs.existsSync(path.join(fakeHome, '.eha', 'manifest.json')));
+});
+
+// ─── Namespace Sweep: orphan cleanup after skill/workflow renames ─────────
+
+test('removeProject sweeps orphaned skill dirs left by renamed skills (project scope)', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'claude' });
+
+  // Simulate a 1.4.0 → 1.5.0 upgrade: an old-named skill dir exists on disk,
+  // but the current manifest only lists the new name — so the orphan is
+  // invisible to tracked-file removal.
+  const orphanPath = path.join(rootDir, '.claude', 'skills', 'eha-build-observability', 'SKILL.md');
+  fs.mkdirSync(path.dirname(orphanPath), { recursive: true });
+  fs.writeFileSync(orphanPath, '# old skill from v1.4.0\n');
+
+  const result = removeProject({ rootDir });
+
+  assert.ok(!fs.existsSync(orphanPath), 'orphaned skill dir must be swept');
+  assert.ok(!fs.existsSync(path.join(rootDir, '.claude')), 'claude namespace must be gone');
+  assert.ok(result.removedFiles.some((f) => f.includes('eha-build-observability')));
+});
+
+test('removeProject sweep preserves user files inside eha- dirs and non-eha siblings', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'claude' });
+
+  // User-dropped file inside an EHA skill dir — must survive the sweep.
+  const userNotes = path.join(rootDir, '.claude', 'skills', 'eha-build-logging', 'notes.md');
+  fs.writeFileSync(userNotes, 'my notes');
+  // A user skill with no eha- prefix — must never be touched.
+  const userSkill = path.join(rootDir, '.claude', 'skills', 'my-own-skill', 'SKILL.md');
+  fs.mkdirSync(path.dirname(userSkill), { recursive: true });
+  fs.writeFileSync(userSkill, '# user skill\n');
+
+  removeProject({ rootDir });
+
+  assert.ok(fs.existsSync(userNotes), 'user file inside eha- dir must survive');
+  assert.ok(fs.existsSync(userSkill), 'non-eha sibling must survive');
+  assert.ok(!fs.existsSync(path.join(rootDir, '.claude', 'commands', 'eha')), 'eha commands dir must be removed');
+});
+
+test('removeProject sweep skips copilot namespace files of agents that remain installed', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'claude' });
+  initProject({ rootDir, agentId: 'copilot' });
+
+  // An orphan only claude could have written, sitting in a root claude owns.
+  const claudeOrphan = path.join(rootDir, '.claude', 'skills', 'eha-old-name', 'SKILL.md');
+  fs.mkdirSync(path.dirname(claudeOrphan), { recursive: true });
+  fs.writeFileSync(claudeOrphan, '# orphan\n');
+
+  removeProject({ rootDir, agentId: 'claude' });
+
+  assert.ok(!fs.existsSync(claudeOrphan), 'claude orphan must be swept');
+  assert.ok(
+    fs.existsSync(path.join(rootDir, '.github', 'skills', 'eha-bootstrap', 'SKILL.md')),
+    'copilot files must survive targeted claude removal',
+  );
+  const config = readConfig(rootDir);
+  assert.deepEqual(config.agents, ['copilot']);
+});
+
+test('removeProject sweeps namespaces of agents known only to config (v1 manifest fallback)', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'gemini' });
+
+  // Rewrite the manifest to v1 shape: agents array gone, only `agent` remains.
+  const manifestPath = path.join(rootDir, '.eha', 'manifest.json');
+  const v1Manifest = {
+    agent: 'gemini',
+    files: [path.join('.gemini', 'commands', 'eha-bootstrap.toml')],
+    packageVersion: '1.0.0',
+  };
+  fs.writeFileSync(manifestPath, JSON.stringify(v1Manifest, null, 2));
+
+  // Orphan the v1 manifest would not know about.
+  const orphanPath = path.join(rootDir, '.gemini', 'skills', 'eha-build-observability', 'SKILL.md');
+  fs.mkdirSync(path.dirname(orphanPath), { recursive: true });
+  fs.writeFileSync(orphanPath, '# orphan\n');
+
+  removeProject({ rootDir });
+
+  assert.ok(!fs.existsSync(orphanPath), 'orphan must be swept despite v1 manifest');
+  assert.ok(!fs.existsSync(path.join(rootDir, '.eha')), 'engine dir must be removed');
+});
+
+test('removeProject full remove strips sentinel block instead of deleting user GEMINI.md', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'gemini' });
+
+  // Prepend user-authored content outside the sentinel block.
+  const geminiMd = path.join(rootDir, 'GEMINI.md');
+  const ehaBlock = fs.readFileSync(geminiMd, 'utf8');
+  fs.writeFileSync(geminiMd, '# My project rules\nKeep this always.\n\n' + ehaBlock);
+
+  removeProject({ rootDir });
+
+  assert.ok(fs.existsSync(geminiMd), 'GEMINI.md must survive full remove');
+  const after = fs.readFileSync(geminiMd, 'utf8');
+  assert.match(after, /My project rules/);
+  assert.doesNotMatch(after, /EHA:START/);
+});
+
+test('removeProject targeted remove strips sentinel block and preserves user AGENTS.md content', () => {
+  const rootDir = createSandbox();
+  initProject({ rootDir, agentId: 'opencode' });
+
+  const agentsMd = path.join(rootDir, 'AGENTS.md');
+  const ehaBlock = fs.readFileSync(agentsMd, 'utf8');
+  fs.writeFileSync(agentsMd, '# My own instructions\nDo not delete.\n\n' + ehaBlock);
+
+  removeProject({ rootDir, agentId: 'opencode' });
+
+  const after = fs.readFileSync(agentsMd, 'utf8');
+  assert.match(after, /My own instructions/);
+  assert.doesNotMatch(after, /EHA:START/);
+  assert.ok(!fs.existsSync(path.join(rootDir, '.eha')), 'engine dir must be removed with last agent');
+});
+
+test('uninstallDevice sweeps orphaned device skill dirs after renames', () => {
+  const fakeHome = createFakeHome();
+  installDevice({ agentIds: ['claude'], homeDir: fakeHome });
+
+  const orphanPath = path.join(fakeHome, '.claude', 'skills', 'eha-build-observability', 'SKILL.md');
+  fs.mkdirSync(path.dirname(orphanPath), { recursive: true });
+  fs.writeFileSync(orphanPath, '# orphan from older EHA\n');
+
+  uninstallDevice({ homeDir: fakeHome });
+
+  assert.ok(!fs.existsSync(orphanPath), 'device orphan must be swept');
+  assert.ok(!fs.existsSync(path.join(fakeHome, '.claude', 'skills', 'eha-build-logging')), 'current skills removed');
+  assert.ok(!fs.existsSync(path.join(fakeHome, '.eha')), 'manifest must be removed');
+});
+
+test('uninstallDevice targeted gemini remove leaves antigravity files and shared GEMINI.md block intact', () => {
+  const fakeHome = createFakeHome();
+  installDevice({ agentIds: ['gemini', 'antigravity'], homeDir: fakeHome });
+
+  // Orphan written by an older gemini layout, in gemini's own namespace.
+  const geminiOrphan = path.join(fakeHome, '.gemini', 'skills', 'eha-build-observability', 'SKILL.md');
+  fs.mkdirSync(path.dirname(geminiOrphan), { recursive: true });
+  fs.writeFileSync(geminiOrphan, '# orphan\n');
+
+  uninstallDevice({ agentId: 'gemini', homeDir: fakeHome });
+
+  // Gemini's own namespace swept, orphan included.
+  assert.ok(!fs.existsSync(geminiOrphan), 'gemini orphan must be swept');
+  assert.ok(!fs.existsSync(path.join(fakeHome, '.gemini', 'commands')), 'gemini commands removed');
+  // Antigravity's subtree under the shared ~/.gemini root survives untouched.
+  assert.ok(
+    fs.existsSync(path.join(fakeHome, '.gemini', 'config', 'skills', 'eha-build-logging', 'SKILL.md')),
+    'antigravity skills under .gemini/config must survive',
+  );
+  // The shared GEMINI.md keeps its EHA block because antigravity remains.
+  const geminiMd = fs.readFileSync(path.join(fakeHome, '.gemini', 'GEMINI.md'), 'utf8');
+  assert.match(geminiMd, /EHA:START/);
+});
+
+test('uninstallDevice full remove strips sentinel from shared GEMINI.md only once', () => {
+  const fakeHome = createFakeHome();
+  installDevice({ agentIds: ['gemini', 'antigravity'], homeDir: fakeHome });
+
+  uninstallDevice({ homeDir: fakeHome });
+
+  assert.ok(!fs.existsSync(path.join(fakeHome, '.gemini', 'GEMINI.md')), 'GEMINI.md created by EHA is deleted when emptied');
+  assert.ok(!fs.existsSync(path.join(fakeHome, '.eha')), 'manifest removed');
 });
 
 // ─── Multi-Select Agent Parsing ──────────────────────────────────────────

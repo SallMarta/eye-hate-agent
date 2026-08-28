@@ -107,8 +107,8 @@ The EHA CLI provides a lightweight, frictionless setup and maintenance toolbelt:
 | :--- | :--- |
 | `eha` | **Unified wizard**: banner → agent selection → scope selection (project/device) → install. |
 | `eha doctor` | Performs a health check verifying that all generated files are present and intact. |
-| `eha remove [agent]` | Safely deletes EHA's generated project-level contract files for the specified agent (or all agents if omitted), along with configuration files. |
-| `eha uninstall` | Safely deletes EHA's generated device-level contract files from your machine. |
+| `eha remove [agent]` | Safely deletes EHA's generated project-level contract files for the specified agent (or all agents if omitted), along with configuration files. Also sweeps EHA namespaces for orphaned files left behind by renamed skills/workflows from older versions. |
+| `eha uninstall` | Safely deletes EHA's generated device-level contract files from your machine, including orphaned files from older versions (same namespace sweep as `eha remove`). |
 
 > **Tip:** Add `--subagent-routing` to any install to enable automatic delegation to the `eha-*` subagents (see [Subagents](#subagents-isolated-delegation)).
 

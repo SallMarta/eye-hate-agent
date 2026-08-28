@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildSubagentRoutingSection } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildSubagentRoutingSection } = require('./shared');
 
 function buildCopilotPromptFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -18,7 +18,7 @@ ${promptContent}`;
 function buildCopilotSkillFile(skill) {
   return `---
 mode: agent
-description: "EHA skill — ${skill.commandName}"
+description: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"
 ---
 
 ${EHA_COMPACT_RULES}
@@ -63,7 +63,7 @@ ${workflowTable}`;
 function buildCopilotDeviceSkillFile(skill) {
   return `---
 name: "eha-${skill.commandName}"
-description: "EHA skill — ${skill.commandName}"
+description: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"
 ---
 
 ${EHA_COMPACT_RULES}
@@ -96,6 +96,18 @@ module.exports = {
   id: 'copilot',
   name: 'GitHub Copilot',
   description: 'Generates .github/prompts/ reusable prompt files, skills, agents, and always-on instruction rules',
+  // .github/ is shared with user content (workflows, CODEOWNERS, templates),
+  // so only the EHA-owned subdirectories are swept — never .github/ itself.
+  projectSweepRoots: [
+    path.join('.github', 'skills'),
+    path.join('.github', 'instructions'),
+    path.join('.github', 'agents'),
+  ],
+  deviceSweepRoots: [
+    path.join('.copilot', 'skills'),
+    path.join('.copilot', 'instructions'),
+    path.join('.copilot', 'agents'),
+  ],
   generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
     for (const workflow of workflows) {

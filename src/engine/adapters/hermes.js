@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
 
 function buildHermesCommandFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -18,7 +18,7 @@ ${promptContent}`;
 function buildHermesSkillFile(skill) {
   return `---
 name: "eha-${skill.commandName}"
-description: "EHA skill — ${skill.commandName}"
+description: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"
 ---
 
 ${EHA_COMPACT_RULES}
@@ -47,6 +47,13 @@ module.exports = {
   id: 'hermes',
   name: 'Hermes',
   description: 'Generates Hermes-compatible skills in .hermes/skills/, agents in .hermes/agents/, and appends rules to HERMES.md',
+  projectSweepRoots: [
+    path.join('.hermes', 'skills'),
+    path.join('.hermes', 'agents'),
+  ],
+  deviceSweepRoots: [
+    path.join('.hermes', 'skills'),
+  ],
   generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
 

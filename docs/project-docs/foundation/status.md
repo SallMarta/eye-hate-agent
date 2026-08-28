@@ -1,6 +1,6 @@
 # Status
 
-Last update: 2026-08-06
+Last update: 2026-08-27
 
 Status: Live
 
@@ -47,10 +47,13 @@ Does not track granular tasks.
 
 ## 7. Current State
 
-EHA has reached `1.4.0` with a **verb-first skill naming convention** applied to all 15 skills. All skill names now follow `<verb>-<object>`: `design-api`, `audit-code`, `analyze-system`, `generate-fsd`, `test-system`, `build-ci-cd`, etc. Two new skills added — `analyze-design` (design → business analysis) and `generate-fsd` (source doc → FSD).
+EHA stands at `1.5.0` with **16 skills** governed by a **Skill Naming Standard** — a closed verb taxonomy (`design`/`build`/`generate`/`analyze`/`audit`/`test`/`refactor`), object rules (narrowest scope, no language/framework names), and CI enforcement via the N1 test. Skills carry real one-line descriptions that adapters propagate to generated files. `eha remove` / `eha uninstall` sweep EHA namespaces to clean up files orphaned by past skill/workflow renames, while preserving user files and sentinel content.
 
 ## 8. Recent Accomplishments
 
+- Overhauled **removal hygiene** in `eha remove` / `eha uninstall`: removal now sweeps each adapter's namespace roots (`projectSweepRoots` / `deviceSweepRoots`) for `eha-`-prefixed entries in addition to manifest-listed files, healing orphans left behind whenever a renamed skill/workflow dropped out of the manifest (e.g. `build-observability` → `build-logging`). Also fixed three removal bugs: full project remove deleted user content in sentinel-managed root files (`GEMINI.md`/`HERMES.md`/`AGENTS.md`) instead of stripping only the EHA block; targeted `eha remove` for gemini/hermes/opencode crashed on a missing import; and a targeted gemini uninstall stripped the shared `~/.gemini/GEMINI.md` block while antigravity was still installed. Sentinel filename checks are now centralized in `SENTINEL_FILENAMES` (shared.js). (v1.5.0)
+- Established the **Skill Naming Standard**: closed verb taxonomy (`design`/`build`/`generate`/`analyze`/`audit`/`test`/`refactor`), object rules (narrowest scope, no language/framework names), namespace boundaries, and a frontmatter description minimum — documented as Recipe 1 Step 0 in the Maintainer Reference and enforced by a new N1 test in CI. Adapters now propagate real skill descriptions to generated files (previously a stub), with five skills' placeholder descriptions backfilled. (v1.4.1)
+- Replaced **`build-observability`** with the narrower **`build-logging`** skill (logs only — metrics/tracing out of scope, language-agnostic: factual flow tracing, pipe-delimited format, one-exit failure log, layered PII masking) and added the new **`generate-task-tracker`** skill (evidence-driven task tracker tables from git history + optional project docs, every row traces to a commit/diff/doc line). Skill count is now 16. Also backfilled the `/eha-help` skill list with `analyze-design`, `generate-api-contract`, and `generate-fsd` (pre-existing gap from v1.4.0). (v1.4.1)
 - Applied **verb-first naming convention** to all 15 skills (breaking change): every skill name now follows `<verb>-<object>` (`design-api`, `audit-code`, `analyze-system`, `generate-fsd`, `test-system`, `build-ci-cd`, etc.). Two new skills added: `analyze-design` (design → business analysis), `generate-fsd` (source doc → FSD). Renamed subagent `wraps:` references, the `/eha-help` workflow, and all 56 test assertions accordingly. (v1.4.0)
 - Added **OpenCode** as the sixth supported agent target. Workflows and skills map to `.opencode/commands/eha-<name>.md` slash commands, subagents land in `.opencode/agents/`, and rules are sentinel-injected into `AGENTS.md` (project) and written to `~/.opencode/rules/eha-agent-rules.md` (device). Also added the language-agnostic **`generate-api-contract`** skill for documenting existing API endpoints, and extended sentinel cleanup to cover `AGENTS.md` (and the previously missing `HERMES.md`) on uninstall. (v1.3.0)
 - Added **Hermes** (by Nous Research) as the fifth supported agent target. Workflows and skills map to auto-registered `~/.hermes/skills/eha-<name>/SKILL.md` slash commands, subagents land in `.hermes/agents/`, and rules are sentinel-injected into `HERMES.md` (project) and `~/.hermes/SOUL.md` (device). (v1.2.0)
@@ -92,9 +95,9 @@ Refining additional IDE adapters as needed and tracking ecosystem adoption.
 
 ## 10. Key Metrics Health
 
-- NPM Version: 1.4.0
+- NPM Version: 1.5.0
 - Supported Agents: 6 (Claude, Copilot, Antigravity, Gemini CLI, Hermes, OpenCode).
-- Skills: 15 (design-api, design-db-schema, design-ui-ux, design-wireframe, analyze-design, analyze-system, audit-code, audit-parity, audit-security, generate-api-contract, generate-fsd, test-system, build-ci-cd, build-observability, refactor).
+- Skills: 16 (design-api, design-db-schema, design-ui-ux, design-wireframe, analyze-design, analyze-system, audit-code, audit-parity, audit-security, generate-api-contract, generate-fsd, generate-task-tracker, test-system, build-ci-cd, build-logging, refactor).
 - Registry Size: 3 templates files (Single Master Registry `index.md`, Guidelines registry `technical-guidelines/index.md`).
 - Workflow Commands: 5 (bootstrap, refresh, discuss, sdd-execute, execute-phase).
 - Reusable Prompts: 6 files (1 help + 2 doc-lifecycle + 3 execution-lifecycle).

@@ -51,10 +51,10 @@ const SKILL_DEFINITIONS = {
     commandName: 'build-ci-cd',
     repoRelativePath: path.join('docs', 'templates', 'skills', 'build-ci-cd', 'SKILL.md'),
   },
-  'build-observability': {
-    id: 'build-observability',
-    commandName: 'build-observability',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'build-observability', 'SKILL.md'),
+  'build-logging': {
+    id: 'build-logging',
+    commandName: 'build-logging',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'build-logging', 'SKILL.md'),
   },
   'refactor': {
     id: 'refactor',
@@ -75,6 +75,11 @@ const SKILL_DEFINITIONS = {
     id: 'generate-fsd',
     commandName: 'generate-fsd',
     repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-fsd', 'SKILL.md'),
+  },
+  'generate-task-tracker': {
+    id: 'generate-task-tracker',
+    commandName: 'generate-task-tracker',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-task-tracker', 'SKILL.md'),
   },
 };
 

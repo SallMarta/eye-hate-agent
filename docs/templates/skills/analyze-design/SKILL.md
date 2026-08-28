@@ -1,6 +1,6 @@
 ---
 name: "analyze-design"
-description: "EHA skill — analyze-design"
+description: "Business process analysis from UI designs — screenshots, Figma, wireframes. Maps actors, flows, inferred business rules, and open questions with truth verification. Use before generating an FSD or writing specs from designs."
 ---
 
 # Design Analysis

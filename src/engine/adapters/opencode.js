@@ -1,5 +1,5 @@
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildDeviceRulesContent, buildSubagentRoutingSection } = require('./shared');
 
 // ─── Project-Level Builders ──────────────────────────────────────────────────
 
@@ -20,7 +20,7 @@ ${promptContent}`;
 
 function buildOpenCodeSkillFile(skill) {
   return `---
-description: "EHA skill — ${skill.commandName}"
+description: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"
 ---
 
 ${EHA_COMPACT_RULES}
@@ -51,6 +51,15 @@ module.exports = {
   id: 'opencode',
   name: 'Open Code',
   description: 'Generates OpenCode-compatible commands in .opencode/commands/, agents in .opencode/agents/, and appends rules to AGENTS.md',
+  projectSweepRoots: [
+    path.join('.opencode', 'commands'),
+    path.join('.opencode', 'agents'),
+  ],
+  deviceSweepRoots: [
+    path.join('.opencode', 'commands'),
+    path.join('.opencode', 'agents'),
+    path.join('.opencode', 'rules'),
+  ],
   generateFiles(rootDir, workflows, skills, agents, options = {}) {
     const files = [];
 

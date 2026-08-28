@@ -6,6 +6,7 @@ const { listWorkflows } = require('../registry/workflows');
 const { listSkills } = require('../registry/skills');
 const { listAgents } = require('../registry/agents');
 const { getRuntimeAdapter } = require('../adapters');
+const { isSentinelFilename, sweepNamespaceRoots } = require('../adapters/shared');
 const { resolveAgentId } = require('./project');
 const {
   ensureDir,
@@ -107,31 +108,70 @@ function uninstallDevice({ agentId = null, homeDir } = {}) {
   const home = homeDir || os.homedir();
   const manifest = readDeviceManifest(home);
   const removedFiles = [];
+  const reportedFiles = new Set();
 
   if (!manifest.agents || manifest.agents.length === 0) {
     return { homeDir: home, removedFiles, message: 'No device-level EHA installation found.' };
+  }
+
+  // Track a removed path for reporting exactly once, whether it came from the
+  // manifest or was discovered by the namespace sweep.
+  function reportRemoved(absolutePath) {
+    const displayPath = absolutePath.replace(home, '~');
+    if (reportedFiles.has(displayPath)) return;
+    reportedFiles.add(displayPath);
+    removedFiles.push(displayPath);
+  }
+
+  // Remove one manifest-listed file. Sentinel-named files may carry
+  // user-authored content, so only the EHA block is stripped — and only when
+  // no agent that remains installed still references that file (~/.gemini/
+  // GEMINI.md is written by both gemini and antigravity).
+  function removeTrackedFile(filePath, keepFiles) {
+    if (isSentinelFilename(filePath) && (!keepFiles || !keepFiles.has(filePath))) {
+      const removed = removeSentinelBlock(filePath, home);
+      if (removed) reportRemoved(filePath);
+    } else if (!isSentinelFilename(filePath)) {
+      removeFileIfExists(filePath);
+      removeEmptyParents(path.dirname(filePath), home);
+      reportRemoved(filePath);
+    }
+  }
+
+  // Sweep the adapter's device namespace roots to catch orphaned files left
+  // behind by renames in older EHA versions. Paths still referenced by agents
+  // that remain installed are skipped.
+  function sweepAgentNamespaces(agentIdToSweep, keepFiles) {
+    const adapter = getRuntimeAdapter(agentIdToSweep);
+    const roots = adapter.deviceSweepRoots || [];
+    const removedAbsolute = sweepNamespaceRoots(roots, home);
+    for (const absolutePath of removedAbsolute) {
+      if (keepFiles && keepFiles.has(absolutePath)) continue;
+      reportRemoved(absolutePath);
+    }
   }
 
   const agentsToRemove = agentId
     ? manifest.agents.filter(a => a.id === resolveAgentId(agentId))
     : manifest.agents;
 
+  // Files still owned by agents that stay installed must not be touched.
+  const remainingAgents = agentId
+    ? manifest.agents.filter(a => a.id !== resolveAgentId(agentId))
+    : [];
+  const keepFiles = new Set();
+  for (const a of remainingAgents) {
+    for (const f of a.files || []) keepFiles.add(f);
+  }
+
   for (const agent of agentsToRemove) {
     for (const filePath of agent.files || []) {
-      const basename = path.basename(filePath);
-      if (basename === 'CLAUDE.md' || basename === 'GEMINI.md' || basename === 'HERMES.md' || basename === 'SOUL.md' || basename === 'AGENTS.md') {
-        const removed = removeSentinelBlock(filePath, home);
-        if (removed) removedFiles.push(filePath.replace(home, '~'));
-      } else {
-        removeFileIfExists(filePath);
-        removeEmptyParents(path.dirname(filePath), home);
-        removedFiles.push(filePath.replace(home, '~'));
-      }
+      removeTrackedFile(filePath, keepFiles);
     }
+    sweepAgentNamespaces(agent.id, keepFiles);
   }
 
   if (agentId) {
-    const remainingAgents = manifest.agents.filter(a => a.id !== resolveAgentId(agentId));
     if (remainingAgents.length === 0) {
       removeFileIfExists(getDeviceManifestPath(home));
       removeEmptyParents(path.dirname(getDeviceManifestPath(home)), home);

@@ -52,11 +52,35 @@ To add a new slash command, follow Recipe 1 below. The `eha-` prefix is added au
 
 ## 6. Recipe 1: Add a New Skill or Workflow
 
+**Step 0 — Name the Skill (Naming Standard):**
+
+Every skill **must** follow the naming standard before registration:
+
+1. **Formula:** `<verb>-<object>` — kebab-case, lowercase. `id` === `commandName` === directory name (H4 enforces the structural half).
+2. **Closed verb taxonomy** — the first token must be one of exactly seven verbs. Adding an 8th verb is a taxonomy decision (changelog entry + this table updated together):
+
+   | Verb | Contract | Input → Output | Existing |
+   |---|---|---|---|
+   | `design` | Greenfield: create a spec/blueprint for something not yet built | intent → spec | `design-api`, `design-db-schema`, `design-ui-ux`, `design-wireframe` |
+   | `build` | Implement operational code/config | spec → working code | `build-ci-cd`, `build-logging` |
+   | `generate` | Transform existing sources into a **document** | artifact → doc | `generate-api-contract`, `generate-fsd`, `generate-task-tracker` |
+   | `analyze` | Produce structured insight (not a spec, not findings) | artifact → understanding | `analyze-design`, `analyze-system` |
+   | `audit` | Evaluate against a contract; output is findings | thing → violations | `audit-code`, `audit-parity`, `audit-security` |
+   | `test` | Verify behavior by execution | code → pass/fail | `test-system` |
+   | `refactor` | Restructure code, zero behavior change — **bare, grandfathered** | code → code | `refactor` |
+
+   Discriminators: `design` creates new, `generate` documents existing; `build` outputs code, `generate` outputs a doc; `analyze` yields understanding, `audit` yields a verdict.
+3. **Object rules:** narrowest accurate scope (`build-logging`, not `build-observability`); singular noun; **no language/framework/tool names ever** (`build-logging`, never `build-go-logging`); no gerunds (`wireframing`); no agent nouns (`fsd-generator`); abbreviations only when domain-standard (API, FSD, CI/CD).
+4. **Namespace boundaries:** skills are verb-first actions (`eha-audit-security`); subagents are bare-noun personas (`eha-security`); workflows are verbs (`eha-refresh`) or verb-object (`eha-execute-phase`). Verb-first keeps the skill and subagent namespaces structurally disjoint.
+5. **Collision check:** grep the skills registry **and** agents registry for the candidate name and near-neighbors before registering.
+6. **Description minimum:** the frontmatter `description:` must be one real line — `"<what it produces> from/for <input>. Use when <trigger>."` — never a placeholder. Adapters propagate it to generated files, so it is user-facing.
+7. **Enforcement:** a naming-convention test in `test/engine.test.js` fails `npm test` on any violation of rule 2 (verb taxonomy + grandfather list) or rule 3's language denylist. Naming review beyond that stays manual.
+
 **Step 1 — Write the Template:**
 - Skill: create `docs/templates/skills/<skill-name>/SKILL.md`
 - Workflow: create `docs/templates/reusable-prompts/<NN>-<name>.md` (NN = next available number)
 
-Template anatomy: Do not include EHA core rules or overarching project contexts. Write only the specific instructions for the agent.
+Template anatomy: Do not include EHA core rules or overarching project contexts. Write only the standard EHA frontmatter (`name`, `description` — see Step 0 rule 6) plus the specific instructions for the agent.
 
 > **Registry Token Expansion:** Prompt templates can use `{{REGISTRY:path/relative/to/project-docs-template}}` tokens to embed template registry content inline. The `loadPromptContent()` function in `shared.js` expands these tokens at projection time by reading the corresponding file from `docs/templates/project-docs-template/` and wrapping it in `<!-- === EHA ... === -->` boundary markers. This ensures projected prompt files are self-contained and don't reference files that only exist in the EHA source repo.
 
@@ -67,10 +91,10 @@ Template anatomy: Do not include EHA core rules or overarching project contexts.
 ```javascript
 const SKILL_DEFINITIONS = {
   // ... existing skills ...
-  'example-skill': {
-    id: 'example-skill',
-    commandName: 'example-skill',
-    repoRelativePath: path.join('docs', 'templates', 'skills', 'example-skill', 'SKILL.md'),
+  'generate-example': {
+    id: 'generate-example',
+    commandName: 'generate-example',
+    repoRelativePath: path.join('docs', 'templates', 'skills', 'generate-example', 'SKILL.md'),
   },
 };
 ```
@@ -88,12 +112,12 @@ Seven-step implementation path:
 const SUPPORTED_AGENT_IDS = ['claude', 'copilot', 'antigravity', 'example-agent'];
 ```
 
-2. **Create adapter:** `src/engine/adapters/<agent-id>.js`. Must implement `generateFiles(rootDir, workflows, skills)` and `generateDeviceFiles(homeDir, workflows, skills)`. Use shared helpers: `loadPromptContent()`, `loadSkillContent()`, `loadRuleContent()`, `buildDeviceRulesContent()`, `EHA_COMPACT_RULES`.
+2. **Create adapter:** `src/engine/adapters/<agent-id>.js`. Must implement `generateFiles(rootDir, workflows, skills, agents)` and `generateDeviceFiles(homeDir, workflows, skills, agents)` — the fourth `agents` parameter carries subagent definitions. Use shared helpers: `loadPromptContent()`, `loadSkillContent()`, `loadSkillDescription()`, `loadAgentContent()`, `loadRuleContent()`, `buildDeviceRulesContent()`, `EHA_COMPACT_RULES`.
 
 **Full adapter template:**
 ```javascript
 const path = require('node:path');
-const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadRuleContent, buildDeviceRulesContent } = require('./shared');
+const { EHA_COMPACT_RULES, loadPromptContent, loadSkillContent, loadSkillDescription, loadAgentContent, loadRuleContent, buildDeviceRulesContent } = require('./shared');
 
 function buildExampleAgentCommandFile(workflow) {
   const promptContent = loadPromptContent(workflow);
@@ -102,7 +126,13 @@ function buildExampleAgentCommandFile(workflow) {
 
 function buildExampleAgentSkillFile(skill) {
   const skillContent = loadSkillContent(skill);
-  return `---\ndescription: "EHA skill — ${skill.commandName}"\n---\n\n${EHA_COMPACT_RULES}\n\n---\n\n${skillContent}`;
+  return `---\ndescription: "EHA skill — ${skill.commandName}: ${loadSkillDescription(skill)}"\n---\n\n${EHA_COMPACT_RULES}\n\n---\n\n${skillContent}`;
+}
+
+function buildExampleAgentAgentFile(agent) {
+  // Subagent definitions are pass-through: frontmatter (name/description/
+  // tools/wraps) is consumed directly by the platform — no wrapping needed.
+  return loadAgentContent(agent);
 }
 
 function buildExampleAgentRuleFile() {
@@ -114,7 +144,7 @@ module.exports = {
   id: 'example-agent',
   name: 'Example Agent',
   description: 'Generates .example-agent/rules/ files',
-  generateFiles(rootDir, workflows, skills) {
+  generateFiles(rootDir, workflows, skills, agents) {
     const files = [];
 
     // Generate Workflows
@@ -133,6 +163,14 @@ module.exports = {
       });
     }
 
+    // Generate Agents (subagents)
+    for (const agent of agents) {
+      files.push({
+        relativePath: path.join('.example-agent', 'agents', `eha-${agent.commandName}.md`),
+        content: buildExampleAgentAgentFile(agent),
+      });
+    }
+
     // Generate Rules
     files.push({
       relativePath: path.join('.example-agent', 'rules', 'eha-agent-rules.md'),
@@ -141,7 +179,7 @@ module.exports = {
 
     return files;
   },
-  generateDeviceFiles(homeDir, workflows, skills) {
+  generateDeviceFiles(homeDir, workflows, skills, agents) {
     const files = [];
 
     for (const workflow of workflows) {
@@ -156,6 +194,14 @@ module.exports = {
       files.push({
         absolutePath: path.join(homeDir, '.example-agent', 'rules', `eha-${skill.commandName}.md`),
         content: buildExampleAgentSkillFile(skill),
+        isSentinel: false,
+      });
+    }
+
+    for (const agent of agents) {
+      files.push({
+        absolutePath: path.join(homeDir, '.example-agent', 'agents', `eha-${agent.commandName}.md`),
+        content: buildExampleAgentAgentFile(agent),
         isSentinel: false,
       });
     }
@@ -201,10 +247,19 @@ const AGENT_DISPLAY_NAMES = {
 };
 ```
 
-6. **Update sentinel cleanup:** If the agent uses a sentinel-injected config, add its filename to the sentinel check in `uninstallDevice()` in `src/engine/actions/device.js`.
+6. **Update sentinel cleanup:** If the agent uses a sentinel-injected config, add its filename to `SENTINEL_FILENAMES` in `src/engine/adapters/shared.js`. Both `removeProject()` and `uninstallDevice()` read this single constant — no per-site edits needed.
 ```javascript
-if (basename === 'CLAUDE.md' || basename === 'GEMINI.md' || basename === 'EXAMPLE.md') {
+const SENTINEL_FILENAMES = ['CLAUDE.md', 'GEMINI.md', 'HERMES.md', 'SOUL.md', 'AGENTS.md', 'EXAMPLE.md'];
 ```
+
+6b. **Declare namespace sweep roots:** Add `projectSweepRoots` and `deviceSweepRoots` to the new adapter export. These are the directories the adapter exclusively owns for EHA output; `eha remove`/`eha uninstall` sweep them for `eha-`-prefixed entries to clean up orphans left by renamed skills/workflows. Rules: never list a directory shared with user content as a whole (list `.github/skills`, never `.github`); in namespaces shared between agents (device-scope `~/.gemini` is shared by gemini and antigravity), list only the subtrees this adapter owns so one agent's remove never sweeps another's files.
+```javascript
+projectSweepRoots: [
+  path.join('.example-agent', 'skills'),
+],
+deviceSweepRoots: [
+  path.join('.example-agent', 'skills'),
+],
 
 7. **Write tests:** Add test blocks to `test/engine.test.js`:
    - Project-level init (modeled after L51–L128)
@@ -456,7 +511,7 @@ If the CLI prompt fails, manually review the relevant adapter in `src/engine/ada
 | Add a workflow | `docs/templates/reusable-prompts/<name>.md` (NEW), `src/engine/registry/workflows.js` |
 | Add a skill | `docs/templates/skills/<name>/SKILL.md` (NEW), `src/engine/registry/skills.js` |
 | Add a subagent | `docs/templates/agents/<name>/AGENT.md` (NEW), `src/engine/registry/agents.js` |
-| Add a new agent target | `src/engine/adapters/shared.js` (supported IDs), `src/engine/adapters/<name>.js` (NEW), `src/engine/adapters/index.js`, `src/engine/adapters/shared.js` (routing), `src/engine/actions/device.js` (sentinel cleanup), `bin/eha.js` (display names), `test/engine.test.js` |
+| Add a new agent target | `src/engine/adapters/shared.js` (supported IDs, `SENTINEL_FILENAMES` if sentinel-injected), `src/engine/adapters/<name>.js` (NEW — incl. `projectSweepRoots`/`deviceSweepRoots`), `src/engine/adapters/index.js`, `src/engine/adapters/shared.js` (routing), `bin/eha.js` (display names), `test/engine.test.js` |
 | Add a CLI command | `src/engine/actions/<name>.js` (NEW or modify), `src/engine/index.js`, `bin/eha.js`, `test/engine.test.js` |
 | Modify agent rules | `docs/templates/rules/agent-rules.md` |
 | Modify compact rules | `src/engine/adapters/shared.js` (`EHA_COMPACT_RULES`) — **⚠️ global impact** |

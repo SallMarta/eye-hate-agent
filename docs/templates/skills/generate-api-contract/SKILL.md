@@ -1,6 +1,6 @@
 ---
 name: "generate-api-contract"
-description: "EHA skill — generate-api-contract"
+description: "Structured API contract documentation by tracing existing routing and handler code endpoint by endpoint. Use when documenting live endpoints from source rather than designing new ones."
 argument-hint: "Describe the scope (e.g., domain, module, or specific feature) to document."
 ---
 
